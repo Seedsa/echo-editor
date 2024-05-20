@@ -1,26 +1,26 @@
 # Echo Editor
 
-A modern WYSIWYG rich-text editor base on [tiptap](https://tiptap.dev) uses [shadcn-vue](https://www.shadcn-vue.com/) components.
+一款基于 [tiptap](https://tiptap.dev) 和 [shadcn-vue](https://www.shadcn-vue.com/) 组件的下一代富文本编辑器。
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![MIT 许可证](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![](https://img.shields.io/npm/v/echo-editor.svg?label=version)](https://www.npmjs.com/package/echo-editor)
 [![](https://img.shields.io/npm/dependency-version/echo-editor/peer/vue?color=vue)](https://www.npmjs.com/package/echo-editor)
 
-English | [中文](./README.zh-CN.md)
+[English](./README.md) | 中文
 
-## Demo
+## 演示
 
-[Demo](https://echo-editor.vercel.app/)
+[演示](https://echo-editor.vercel.app/)
 
-## Features
+## 特性
 
-- Use [shadcn-vue](https://www.shadcn-vue.com/) components
-- Markdown support
-- TypeScript support
-- I18n support(`en`, `zhHans`)
-- Create your own extensions
+- 使用 [shadcn-vue](https://www.shadcn-vue.com/) 组件
+- 支持 Markdown
+- 支持 TypeScript
+- 国际化支持（`en`, `zhHans`）
+- 支持自定义扩展
 
-## Installation
+## 安装
 
 ```bash
   npm install echo-editor
@@ -28,7 +28,7 @@ English | [中文](./README.zh-CN.md)
   yarn add echo-editor
 ```
 
-## Usage
+## 使用
 
 ```
 // main.ts
@@ -67,36 +67,36 @@ const extensions = [
 </template>
 ```
 
-## Run Locally
+## 本地运行
 
-Clone the project
+克隆项目
 
 ```bash
   git clone https://github.com/Seedsa/echo-editor.git
 ```
 
-Go to the project directory
+进入项目目录
 
 ```bash
   cd echo-editor
 ```
 
-Install dependencies
+安装依赖
 
 ```bash
   pnpm install
 ```
 
-Start the Demo server
+启动演示服务器
 
 ```bash
   npm run build:lib
   npm run dev
 ```
 
-## Related
+## 相关项目
 
-Here are some related projects
+以下是一些相关项目
 
 [shadcn-vue](https://www.shadcn-vue.com/)
 
@@ -104,6 +104,6 @@ Here are some related projects
 
 [iconify](https://icon-sets.iconify.design)
 
-## License
+## 许可证
 
 [MIT](https://choosealicense.com/licenses/mit/)
