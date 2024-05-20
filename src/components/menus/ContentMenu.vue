@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { Icon } from '@/components/icons'
-import { DragHandlePlugin, dragHandlePluginDefaultKey } from '@/plugins/drag'
+import { DragHandlePlugin, dragHandlePluginDefaultKey } from 'echo-drag-handle-plugin'
 import { Button } from '@/components/ui/button'
 import { Node } from '@tiptap/pm/model'
 import { Editor } from '@tiptap/vue-3'
