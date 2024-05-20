@@ -9,7 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
-      'echo-editor': resolve(__dirname, 'src/index.ts'),
+      // 'echo-editor': resolve(__dirname, 'src/index.ts'),
     },
   },
 })

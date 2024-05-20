@@ -20,10 +20,9 @@ yarn add echo-editor
 
 ```javascript
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
 import EchoEditor from 'echo-editor'
-import 'echo-editor/lib/style.css'
+import 'echo-editor/style.css'
 
 const app = createApp(App)
 
@@ -59,7 +58,7 @@ const extensions = [
 Clone the project
 
 ```bash
-  git clone http://gogs.ltit.info/liji/echo-editor
+  git clone https://github.com/Seedsa/echo-editor.git
 ```
 
 Go to the project directory

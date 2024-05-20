@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import EchoEditor from 'echo-editor'
-// import 'echo-editor/style.css';
+import 'echo-editor/style.css'
 
 const app = createApp(App)
 

@@ -68,7 +68,7 @@ import {
   ImportWord,
   Columns,
 } from 'echo-editor'
-
+import OpenAI from 'openai'
 import { DEMO_CONTENT } from './demo-content'
 const content = ref(DEMO_CONTENT)
 
@@ -118,7 +118,7 @@ const extensions = [
   }),
   Video.configure({
     upload: (file: File) => {
-      const mockUrl = '//www.jsdyyy.com/oss/net-disk/5dfec4dec680468aa05add922f75111b.mp4'
+      const mockUrl = 'https://www.w3schools.com/html/mov_bbb.mp4'
       return Promise.resolve(mockUrl)
     },
   }),
