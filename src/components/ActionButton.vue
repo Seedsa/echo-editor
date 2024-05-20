@@ -30,19 +30,17 @@ const props = withDefaults(defineProps<Props>(), {
   shortcutKeys: undefined,
   tooltipOptions: undefined,
   action: undefined,
-  isActive: () => {
-    return false
-  },
+  isActive: undefined,
 })
 </script>
 
 <template>
   <Tooltip>
-    <TooltipTrigger as-child>
+    <TooltipTrigger>
       <Toggle
         size="sm"
         class="w-[32px] h-[32px]"
-        :pressed="isActive?.()"
+        :pressed="isActive?.() || false"
         :disabled="disabled"
         :class="[customClass]"
         @click="action"

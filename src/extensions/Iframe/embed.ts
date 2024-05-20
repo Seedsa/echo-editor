@@ -1,60 +1,42 @@
-export const VideoServices = [
+import { icons } from '@/components/icons'
+
+interface ServiceType {
+  label: string
+  value: string
+  icon: keyof typeof icons
+}
+export const VideoServices: ServiceType[] = [
+  { label: '优酷', value: 'youku', icon: 'Youku' },
   {
-    label: 'Youtube',
-    value: 'youtube',
-    icon: 'mdi-youtube',
-    color: 'red',
-    settings: { autoplay: true },
-  },
-  { label: 'Youku', value: 'youku', icon: '', svgIcon: 'youku', color: 'blue' },
-  {
-    label: 'Bilibili',
+    label: '哔哩哔哩',
     value: 'bilibili',
-    icon: '',
-    svgIcon: 'bilibili',
-    color: 'blue',
+    icon: 'BiliBili',
   },
   {
-    label: 'QQ Video',
+    label: '腾讯视频',
     value: 'qqvideo',
-    icon: '',
-    svgIcon: 'qqvideo',
-    color: 'green',
+    icon: 'QQVideo',
   },
 ]
 
-export const MapServices = [
-  {
-    label: 'Google Map',
-    value: 'google_map',
-    icon: 'mdi-google-maps',
-    color: 'blue',
-  },
-  { label: 'AMap', value: 'amap', svgIcon: 'amap' },
-  { label: 'Baidu Map', value: 'baidu_map', svgIcon: 'baidu-map' },
+export const MapServices: ServiceType[] = [
+  { label: '高德地图', value: 'amap', icon: 'Gaode' },
+  { label: '百度地图', value: 'baidu_map', icon: 'Baidu' },
 ]
 
-export const DesignServices = [
-  { label: 'Modao', value: 'modao', svgIcon: 'modao', color: 'blue' },
-  { label: 'Lanhu', value: 'lanhu', svgIcon: 'lanhu', color: 'blue' },
-  { label: 'Figma', value: 'figma', svgIcon: 'figma' },
-  { label: 'Canva', value: 'canva', svgIcon: 'canva' },
-  { label: 'ProcessOn', value: 'processon', svgIcon: 'processon' },
+export const DesignServices: ServiceType[] = [
+  { label: '墨刀', value: 'modao', icon: 'Modao' },
+  { label: '蓝湖', value: 'lanhu', icon: 'Lanhu' },
+  { label: 'Figma', value: 'figma', icon: 'Figma' },
+  { label: 'Canva', value: 'canva', icon: 'Canva' },
+  { label: 'ProcessOn', value: 'processon', icon: 'Processon' },
 ]
 
-export const DevelopServices = [{ label: 'CodePen', value: 'codepen', icon: 'mdi-codepen', color: 'purple' }]
+export const DevelopServices: ServiceType[] = [{ label: 'CodePen', value: 'codepen', icon: 'Codepen' }]
 
-export const DataServices = [
-  {
-    label: 'Google Forms',
-    value: 'google_forms',
-    svgIcon: 'google-forms',
-    color: 'blue',
-  },
-  { label: 'Jinshuju', value: 'jinshuju', svgIcon: 'jinshuju', color: 'blue' },
-]
+export const DataServices: ServiceType[] = [{ label: '金数据', value: 'jinshuju', icon: 'Jinshuju' }]
 
-export const OtherServices = [{ label: 'IFrame', value: 'iframe', icon: 'mdi-iframe', color: 'blue' }]
+export const OtherServices = []
 
 export const AllEmbedServices = [
   ...VideoServices,
@@ -119,14 +101,6 @@ export const EmbedServiceLink = {
     srcPrefix: '',
     linkRule: ['map\\.baidu\\.com'],
   },
-  google_map: {
-    example:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.958958396003!2d116.5681862154775!3d40.43190767936344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35f121d7687f2ccf%3A0xd040259b950522df!2sGreat%20Wall%20of%20China!5e0!3m2!1sen!2sus!4v1588227850952!5m2!1sen!2sus',
-    src: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.958958396003!2d116.5681862154775!3d40.43190767936344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35f121d7687f2ccf%3A0xd040259b950522df!2sGreat%20Wall%20of%20China!5e0!3m2!1sen!2sus!4v1588227850952!5m2!1sen!2sus',
-    srcPrefix: '',
-    linkRule: ['https:\\/\\/www.google.com\\/maps\\/embed\\?pb=.+sus'],
-    tips: 'Google Map > select location > Share > Embed a map > COPY HTML',
-  },
   modao: {
     example: 'https://free.modao.cc/app/2cd26580a6717a147454df7470e7ec464093cba3/embed/v2#screen=sk71k6d1dfxulzx',
     src: 'https://free.modao.cc/app/6UkpAxcGE3nPz52GLqhnOZgC7MATBSy/embed/v2',
@@ -135,7 +109,7 @@ export const EmbedServiceLink = {
     tips: 'Modao > More > Share > Embed > COPY',
   },
   lanhu: {
-    example: 'https://lanhuapp.com/url/evP7L',
+    example: 'https://lanhuapp.com/link/#/invite?sid=evP7L',
     src: 'https://lanhuapp.com/url/evP7L',
     srcPrefix: '',
     linkRule: ['https:\\/\\/lanhuapp.com\\/url\\/\\w+'],
@@ -170,14 +144,6 @@ export const EmbedServiceLink = {
     src: 'https://jinshuju.net/f/q9YvVf',
     srcPrefix: '',
     linkRule: ['https:\\/\\/jinshuju.net\\/f\\/\\w+'],
-  },
-  google_forms: {
-    example:
-      'https://docs.google.com/forms/d/e/1FAIpQLSesQk_-5AGlkcI5PUdVIVqWbgKs39tEePBATL7Q8DNWT_lJYg/viewform?usp=sf_link',
-    src: 'https://docs.google.com/forms/d/e/1FAIpQLSesQk_-5AGlkcI5PUdVIVqWbgKs39tEePBATL7Q8DNWT_lJYg/viewform?embedded=true',
-    srcPrefix: '',
-    linkRule: ['https:\\/\\/docs.google.com\\/forms\\/.+\\/viewform'],
-    tips: 'Google Forms > Send > Link or Embed HTML',
   },
   iframe: {
     example: 'https://v.youku.com/v_show/id_XNDM0NDM4MTcy.html',
@@ -331,14 +297,6 @@ function getJinshujuSrc(originalLink, result) {
   return result
 }
 
-function getGoogleFormsSrc(originalLink, result) {
-  result.src = `${result.matchedUrl}?embedded=true`
-  result.validId = true
-  result.originalLink = result.matchedUrl
-
-  return result
-}
-
 function getCommonSrc(originalLink, result) {
   result.src = `${result.matchedUrl}`
   result.validId = true
@@ -419,8 +377,6 @@ export const getServiceSrc = (service, originalLink) => {
       return getCodepenSrc(originalLink, result)
     case 'jinshuju':
       return getJinshujuSrc(originalLink, result)
-    case 'google_forms':
-      return getGoogleFormsSrc(originalLink, result)
     case 'iframe':
       return getCommonSrc(originalLink, result)
   }

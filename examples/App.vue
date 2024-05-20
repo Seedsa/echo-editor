@@ -10,7 +10,7 @@
       margin: 0 auto;
     "
   >
-    <div style="display: flex; gap: 24px">
+    <div class="flex gap-32">
       <button ghost @click="locale.setLang('zhHans')">中文</button>
       <button ghost @click="locale.setLang('en')">英文</button>
       <button ghost @click="theme = 'dark'">dark</button>
@@ -21,15 +21,13 @@
       :extensions="extensions"
       :max-height="1024"
       :min-height="512"
+      output="json"
       maxWidth="900"
       :dark="theme === 'dark'"
     />
     <div title="content" style="margin-top: 20px">
       {{ content }}
     </div>
-    <!-- <div class="mt-3 ProseMirror">
-      <div v-html="content"></div>
-    </div> -->
   </div>
 </template>
 <script setup lang="ts">

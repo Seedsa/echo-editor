@@ -8,7 +8,6 @@ const props = defineProps({
   ...nodeViewProps,
 })
 const originalLink = ref<string>('')
-const showEdit = ref<boolean>(true)
 
 const src = computed({
   get: () => props.node.attrs.src,
@@ -21,10 +20,8 @@ function handleConfirm() {
   console.log(originalLink.value, props.node.attrs.service, originalLink.value)
   let result = getServiceSrc(props.node.attrs.service, originalLink.value)
   // 校验链接合法
-  console.log(result)
   if (result.validLink && result.validId) {
     src.value = result.src
-    showEdit.value = false
   } else {
     console.log('暂不支持')
   }
@@ -32,7 +29,7 @@ function handleConfirm() {
 function handleExmaple() {
   const url = getExampleUrl(props.node.attrs.service)
   if (url) {
-    originalLink.value = url
+    src.value = url
   }
 }
 onMounted(() => {
@@ -42,7 +39,7 @@ onMounted(() => {
 
 <template>
   <NodeViewWrapper as="section">
-    <div class="flex flex-row relative items-center" v-if="showEdit">
+    <div class="flex flex-row relative items-center" v-if="!src">
       <Input v-model:model-value="originalLink" type="url" class="h-12 pr-40" autofocus placeholder="输入链接"> </Input>
       <div class="flex gap-2 absolute right-1 w-36">
         <Button @click="handleExmaple" variant="outline">示例</Button>

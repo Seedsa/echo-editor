@@ -60,6 +60,18 @@ export const icons = {
   SizeM: 'mdi:size-m',
   SizeL: 'mdi:size-l',
   AspectRatio: 'mdi:aspect-ratio',
+  Gaode: 'echo-gaode',
+  Baidu: 'echo-baidu',
+  Youku: 'echo-youku',
+  BiliBili: 'echo-bilibili',
+  Modao: 'echo-modao',
+  Lanhu: 'echo-lanhu',
+  QQVideo: 'echo-qqvideo',
+  Figma: 'echo-figma',
+  Canva: 'echo-canva',
+  Processon: 'echo-processon',
+  Codepen: 'echo-codepen',
+  Jinshuju: 'echo-jinshuju',
 }
 
 export default icons

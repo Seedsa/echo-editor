@@ -96,7 +96,6 @@ export const AI = Node.create<AIOptions>({
           action: () => {
             editor.commands.activateMagic()
           },
-          isActive: () => editor.isActive('bold') || false,
           disabled: !editor.can().toggleBold(),
           icon: 'Sparkles',
           tooltip: 'AI',

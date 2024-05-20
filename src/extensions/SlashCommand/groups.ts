@@ -1,5 +1,8 @@
+import { Editor } from '@tiptap/core'
 import { Group } from './types'
 import { useLocale } from '@/locales'
+import { hasExtension } from '@/utils/utils'
+import { AllEmbedServices } from '@/extensions/Iframe/embed'
 const { t } = useLocale()
 
 export const GROUPS: Group[] = [
@@ -160,82 +163,54 @@ export const GROUPS: Group[] = [
       },
     ],
   },
-  {
-    name: 'others',
-    title: '嵌入第三方服务',
-    commands: [
-      {
-        name: 'youku',
-        label: '优酷',
-        iconUrl: 'https://gw.alipayobjects.com/zos/bmw-prod/4825b4b8-96a3-463f-8e6a-c28ae8b792b0.svg',
-        aliases: ['youku', 'yk'],
-        shouldBeHidden: editor => editor.isActive('columns'),
-        action: ({ editor, range }) => {
-          editor
-            .chain()
-            .deleteRange(range)
-            .focus()
-            .setIframe({
-              src: '',
-              service: 'youku',
-            })
-            .run()
-        },
-      },
-      {
-        name: 'bilibili',
-        label: '哔哩哔哩',
-        iconUrl: 'https://gw.alipayobjects.com/zos/bmw-prod/93d6bda1-2ab6-4b20-97e5-c0a73f2a42cd.svg',
-        aliases: ['bilibili', 'bili', 'bl'],
-        shouldBeHidden: editor => editor.isActive('columns'),
-        action: ({ editor, range }) => {
-          editor
-            .chain()
-            .deleteRange(range)
-            .focus()
-            .setIframe({
-              src: '',
-              service: 'bilibili',
-            })
-            .run()
-        },
-      },
-      {
-        name: 'amap',
-        label: '高德地图',
-        iconUrl: 'https://gw.alipayobjects.com/zos/bmw-prod/93d6bda1-2ab6-4b20-97e5-c0a73f2a42cd.svg',
-        aliases: ['gaode', 'amap', 'map'],
-        shouldBeHidden: editor => editor.isActive('columns'),
-        action: ({ editor, range }) => {
-          editor
-            .chain()
-            .deleteRange(range)
-            .focus()
-            .setIframe({
-              src: '',
-              service: 'amap',
-            })
-            .run()
-        },
-      },
-      {
-        name: 'modao',
-        label: '墨刀',
-        iconUrl: 'https://gw.alipayobjects.com/zos/bmw-prod/93d6bda1-2ab6-4b20-97e5-c0a73f2a42cd.svg',
-        aliases: ['md', 'amap', 'map'],
-        shouldBeHidden: editor => editor.isActive('columns'),
-        action: ({ editor, range }) => {
-          editor
-            .chain()
-            .deleteRange(range)
-            .focus()
-            .setIframe({
-              src: '',
-              service: 'modao',
-            })
-            .run()
-        },
-      },
-    ],
-  },
 ]
+
+export function renderGroups(editor: Editor) {
+  const groups = GROUPS
+  const hasAI = hasExtension(editor, 'Ai')
+  const hasIframes = hasExtension(editor, 'iframes')
+  if (hasAI) {
+    groups.unshift({
+      name: 'ai',
+      title: 'AI',
+      commands: [
+        {
+          name: 'aiWriter',
+          label: 'AI智能助手',
+          iconName: 'Sparkles',
+          description: 'Let AI finish your thoughts',
+          shouldBeHidden: editor => editor.isActive('columns'),
+          action: ({ editor, range }) => {
+            editor.chain().focus().deleteRange(range).activateMagic().run()
+          },
+        },
+      ],
+    })
+  }
+  if (hasIframes) {
+    const services = AllEmbedServices
+    groups.push({
+      name: 'others',
+      title: '嵌入第三方服务',
+      commands: services.map(item => ({
+        name: item.value,
+        label: item.label,
+        iconName: item.icon,
+        aliases: [item.value, item.label],
+        shouldBeHidden: editor => editor.isActive('columns'),
+        action: ({ editor, range }) => {
+          editor
+            .chain()
+            .deleteRange(range)
+            .focus()
+            .setIframe({
+              src: '',
+              service: item.value,
+            })
+            .run()
+        },
+      })),
+    })
+  }
+  return groups
+}

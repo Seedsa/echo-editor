@@ -3,17 +3,14 @@ export const DEMO_CONTENT = {
   content: [
     {
       type: 'heading',
-      attrs: { textAlign: 'start', level: 1 },
+      attrs: { textAlign: 'center', indent: 0, lineHeight: null, level: 1 },
       content: [{ type: 'text', text: 'Echo Editor' }],
     },
     {
       type: 'paragraph',
-      attrs: { textAlign: 'start' },
+      attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null },
       content: [
-        {
-          type: 'text',
-          text: '一个现代的所见即所得的AI富文本编辑器基于 ',
-        },
+        { type: 'text', text: '一个现代的所见即所得的AI富文本编辑器基于 ' },
         {
           type: 'text',
           marks: [
@@ -22,6 +19,7 @@ export const DEMO_CONTENT = {
               attrs: {
                 href: 'https://github.com/scrumpy/tiptap',
                 target: '_blank',
+                rel: 'noopener noreferrer nofollow',
                 class: null,
               },
             },
@@ -35,8 +33,9 @@ export const DEMO_CONTENT = {
             {
               type: 'link',
               attrs: {
-                href: 'https://www.naiveui.com',
+                href: 'https://www.shadcn-vue.com/',
                 target: '_blank',
+                rel: 'noopener noreferrer nofollow',
                 class: null,
               },
             },
@@ -46,31 +45,131 @@ export const DEMO_CONTENT = {
         { type: 'text', text: ' for Vue.js' },
       ],
     },
-
-    { type: 'paragraph', attrs: { textAlign: 'start' } },
-    { type: 'paragraph', attrs: { textAlign: 'start' } },
+    { type: 'paragraph', attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null } },
+    {
+      type: 'columns',
+      content: [
+        {
+          type: 'column',
+          attrs: { position: '' },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: '1' }],
+            },
+          ],
+        },
+        {
+          type: 'column',
+          attrs: { position: '' },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: '2' }],
+            },
+          ],
+        },
+        {
+          type: 'column',
+          attrs: { position: '' },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: '3' }],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'table',
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: { backgroundColor: null, colspan: 1, rowspan: 1, colwidth: null, style: null },
+              content: [{ type: 'paragraph', attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null } }],
+            },
+            {
+              type: 'tableCell',
+              attrs: { backgroundColor: null, colspan: 1, rowspan: 1, colwidth: null, style: null },
+              content: [{ type: 'paragraph', attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null } }],
+            },
+            {
+              type: 'tableCell',
+              attrs: { backgroundColor: null, colspan: 1, rowspan: 3, colwidth: null, style: null },
+              content: [{ type: 'paragraph', attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null } }],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: { backgroundColor: null, colspan: 1, rowspan: 1, colwidth: null, style: null },
+              content: [{ type: 'paragraph', attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null } }],
+            },
+            {
+              type: 'tableCell',
+              attrs: { backgroundColor: '#52C41A', colspan: 1, rowspan: 1, colwidth: null, style: null },
+              content: [{ type: 'paragraph', attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null } }],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: { backgroundColor: null, colspan: 1, rowspan: 1, colwidth: null, style: null },
+              content: [{ type: 'paragraph', attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null } }],
+            },
+            {
+              type: 'tableCell',
+              attrs: { backgroundColor: '#52C41A', colspan: 1, rowspan: 1, colwidth: null, style: null },
+              content: [
+                {
+                  type: 'paragraph',
+                  attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+                  content: [{ type: 'text', text: 'table' }],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'iframes',
+      attrs: {
+        src: 'https://player.bilibili.com/player.html?bvid=BV1EJ411u7DN',
+        service: 'bilibili',
+        frameborder: 0,
+        allowfullscreen: true,
+      },
+    },
     { type: 'horizontalRule' },
     {
       type: 'heading',
-      attrs: { textAlign: 'start', level: 2 },
-      content: [{ type: 'text', text: 'CodeSandBox  Demo' }],
+      attrs: { textAlign: 'start', indent: 0, lineHeight: null, level: 2 },
+      content: [{ type: 'text', text: 'Demo' }],
     },
     {
       type: 'paragraph',
-      attrs: { textAlign: 'start' },
+      attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null },
       content: [
         { type: 'text', text: '👉' },
         {
           type: 'text',
           marks: [
-            {
-              type: 'link',
-              attrs: {
-                href: '',
-                target: '_blank',
-                class: null,
-              },
-            },
+            { type: 'link', attrs: { href: '', target: '_blank', rel: 'noopener noreferrer nofollow', class: null } },
           ],
           text: 'comming soon',
         },
@@ -78,7 +177,7 @@ export const DEMO_CONTENT = {
     },
     {
       type: 'heading',
-      attrs: { textAlign: 'start', level: 2 },
+      attrs: { textAlign: 'start', indent: 0, lineHeight: null, level: 2 },
       content: [{ type: 'text', text: 'Features' }],
     },
     {
@@ -89,7 +188,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { textAlign: 'left' },
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
               content: [
                 { type: 'text', text: 'Use ' },
                 {
@@ -100,6 +199,7 @@ export const DEMO_CONTENT = {
                       attrs: {
                         href: 'https://naiveui.com',
                         target: '_blank',
+                        rel: 'noopener noreferrer nofollow',
                         class: null,
                       },
                     },
@@ -116,7 +216,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { textAlign: 'left' },
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'Markdown support' }],
             },
           ],
@@ -126,7 +226,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { textAlign: 'left' },
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'TypeScript support' }],
             },
           ],
@@ -136,16 +236,8 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { textAlign: 'left' },
-              content: [
-                { type: 'text', text: 'I18n support(' },
-                {
-                  type: 'text',
-                  marks: [{ type: 'code' }],
-                  text: 'zhHans only others comming soon...',
-                },
-                { type: 'text', text: ')' },
-              ],
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: 'I18n support' }],
             },
           ],
         },
@@ -154,8 +246,48 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { textAlign: 'left' },
-              content: [{ type: 'text', text: 'NaiveUI and Vue 3.x support' }],
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: 'Vue 3.x support' }],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: 'Slash Command' }],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: 'Multi Column' }],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: 'AI Power' }],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: 'Embed ' }],
             },
           ],
         },
@@ -163,24 +295,14 @@ export const DEMO_CONTENT = {
     },
     {
       type: 'heading',
-      attrs: { textAlign: 'start', level: 2 },
+      attrs: { textAlign: 'start', indent: 0, lineHeight: null, level: 2 },
       content: [{ type: 'text', text: 'Installation' }],
     },
     {
-      type: 'heading',
-      attrs: { textAlign: 'start', level: 3 },
-      content: [{ type: 'text', text: 'NPM' }],
-    },
-
-    {
       type: 'codeBlock',
       attrs: { language: null },
-      content: [
-        {
-          type: 'text',
-          text: 'pnpm add echo-editor\n# or\nyarn add echo-editor\n# or\nnpm i echo-editor -S',
-        },
-      ],
+      content: [{ type: 'text', text: 'pnpm add echo-editor\n# or\nyarn add echo-editor\n# or\nnpm i echo-editor -S' }],
     },
+    { type: 'paragraph', attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null } },
   ],
 }

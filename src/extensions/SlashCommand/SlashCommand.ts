@@ -3,7 +3,7 @@ import { VueRenderer } from '@tiptap/vue-3'
 import Suggestion, { SuggestionProps, SuggestionKeyDownProps } from '@tiptap/suggestion'
 import { PluginKey } from '@tiptap/pm/state'
 import tippy from 'tippy.js'
-import { GROUPS } from './groups'
+import { renderGroups } from './groups'
 import MenuList from './CommandsList.vue'
 
 const extensionName = 'slashCommand'
@@ -32,6 +32,8 @@ export const SlashCommand = Extension.create({
   },
 
   addProseMirrorPlugins() {
+    const groups = renderGroups(this.editor)
+
     return [
       Suggestion({
         editor: this.editor,
@@ -59,28 +61,7 @@ export const SlashCommand = Extension.create({
           props.action({ editor, range })
           view.focus()
         },
-        items: ({ query }: { query: string }) => {
-          const groups = GROUPS
-          const hasAiExtensions = this.editor.extensionManager.extensions.find(ext => ext.name === 'Ai')
-          // 添加AI Slash
-          if (hasAiExtensions && groups.find(group => group.name === 'ai') === undefined) {
-            groups.unshift({
-              name: 'ai',
-              title: 'AI',
-              commands: [
-                {
-                  name: 'aiWriter',
-                  label: 'AI智能助手',
-                  iconName: 'Sparkles',
-                  description: 'Let AI finish your thoughts',
-                  shouldBeHidden: editor => editor.isActive('columns'),
-                  action: ({ editor, range }) => {
-                    editor.chain().focus().deleteRange(range).activateMagic().run()
-                  },
-                },
-              ],
-            })
-          }
+        items: ({ query, editor }: { query: string; editor: Editor }) => {
           // Filter commands
           const withFilteredCommands = groups.map(group => ({
             ...group,
