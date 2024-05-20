@@ -1,0 +1,25 @@
+.ProseMirror {
+  /* Block Quote */
+  .blockquote {
+    @apply border-l-4 text-black border-l-neutral-700 py-2 px-4 bg-opacity-80 rounded-lg rounded-tl-none rounded-bl-none;
+    @apply dark:border-l-neutral-300 dark:text-white;
+  }
+  /* Columns */
+  [data-type='columns'] {
+    @apply grid gap-4 mt-14 mb-12;
+
+    &.layout-2-column {
+      grid-template-columns: 1fr 1fr;
+    }
+    &.layout-3-column {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    &.layout-4-column {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+
+  [data-type='column'] {
+    @apply overflow-auto;
+  }
+}

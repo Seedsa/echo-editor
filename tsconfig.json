@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "skipLibCheck": true,
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "types": [],
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "isolatedModules": true,
+    "noImplicitAny": false
+  },
+  "include": [
+    "types/**/*",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "src/plugins/drag.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
