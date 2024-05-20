@@ -94,11 +94,11 @@ $extra-light-primary-color: #ecf5ff;
     [data-type='columns'] {
       &.focus [data-type='column'],
       &:hover [data-type='column'] {
-        @apply border-neutral-300 dark:border-neutral-700;
+        @apply bg-accent;
       }
 
       [data-type='column'].focus {
-        @apply border-neutral-400 dark:border-neutral-600;
+        @apply bg-accent;
       }
     }
 

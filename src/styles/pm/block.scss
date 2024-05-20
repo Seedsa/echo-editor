@@ -8,14 +8,16 @@
   [data-type='columns'] {
     @apply grid gap-4 mt-14 mb-12;
 
-    &.layout-2-column {
+    &.layout-sidebar-left {
+      grid-template-columns: 40fr 60fr;
+    }
+
+    &.layout-sidebar-right {
+      grid-template-columns: 60fr 40fr;
+    }
+
+    &.layout-two-column {
       grid-template-columns: 1fr 1fr;
-    }
-    &.layout-3-column {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    &.layout-4-column {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
     }
   }
 

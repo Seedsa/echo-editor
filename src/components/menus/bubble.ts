@@ -96,7 +96,6 @@ const videoSizeMenus = (editor: Editor): BubbleMenuItem[] => {
     },
   }))
 }
-
 export const defaultBubbleList = (editor: Editor): BubbleMenuItem[] => [
   ...imageSizeMenus(editor),
   ...videoSizeMenus(editor),

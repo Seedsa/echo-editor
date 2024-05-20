@@ -3,23 +3,22 @@ import { Column } from './Column'
 import { GeneralOptions } from '@/type'
 
 export enum ColumnLayout {
-  TwoColumn = '2-column',
-  ThreeColumn = '3-column',
-  FourColumn = '4-column',
+  SidebarLeft = 'sidebar-left',
+  SidebarRight = 'sidebar-right',
+  TwoColumn = 'two-column',
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     columns: {
-      setColumns: (columnCount: number) => ReturnType
+      setColumns: () => ReturnType
       setLayout: (layout: ColumnLayout) => ReturnType
     }
   }
 }
 export interface ColumnsOptions extends GeneralOptions<ColumnsOptions> {
   columnOptions: any
-  HTMLAttributes: Record<string, any>
-  layout: any
+  layout: ColumnLayout
 }
 
 export const Columns = Node.create<ColumnsOptions>({
@@ -31,22 +30,25 @@ export const Columns = Node.create<ColumnsOptions>({
   addOptions() {
     return {
       ...this.parent?.(),
-      HTMLAttributes: {},
       layout: ColumnLayout.TwoColumn,
     }
   },
 
+  addAttributes() {
+    return {
+      layout: {
+        default: ColumnLayout.TwoColumn,
+      },
+    }
+  },
   addCommands() {
     return {
       setColumns:
-        columnCount =>
+        () =>
         ({ commands }) => {
-          let columnsHTML = ''
-          for (let i = 0; i < columnCount; i++) {
-            columnsHTML += `<div data-type="column"><p></p></div>`
-          }
-          this.options.layout = `${columnCount}-column`
-          commands.insertContent(`<div data-type="columns">${columnsHTML}</div>`)
+          commands.insertContent(
+            `<div data-type="columns"><div data-type="column" data-position="left"><p></p></div><div data-type="column" data-position="right"><p></p></div></div>`
+          )
           return true
         },
 
@@ -56,16 +58,8 @@ export const Columns = Node.create<ColumnsOptions>({
           commands.updateAttributes('columns', { layout }),
     }
   },
-
-  renderHTML() {
-    return [
-      'div',
-      {
-        'data-type': 'columns',
-        class: `layout-${this.options.layout}`,
-      },
-      0,
-    ]
+  renderHTML({ HTMLAttributes }) {
+    return ['div', { 'data-type': 'columns', class: `layout-${HTMLAttributes.layout}` }, 0]
   },
   parseHTML() {
     return [

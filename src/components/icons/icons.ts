@@ -72,6 +72,9 @@ export const icons = {
   Processon: 'echo-processon',
   Codepen: 'echo-codepen',
   Jinshuju: 'echo-jinshuju',
+  PanelLeft: 'lucide:panel-left',
+  PanelRight: 'lucide:panel-right',
+  Columns: 'lucide:columns',
 }
 
 export default icons

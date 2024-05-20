@@ -12,6 +12,8 @@ import BubbleMenu from './menus/BubbleMenu.vue'
 import LinkBubbleMenu from './menus/LinkBubbleMenu.vue'
 import TableBubbleMenu from '@/extensions/Table/menus/TableBubbleMenu.vue'
 import ContentMenu from './menus/ContentMenu.vue'
+import ColumnsMenu from '@/extensions/MultiColumn/menus'
+
 import Toolbar from './Toolbar.vue'
 import { EchoEditorOnChange } from '@/type'
 import { useDark, useToggle } from '@vueuse/core'
@@ -177,8 +179,9 @@ defineExpose({ editor })
     >
       <ContentMenu :editor="editor" />
       <LinkBubbleMenu :editor="editor" />
-      <BubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
+      <ColumnsMenu :editor="editor" />
       <TableBubbleMenu :editor="editor" />
+      <BubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
 
       <div
         :style="{

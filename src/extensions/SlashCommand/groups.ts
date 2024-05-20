@@ -114,49 +114,17 @@ export const GROUPS: Group[] = [
         },
       },
       {
-        name: '2columns',
-        label: '两栏',
+        name: 'columns',
+        label: '分栏',
         iconName: 'Columns2',
         description: 'Add two column content',
-        aliases: ['2', 'cols', '2cols'],
+        aliases: ['columns', 'cols', '2cols'],
         shouldBeHidden: editor => editor.isActive('columns'),
         action: ({ editor, range }) => {
           editor
             .chain()
             .deleteRange(range)
-            .setColumns(2)
-            .focus(editor.state.selection.head - 1)
-            .run()
-        },
-      },
-      {
-        name: '3columns',
-        label: '三栏',
-        iconName: 'Columns3',
-        description: 'Add three column content',
-        aliases: ['3', 'cols', '3cols'],
-        shouldBeHidden: editor => editor.isActive('columns'),
-        action: ({ editor, range }) => {
-          editor
-            .chain()
-            .deleteRange(range)
-            .setColumns(3)
-            .focus(editor.state.selection.head - 1)
-            .run()
-        },
-      },
-      {
-        name: '4columns',
-        label: '四栏',
-        iconName: 'Columns4',
-        description: 'Add forth column content',
-        aliases: ['4', 'cols', '4cols'],
-        shouldBeHidden: editor => editor.isActive('columns'),
-        action: ({ editor, range }) => {
-          editor
-            .chain()
-            .deleteRange(range)
-            .setColumns(4)
+            .setColumns()
             .focus(editor.state.selection.head - 1)
             .run()
         },
