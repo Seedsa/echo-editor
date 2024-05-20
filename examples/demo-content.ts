@@ -49,37 +49,27 @@ export const DEMO_CONTENT = {
     { type: 'paragraph', attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null } },
     {
       type: 'columns',
+      attrs: { layout: 'two-column' },
       content: [
         {
           type: 'column',
-          attrs: { position: '' },
+          attrs: { position: 'left' },
           content: [
             {
               type: 'paragraph',
               attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
-              content: [{ type: 'text', text: '1' }],
+              content: [{ type: 'text', text: '多栏布局' }],
             },
           ],
         },
         {
           type: 'column',
-          attrs: { position: '' },
+          attrs: { position: 'right' },
           content: [
             {
               type: 'paragraph',
               attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
-              content: [{ type: 'text', text: '2' }],
-            },
-          ],
-        },
-        {
-          type: 'column',
-          attrs: { position: '' },
-          content: [
-            {
-              type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
-              content: [{ type: 'text', text: '3' }],
+              content: [{ type: 'text', text: '多栏布局' }],
             },
           ],
         },

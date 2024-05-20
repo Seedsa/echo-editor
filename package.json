@@ -8,6 +8,7 @@
     "dev": "vite --config vite-example.config.ts",
     "build:lib": "vite build",
     "build:styles": "pnpm sass ./src/styles:./lib/styles --style=compressed --no-source-map",
+    "build:examples": "pnpm build:lib && vite build --config vite-example.config.ts",
     "preview": "vite preview",
     "git-commit": "git-cz",
     "prettier": "prettier --write .",
