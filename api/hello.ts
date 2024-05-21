@@ -1,9 +1,7 @@
-import { Router } from 'express'
+export function GET(request: Request) {
+  return new Response(`Hello Echo Editor`)
+}
 
-const router: Router = Router()
-
-router.get('/hello', (req, res) => {
-  return res.send('okok')
-})
-
-export default router
+// export const config = {
+//   runtime: 'nodejs',
+// }
