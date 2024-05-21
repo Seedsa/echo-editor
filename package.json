@@ -3,7 +3,6 @@
   "version": "0.0.2",
   "private": false,
   "license": "MIT",
-  "type": "module",
   "description": "A modern WYSIWYG rich-text editor using tiptap for Vue.js",
   "author": "SEED<hello.mr.lji@gmail.com>",
   "homepage": "https://github.com/Seedsa/echo-editor/",

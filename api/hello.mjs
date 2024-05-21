@@ -1,4 +1,4 @@
-export function GET(request: Request) {
+export function GET(request) {
   return new Response(`Hello Echo Editor`)
 }
 
