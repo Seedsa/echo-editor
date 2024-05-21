@@ -5,7 +5,6 @@ import { TextSelection } from '@tiptap/pm/state'
 import { Separator } from '@/components/ui/separator'
 import type { Editor, Extension } from '@tiptap/vue-3'
 import { BubbleMenu } from '@tiptap/vue-3'
-
 import type { BaseKitOptions } from '@/extensions/BaseKit'
 import type { BubbleTypeMenu } from './bubble'
 import { useLocale } from '@/locales'
@@ -25,6 +24,7 @@ const tippyOptions = reactive<Record<string, unknown>>({
   maxWidth: 'auto',
   zIndex: 20,
   appendTo: 'parent',
+  moveTransition: 'transform 0.15s ease-out',
 })
 
 const nodeType = computed(() => {
@@ -33,7 +33,7 @@ const nodeType = computed(() => {
   const isLink = props.editor.isActive('link')
   const isVideo = selection.node?.type.name === 'video'
   const isCell = selection instanceof CellSelection
-  const isTable = selection.node?.type.name === 'table' || isCell // 选中表格或者单元格
+  const isTable = selection.node?.type.name === 'table' || isCell
   const isText = selection instanceof TextSelection
 
   if (isLink) return 'link'

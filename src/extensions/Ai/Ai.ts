@@ -1,7 +1,7 @@
 import { Node } from '@tiptap/core'
 import { VueNodeViewRenderer, mergeAttributes } from '@tiptap/vue-3'
 import AINodeView from './components/AiView.vue'
-import ActionButton from '@/components/ActionButton.vue'
+import ActionButton from './AiButton.vue'
 import { GeneralOptions } from '@/type'
 
 export interface AIOptions extends GeneralOptions<AIOptions> {
@@ -15,7 +15,7 @@ export interface AIOptions extends GeneralOptions<AIOptions> {
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    magic: {
+    Ai: {
       activateMagic: () => ReturnType
     }
   }
@@ -69,7 +69,7 @@ export const AI = Node.create<AIOptions>({
         const prevText = state.doc.textBetween(Math.max(0, selectionTo - 5000), selectionTo, '\n')
 
         return chain()
-          .setTextSelection({ from: selectionTo, to: selectionTo })
+          .focus()
           .insertContent({
             type: this.name,
             attrs: {

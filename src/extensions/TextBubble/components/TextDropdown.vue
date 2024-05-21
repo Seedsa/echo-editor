@@ -121,7 +121,7 @@ const activeItem = computed(() => {
         <Icon name="ChevronDown" class="w-4 h-4" />
       </Button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-full p-1" align="start" :sideOffset="5">
+    <DropdownMenuContent hideWhenDetached class="w-full p-1" align="start" :sideOffset="5">
       <DropdownMenuCheckboxItem
         v-for="(item, index) in menus"
         :key="index"

@@ -140,7 +140,7 @@ async function AICompletions(text?: string) {
     console.error('请配置VITE_OPENAI_API_KEY')
     return
   }
-  console.log(apiKey)
+  console.log('tex', text)
   const openai = new OpenAI({
     apiKey: apiKey,
     dangerouslyAllowBrowser: true,
@@ -150,8 +150,12 @@ async function AICompletions(text?: string) {
     model: 'deepseek-chat',
     messages: [
       {
+        role: 'system',
+        content: `你将扮演一个写作助手,帮助我完成文章的创作、续写、优化等`,
+      },
+      {
         role: 'user',
-        content: `你将扮演一个写作助手,${text}`,
+        content: `${text}`,
       },
     ],
     temperature: 0.7,

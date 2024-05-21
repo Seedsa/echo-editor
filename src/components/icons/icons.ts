@@ -42,6 +42,8 @@ export const icons = {
   TableCellsMerge: 'lucide:table-cells-merge',
   TableCellsSplit: 'lucide:table-cells-split',
   Trash2: 'lucide:trash-2',
+  Trash: 'lucide:trash',
+  Replace: 'lucide:replace',
   ChevronsUpDown: 'lucide:chevrons-up-down',
   LineHeight: 'mdi:format-line-height',
   Word: 'mdi:file-word-outline',

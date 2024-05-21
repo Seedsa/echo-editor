@@ -60,7 +60,7 @@ export interface GeneralOptions<T> {
  */
 export interface ButtonViewReturnComponentProps {
   /** Method triggered when action is performed */
-  action?: (value?: unknown) => void
+  action?: (value?: any) => void
   /** Whether it is in the active state */
   isActive?: () => boolean
   /** Button icon */

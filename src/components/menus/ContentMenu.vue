@@ -62,7 +62,7 @@ onMounted(() => {
       tippyOptions: {
         offset: [-2, 16],
         zIndex: 99,
-        // moveTransition: 'transform 0.2s ease-in-out',
+        moveTransition: 'transform 0.15s ease-out',
       },
       onNodeChange: handleNodeChange,
     })

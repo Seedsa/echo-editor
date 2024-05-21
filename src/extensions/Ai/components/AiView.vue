@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import { Button } from '@/components/ui/button'
 import { Icon } from '@iconify/vue'
-
+import AiCompletion from './AiCompletion.vue'
 const props = defineProps({
   ...nodeViewProps,
 })
@@ -12,6 +12,7 @@ const result = ref('')
 const messageList = ref<string[]>([])
 const showDropdown = ref(true)
 const inputRef = ref()
+
 const options: any = [
   {
     label: 'AI续写',
@@ -135,10 +136,10 @@ function handleDelete() {
 }
 </script>
 <template>
-  <NodeViewWrapper as="span" class="relative">
-    <div>
-      <div class="fixed z-[100] h-full inset-0" @click="handleMaskClick"></div>
-      <div class="z-[1001] absolute min-h-12 min-w-72">
+  <NodeViewWrapper data-drag-handle>
+    <div class="relative">
+      <!-- <div class="fixed z-[100] h-full inset-0" @click="handleMaskClick"></div> -->
+      <div class="z-[1001] min-h-12 w-[350px]">
         <div class="ai-modal-main-container">
           <div class="py-2 px-4">
             <div v-if="status === 'loading'" class="flex items-center flex-row w-full select-none">
@@ -199,27 +200,7 @@ function handleDelete() {
               <div class="ai_modal_message_board select-none">
                 {{ result }}
               </div>
-              <div class="ai_modal_edit_board_footer">
-                <div class="ai_model_edit_board_buttons">
-                  <div class="ai_model_edit_board_left_buttons">
-                    <div class="flex items-center gap-1">
-                      <Button type="info" @click="handleReplace">替换原文</Button>
-                      <Button secondary @click="insetBottom">插入到下方</Button>
-                      <div class="flex gap-2">
-                        <Button @click="copy('ss')">
-                          <Icon icon="mdi:content-copy" />
-                        </Button>
-                        <Button>
-                          <Icon icon="mdi:refresh" />
-                        </Button>
-                        <Button @click="handleDelete">
-                          <Icon icon="mdi:delete" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <AiCompletion :editor="editor" :completion="result" />
             </div>
           </div>
         </div>
