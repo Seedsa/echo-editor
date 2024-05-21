@@ -135,6 +135,7 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@commitlint/cz-commitlint": "^19.2.0",
     "@iconify/vue": "^4.1.2",
+    "@types/express": "^4.17.21",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
     "@vitejs/plugin-vue": "^5.0.4",
