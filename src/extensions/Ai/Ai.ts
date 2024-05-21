@@ -87,6 +87,7 @@ export const AI = Node.create<AIOptions>({
   addOptions() {
     return {
       ...this.parent?.(),
+      toolbar: false,
       HTMLAttributes: {
         class: `node-${this.name}`,
       },

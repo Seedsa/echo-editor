@@ -196,7 +196,7 @@ watch(
         <DropdownMenuContent class="w-48" align="start" side="bottom">
           <DropdownMenuItem
             @click="deleteNode"
-            class="flex gap-3 focus:text-red-500 dark:hover:text-red-500 bg-opacity-10 hover:bg-opacity-20 focus:bg-opacity-30 dark:hover:bg-opacity-20"
+            class="flex gap-3 focus:text-red-500 focus:bg-red-400 hover:bg-red-400 dark:hover:text-red-500 bg-opacity-10 hover:bg-opacity-20 focus:bg-opacity-30 dark:hover:bg-opacity-20"
           >
             <Icon name="Trash2" />
             <span>删除</span>

@@ -32,8 +32,8 @@ const items = computed(() => {
   let menus: Menu[] = []
 
   for (const extension of sortExtensions) {
-    const { button, divider = false, spacer = false } = extension.options
-    if (!button || !isFunction(button)) continue
+    const { button, divider = false, spacer = false, toolbar = true } = extension.options
+    if (!button || !isFunction(button) || !toolbar) continue
 
     const _button: ButtonViewReturn = button({
       editor: props.editor,

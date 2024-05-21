@@ -136,6 +136,11 @@ async function AICompletions(text?: string) {
   // 从.env中获取key 请自行替换
   // @ts-ignore
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY
+  if (!apiKey) {
+    console.error('请配置VITE_OPENAI_API_KEY')
+    return
+  }
+  console.log(apiKey)
   const openai = new OpenAI({
     apiKey: apiKey,
     dangerouslyAllowBrowser: true,

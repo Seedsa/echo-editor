@@ -19,6 +19,7 @@ English | [中文](./README.zh-CN.md)
 - TypeScript support
 - I18n support(`en`, `zhHans`)
 - Create your own extensions
+- Tailwind CSS support
 
 ## Installation
 

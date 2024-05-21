@@ -51,6 +51,8 @@ export interface GeneralOptions<T> {
   spacer: boolean
   /** Button view function */
   button: ButtonView<T>
+  /** Show on Toolbar */
+  toolbar: boolean
 }
 
 /**

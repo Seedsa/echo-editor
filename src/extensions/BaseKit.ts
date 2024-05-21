@@ -29,6 +29,9 @@ import type { IframeOptions } from './Iframe/Iframe'
 import type { BubbleOptions } from '../components/menus/bubble'
 import { defaultBubbleList, generateBubbleTypeMenu } from '../components/menus/bubble'
 
+import { TextBubble } from './TextBubble'
+import type { TextBubbleOptions } from './TextBubble'
+
 import { NODE_TYPE_MENU } from '@/constants'
 
 /**
@@ -127,10 +130,20 @@ export interface BaseKitOptions {
   /**
    * Trailing node options or false, indicating whether to enable the trailing node
    *
-   * @default false
+   * @default true
    */
   trailingNode: Partial<TrailingNodeOptions> | false
-
+  /**
+   * textBubble options or false, indicating whether to enable the textBubble
+   *
+   * @default true
+   */
+  textBubble: Partial<TextBubbleOptions> | false
+  /**
+   * selection options or false, indicating whether to enable the selection
+   *
+   * @default true
+   */
   selection: any | false
 }
 
@@ -193,6 +206,9 @@ export const BaseKit = Extension.create<BaseKitOptions>({
 
     if (this.options.text !== false) {
       extensions.push(Text.configure())
+    }
+    if (this.options.textBubble !== false) {
+      extensions.push(TextBubble.configure())
     }
 
     if (this.options.gapcursor !== false) {

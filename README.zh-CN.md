@@ -19,6 +19,7 @@
 - 支持 TypeScript
 - 国际化支持（`en`, `zhHans`）
 - 支持自定义扩展
+- Tailwind CSS
 
 ## 安装
 
