@@ -35,8 +35,6 @@ interface Instance {
 
   /** Highlight color */
   highlight?: string
-
-  linkMenuState: any
 }
 
 export const [useProvideTiptapStore, useTiptapStore] = createInjectionState(() => {
@@ -48,7 +46,6 @@ export const [useProvideTiptapStore, useTiptapStore] = createInjectionState(() =
     isFullscreen: false,
     color: undefined,
     highlight: undefined,
-    linkMenuState: undefined,
   })
 
   const isFullscreen = computed(() => state.isFullscreen)

@@ -70,26 +70,26 @@ const items = computed(() => {
 </script>
 <template>
   <BubbleMenu v-show="items.length > 0" :editor="editor" :tippy-options="tippyOptions">
-    <div class="echo-editor-editor__menu-bubble">
-      <div class="echo-editor-editor__menu-bubble__content bg-background">
-        <div class="echo-editor-editor__menu-bubble__container">
-          <template v-for="(item, key) in items" :key="key">
-            <!-- Divider -->
-            <Separator v-if="item.type === 'divider'" orientation="vertical" class="mx-1 me-2 h-[16px]" />
-            <!-- Buttons -->
-            <component
-              :is="item.component"
-              v-else
-              v-bind="item.componentProps"
-              :editor="editor"
-              :disabled="disabled || item.componentProps?.disabled"
-            >
-              <template v-for="(element, slotName, i) in item.componentSlots" :key="i" #[`${slotName}`]="values">
-                <component :is="element" v-bind="values?.props" />
-              </template>
-            </component>
-          </template>
-        </div>
+    <div
+      class="border border-neutral-200 dark:border-neutral-800 px-3 py-2 transition-all select-none pointer-events-auto shadow-sm rounded-sm w-auto bg-background"
+    >
+      <div class="flex items-center flex-nowrap whitespace-nowrap h-[26px] justify-start relative">
+        <template v-for="(item, key) in items" :key="key">
+          <!-- Divider -->
+          <Separator v-if="item.type === 'divider'" orientation="vertical" class="mx-1 me-2 h-[16px]" />
+          <!-- Buttons -->
+          <component
+            :is="item.component"
+            v-else
+            v-bind="item.componentProps"
+            :editor="editor"
+            :disabled="disabled || item.componentProps?.disabled"
+          >
+            <template v-for="(element, slotName, i) in item.componentSlots" :key="i" #[`${slotName}`]="values">
+              <component :is="element" v-bind="values?.props" />
+            </template>
+          </component>
+        </template>
       </div>
     </div>
   </BubbleMenu>

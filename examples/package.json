@@ -1,6 +1,10 @@
 {
   "name": "examples",
   "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
   "dependencies": {
     "echo-editor": "workspace:*",
     "openai": "4.47.1"

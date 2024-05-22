@@ -5,7 +5,6 @@ import { useLocale } from '@/locales'
 import type { ButtonViewReturn } from '@/type'
 import { Separator } from '@/components/ui/separator'
 import { isFunction } from '@/utils/utils'
-
 interface Menu {
   button: ButtonViewReturn
   divider: boolean

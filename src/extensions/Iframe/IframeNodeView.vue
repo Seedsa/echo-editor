@@ -17,7 +17,6 @@ const src = computed({
   },
 })
 function handleConfirm() {
-  console.log(originalLink.value, props.node.attrs.service, originalLink.value)
   let result = getServiceSrc(props.node.attrs.service, originalLink.value)
   // 校验链接合法
   if (result.validLink && result.validId) {
@@ -29,7 +28,8 @@ function handleConfirm() {
 function handleExmaple() {
   const url = getExampleUrl(props.node.attrs.service)
   if (url) {
-    src.value = url
+    let result = getServiceSrc(props.node.attrs.service, url)
+    src.value = result.src
   }
 }
 onMounted(() => {
@@ -46,13 +46,6 @@ onMounted(() => {
         <Button type="primary" @click="handleConfirm">确认</Button>
       </div>
     </div>
-    <iframe
-      v-if="src"
-      class="w-full border border-border mt-2 rounded-sm"
-      :src="src"
-      frameborder="0"
-      allowfullscreen="true"
-      :style="{ height: `${node.attrs.height || 400}px` }"
-    ></iframe>
+    <iframe v-if="src" :src="src" frameborder="0" allowfullscreen="true"></iframe>
   </NodeViewWrapper>
 </template>

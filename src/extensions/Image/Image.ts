@@ -56,16 +56,31 @@ export const Image = TiptapImage.extend<ImageOptions>({
         default: null,
       },
       alt: {
-        default: null,
+        default: undefined,
       },
       lockAspectRatio: {
         default: true,
       },
       width: {
-        default: IMAGE_SIZE['size-medium'],
+        default: '100%',
       },
       height: {
         default: null,
+      },
+      display: {
+        default: 'inline',
+        renderHTML: ({ display }) => {
+          if (!display) {
+            return {}
+          }
+          return {
+            'data-display': display,
+          }
+        },
+        parseHTML: element => {
+          const display = element.getAttribute('data-display')
+          return display || 'inline'
+        },
       },
     }
   },

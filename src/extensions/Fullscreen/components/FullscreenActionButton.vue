@@ -5,6 +5,7 @@ import ActionButton from '@/components/ActionButton.vue'
 import { useTiptapStore } from '@/hooks'
 import { useLocale } from '@/locales'
 import { ButtonViewReturnComponentProps } from '@/type'
+
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   color: undefined,
@@ -13,8 +14,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 const { t } = useLocale()
 
-const { state, toggleFullscreen } = useTiptapStore()!
-const { isFullscreen, enter, exit } = useFullscreen()
+const { toggleFullscreen } = useTiptapStore()!
+const { isFullscreen, toggle } = useFullscreen()
 
 interface Props {
   disabled?: boolean
@@ -23,36 +24,32 @@ interface Props {
   useWindow?: boolean
 }
 
-watch(isFullscreen, val => {
-  if (!val && state.isFullscreen && props.useWindow) {
-    onAction()
+watch(
+  () => isFullscreen.value,
+  (val, oldVal) => {
+    // 同步状态
+    if (val !== oldVal) {
+      toggleFullscreen()
+    }
   }
-})
+)
 
 const text = computed(() => {
-  const tooltip = state.isFullscreen ? 'editor.fullscreen.tooltip.exit' : 'editor.fullscreen.tooltip.fullscreen'
+  const tooltip = isFullscreen.value ? 'editor.fullscreen.tooltip.exit' : 'editor.fullscreen.tooltip.fullscreen'
   if (!tooltip) return undefined
   return unref(t)(tooltip)
 })
 
 const icon = computed(() => {
-  const _icon = state.isFullscreen ? 'Minimize' : 'Maximize'
+  const _icon = isFullscreen.value ? 'Minimize' : 'Maximize'
   return _icon
 })
 
 function onAction(_useWindow: boolean = false) {
-  toggleFullscreen()
-
-  if (state.isFullscreen) {
-    document.documentElement.classList.add('overflow-y-hidden')
-    _useWindow && enter()
-  } else {
-    document.documentElement.classList.remove('overflow-y-hidden')
-    _useWindow && exit()
-  }
+  toggle()
 }
 </script>
 
 <template>
-  <ActionButton :icon="icon" :tooltip="text" :action="onAction as any"> </ActionButton>
+  <ActionButton :icon="icon" :tooltip="text" :action="onAction"></ActionButton>
 </template>

@@ -202,7 +202,11 @@ watchEffect(effect => {
 </script>
 
 <template>
-  <NodeViewWrapper as="span" :class="imageViewClass" :style="imageMaxStyle">
+  <NodeViewWrapper
+    as="div"
+    :class="imageViewClass"
+    :style="{ imageMaxStyle, textAlign: node.attrs.textAlign, width: '100%' }"
+  >
     <div
       draggable="true"
       data-drag-handle

@@ -80,15 +80,15 @@ function resetTableGridSize(): void {
             <div
               v-for="col in tableGridSize.cols"
               :key="'c' + col"
-              :class="{
-                'table-grid-size-editor__cell--selected':
-                  col <= selectedTableGridSize.cols && row <= selectedTableGridSize.rows,
-              }"
+              :class="[
+                col <= selectedTableGridSize.cols && row <= selectedTableGridSize.rows && 'bg-foreground border-border',
+                'cursor-pointer',
+              ]"
               class="pa-1"
               @mouseover="selectTableGridSize(row, col)"
               @mousedown="onMouseDown(row, col)"
             >
-              <div class="table-grid-size-editor__cell__inner"></div>
+              <div class="w-4 h-4 p-1 border rounded-[2px] box-border"></div>
             </div>
           </div>
         </div>

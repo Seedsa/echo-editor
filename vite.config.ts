@@ -48,7 +48,6 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      // input: path.resolve(__dirname, 'src/styles'),
       output: {
         exports: 'named',
         globals: {

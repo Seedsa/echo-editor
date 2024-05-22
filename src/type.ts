@@ -52,7 +52,7 @@ export interface GeneralOptions<T> {
   /** Button view function */
   button: ButtonView<T>
   /** Show on Toolbar */
-  toolbar: boolean
+  toolbar?: boolean
 }
 
 /**

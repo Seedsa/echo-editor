@@ -11,10 +11,10 @@
     "url": "https://github.com/Seedsa/echo-editor/"
   },
   "scripts": {
-    "dev": "vite --config vite-example.config.ts",
+    "dev": "vite",
+    "examples": "pnpm --dir ./examples run dev",
     "build:lib": "vite build",
-    "build:styles": "pnpm sass ./src/styles:./lib/styles --style=compressed --no-source-map",
-    "build:examples": "pnpm build:lib && vite build --config vite-example.config.ts",
+    "build:examples": "pnpm build:lib &&pnpm --dir ./examples run build",
     "preview": "vite preview",
     "git-commit": "git-cz",
     "prettier": "prettier --write .",

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch, onUnmounted, unref, useAttrs } from 'vue'
+import { computed, watch, onUnmounted, unref, useAttrs, ref } from 'vue'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { AnyExtension, Editor as CoreEditor } from '@tiptap/core'
 import { Editor, EditorContent } from '@tiptap/vue-3'
@@ -13,10 +13,9 @@ import LinkBubbleMenu from './menus/LinkBubbleMenu.vue'
 import TableBubbleMenu from '@/extensions/Table/menus/TableBubbleMenu.vue'
 import ContentMenu from './menus/ContentMenu.vue'
 import ColumnsMenu from '@/extensions/MultiColumn/menus'
-
 import Toolbar from './Toolbar.vue'
 import { EchoEditorOnChange } from '@/type'
-import { useDark, useToggle } from '@vueuse/core'
+import { useDark, useToggle, watchDebounced, debouncedRef } from '@vueuse/core'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
 type HandleKeyDown = NonNullable<EditorOptions['editorProps']['handleKeyDown']>
@@ -174,8 +173,8 @@ defineExpose({ editor })
   <TooltipProvider :delay-duration="0">
     <div
       v-if="editor"
-      class="echo-editor border rounded-[0.5rem] bg-background shadow overflow-hidden"
-      :class="[editorClass, dense]"
+      class="echo-editor rounded-[0.5rem] bg-background shadow overflow-hidden outline outline-1"
+      :class="[editorClass, dense ? 'dense' : '', editor.isFocused ? 'outline-primary' : 'outline-border']"
     >
       <ContentMenu :editor="editor" />
       <LinkBubbleMenu :editor="editor" />
@@ -184,19 +183,11 @@ defineExpose({ editor })
       <BubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
 
       <div
-        :style="{
-          width: '100%',
-        }"
-        class="echo-editor-editor"
-        :class="{ 'echo-editor-editor--fullscreen': isFullscreen }"
+        class="flex flex-col w-full max-h-full"
+        :class="[isFullscreen && 'fixed inset-0 z-[200] w-full h-full m-0 rounded-none']"
       >
         <Toolbar v-if="!hideToolbar" :editor="editor" class="border-b py-2 px-1" />
-        <editor-content
-          :editor="editor"
-          class="echo-editor-editor__content bg-white dark:bg-black"
-          :class="contentClass"
-          :style="contentDynamicStyles"
-        />
+        <editor-content :editor="editor" :class="contentClass" :style="contentDynamicStyles" />
         <slot name="footer" v-bind="{ editor }">
           <div v-if="hasExtension(editor, 'characterCount')" class="flex flex-col p-3 border-t">
             <div class="flex justify-end gap-3 text-sm">

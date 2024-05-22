@@ -21,7 +21,6 @@
       :extensions="extensions"
       :max-height="1024"
       :min-height="512"
-      output="json"
       maxWidth="900"
       :dark="theme === 'dark'"
     />
@@ -48,7 +47,6 @@ import {
   CodeBlock,
   FontSize,
   Highlight,
-  TextAlign,
   Table,
   Clear,
   Blockquote,
@@ -68,7 +66,7 @@ import {
   Columns,
 } from 'echo-editor'
 import OpenAI from 'openai'
-import { DEMO_CONTENT } from './demo-content'
+import { DEMO_CONTENT } from './initContent'
 const content = ref(DEMO_CONTENT)
 
 const theme = ref<string | null>(null)
@@ -94,7 +92,6 @@ const extensions = [
   MoreMark,
   Color.configure({ spacer: true }),
   Highlight,
-  TextAlign.configure({ spacer: true }),
   BulletList,
   OrderedList,
   Indent,
@@ -128,9 +125,9 @@ const extensions = [
   CodeBlock,
   Table,
   ImportWord.configure({ spacer: true }),
-  AI.configure({
-    completions: text => AICompletions(text),
-  }),
+  // AI.configure({
+  //   completions: text => AICompletions(text),
+  // }),
 ]
 async function AICompletions(text?: string) {
   // 从.env中获取key 请自行替换
@@ -140,7 +137,6 @@ async function AICompletions(text?: string) {
     console.error('请配置VITE_OPENAI_API_KEY')
     return
   }
-  console.log('tex', text)
   const openai = new OpenAI({
     apiKey: apiKey,
     dangerouslyAllowBrowser: true,
