@@ -67,6 +67,7 @@ import {
 } from 'echo-editor'
 import OpenAI from 'openai'
 import { DEMO_CONTENT } from './initContent'
+import { createLowlight, common } from 'lowlight'
 const content = ref(DEMO_CONTENT)
 
 const theme = ref<string | null>(null)
@@ -122,7 +123,7 @@ const extensions = [
   SlashCommand,
   HorizontalRule,
   Fullscreen.configure({ spacer: true }),
-  CodeBlock,
+  CodeBlock.configure({ lowlight: createLowlight(common) }),
   Table,
   ImportWord.configure({ spacer: true }),
   // AI.configure({
