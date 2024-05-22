@@ -1,6 +1,6 @@
 {
   "name": "echo-editor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "license": "MIT",
   "description": "A modern WYSIWYG rich-text editor using tiptap for Vue.js",
@@ -43,6 +43,7 @@
   ],
   "main": "./lib/echo-editor.umd.js",
   "module": "./lib/echo-editor.mjs",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
@@ -52,13 +53,9 @@
     "./style.css": {
       "import": "./lib/style.css",
       "require": "./lib/style.css"
-    },
-    "./styles/": {
-      "import": "./lib/styles/",
-      "require": "./lib/styles/"
     }
   },
-  "types": "./lib/index.d.ts",
+  "sideEffects": false,
   "files": [
     "lib",
     "package.json",
@@ -111,7 +108,6 @@
     "@tiptap/extension-text-style": "^2.3.0",
     "@tiptap/extension-underline": "^2.3.0",
     "@tiptap/pm": "^2.3.0",
-    "@tiptap/starter-kit": "^2.3.0",
     "@tiptap/suggestion": "^2.3.1",
     "@tiptap/vue-3": "^2.3.0",
     "@vee-validate/zod": "^4.12.8",
@@ -119,18 +115,15 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "echo-drag-handle-plugin": "^0.0.2",
-    "lowlight": "^3.1.0",
     "lucide-vue-next": "^0.378.0",
-    "radix-vue": "^1.7.4",
-    "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7",
     "tippy.js": "^6.3.7",
-    "uuid": "^9.0.1",
     "vee-validate": "^4.12.8",
-    "y-prosemirror": "^1.2.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "radix-vue": "^1.7.3",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@commitlint/cz-commitlint": "^19.2.0",

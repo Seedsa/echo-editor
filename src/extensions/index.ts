@@ -1,5 +1,3 @@
-export { default as StarterKit } from '@tiptap/starter-kit'
-
 export { Bold } from './Bold'
 export type { BoldOptions } from './Bold'
 
