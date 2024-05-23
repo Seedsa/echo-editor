@@ -29,7 +29,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
-  <TooltipPortal disabled>
+  <TooltipPortal>
     <TooltipContent
       v-bind="{ ...forwarded, ...$attrs }"
       :class="
