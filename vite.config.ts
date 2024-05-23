@@ -18,7 +18,7 @@ export default defineConfig({
     }),
   ],
   optimizeDeps: {
-    include: ['vue','zod','vee-validate','@vee-validate/zod'],
+    include: ['vue', 'zod', 'vee-validate', '@vee-validate/zod'],
   },
   resolve: {
     alias: {

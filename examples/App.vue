@@ -64,6 +64,7 @@ import {
   locale,
   ImportWord,
   Columns,
+  TextAlign,
 } from 'echo-editor'
 import OpenAI from 'openai'
 import { DEMO_CONTENT } from './initContent'
@@ -95,6 +96,7 @@ const extensions = [
   Highlight,
   BulletList,
   OrderedList,
+  TextAlign.configure({ types: ['heading', 'paragraph', 'image'], spacer: true }),
   Indent,
   LineHeight,
   TaskList.configure({

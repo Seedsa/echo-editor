@@ -26,9 +26,6 @@ import type { TrailingNodeOptions } from './TrailingNode/TrailingNode'
 import Iframe from './Iframe/Iframe'
 import type { IframeOptions } from './Iframe/Iframe'
 
-import { TextAlign } from './TextAlign'
-import type { TextAlignOptions } from './TextAlign'
-
 import type { BubbleOptions } from '../components/menus/bubble'
 import { defaultBubbleList, generateBubbleTypeMenu } from '../components/menus/bubble'
 
@@ -148,13 +145,6 @@ export interface BaseKitOptions {
    * @default true
    */
   selection: any | false
-
-  /**
-   * text align options or false, indicating whether to enable the text align
-   *
-   * @default true
-   */
-  textAlign: Partial<TextAlignOptions> | false
 }
 
 export const BaseKit = Extension.create<BaseKitOptions>({
@@ -263,9 +253,6 @@ export const BaseKit = Extension.create<BaseKitOptions>({
 
     if (this.options.selection !== false) {
       extensions.push(Selection)
-    }
-    if (this.options.textAlign !== false) {
-      extensions.push(TextAlign.configure({ types: ['heading', 'paragraph', 'image'], ...this.options.textAlign }))
     }
 
     return extensions
