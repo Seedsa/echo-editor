@@ -29,7 +29,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
-  <PopoverPortal>
+  <PopoverPortal disabled>
     <PopoverContent
       v-bind="{ ...forwarded, ...$attrs }"
       :class="
