@@ -48,7 +48,6 @@ declare module '@tiptap/core' {
 }
 
 export const Image = TiptapImage.extend<ImageOptions>({
-  group: 'block',
   addAttributes() {
     return {
       ...this.parent?.(),
@@ -103,6 +102,7 @@ export const Image = TiptapImage.extend<ImageOptions>({
       upload: undefined,
       imageTabs: [],
       hiddenTabs: [],
+      inline: true,
       button: ({ editor, extension, t }) => {
         const { upload, imageTabs, hiddenTabs } = extension.options
         return {

@@ -203,7 +203,7 @@ watchEffect(effect => {
 
 <template>
   <NodeViewWrapper
-    as="div"
+    as="span"
     :class="imageViewClass"
     :style="{ imageMaxStyle, textAlign: node.attrs.textAlign, width: '100%' }"
   >

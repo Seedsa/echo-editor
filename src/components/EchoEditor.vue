@@ -181,15 +181,14 @@ defineExpose({ editor })
       <ColumnsMenu :editor="editor" />
       <TableBubbleMenu :editor="editor" />
       <BubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
-
       <div
         class="flex flex-col w-full max-h-full"
         :class="[isFullscreen && 'fixed inset-0 z-[200] w-full h-full m-0 rounded-none']"
       >
         <Toolbar v-if="!hideToolbar" :editor="editor" class="border-b py-2 px-1" />
         <editor-content :editor="editor" :class="contentClass" :style="contentDynamicStyles" />
-        <slot name="footer" v-bind="{ editor }">
-          <div v-if="hasExtension(editor, 'characterCount')" class="flex flex-col p-3 border-t">
+        <div class="flex justify-between border-t p-3 items-center">
+          <div v-if="hasExtension(editor, 'characterCount')" class="flex flex-col">
             <div class="flex justify-end gap-3 text-sm">
               <template v-if="hasExtension(editor, 'characterCount')">
                 <span>
@@ -198,8 +197,9 @@ defineExpose({ editor })
                 </span>
               </template>
             </div>
-          </div></slot
-        >
+          </div>
+          <slot name="footer" v-bind="{ editor }"> </slot>
+        </div>
       </div>
       <Toaster />
     </div>

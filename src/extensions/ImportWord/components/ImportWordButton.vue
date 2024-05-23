@@ -4,6 +4,7 @@ import type { Editor } from '@tiptap/vue-3'
 import { useToast } from '@/components/ui/toast/use-toast'
 import { ButtonViewReturnComponentProps } from '@/type'
 import ActionButton from '@/components/ActionButton.vue'
+import { hasExtension } from '@/utils/utils'
 
 interface Props {
   editor: Editor
@@ -58,27 +59,36 @@ async function filerImage(html: string) {
   const parser = new DOMParser()
   const doc = parser.parseFromString(html, 'text/html')
   const images = doc.querySelectorAll('img')
-  for (let img of images) {
-    const originalSrc = img.getAttribute('src')
-    const blob = base64ToBlob(originalSrc, 'image/jpeg')
-    // 将 Blob 转换成 File
-    const file = blobToFile(blob, 'image.jpeg')
-    // 获取tiptap 上传
+  const hasImage = hasExtension(props.editor, 'image')
+  if (hasImage) {
     const uploadOptions = props.editor.extensionManager.extensions.find(
       extension => extension.name === 'image'
     )?.options
-    let url = ''
     if (uploadOptions && typeof uploadOptions.upload === 'function') {
-      const res = await uploadOptions.upload([file])
-      url = res[0].src
+      const files: File[] = []
+      for (let img of images) {
+        const originalSrc = img.getAttribute('src')
+        const blob = base64ToBlob(originalSrc, 'image/jpeg')
+        // 将 Blob 转换成 File
+        const file = blobToFile(blob, 'image.jpeg')
+        files.push(file)
+      }
+      const uploadRes = await uploadOptions.upload(files)
+      // 批量设置images
+      for (let i = 0; i < images.length; i++) {
+        const img = images[i]
+        console.log(img, uploadRes[i].src)
+        img.setAttribute('src', uploadRes[i].src)
+      }
+      return doc.body.innerHTML
     } else {
-      console.log('未找到上传方法 转化为DataURL')
-      url = URL.createObjectURL(blob)
+      console.log('未找到上传方法 跳过图片转换')
+      return doc.body.innerHTML
     }
-    const newSrc = url
-    img.setAttribute('src', newSrc)
+  } else {
+    console.error('未找到image拓展，无法转换图片')
+    return doc.body.innerHTML
   }
-  return doc.body.innerHTML
 }
 async function importWord() {
   if (props.convert) {
@@ -122,6 +132,7 @@ async function importWord() {
 }
 async function handleResult(htmlResult: string) {
   const html = await filerImage(htmlResult)
+  console.log(html)
   props.editor.commands.setContent(html)
   loading.value = false
   toast({

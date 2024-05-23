@@ -23,7 +23,8 @@
       :min-height="512"
       maxWidth="900"
       :dark="theme === 'dark'"
-    />
+    >
+    </echo-editor>
     <div title="content" style="margin-top: 20px">
       {{ content }}
     </div>
