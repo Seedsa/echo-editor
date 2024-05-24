@@ -66,6 +66,8 @@ import {
   ImportWord,
   Columns,
   TextAlign,
+  ImageUpload,
+  VideoUpload,
 } from 'echo-editor'
 import OpenAI from 'openai'
 import { DEMO_CONTENT } from './initContent'
@@ -107,7 +109,8 @@ const extensions = [
     },
   }),
   Link,
-  Image.configure({
+  Image,
+  ImageUpload.configure({
     upload: (files: File[]) => {
       const f = files.map(file => ({
         src: URL.createObjectURL(file),
@@ -116,10 +119,14 @@ const extensions = [
       return Promise.resolve(f)
     },
   }),
-  Video.configure({
-    upload: (file: File) => {
-      const mockUrl = 'https://www.w3schools.com/html/mov_bbb.mp4'
-      return Promise.resolve(mockUrl)
+  Video,
+  VideoUpload.configure({
+    upload: (files: File[]) => {
+      const f = files.map(file => ({
+        src: URL.createObjectURL(file),
+        alt: file.name,
+      }))
+      return Promise.resolve(f)
     },
   }),
   Blockquote,
