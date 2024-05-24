@@ -144,6 +144,7 @@ export const NODE_TYPE_MENU: any = {
     'italic',
     'underline',
     'strike',
+    'code',
     'link',
     'divider',
     'color',

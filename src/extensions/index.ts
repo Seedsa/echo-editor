@@ -95,3 +95,7 @@ export type { ImportWordOptions } from './ImportWord'
 
 export { Columns } from './MultiColumn'
 export type { ColumnsOptions } from './MultiColumn'
+
+export { ImageUpload } from './ImageUpload'
+
+export { VideoUpload } from './VideoUpload'

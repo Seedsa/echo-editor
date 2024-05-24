@@ -93,6 +93,17 @@ export const GROUPS: Group[] = [
     title: '插入',
     commands: [
       {
+        name: 'image',
+        label: t.value('editor.image.tooltip'),
+        iconName: 'ImageUp',
+        description: 'Insert a image',
+        aliases: ['image', 'tp', 'tupian'],
+        shouldBeHidden: editor => editor.isActive('columns'),
+        action: ({ editor, range }) => {
+          editor.chain().focus().deleteRange(range).setImageUpload().run()
+        },
+      },
+      {
         name: 'table',
         label: t.value('editor.table.tooltip'),
         iconName: 'Table',
@@ -111,6 +122,17 @@ export const GROUPS: Group[] = [
         aliases: ['hr', 'fgx', 'fg'],
         action: ({ editor, range }) => {
           editor.chain().focus().deleteRange(range).setHorizontalRule().run()
+        },
+      },
+      {
+        name: 'video',
+        label: t.value('editor.video.tooltip'),
+        iconName: 'Video',
+        description: 'Insert a video',
+        aliases: ['video', 'sp', 'shipin'],
+        shouldBeHidden: editor => editor.isActive('columns'),
+        action: ({ editor, range }) => {
+          editor.chain().focus().deleteRange(range).setVideoUpload().run()
         },
       },
       {

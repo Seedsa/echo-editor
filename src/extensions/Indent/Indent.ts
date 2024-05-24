@@ -43,7 +43,7 @@ export const Indent = Extension.create<IndentOptions>({
               },
               shortcutKeys: ['Tab'],
               icon: 'IndentIncrease',
-              tooltip: t('editor.indent.indent'),
+              tooltip: t('editor.indent.tooltip'),
             },
           },
           {
@@ -54,7 +54,7 @@ export const Indent = Extension.create<IndentOptions>({
               },
               shortcutKeys: ['Shift', 'Tab'],
               icon: 'IndentDecrease',
-              tooltip: t('editor.indent.outdent'),
+              tooltip: t('editor.outdent.tooltip'),
             },
           },
         ]

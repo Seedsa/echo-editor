@@ -1,15 +1,12 @@
 import { Node } from '@tiptap/core'
 
-import VideoActionButton from './components/VideoActionButton.vue'
-
 import { VIDEO_SIZE } from '@/constants'
-import type { GeneralOptions } from '@/type'
 import { getCssUnitWithDefault } from '@/utils/utils'
 
 /**
  * Represents the interface for video options, extending GeneralOptions.
  */
-export interface VideoOptions extends GeneralOptions<VideoOptions> {
+export interface VideoOptions {
   /**
    * Indicates whether fullscreen play is allowed
    *
@@ -155,7 +152,6 @@ export const Video = Node.create<VideoOptions>({
             attrs: options,
           })
         },
-
       updateVideo:
         options =>
         ({ commands }) => {
@@ -175,19 +171,6 @@ export const Video = Node.create<VideoOptions>({
       HTMLAttributes: {
         class: 'iframe-wrapper',
         style: 'display: flex;justify-content: center;',
-      },
-      button: ({ editor, extension, t }) => {
-        const { upload } = extension.options
-        return {
-          component: VideoActionButton,
-          componentProps: {
-            isActive: () => editor.isActive('video') || false,
-            icon: 'Video',
-            upload,
-            tooltip: t('editor.video.tooltip'),
-          },
-          disabled: !editor.can().setVideo({}),
-        }
       },
     }
   },

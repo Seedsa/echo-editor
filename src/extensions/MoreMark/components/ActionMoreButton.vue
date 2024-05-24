@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import ActionButton from '@/components/ActionButton.vue'
 import type { ButtonViewReturnComponentProps } from '@/type'
-import { getShortcutKey } from '@/utils/plateform'
+import { getShortcutKeys } from '@/utils/plateform'
 
 export interface Item {
   title: string
@@ -71,17 +71,18 @@ const active = computed(() => {
         </ActionButton>
       </div>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-24">
+    <DropdownMenuContent class="w-full">
       <DropdownMenuCheckboxItem
         v-for="(item, index) in props.items"
         :checked="active.title === item.title"
         @click="item.action"
         :key="index"
+        class="flex gap-3 items-center"
       >
         <Icon :name="item.icon" v-if="item.icon" />
         <span class="ml-1">{{ item.title }}</span>
-        <DropdownMenuShortcut>{{
-          item.shortcutKeys?.map(item => getShortcutKey(item)).join(' ')
+        <DropdownMenuShortcut class="ml-auto" v-if="item.shortcutKeys">{{
+          getShortcutKeys(item.shortcutKeys)
         }}</DropdownMenuShortcut>
       </DropdownMenuCheckboxItem>
     </DropdownMenuContent>

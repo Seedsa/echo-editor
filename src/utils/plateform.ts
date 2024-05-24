@@ -28,6 +28,9 @@ export function getShortcutKey(key: string): string {
     return key
   }
 }
+export function getShortcutKeys(keys: string[]): string {
+  return keys.map(getShortcutKey).join(' ')
+}
 
 /** Return true if the user is using a touch-based device. */
 export function isTouchDevice(): boolean {

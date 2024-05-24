@@ -27,7 +27,7 @@ export const HorizontalRule = TiptapHorizontalRule.extend<HorizontalRuleOptions>
           action: () => editor.commands.setHorizontalRule(),
           disabled: !editor.can().setHorizontalRule(),
           icon: 'Minus',
-          shortcutKeys: ['alt', 'mod', 'S'],
+          shortcutKeys: ['mod', 'alt', 'S'],
           tooltip: t('editor.horizontalrule.tooltip'),
         },
       }),
@@ -35,7 +35,6 @@ export const HorizontalRule = TiptapHorizontalRule.extend<HorizontalRuleOptions>
   },
   addKeyboardShortcuts() {
     return {
-      // ↓ your new keyboard shortcut
       'Mod-Alt-s': () => this.editor.commands.setHorizontalRule(),
     }
   },

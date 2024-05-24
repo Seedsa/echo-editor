@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Icon } from '@/components/icons'
 import { ButtonViewReturnComponentProps } from '@/type'
-import { getShortcutKey } from '@/utils/plateform'
+import { getShortcutKeys } from '@/utils/plateform'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
     <TooltipTrigger as-child>
       <Button :icon="icon" class="h-[32px] px-[5px] py-0" variant="ghost">
         <div class="flex items-center h-full font-normal">
-          <div class="text-left line-clamp-1 text-sm w-14">{{ title }}</div>
+          <div class="text-left line-clamp-1 text-sm">{{ title }}</div>
           <Icon class="w-3 h-3 ml-1 text-zinc-500" name="MenuDown" />
         </div>
       </Button>
@@ -40,10 +40,8 @@ const props = withDefaults(defineProps<Props>(), {
     <TooltipContent>
       <div class="max-w-24 text-center flex flex-col items-center">
         <div>{{ tooltip }}</div>
-        <div class="flex gap-1" v-if="shortcutKeys && shortcutKeys.length">
-          <span v-for="(shortcutKey, index) in shortcutKeys" :key="index">
-            {{ getShortcutKey(shortcutKey) }}
-          </span>
+        <div class="flex" v-if="shortcutKeys && shortcutKeys.length">
+          <span>{{ getShortcutKeys(shortcutKeys) }}</span>
         </div>
       </div>
     </TooltipContent>

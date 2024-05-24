@@ -19,7 +19,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { setNodeIndentMarkup } from '@/utils/indent'
+import { IndentProps, setNodeIndentMarkup } from '@/utils/indent'
+import { getShortcutKey, getShortcutKeys } from '@/utils/plateform'
 
 type PluginRefType = Plugin<{
   locked: boolean
@@ -98,6 +99,9 @@ function duplicateNode() {
     .setMeta('hideDragHandle', true)
     .insertContentAt(currentNodePos.value + (currentNode.value?.nodeSize || 0), selectedNode.toJSON())
     .run()
+}
+function setTextAlign(alignments: string) {
+  props.editor.commands.setTextAlign(alignments)
 }
 function increaseIndent() {
   const indentTr = setNodeIndentMarkup(props.editor.state.tr, currentNodePos.value, 1)
@@ -199,35 +203,73 @@ watch(
             class="flex gap-3 focus:text-red-500 focus:bg-red-400 hover:bg-red-400 dark:hover:text-red-500 bg-opacity-10 hover:bg-opacity-20 focus:bg-opacity-30 dark:hover:bg-opacity-20"
           >
             <Icon name="Trash2" />
-            <span>删除</span>
+            <span>{{ t('editor.remove') }}</span>
           </DropdownMenuItem>
           <DropdownMenuItem class="flex gap-3" @click="resetTextFormatting">
             <Icon name="PaintRoller" />
-            <span>清除文本格式</span>
+            <span>{{ t('editor.clear.tooltip') }}</span>
           </DropdownMenuItem>
-          <DropdownMenuItem class="flex gap-3" @click="copyNodeToClipboard">
+          <!-- <DropdownMenuItem class="flex gap-3" @click="copyNodeToClipboard">
             <Icon name="Clipboard" />
             <span>复制到剪切板</span>
-          </DropdownMenuItem>
+          </DropdownMenuItem> -->
           <DropdownMenuItem class="flex gap-3" @click="duplicateNode">
             <Icon name="Copy" />
-            <span>复制</span>
+            <span>{{ t('editor.copy') }}</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuSub>
             <DropdownMenuSubTrigger class="flex gap-3">
-              <Icon name="IndentIncrease" />
-              <span>缩进</span>
+              <Icon name="AlignCenter" />
+              <span>{{ t('editor.textalign.tooltip') }}</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem class="flex gap-3" @click="increaseIndent">
-                  <Icon name="IndentIncrease" />
-                  <span>增加缩进</span>
+                <DropdownMenuItem class="flex gap-3" @click="setTextAlign('left')">
+                  <Icon name="AlignLeft" />
+                  <span>{{ t('editor.textalign.left.tooltip') }}</span>
+                  <span class="ml-auto text-xs text-neutral-400">{{ getShortcutKeys(['Mod', 'Shift', 'L']) }}</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem class="flex gap-3" @click="decreaseIndent">
+
+                <DropdownMenuItem class="flex gap-3" @click="setTextAlign('center')">
+                  <Icon name="AlignCenter" />
+                  <span>{{ t('editor.textalign.center.tooltip') }}</span>
+                  <span class="ml-auto text-xs text-neutral-400">{{ getShortcutKeys(['Mod', 'Shift', 'E']) }}</span>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem class="flex gap-3" @click="setTextAlign('right')">
+                  <Icon name="AlignRight" />
+                  <span>{{ t('editor.textalign.right.tooltip') }}</span>
+                  <span class="ml-auto text-xs text-neutral-400">{{ getShortcutKeys(['Mod', 'Shift', 'R']) }}</span>
+                </DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger class="flex gap-3">
+              <Icon name="IndentIncrease" />
+              <span>{{ t('editor.indent') }}</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                <DropdownMenuItem
+                  class="flex gap-3"
+                  @click="increaseIndent"
+                  :disabled="currentNode?.attrs?.indent >= IndentProps.max"
+                >
+                  <Icon name="IndentIncrease" />
+                  <span>{{ t('editor.indent.tooltip') }}</span>
+                  <span class="ml-auto text-xs text-neutral-400">{{ getShortcutKeys(['Tab']) }}</span>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  class="flex gap-3"
+                  @click="decreaseIndent"
+                  :disabled="currentNode?.attrs?.indent <= IndentProps.min"
+                >
                   <Icon name="IndentDecrease" />
-                  <span>减少缩进</span>
+                  <span>{{ t('editor.outdent.tooltip') }}</span>
+                  <span class="ml-auto text-xs text-neutral-400">{{ getShortcutKeys(['Shift', 'Tab']) }}</span>
                 </DropdownMenuItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>

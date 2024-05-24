@@ -1,5 +1,6 @@
 const locale: Record<string, string> = {
   'editor.remove': 'Remove',
+  'editor.copy': 'Copy',
   'editor.words': 'WORDS',
   'editor.characters': 'CHARACTERS',
   'editor.default': 'Default',
@@ -7,7 +8,7 @@ const locale: Record<string, string> = {
   'editor.nofill': 'No Fill',
   'editor.format': 'Format Painter',
   'editor.draghandle.tooltip': 'Click And Drag',
-  'editor.importWrod': 'Import Word',
+  'editor.importWrod.tooltip': 'Import Word',
   'editor.slash': "Press '/' for commands",
   'editor.content': 'Please input content',
   'editor.moremark': 'More Text Styles',
@@ -55,6 +56,7 @@ const locale: Record<string, string> = {
   'editor.link.dialog.title': 'Insert Link',
   'editor.link.dialog.link': 'Link',
   'editor.link.dialog.text': 'Text',
+  'editor.link.dialog.openInNewTab': 'Open In New Tab',
   'editor.link.dialog.link.placeholder': 'Link Address',
   'editor.link.dialog.text.placeholder': 'Add Description',
   'editor.link.dialog.button.apply': 'Apply',

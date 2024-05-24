@@ -40,7 +40,6 @@ interface Props {
   editor: Editor
   icon?: any
   tooltip?: string
-  keyboard?: string
   disabled?: boolean
   action?: ButtonViewReturnComponentProps['action']
   isActive?: ButtonViewReturnComponentProps['isActive']
@@ -50,7 +49,6 @@ const props = withDefaults(defineProps<Props>(), {
   icon: undefined,
   tooltip: undefined,
   disabled: false,
-  keyboard: undefined,
   action: undefined,
   isActive: undefined,
 })
@@ -67,14 +65,12 @@ function toggleLightheight(key: string) {
 
 <template>
   <DropdownMenu>
-    <DropdownMenuTrigger as-child>
-      <div style="display: flex">
-        <ActionButton custom-class="w-12" icon="LineHeight" :tooltip="tooltip">
-          <Icon class="w-3 h-3 text-zinc-500 ml-1" name="MenuDown" />
-        </ActionButton>
-      </div>
+    <DropdownMenuTrigger>
+      <ActionButton custom-class="w-12" icon="LineHeight" :tooltip="tooltip">
+        <Icon class="w-3 h-3 text-zinc-500 ml-1" name="MenuDown" />
+      </ActionButton>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="min-w-4 w-20">
+    <DropdownMenuContent class="min-w-24">
       <DropdownMenuCheckboxItem
         v-for="(item, index) in LineHeights"
         :key="index"
