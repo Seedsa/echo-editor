@@ -32,7 +32,6 @@ export const SlashCommand = Extension.create({
   },
 
   addProseMirrorPlugins() {
-    const groups = renderGroups(this.editor)
     return [
       Suggestion({
         editor: this.editor,
@@ -62,6 +61,7 @@ export const SlashCommand = Extension.create({
         },
         items: ({ query, editor }: { query: string; editor: Editor }) => {
           // Filter commands
+          const groups = renderGroups(this.editor)
           const withFilteredCommands = groups.map(group => ({
             ...group,
             commands: group.commands

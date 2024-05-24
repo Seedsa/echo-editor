@@ -69,6 +69,7 @@ import {
   TextAlign,
   ImageUpload,
   VideoUpload,
+  Code,
 } from 'echo-editor'
 import OpenAI from 'openai'
 import { DEMO_CONTENT } from './initContent'
@@ -137,6 +138,7 @@ const extensions = [
   Fullscreen.configure({ spacer: true }),
   CodeBlock.configure({ lowlight: createLowlight(common) }),
   Table,
+  Code,
   ImportWord.configure({ spacer: true }),
   // AI.configure({
   //   completions: text => AICompletions(text),
