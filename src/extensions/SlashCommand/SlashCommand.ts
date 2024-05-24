@@ -33,7 +33,6 @@ export const SlashCommand = Extension.create({
 
   addProseMirrorPlugins() {
     const groups = renderGroups(this.editor)
-
     return [
       Suggestion({
         editor: this.editor,

@@ -3,6 +3,7 @@ import { Group } from './types'
 import { useLocale } from '@/locales'
 import { hasExtension } from '@/utils/utils'
 import { AllEmbedServices } from '@/extensions/Iframe/embed'
+
 const { t } = useLocale()
 
 export const GROUPS: Group[] = [
@@ -14,7 +15,6 @@ export const GROUPS: Group[] = [
         name: 'heading1',
         label: t.value('editor.heading.h1.tooltip'),
         aliases: ['h1', 'bt', 'bt1'],
-        description: 'okok',
         iconName: 'Heading1',
         action: ({ editor, range }) => {
           editor.chain().focus().deleteRange(range).setHeading({ level: 1 }).run()

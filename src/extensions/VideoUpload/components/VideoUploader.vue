@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
+import { ref } from 'vue'
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -7,12 +7,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Icon } from '@/components/icons'
+import { useLocale } from '@/locales'
 const props = defineProps({
   ...nodeViewProps,
 })
 
-const link = ref('')
-const loading = ref(false)
+const link = ref<string>('')
+const loading = ref<boolean>(false)
+const fileInput = ref()
+
+const { t } = useLocale()
+
 function handleFile(event) {
   loading.value = true
   const files = event?.target?.files
@@ -42,6 +47,12 @@ function handleLink() {
     .focus()
     .run()
 }
+function handleDelete() {
+  props.deleteNode()
+}
+function handleClick() {
+  fileInput.value?.click()
+}
 </script>
 
 <template>
@@ -53,28 +64,40 @@ function handleLink() {
         >
           <div class="flex justify-center items-center gap-3 text-s" v-if="loading">
             <Icon class="animate-spin w-6 h-6" name="LoaderCircle" />
-            <span>正在上传...</span>
+            <span>{{ t('editor.video.dialog.uploading') }}...</span>
           </div>
-          <div class="flex justify-center items-center gap-3" v-else>
-            <Icon name="Video" class="w-6 h-6" />
-            <span class="text-sm">添加视频</span>
+          <div v-else class="flex justify-between items-center w-full">
+            <div class="flex justify-center items-center gap-3">
+              <Icon name="Video" class="w-6 h-6" />
+              <span class="text-sm">{{ t('editor.video.dialog.title') }}</span>
+            </div>
+            <Icon name="Trash2" class="hover:text-foreground" @click.stop="handleDelete" />
           </div>
         </div>
       </PopoverTrigger>
       <PopoverContent trapFocus class="w-full" :onOpenAutoFocus="e => e.preventDefault()">
         <Tabs default-value="upload" class="w-[400px]" activationMode="manual">
           <TabsList class="grid w-full grid-cols-2">
-            <TabsTrigger value="upload">上传 </TabsTrigger>
-            <TabsTrigger value="link"> 网络视频 </TabsTrigger>
+            <TabsTrigger value="upload">{{ t('editor.video.dialog.tab.upload') }} </TabsTrigger>
+            <TabsTrigger value="link"> {{ t('editor.video.dialog.link') }} </TabsTrigger>
           </TabsList>
           <TabsContent value="upload">
-            <Input id="picture" accept="video/*" type="file" @change="handleFile" />
+            <Button class="w-full mt-1" size="sm" @click="handleClick">{{
+              t('editor.video.dialog.tab.upload')
+            }}</Button>
+            <input type="file" accept="video/*" ref="fileInput" multiple style="display: none" @change="handleFile" />
           </TabsContent>
           <TabsContent value="link">
             <form @submit.prevent="handleLink">
               <div class="flex items-center gap-2">
-                <Input type="url" autofocus required v-model="link" placeholder="请输入图片链接" />
-                <Button type="submit">确认</Button>
+                <Input
+                  type="url"
+                  autofocus
+                  required
+                  v-model="link"
+                  :placeholder="t('editor.video.dialog.placeholder')"
+                />
+                <Button type="submit">{{ t('editor.video.dialog.button.apply') }}</Button>
               </div>
             </form>
           </TabsContent>
