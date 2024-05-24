@@ -10,11 +10,12 @@
       margin: 0 auto;
     "
   >
-    <div class="flex gap-32">
+    <div style="display: flex; gap: 12px">
       <button ghost @click="locale.setLang('zhHans')">中文</button>
-      <button ghost @click="locale.setLang('en')">英文</button>
+      <button ghost @click="locale.setLang('en')">English</button>
       <button ghost @click="theme = 'dark'">dark</button>
       <button ghost @click="theme = null">light</button>
+      <a href="https://github.com/Seedsa/echo-editor" target="__blank">Github</a>
     </div>
     <echo-editor
       v-model="content"
@@ -75,6 +76,7 @@ import { createLowlight, common } from 'lowlight'
 const content = ref(DEMO_CONTENT)
 
 const theme = ref<string | null>(null)
+
 const extensions = [
   BaseKit.configure({
     placeholder: {
