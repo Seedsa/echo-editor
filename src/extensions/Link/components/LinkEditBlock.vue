@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, watchEffect } from 'vue'
+import { reactive, watchEffect, ref } from 'vue'
 import { Switch } from '@/components/ui/switch'
 import { Icon } from '@/components/icons'
 import { Input } from '@/components/ui/input'
@@ -19,8 +19,8 @@ const { t } = useLocale()
 let form = reactive({
   text: '',
   link: '',
-  openInNewTab: true,
 })
+const openInNewTab = ref<boolean>(false)
 
 watchEffect(() => {
   const { href: link, target } = props.editor.getAttributes('link')
@@ -28,12 +28,12 @@ watchEffect(() => {
   const text = props.editor.state.doc.textBetween(from, to, ' ')
   form = {
     link,
-    openInNewTab: target ? (target === '_blank' ? true : false) : true,
     text,
   }
+  openInNewTab.value = target === '_blank' ? true : false
 })
 function handleSubmit() {
-  emits('onSetLink', form.link, form.text, form.openInNewTab)
+  emits('onSetLink', form.link, form.text, openInNewTab.value)
 }
 </script>
 
@@ -57,7 +57,7 @@ function handleSubmit() {
       </div>
       <div class="flex items-center space-x-2">
         <Label>{{ t('editor.link.dialog.openInNewTab') }}</Label>
-        <Switch :checked="form.openInNewTab" />
+        <Switch v-model:checked="openInNewTab" />
       </div>
       <Button type="submit" class="mt-2 self-end">{{ t('editor.link.dialog.button.apply') }} </Button>
     </form>
