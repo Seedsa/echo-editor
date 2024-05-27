@@ -10,7 +10,7 @@ export const DEMO_CONTENT = {
       type: 'paragraph',
       attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null },
       content: [
-        { type: 'text', text: '一个现代的所见即所得的AI富文本编辑器基于 ' },
+        { type: 'text', text: 'A modern WYSIWYG AI rich text editor based on ' },
         {
           type: 'text',
           marks: [
@@ -20,13 +20,13 @@ export const DEMO_CONTENT = {
                 href: 'https://github.com/scrumpy/tiptap',
                 target: '_blank',
                 rel: 'noopener noreferrer nofollow',
-                class: null,
+                class: 'link',
               },
             },
           ],
           text: 'tiptap',
         },
-        { type: 'text', text: ' 和 ' },
+        { type: 'text', text: ' and ' },
         {
           type: 'text',
           marks: [
@@ -36,13 +36,32 @@ export const DEMO_CONTENT = {
                 href: 'https://www.shadcn-vue.com/',
                 target: '_blank',
                 rel: 'noopener noreferrer nofollow',
-                class: null,
+                class: 'link',
               },
             },
           ],
           text: 'shadcn ui',
         },
         { type: 'text', text: ' for Vue.js' },
+      ],
+    },
+    { type: 'paragraph', attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null } },
+    {
+      type: 'paragraph',
+      attrs: { class: null, textAlign: 'center', indent: 0, lineHeight: null },
+      content: [
+        {
+          type: 'image',
+          attrs: {
+            textAlign: 'center',
+            src: 'https://picsum.photos/1920/1080.webp?t=1',
+            title: null,
+            lockAspectRatio: true,
+            width: 500,
+            height: null,
+            display: 'inline',
+          },
+        },
       ],
     },
     { type: 'paragraph', attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null } },
@@ -61,9 +80,17 @@ export const DEMO_CONTENT = {
         {
           type: 'text',
           marks: [
-            { type: 'link', attrs: { href: '', target: '_blank', rel: 'noopener noreferrer nofollow', class: null } },
+            {
+              type: 'link',
+              attrs: {
+                href: 'https://echo-editor.vercel.app/',
+                target: '_blank',
+                rel: 'noopener noreferrer nofollow',
+                class: 'link',
+              },
+            },
           ],
-          text: 'comming soon',
+          text: 'Demo',
         },
       ],
     },
@@ -92,7 +119,7 @@ export const DEMO_CONTENT = {
                         href: 'https://naiveui.com',
                         target: '_blank',
                         rel: 'noopener noreferrer nofollow',
-                        class: null,
+                        class: 'link',
                       },
                     },
                   ],
@@ -159,6 +186,16 @@ export const DEMO_CONTENT = {
             {
               type: 'paragraph',
               attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: 'Dark Mode' }],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'Multi Column' }],
             },
           ],
@@ -179,7 +216,17 @@ export const DEMO_CONTENT = {
             {
               type: 'paragraph',
               attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
-              content: [{ type: 'text', text: 'Embed ' }],
+              content: [{ type: 'text', text: 'Embed' }],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              content: [{ type: 'text', text: 'TailwindCss' }],
             },
           ],
         },
@@ -193,7 +240,24 @@ export const DEMO_CONTENT = {
     {
       type: 'codeBlock',
       attrs: { language: null },
-      content: [{ type: 'text', text: 'pnpm add echo-editor\n# or\nyarn add echo-editor\n# or\nnpm i echo-editor -S' }],
+      content: [
+        { type: 'text', text: 'pnpm add echo-editor\n// or\nor yarn add echo-editor\n// or\nor npm i echo-editor -S' },
+      ],
+    },
+    {
+      type: 'heading',
+      attrs: { textAlign: 'left', indent: 0, lineHeight: null, level: 3 },
+      content: [{ type: 'text', text: 'install plugin' }],
+    },
+    {
+      type: 'codeBlock',
+      attrs: { language: null },
+      content: [
+        {
+          type: 'text',
+          text: "import { createApp } from 'vue'\nimport App from './App.vue'\nimport EchoEditor from 'echo-editor'\nimport 'echo-editor/style.css'\nconst app = createApp(App)\napp.use(EchoEditor)\napp.mount('#app')",
+        },
+      ],
     },
     { type: 'paragraph', attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null } },
   ],

@@ -183,7 +183,7 @@ defineExpose({ editor })
       <BubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
       <div
         class="flex flex-col w-full max-h-full"
-        :class="[isFullscreen && 'fixed inset-0 z-[200] w-full h-full m-0 rounded-none']"
+        :class="[isFullscreen && 'fixed bg-background inset-0 z-[200] w-full h-full m-0 rounded-none']"
       >
         <Toolbar v-if="!hideToolbar" :editor="editor" class="border-b py-2 px-1" />
         <editor-content :editor="editor" :class="contentClass" :style="contentDynamicStyles" />

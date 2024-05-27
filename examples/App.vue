@@ -22,6 +22,7 @@
       :extensions="extensions"
       :max-height="1024"
       :min-height="512"
+      output="json"
       maxWidth="900"
       :dark="theme === 'dark'"
     >
@@ -39,7 +40,6 @@ import {
   BulletList,
   Italic,
   BaseKit,
-  AI,
   Underline,
   Strike,
   LineHeight,
