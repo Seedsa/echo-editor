@@ -8,6 +8,8 @@
 
 [English](./README.md) | 中文
 
+![App Screenshot](./screenshot/screenshot.png)
+
 ## 演示
 
 [演示](https://echo-editor.vercel.app/)

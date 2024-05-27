@@ -8,6 +8,8 @@ A modern WYSIWYG rich-text editor base on [tiptap](https://tiptap.dev) uses [sha
 
 English | [中文](./README.zh-CN.md)
 
+![App Screenshot](./screenshot/screenshot.png)
+
 ## Demo
 
 [Demo](https://echo-editor.vercel.app/)

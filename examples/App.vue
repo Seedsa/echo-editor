@@ -15,12 +15,14 @@
       <button ghost @click="locale.setLang('en')">English</button>
       <button ghost @click="theme = 'dark'">dark</button>
       <button ghost @click="theme = null">light</button>
+      <button ghost @click="hideToolbar = !hideToolbar">Hide Toolbar</button>
       <a href="https://github.com/Seedsa/echo-editor" target="__blank">Github</a>
     </div>
     <echo-editor
       v-model="content"
       :extensions="extensions"
       :max-height="1024"
+      :hideToolbar="hideToolbar"
       :min-height="512"
       output="json"
       maxWidth="900"
@@ -77,7 +79,7 @@ import { createLowlight, common } from 'lowlight'
 const content = ref(DEMO_CONTENT)
 
 const theme = ref<string | null>(null)
-
+const hideToolbar = ref(false)
 const extensions = [
   BaseKit.configure({
     placeholder: {
