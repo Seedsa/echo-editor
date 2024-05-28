@@ -59,10 +59,13 @@ async function filerImage(html: string) {
   const parser = new DOMParser()
   const doc = parser.parseFromString(html, 'text/html')
   const images = doc.querySelectorAll('img')
+  if (!images.length) {
+    return doc.body.innerHTML
+  }
   const hasImage = hasExtension(props.editor, 'image')
   if (hasImage) {
     const uploadOptions = props.editor.extensionManager.extensions.find(
-      extension => extension.name === 'image'
+      extension => extension.name === 'importWord'
     )?.options
     if (uploadOptions && typeof uploadOptions.upload === 'function') {
       const files: File[] = []
@@ -77,7 +80,6 @@ async function filerImage(html: string) {
       // 批量设置images
       for (let i = 0; i < images.length; i++) {
         const img = images[i]
-        console.log(img, uploadRes[i].src)
         img.setAttribute('src', uploadRes[i].src)
       }
       return doc.body.innerHTML
@@ -133,7 +135,7 @@ async function importWord() {
 async function handleResult(htmlResult: string) {
   const html = await filerImage(htmlResult)
   console.log(html)
-  props.editor.commands.setContent(html)
+  props.editor.chain().setContent(html, true).run()
   loading.value = false
   toast({
     title: '导入成功!',

@@ -1,6 +1,6 @@
 {
   "name": "echo-editor",
-  "version": "0.1.5",
+  "version": "0.1.8",
   "private": false,
   "license": "MIT",
   "description": "A modern WYSIWYG rich-text editor using tiptap for Vue.js",

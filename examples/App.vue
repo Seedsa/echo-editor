@@ -141,7 +141,15 @@ const extensions = [
   CodeBlock.configure({ lowlight: createLowlight(common) }),
   Table,
   Code,
-  ImportWord.configure({ spacer: true }),
+  ImportWord.configure({
+    upload: (files: File[]) => {
+      const f = files.map(file => ({
+        src: URL.createObjectURL(file),
+        alt: file.name,
+      }))
+      return Promise.resolve(f)
+    },
+  }),
   // AI.configure({
   //   completions: text => AICompletions(text),
   // }),
