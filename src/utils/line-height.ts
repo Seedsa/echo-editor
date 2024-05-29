@@ -5,8 +5,6 @@ import type { Command } from '@tiptap/core'
 
 export const ALLOWED_NODE_TYPES = ['paragraph', 'heading', 'list_item', 'todo_item']
 
-const NUMBER_VALUE_PATTERN = /^\d+(.\d+)?$/
-
 export function isLineHeightActive(state: EditorState, lineHeight: string): boolean {
   const { selection, doc } = state
   const { from, to } = selection
@@ -31,34 +29,6 @@ export function isLineHeightActive(state: EditorState, lineHeight: string): bool
   })
 
   return active
-}
-
-export function transformLineHeightToCSS(value: string | number): string {
-  if (!value) return ''
-
-  let strValue = String(value)
-
-  if (NUMBER_VALUE_PATTERN.test(strValue)) {
-    const numValue = parseFloat(strValue)
-    strValue = String(Math.round(numValue * 100)) + '%'
-  }
-
-  return parseFloat(strValue) * LINE_HEIGHT_100 + '%'
-}
-
-export function transformCSStoLineHeight(value: string): string {
-  if (!value) return ''
-  if (value === DEFAULT_LINE_HEIGHT) return ''
-
-  let strValue = value
-
-  if (NUMBER_VALUE_PATTERN.test(value)) {
-    const numValue = parseFloat(value)
-    strValue = String(Math.round(numValue * 100)) + '%'
-    if (strValue === DEFAULT_LINE_HEIGHT) return ''
-  }
-
-  return parseFloat(strValue) / LINE_HEIGHT_100 + '%'
 }
 
 interface SetLineHeightTask {
