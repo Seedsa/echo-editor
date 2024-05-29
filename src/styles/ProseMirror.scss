@@ -1,7 +1,7 @@
 .ProseMirror {
   /* Typography */
   p {
-    @apply leading-relaxed first:mt-0 last:mb-0;
+    @apply leading-relaxed mb-1.5 first:mt-0 last:mb-0;
   }
 
   & > p {
