@@ -14,7 +14,7 @@ export interface FontSizeOptions extends GeneralOptions<FontSizeOptions> {
    *
    * @default DEFAULT_FONT_SIZE_LIST
    */
-  fontSizes: number[]
+  fontSizes: string[]
 }
 
 declare module '@tiptap/core' {
@@ -44,7 +44,7 @@ export const FontSize = Extension.create<FontSizeOptions>({
       button({ editor, extension, t }) {
         const fontSizes = (extension.options?.fontSizes as FontSizeOptions['fontSizes']) || []
         const items: Item[] = [DEFAULT_FONT_SIZE_VALUE, ...fontSizes].map(k => ({
-          title: k === DEFAULT_FONT_SIZE_VALUE ? t('editor.fontSize.default.tooltip') : String(k) + ' px',
+          title: k === DEFAULT_FONT_SIZE_VALUE ? t('editor.fontSize.default.tooltip') : String(k),
           isActive: () => {
             const { fontSize } = editor.getAttributes('textStyle')
             const isDefault = k === DEFAULT_FONT_SIZE_VALUE
