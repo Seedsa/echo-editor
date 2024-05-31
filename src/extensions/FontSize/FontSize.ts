@@ -82,12 +82,6 @@ export const FontSize = Extension.create<FontSizeOptions>({
   addGlobalAttributes() {
     return [
       {
-        types: ['paragraph'],
-        attributes: {
-          class: {},
-        },
-      },
-      {
         types: this.options.types,
         attributes: {
           fontSize: {
@@ -98,7 +92,7 @@ export const FontSize = Extension.create<FontSizeOptions>({
                 return {}
               }
               return {
-                style: `font-size: ${attributes.fontSize}px`,
+                style: `font-size: ${attributes.fontSize}`,
               }
             },
           },

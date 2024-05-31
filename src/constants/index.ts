@@ -100,7 +100,7 @@ export const COLORS_LIST = [
 ] as const
 
 /** Default font size list */
-export const DEFAULT_FONT_SIZE_LIST = [12, 13, 14, 15, 16, 19, 22, 24, 29, 32, 40, 48] as const
+export const DEFAULT_FONT_SIZE_LIST = [10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 60, 72] as const
 
 /** Default font size value */
 export const DEFAULT_FONT_SIZE_VALUE = 'defaut' as const
