@@ -33,7 +33,6 @@
       {{ content }}
     </div>
   </div>
-  <div class="flex items-center gap-1 fixed bottom-6 right-6 z-[99999] p-1">1 adslakda23</div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'

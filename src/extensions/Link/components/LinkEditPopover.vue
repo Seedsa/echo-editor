@@ -37,7 +37,7 @@ function onSetLink(link: string, text?: string, openInNewTab?: boolean) {
     <PopoverTrigger>
       <ActionButton :icon="icon" :tooltip="tooltip" :is-active="isActive" :disabled="disabled" />
     </PopoverTrigger>
-    <PopoverContent as-child class="w-full" align="start" side="bottom">
+    <PopoverContent hide-when-detached as-child class="w-full" align="start" side="bottom">
       <LinkEditBlock :editor="editor" @onSetLink="onSetLink" />
     </PopoverContent>
   </Popover>

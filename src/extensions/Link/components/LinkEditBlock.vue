@@ -39,7 +39,7 @@ function handleSubmit() {
 
 <template>
   <div class="p-2 bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800">
-    <form @submit="handleSubmit" class="flex flex-col gap-2">
+    <form @submit.prevent="handleSubmit" class="flex flex-col gap-2">
       <Label> {{ t('editor.link.dialog.text') }} </Label>
       <div class="flex w-full max-w-sm items-center gap-1.5">
         <div class="relative w-full max-w-sm items-center">

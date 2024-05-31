@@ -37,7 +37,6 @@ export const Link = TiptapLink.extend<LinkOptions>({
           component: LinkEditPopover,
           componentProps: {
             action: value => {
-              console.log('v', value)
               const { link, text, openInNewTab } = value as any
               editor
                 .chain()
