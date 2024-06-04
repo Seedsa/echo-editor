@@ -9,6 +9,7 @@ const locale: Record<string, string> = {
   'editor.nofill': '无填充色',
   'editor.format': '格式刷',
   'editor.draghandle.tooltip': '可拖拽和点击',
+  'editor.copyToClipboard': '复制到剪切板',
   'editor.importWrod.tooltip': '导入Word',
   'editor.slash': "输入 '/' 唤起更多",
   'editor.slash.empty': '暂无搜索结果',

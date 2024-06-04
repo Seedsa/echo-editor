@@ -209,10 +209,10 @@ watch(
             <Icon name="PaintRoller" />
             <span>{{ t('editor.clear.tooltip') }}</span>
           </DropdownMenuItem>
-          <!-- <DropdownMenuItem class="flex gap-3" @click="copyNodeToClipboard">
+          <DropdownMenuItem class="flex gap-3" @click="copyNodeToClipboard">
             <Icon name="Clipboard" />
-            <span>复制到剪切板</span>
-          </DropdownMenuItem> -->
+            <span>{{ t('editor.copyToClipboard') }}</span>
+          </DropdownMenuItem>
           <DropdownMenuItem class="flex gap-3" @click="duplicateNode">
             <Icon name="Copy" />
             <span>{{ t('editor.copy') }}</span>

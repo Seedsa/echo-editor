@@ -24,7 +24,7 @@
       :max-height="1024"
       :hideToolbar="hideToolbar"
       :min-height="512"
-      output="json"
+      output="html"
       maxWidth="900"
       :dark="theme === 'dark'"
     >

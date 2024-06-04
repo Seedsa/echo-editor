@@ -8,6 +8,7 @@ const locale: Record<string, string> = {
   'editor.nofill': 'No Fill',
   'editor.format': 'Format Painter',
   'editor.draghandle.tooltip': 'Click And Drag',
+  'editor.copyToClipboard': 'CopyToClipboard',
   'editor.importWrod.tooltip': 'Import Word',
   'editor.slash': "Press '/' for commands",
   'editor.slash.empty': 'No Result',

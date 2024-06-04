@@ -1,35 +1,25 @@
-import type { ImageOptions as TiptapImageOptions } from '@tiptap/extension-image'
-import { Image as TiptapImage } from '@tiptap/extension-image'
+import { Editor, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
+import TiptapImage from '@tiptap/extension-image'
 import ImageView from './components/ImageView.vue'
-import { insertImages, ImageNodeAttributes } from '@/utils/image'
-
-import type { ImageAttrsOptions, ImageTab, ImageTabKey } from './types'
+import ImageActionButton from './components/ImageActionButton.vue'
 import { IMAGE_SIZE } from '@/constants'
-import type { GeneralOptions } from '@/type'
+import type { ImageAttrsOptions } from './types'
 
-/**
- * Represents the interface for image options, extending TiptapImageOptions and GeneralOptions.
- */
-export interface ImageOptions extends TiptapImageOptions, GeneralOptions<ImageOptions> {
-  /** Function for uploading images */
-  upload?: (files: File[]) => ImageNodeAttributes[] | Promise<ImageNodeAttributes[]>
-  /** List of image tabs */
-  imageTabs: ImageTab[]
-  /** List of hidden image tab keys */
-  hiddenTabs: ImageTabKey[]
-  /** Component for the image dialog */
-  dialogComponent: any
+export const enum ImageDisplay {
+  INLINE = 'inline',
+  BREAK_TEXT = 'block',
+  FLOAT_LEFT = 'left',
+  FLOAT_RIGHT = 'right',
 }
 
-/**
- * Represents the interface for options to set image attributes, extending ImageAttrsOptions and including the src property.
- */
+export const DEFAULT_IMAGE_WIDTH = 200
+export const DEFAULT_IMAGE_DISPLAY = ImageDisplay.INLINE
+
 interface SetImageAttrsOptions extends ImageAttrsOptions {
   /** The source URL of the image. */
   src: string
 }
-
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     imageResize: {
@@ -44,25 +34,42 @@ declare module '@tiptap/core' {
     }
   }
 }
+export const Image = TiptapImage.extend({
+  // https://github.com/ueberdosis/tiptap/issues/1206
+  inline() {
+    return true
+  },
 
-export const Image = TiptapImage.extend<ImageOptions>({
+  group() {
+    return 'inline'
+  },
+
   addAttributes() {
     return {
       ...this.parent?.(),
-      src: {
-        default: null,
-      },
-      alt: {
-        default: undefined,
-      },
-      lockAspectRatio: {
-        default: true,
-      },
       width: {
         default: IMAGE_SIZE['size-medium'],
+        parseHTML: element => {
+          const width = element.style.width || element.getAttribute('width') || null
+          return width == null ? null : parseInt(width, 10)
+        },
+        renderHTML: attributes => {
+          return {
+            width: attributes.width,
+          }
+        },
       },
       height: {
         default: null,
+        parseHTML: element => {
+          const height = element.style.height || element.getAttribute('height') || null
+          return height == null ? null : parseInt(height, 10)
+        },
+        renderHTML: attributes => {
+          return {
+            height: attributes.height,
+          }
+        },
       },
       display: {
         default: 'inline',
@@ -81,6 +88,15 @@ export const Image = TiptapImage.extend<ImageOptions>({
       },
     }
   },
+
+  addOptions() {
+    return {
+      ...this.parent?.(),
+      inline: true,
+      upload: null,
+    }
+  },
+
   addNodeView() {
     return VueNodeViewRenderer(ImageView)
   },
@@ -94,13 +110,27 @@ export const Image = TiptapImage.extend<ImageOptions>({
         },
     }
   },
-  addOptions() {
-    return {
-      ...this.parent?.(),
-      upload: undefined,
-      imageTabs: [],
-      hiddenTabs: [],
-      inline: true,
-    }
+  renderHTML({ HTMLAttributes }) {
+    return [
+      'img',
+      mergeAttributes(
+        // Always render the `height="auto"
+        {
+          height: 'auto',
+        },
+        this.options.HTMLAttributes,
+        HTMLAttributes
+      ),
+    ]
+  },
+
+  parseHTML() {
+    return [
+      {
+        tag: 'img[src]',
+      },
+    ]
   },
 })
+
+export default Image

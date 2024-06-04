@@ -10,8 +10,6 @@ import { ButtonViewReturnComponentProps } from '@/type'
 interface Props {
   editor: Editor
   upload?: (files: File[]) => ImageNodeAttributes[] | Promise<ImageNodeAttributes[]>
-  imageTabs?: ImageTab[]
-  hiddenTabs?: ImageTabKey[]
   icon?: any
   tooltip?: string
   disabled?: boolean
@@ -22,8 +20,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   upload: undefined,
-  imageTabs: () => [],
-  hiddenTabs: () => [],
   icon: undefined,
   tooltip: undefined,
   disabled: false,

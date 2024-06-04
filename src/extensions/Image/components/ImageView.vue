@@ -65,7 +65,6 @@ const imgAttrs = computed(() => {
 })
 
 const display = computed<ImageAttrsOptions['display']>(() => props.node.attrs.display || undefined)
-const lockAspectRatio = computed<ImageAttrsOptions['lockAspectRatio']>(() => props.node.attrs.lockAspectRatio ?? true)
 const imageViewClass = computed<string[]>(() => {
   if (typeof unref(display) === 'string') {
     return ['image-view', `image-view--${unref(display)}`]
@@ -153,7 +152,7 @@ const onMouseMove = throttle(function (e: MouseEvent) {
   const dy = (e.clientY - y) * (/t/.test(dir) ? -1 : 1)
 
   const width = clamp(w + dx, IMAGE_MIN_SIZE, unref(maxSize).width)
-  const height = unref(lockAspectRatio) ? null : Math.max(h + dy, IMAGE_MIN_SIZE)
+  const height = null
 
   props.updateAttributes({
     width,
@@ -221,6 +220,7 @@ watchEffect(effect => {
         :src="imgAttrs.src"
         :alt="imgAttrs.alt"
         :style="imgAttrs.style"
+        height="auto"
         class="image-view__body__image"
         @load="onImageLoad"
         @click="selectImage"
