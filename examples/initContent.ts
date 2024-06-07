@@ -8,7 +8,7 @@ export const DEMO_CONTENT = {
     },
     {
       type: 'paragraph',
-      attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null },
+      attrs: { textAlign: 'start', indent: 0, lineHeight: null },
       content: [
         { type: 'text', text: 'A modern WYSIWYG AI rich text editor based on ' },
         {
@@ -45,27 +45,19 @@ export const DEMO_CONTENT = {
         { type: 'text', text: ' for Vue.js' },
       ],
     },
-    { type: 'paragraph', attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { textAlign: 'center', indent: 0, lineHeight: null } },
     {
-      type: 'paragraph',
-      attrs: { class: null, textAlign: 'center', indent: 0, lineHeight: null },
-      content: [
-        {
-          type: 'image',
-          attrs: {
-            textAlign: 'center',
-            src: 'https://picsum.photos/1920/1080.webp?t=1',
-            title: null,
-            lockAspectRatio: true,
-            width: 500,
-            height: null,
-            display: 'inline',
-          },
-        },
-      ],
+      type: 'image',
+      attrs: {
+        textAlign: 'center',
+        src: 'https://picsum.photos/1920/1080.webp?t=1',
+        alt: null,
+        title: null,
+        width: 500,
+      },
     },
-    { type: 'paragraph', attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null } },
-    { type: 'paragraph', attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
     { type: 'horizontalRule' },
     {
       type: 'heading',
@@ -74,7 +66,7 @@ export const DEMO_CONTENT = {
     },
     {
       type: 'paragraph',
-      attrs: { class: null, textAlign: 'start', indent: 0, lineHeight: null },
+      attrs: { textAlign: 'start', indent: 0, lineHeight: null },
       content: [
         { type: 'text', text: '👉' },
         {
@@ -107,7 +99,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [
                 { type: 'text', text: 'Use ' },
                 {
@@ -116,7 +108,7 @@ export const DEMO_CONTENT = {
                     {
                       type: 'link',
                       attrs: {
-                        href: 'https://naiveui.com',
+                        href: 'https://www.shadcn-vue.com/',
                         target: '_blank',
                         rel: 'noopener noreferrer nofollow',
                         class: 'link',
@@ -135,7 +127,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'Markdown support' }],
             },
           ],
@@ -145,7 +137,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'TypeScript support' }],
             },
           ],
@@ -155,7 +147,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'I18n support' }],
             },
           ],
@@ -165,7 +157,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'Vue 3.x support' }],
             },
           ],
@@ -175,7 +167,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'Slash Command' }],
             },
           ],
@@ -185,7 +177,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'Dark Mode' }],
             },
           ],
@@ -195,7 +187,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'Multi Column' }],
             },
           ],
@@ -205,7 +197,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'AI Power' }],
             },
           ],
@@ -215,7 +207,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'Embed' }],
             },
           ],
@@ -225,7 +217,7 @@ export const DEMO_CONTENT = {
           content: [
             {
               type: 'paragraph',
-              attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null },
+              attrs: { textAlign: 'left', indent: 0, lineHeight: null },
               content: [{ type: 'text', text: 'TailwindCss' }],
             },
           ],
@@ -259,6 +251,6 @@ export const DEMO_CONTENT = {
         },
       ],
     },
-    { type: 'paragraph', attrs: { class: null, textAlign: 'left', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { textAlign: 'left', indent: 0, lineHeight: null } },
   ],
 }

@@ -1,24 +1,16 @@
-import { Editor, mergeAttributes } from '@tiptap/core'
+import { mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import TiptapImage from '@tiptap/extension-image'
 import ImageView from './components/ImageView.vue'
-import ImageActionButton from './components/ImageActionButton.vue'
-import { IMAGE_SIZE } from '@/constants'
-import type { ImageAttrsOptions } from './types'
 
-export const enum ImageDisplay {
-  INLINE = 'inline',
-  BREAK_TEXT = 'block',
-  FLOAT_LEFT = 'left',
-  FLOAT_RIGHT = 'right',
-}
-
-export const DEFAULT_IMAGE_WIDTH = 200
-export const DEFAULT_IMAGE_DISPLAY = ImageDisplay.INLINE
-
-interface SetImageAttrsOptions extends ImageAttrsOptions {
-  /** The source URL of the image. */
-  src: string
+interface SetImageAttrsOptions {
+  src?: string
+  /** The alternative text for the image. */
+  alt?: string
+  /** The title of the image. */
+  title?: string
+  /** The width of the image. */
+  width?: number | string | null
 }
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -35,20 +27,11 @@ declare module '@tiptap/core' {
   }
 }
 export const Image = TiptapImage.extend({
-  // https://github.com/ueberdosis/tiptap/issues/1206
-  inline() {
-    return true
-  },
-
-  group() {
-    return 'inline'
-  },
-
   addAttributes() {
     return {
       ...this.parent?.(),
       width: {
-        default: IMAGE_SIZE['size-medium'],
+        default: null,
         parseHTML: element => {
           const width = element.style.width || element.getAttribute('width') || null
           return width == null ? null : parseInt(width, 10)
@@ -60,7 +43,7 @@ export const Image = TiptapImage.extend({
         },
       },
       height: {
-        default: null,
+        default: 'auto',
         parseHTML: element => {
           const height = element.style.height || element.getAttribute('height') || null
           return height == null ? null : parseInt(height, 10)
@@ -71,28 +54,12 @@ export const Image = TiptapImage.extend({
           }
         },
       },
-      display: {
-        default: 'inline',
-        renderHTML: ({ display }) => {
-          if (!display) {
-            return {}
-          }
-          return {
-            'data-display': display,
-          }
-        },
-        parseHTML: element => {
-          const display = element.getAttribute('data-display')
-          return display || 'inline'
-        },
-      },
     }
   },
 
   addOptions() {
     return {
       ...this.parent?.(),
-      inline: true,
       upload: null,
     }
   },

@@ -108,6 +108,8 @@ const locale: Record<string, string> = {
   'editor.redo.tooltip': 'Redo',
   'editor.fullscreen.tooltip.fullscreen': 'Fullscreen',
   'editor.fullscreen.tooltip.exit': 'Fullscreen Exit',
+  'editor.imageUpload.fileTypeNotSupported': 'File type not supported',
+  'editor.imageUpload.fileSizeTooBig': 'File size too big, Maximum size is',
 }
 
 export default locale

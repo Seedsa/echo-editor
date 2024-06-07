@@ -1,7 +1,6 @@
 import { Extension } from '@tiptap/core'
 
 import ActionButton from './components/ImportWordButton.vue'
-import { ImageNodeAttributes } from '@/utils/image'
 import type { GeneralOptions } from '@/type'
 
 export interface ImportWordOptions extends GeneralOptions<ImportWordOptions> {
@@ -11,7 +10,7 @@ export interface ImportWordOptions extends GeneralOptions<ImportWordOptions> {
   convert?: (file: File) => Promise<string>
 
   /** Function for uploading images */
-  upload?: (files: File[]) => ImageNodeAttributes[] | Promise<ImageNodeAttributes[]>
+  upload?: (files: File[]) => Promise<unknown>
 }
 
 export const ImportWord = Extension.create<ImportWordOptions>({

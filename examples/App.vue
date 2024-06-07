@@ -24,7 +24,7 @@
       :max-height="1024"
       :hideToolbar="hideToolbar"
       :min-height="512"
-      output="html"
+      output="json"
       maxWidth="900"
       :dark="theme === 'dark'"
     >
@@ -115,12 +115,12 @@ const extensions = [
   Link,
   Image,
   ImageUpload.configure({
-    upload: (files: File[]) => {
-      const f = files.map(file => ({
-        src: URL.createObjectURL(file),
-        alt: file.name,
-      }))
-      return Promise.resolve(f)
+    upload: (files: File) => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve(URL.createObjectURL(files))
+        }, 3000)
+      })
     },
   }),
   Video,

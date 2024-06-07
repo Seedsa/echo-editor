@@ -8,32 +8,31 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Icon } from '@/components/icons'
 import { useLocale } from '@/locales'
+import { createImageUpload } from '@/plugins/image-upload'
+
 const props = defineProps({
   ...nodeViewProps,
 })
 
 const link = ref<string>('')
-const loading = ref<boolean>(false)
 const fileInput = ref()
 const { t } = useLocale()
 
 function handleFile(event) {
-  loading.value = true
   const files = event?.target?.files
   if (!props.editor || props.editor.isDestroyed || files.length === 0) return
   const file = files[0]
   const uploadOptions = props.editor.extensionManager.extensions.find(
     extension => extension.name === 'imageUpload'
   )?.options
-  uploadOptions?.upload([file]).then(res => {
-    props.editor
-      .chain()
-      .setImage({ src: res[0].src })
-      .deleteRange({ from: props.getPos(), to: props.getPos() })
-      .focus()
-      .run()
-    loading.value = false
+
+  const uploadFn = createImageUpload({
+    validateFn: file => {
+      return true
+    },
+    onUpload: uploadOptions.upload,
   })
+  uploadFn([file], props.editor.view, props.getPos())
 }
 function handleLink() {
   props.editor
@@ -58,11 +57,7 @@ function handleClick() {
         <div
           class="flex items-center w-full p-3 my-3 hover:bg-accent border border-border text-muted-foreground cursor-pointer rounded-sm transition-all"
         >
-          <div class="flex justify-center items-center gap-3 text-s" v-if="loading">
-            <Icon class="animate-spin w-6 h-6" name="LoaderCircle" />
-            <span>{{ t('editor.image.dialog.uploading') }}...</span>
-          </div>
-          <div v-else class="flex justify-between items-center w-full">
+          <div class="flex justify-between items-center w-full">
             <div class="flex justify-center items-center gap-3">
               <Icon name="ImageUp" class="w-6 h-6" />
               <span class="text-sm">{{ t('editor.image.dialog.title') }}</span>

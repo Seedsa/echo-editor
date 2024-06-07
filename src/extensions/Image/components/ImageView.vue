@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, unref, watchEffect } from 'vue'
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
-import { ImageAttrsOptions } from '../types'
 
 import { IMAGE_MAX_SIZE, IMAGE_MIN_SIZE, IMAGE_THROTTLE_WAIT_TIME } from '@/constants'
 import { clamp, isNumber, throttle } from '@/utils/utils'
@@ -64,14 +63,6 @@ const imgAttrs = computed(() => {
   }
 })
 
-const display = computed<ImageAttrsOptions['display']>(() => props.node.attrs.display || undefined)
-const imageViewClass = computed<string[]>(() => {
-  if (typeof unref(display) === 'string') {
-    return ['image-view', `image-view--${unref(display)}`]
-  }
-
-  return ['image-view']
-})
 const imageMaxStyle = computed(() => {
   const {
     style: { width },
@@ -201,11 +192,7 @@ watchEffect(effect => {
 </script>
 
 <template>
-  <NodeViewWrapper
-    as="span"
-    :class="imageViewClass"
-    :style="{ imageMaxStyle, textAlign: node.attrs.textAlign, width: '100%' }"
-  >
+  <NodeViewWrapper class="image-view" :style="{ imageMaxStyle, textAlign: node.attrs.textAlign, width: '100%' }">
     <div
       draggable="true"
       data-drag-handle
@@ -221,7 +208,7 @@ watchEffect(effect => {
         :alt="imgAttrs.alt"
         :style="imgAttrs.style"
         height="auto"
-        class="image-view__body__image"
+        class="image-view__body__image block"
         @load="onImageLoad"
         @click="selectImage"
       />

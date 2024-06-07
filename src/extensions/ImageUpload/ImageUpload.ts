@@ -1,12 +1,17 @@
 import { Node, VueNodeViewRenderer } from '@tiptap/vue-3'
 import ImageUploaderView from './components/ImageUploader.vue'
-import { insertImages, ImageNodeAttributes } from '@/utils/image'
+import { useLocale } from '@/locales'
 import { Plugin } from '@tiptap/pm/state'
 import ActionButton from '@/components/ActionButton.vue'
-
+import { UploadImagesPlugin, createImageUpload, handleImagePaste, handleImageDrop } from '@/plugins/image-upload'
+import { useToast } from '@/components/ui/toast/use-toast'
 export interface ImageOptions {
-  /** Function for uploading images */
-  upload?: (files: File[]) => ImageNodeAttributes[] | Promise<ImageNodeAttributes[]>
+  /** function for uploading images */
+  upload: (file: File) => Promise<unknown>
+  /** accept image mimes */
+  acceptMimes: string[]
+  /** accept image max size */
+  maxSize: number
 }
 
 declare module '@tiptap/core' {
@@ -22,9 +27,15 @@ export const ImageUpload = Node.create<ImageOptions>({
   isolating: true,
   defining: true,
   group: 'block',
-  draggable: true,
+  draggable: false,
   selectable: true,
   inline: false,
+  onCreate() {
+    if (typeof this.options.upload !== 'function') {
+      console.warn('image upload upload function should be a function')
+      return
+    }
+  },
   parseHTML() {
     return [
       {
@@ -50,12 +61,16 @@ export const ImageUpload = Node.create<ImageOptions>({
   addOptions() {
     return {
       ...this.parent?.(),
-      upload: undefined,
-      button: ({ editor, t }) => {
+      acceptMimes: ['image/jpeg', 'image/gif', 'image/png', 'image/jpg'],
+      maxSize: 1024 * 1024 * 1, // 10MB
+      upload: () => Promise.reject('Image Upload Function'),
+      button: ({ editor, extension, t }) => {
+        const { upload } = extension.options
         return {
           component: ActionButton,
           componentProps: {
             action: () => editor.commands.setImageUpload(),
+            upload,
             disabled: !editor.can().setImage({}),
             icon: 'ImageUp',
             tooltip: t('editor.image.tooltip'),
@@ -65,49 +80,32 @@ export const ImageUpload = Node.create<ImageOptions>({
     }
   },
   addProseMirrorPlugins() {
-    const options = this.options
-    function fileListToImageFiles(fileList: FileList): File[] {
-      return Array.from(fileList).filter(file => {
-        const mimeType = (file.type || '').toLowerCase()
-        return mimeType.startsWith('image/')
-      })
-    }
-    const handleNewImageFiles = (files: File[], insertPosition?: number): void => {
-      if (!this.editor) {
-        return
-      }
-      // 改成使用上传接口
-      if (options.upload && typeof options.upload === 'function') {
-        const imageAttributes = options.upload(files)
-        if (imageAttributes instanceof Promise) {
-          imageAttributes.then(attributes => {
-            insertImages({
-              images: attributes,
-              editor: this.editor,
-              position: insertPosition,
-            })
+    const { toast } = useToast()
+    const { t } = useLocale()
+
+    const uploadFn = createImageUpload({
+      validateFn: file => {
+        console.log(file.type)
+        if (!this.options.acceptMimes.includes(file.type)) {
+          toast({
+            description: t.value('editor.imageUpload.fileTypeNotSupported'),
+            duration: 2000,
           })
-        } else {
-          insertImages({
-            images: imageAttributes,
-            editor: this.editor,
-            position: insertPosition,
-          })
+          return false
         }
-        return
-      } else {
-        // 只是简单的转换成 base64 TODO 上传到服务器
-        const attributesForImageFiles = files.map(file => ({
-          src: URL.createObjectURL(file),
-          alt: file.name,
-        }))
-        insertImages({
-          images: attributesForImageFiles,
-          editor: this.editor,
-          position: insertPosition,
-        })
-      }
-    }
+        if (file.size > this.options.maxSize) {
+          toast({
+            // 将当前文件大小转换为 KB
+            description: `${t.value('editor.imageUpload.fileSizeTooBig')} ${this.options.maxSize / 1024 / 1024}MB.`,
+            duration: 2000,
+          })
+          return false
+        }
+        return true
+      },
+      onUpload: this.options.upload,
+    })
+
     return [
       new Plugin({
         props: {
@@ -117,16 +115,18 @@ export const ImageUpload = Node.create<ImageOptions>({
            * @param event
            * @returns
            */
-          handlePaste: (_, event) => {
+          handlePaste: (view, event) => {
             if (!event.clipboardData) {
               return false
             }
-            const pastedImageFiles = fileListToImageFiles(event.clipboardData.files)
-            if (pastedImageFiles.length > 0) {
-              handleNewImageFiles(pastedImageFiles)
-              return true
+            const items = Array.from(event.clipboardData?.items || [])
+            /// Clipboard may contain both html and image items (like when pasting from ms word, excel)
+            /// in that case (if there is any html), don't handle images.
+            if (items.some(x => x.type === 'text/html')) {
+              return false
             }
-            return false
+
+            return handleImagePaste(view, event, uploadFn)
           },
           /**
            * 允许拖拽图片
@@ -134,25 +134,16 @@ export const ImageUpload = Node.create<ImageOptions>({
            * @param event
            * @returns
            */
-          handleDrop: (view, event) => {
+          handleDrop: (view, event, _, moved) => {
             if (!(event instanceof DragEvent) || !event.dataTransfer) {
               return false
             }
-            const imageFiles = fileListToImageFiles(event.dataTransfer.files)
-            if (imageFiles.length > 0) {
-              // Insert the image at the drop position.
-              const insertPosition = view.posAtCoords({
-                left: event.clientX,
-                top: event.clientY,
-              })?.pos
-              handleNewImageFiles(imageFiles, insertPosition)
-              event.preventDefault()
-              return true
-            }
+            handleImageDrop(view, event, moved, uploadFn)
             return false
           },
         },
       }),
+      UploadImagesPlugin(),
     ]
   },
 })
