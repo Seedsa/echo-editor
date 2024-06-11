@@ -42,18 +42,6 @@ export const Image = TiptapImage.extend({
           }
         },
       },
-      height: {
-        default: 'auto',
-        parseHTML: element => {
-          const height = element.style.height || element.getAttribute('height') || null
-          return height == null ? null : parseInt(height, 10)
-        },
-        renderHTML: attributes => {
-          return {
-            height: attributes.height,
-          }
-        },
-      },
     }
   },
 

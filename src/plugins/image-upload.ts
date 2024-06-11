@@ -17,12 +17,14 @@ export const UploadImagesPlugin = () =>
         if (action?.add) {
           action.add.forEach(({ id, pos, src }) => {
             const placeholder = document.createElement('div')
-            placeholder.setAttribute('class', 'img-placeholder')
             const image = document.createElement('img')
             image.setAttribute('class', 'opacity-50')
             image.src = src
+            image.onload = () => {
+              placeholder.setAttribute('class', 'img-placeholder')
+            }
             placeholder.appendChild(image)
-            const deco = Decoration.widget(pos + 1, placeholder, {
+            const deco = Decoration.widget(pos, placeholder, {
               id,
             })
             set = set.add(tr.doc, [deco])
@@ -94,7 +96,7 @@ export const handleImagePaste = (view: EditorView, event: ClipboardEvent, upload
     event.preventDefault()
     const files = Array.from(event.clipboardData.files)
     const pos = view.state.selection.from
-    uploadFn(files, view, pos)
+    uploadFn(files, view, pos + 1)
     return true
   }
   return false
@@ -108,7 +110,7 @@ export const handleImageDrop = (view: EditorView, event: DragEvent, moved: boole
       left: event.clientX,
       top: event.clientY,
     })
-    if (files) uploadFn(files, view, coordinates?.pos ?? 0 - 1)
+    if (files) uploadFn(files, view, coordinates!.pos + 1 || 0 - 1)
     return true
   }
   return false
