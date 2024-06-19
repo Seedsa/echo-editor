@@ -18,7 +18,7 @@ export const IMAGE_MAX_SIZE = 100000 as const
 export const IMAGE_THROTTLE_WAIT_TIME = 16 as const
 
 /** Default number of rows and columns for grids when creating a table */
-export const TABLE_INIT_GRID_SIZE = 6 as const
+export const TABLE_INIT_GRID_SIZE = 10 as const
 /** Maximum number of rows and columns for grids when creating a table */
 export const TABLE_MAX_GRID_SIZE = 10 as const
 /** Minimum number of rows and columns for grids when creating a table */

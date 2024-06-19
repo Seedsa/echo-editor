@@ -5,6 +5,7 @@ import { Toggle } from '@/components/ui/toggle'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import type { TooltipContentProps } from 'radix-vue'
 import { icons, Icon } from '@/components/icons'
+import { TooltipProvider } from '@/components/ui/tooltip'
 
 interface Props {
   icon?: keyof typeof icons
@@ -35,35 +36,31 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <Tooltip>
-    <TooltipTrigger>
-      <Toggle
-        size="sm"
-        class="w-[32px] h-[32px]"
-        :pressed="isActive?.() || false"
-        :disabled="disabled"
-        :class="[customClass]"
-        @click="action"
-      >
-        <div v-if="loading">
-          <Icon class="animate-spin" name="LoaderCircle" />
+  <TooltipProvider :delay-duration="0">
+    <Tooltip>
+      <TooltipTrigger>
+        <Toggle size="sm" class="w-[32px] h-[32px]" :pressed="isActive?.() || false" :disabled="disabled"
+          :class="[customClass]" @click="action">
+          <div v-if="loading">
+            <Icon class="animate-spin" name="LoaderCircle" />
+          </div>
+          <div class="flex gap-1 items-center" v-else>
+            <Icon v-if="icon" :name="icon" />
+            <slot name="icon"></slot>
+          </div>
+          <slot></slot>
+        </Toggle>
+      </TooltipTrigger>
+      <TooltipContent v-if="tooltip" v-bind="tooltipOptions">
+        <div class="max-w-24 text-center flex flex-col items-center">
+          <div>{{ tooltip }}</div>
+          <div v-if="shortcutKeys && shortcutKeys.length" style="display: flex; gap: 4px">
+            <span v-for="(shortcutKey, index) in shortcutKeys" :key="index">
+              {{ getShortcutKey(shortcutKey) }}
+            </span>
+          </div>
         </div>
-        <div class="flex gap-1 items-center" v-else>
-          <Icon v-if="icon" :name="icon" />
-          <slot name="icon"></slot>
-        </div>
-        <slot></slot>
-      </Toggle>
-    </TooltipTrigger>
-    <TooltipContent v-if="tooltip" v-bind="tooltipOptions">
-      <div class="max-w-24 text-center flex flex-col items-center">
-        <div>{{ tooltip }}</div>
-        <div v-if="shortcutKeys && shortcutKeys.length" style="display: flex; gap: 4px">
-          <span v-for="(shortcutKey, index) in shortcutKeys" :key="index">
-            {{ getShortcutKey(shortcutKey) }}
-          </span>
-        </div>
-      </div>
-    </TooltipContent>
-  </Tooltip>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 </template>

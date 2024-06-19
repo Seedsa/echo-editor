@@ -14,6 +14,7 @@ const EchoEditorPlugin: Plugin = {
 export { en, locale, zhHans }
 export * from '@/extensions'
 export { useEditor } from '@tiptap/vue-3'
+export type * from '@/type'
 export { type Editor as EditorInstance } from '@tiptap/core'
 export { EchoEditorPlugin, EchoEditor, ActionButton }
 
