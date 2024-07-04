@@ -64,12 +64,10 @@ const active = computed(() => {
 
 <template>
   <DropdownMenu>
-    <DropdownMenuTrigger as-child>
-      <div style="display: flex">
-        <ActionButton customClass="w-12" :icon="icon" dropdown :tooltip="tooltip">
-          <Icon class="w-3 h-3 text-gray-500" name="MenuDown" />
-        </ActionButton>
-      </div>
+    <DropdownMenuTrigger :disabled="disabled">
+      <ActionButton customClass="w-12" :icon="icon" dropdown :tooltip="tooltip" :disabled="disabled">
+        <Icon class="w-3 h-3 text-gray-500" name="MenuDown" />
+      </ActionButton>
     </DropdownMenuTrigger>
     <DropdownMenuContent class="w-full">
       <DropdownMenuCheckboxItem

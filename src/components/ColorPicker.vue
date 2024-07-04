@@ -9,6 +9,7 @@ import { useLocale } from '@/locales'
 interface Props {
   modelValue?: string
   highlight?: boolean
+  disabled?: boolean
 }
 
 const { t } = useLocale()
@@ -26,6 +27,7 @@ for (let i = 0; i < colorsArray.length; i += 10) {
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
   highlight: false,
+  disabled: false,
 })
 const html5Color = ref<HTMLInputElement | null>(null)
 
@@ -65,7 +67,7 @@ const triggerHtml5Color = () => {
 </script>
 <template>
   <Popover>
-    <PopoverTrigger>
+    <PopoverTrigger :disabled="disabled">
       <slot />
     </PopoverTrigger>
     <PopoverContent hideWhenDetached class="p-2 w-full h-full" align="start" side="bottom">

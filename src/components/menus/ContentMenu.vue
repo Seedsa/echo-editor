@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { IndentProps, setNodeIndentMarkup } from '@/utils/indent'
-import { getShortcutKey, getShortcutKeys } from '@/utils/plateform'
+import { getShortcutKeys } from '@/utils/plateform'
 
 type PluginRefType = Plugin<{
   locked: boolean
@@ -34,6 +34,10 @@ const props = defineProps({
   editor: {
     type: Editor,
     required: true,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
   pluginKey: {
     type: String,
@@ -174,6 +178,7 @@ watch(
 <template>
   <div
     :class="className"
+    v-show="!disabled"
     ref="dragElement"
     style="transition-property: top, left; transition-timing-function: ease-in-out; transition-duration: 0.2s"
   >
@@ -181,14 +186,14 @@ watch(
       class="flex items-center gap-0.5"
       style="transition-property: top, left; transition-timing-function: ease-in-out; transition-duration: 0.2s"
     >
-      <Button variant="ghost" @click="handleAdd" size="icon" class="w-7 h-7">
+      <Button variant="ghost" @click="handleAdd" size="icon" class="w-7 h-7" :disabled="disabled">
         <Icon name="Plus" class="text-lg text-neutral-600 dark:text-neutral-200" />
       </Button>
       <DropdownMenu v-model:open="menuOpen">
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger :disable="disabled">
           <Tooltip>
             <TooltipTrigger as-child>
-              <Button variant="ghost" size="icon" class="w-7 h-7 cursor-grab">
+              <Button variant="ghost" size="icon" class="w-7 h-7 cursor-grab" :disabled="disabled">
                 <Icon name="Grip" class="text-sm dark:text-neutral-200 text-neutral-600" />
               </Button>
             </TooltipTrigger>

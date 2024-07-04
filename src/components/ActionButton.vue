@@ -37,10 +37,16 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <TooltipProvider :delay-duration="0">
-    <Tooltip>
+    <Tooltip :disabled="disabled">
       <TooltipTrigger>
-        <Toggle size="sm" class="w-[32px] h-[32px]" :pressed="isActive?.() || false" :disabled="disabled"
-          :class="[customClass]" @click="action">
+        <Toggle
+          size="sm"
+          class="w-[32px] h-[32px]"
+          :pressed="isActive?.() || false"
+          :disabled="disabled"
+          :class="[customClass]"
+          @click="action"
+        >
           <div v-if="loading">
             <Icon class="animate-spin" name="LoaderCircle" />
           </div>

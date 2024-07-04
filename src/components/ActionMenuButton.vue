@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <Tooltip>
     <TooltipTrigger as-child>
-      <Button :icon="icon" class="h-[32px] px-[5px] py-0" variant="ghost">
+      <Button :icon="icon" class="h-[32px] px-[5px] py-0" variant="ghost" :disabled="disabled">
         <div class="flex items-center h-full font-normal">
           <div class="text-left line-clamp-1 text-sm">{{ title }}</div>
           <Icon class="w-3 h-3 ml-1 text-zinc-500" name="MenuDown" />

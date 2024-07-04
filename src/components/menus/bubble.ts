@@ -75,7 +75,7 @@ const imageSizeMenus = (editor: Editor): BubbleMenuItem[] => {
     componentProps: {
       tooltip: `editor.${size.replace('-', '.')}.tooltip`,
       icon: icons[i],
-      action: () => editor.commands.updateImage({ width: IMAGE_SIZE[size], height: null }),
+      action: () => editor.commands.updateImage({ width: IMAGE_SIZE[size] }),
       isActive: () => editor.isActive('image', { width: IMAGE_SIZE[size] }),
     },
   }))
@@ -97,6 +97,7 @@ const imageAlignMenus = (editor: Editor): BubbleMenuItem[] => {
       icon: iconMap[k],
       action: () => editor.commands.setTextAlign(k),
       isActive: () => editor.isActive({ textAlign: k }) || false,
+      disabled: !editor.can().setTextAlign(k),
     },
   }))
 }

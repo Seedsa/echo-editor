@@ -48,14 +48,20 @@ export const DEMO_CONTENT = {
     { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
     { type: 'paragraph', attrs: { textAlign: 'center', indent: 0, lineHeight: null } },
     {
-      type: 'image',
-      attrs: {
-        textAlign: 'center',
-        src: 'https://picsum.photos/1920/1080.webp?t=1',
-        alt: null,
-        title: null,
-        width: 500,
-      },
+      type: 'paragraph',
+      attrs: { textAlign: 'center', indent: 0, lineHeight: null },
+      content: [
+        {
+          type: 'image',
+          attrs: {
+            textAlign: 'center',
+            src: 'https://picsum.photos/1920/1080.webp?t=1',
+            alt: null,
+            title: null,
+            width: 500,
+          },
+        },
+      ],
     },
     { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
     { type: 'horizontalRule' },

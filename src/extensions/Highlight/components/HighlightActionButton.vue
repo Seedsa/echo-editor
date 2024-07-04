@@ -79,8 +79,8 @@ watchEffect(() => {
         ></span>
       </template>
     </ActionButton>
-    <color-picker v-model="selectedColor" @change="onChange" highlight>
-      <Button variant="ghost" size="icon" class="w-3 h-[32px]">
+    <color-picker v-model="selectedColor" @change="onChange" highlight :disabled="disabled">
+      <Button variant="ghost" size="icon" class="w-3 h-[32px]" :disabled="disabled">
         <Icon class="w-3 h-3 text-zinc-500" name="MenuDown" />
       </Button>
     </color-picker>

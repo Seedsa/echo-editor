@@ -15,7 +15,8 @@
       <button ghost @click="locale.setLang('en')">English</button>
       <button ghost @click="theme = 'dark'">dark</button>
       <button ghost @click="theme = null">light</button>
-      <button ghost @click="hideToolbar = !hideToolbar">Hide Toolbar</button>
+      <button ghost @click="hideToolbar = !hideToolbar">{{ !hideToolbar ? 'Hide Toolbar' : 'Show Toolbar' }}</button>
+      <button ghost @click="disabled = !disabled">{{ disabled ? 'Editable' : 'Readonly' }}</button>
       <a href="https://github.com/Seedsa/echo-editor" target="__blank">Github</a>
     </div>
     <echo-editor
@@ -23,8 +24,9 @@
       :extensions="extensions"
       :max-height="1024"
       :hideToolbar="hideToolbar"
+      :disabled="disabled"
       :min-height="512"
-      output="json"
+      output="html"
       maxWidth="900"
       :dark="theme === 'dark'"
     >
@@ -78,7 +80,8 @@ import { createLowlight, common } from 'lowlight'
 const content = ref(DEMO_CONTENT)
 
 const theme = ref<string | null>(null)
-const hideToolbar = ref(false)
+const hideToolbar = ref<boolean>(false)
+const disabled = ref<boolean>(false)
 const extensions = [
   BaseKit.configure({
     placeholder: {
@@ -103,7 +106,7 @@ const extensions = [
   Highlight,
   BulletList,
   OrderedList,
-  TextAlign.configure({ types: ['heading', 'paragraph', 'image'], spacer: true }),
+  TextAlign.configure({ types: ['heading', 'paragraph'], spacer: true }),
   Indent,
   LineHeight,
   TaskList.configure({
@@ -142,6 +145,7 @@ const extensions = [
   Code,
   ImportWord.configure({
     upload: (files: File[]) => {
+      console.log('files', files)
       const f = files.map(file => ({
         src: URL.createObjectURL(file),
         alt: file.name,

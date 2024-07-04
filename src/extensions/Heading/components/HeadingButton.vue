@@ -64,8 +64,8 @@ const active = computed(() => {
 
 <template>
   <DropdownMenu>
-    <DropdownMenuTrigger>
-      <ActionMenuButton :title="active.title" :tooltip="tooltip" />
+    <DropdownMenuTrigger :disabled="disabled">
+      <ActionMenuButton :title="active.title" :tooltip="tooltip" :disabled="disabled" />
     </DropdownMenuTrigger>
     <DropdownMenuContent class="w-full">
       <template v-for="(item, index) in props.items" :key="index">

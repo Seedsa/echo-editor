@@ -67,8 +67,8 @@ function toggleColor(e: any) {
         </span>
       </template>
     </ActionButton>
-    <color-picker v-model="selectedColor" @change="onChange">
-      <Button variant="ghost" size="icon" class="h-[32px] w-3">
+    <color-picker v-model="selectedColor" @change="onChange" :disabled="disabled">
+      <Button variant="ghost" size="icon" class="h-[32px] w-3" :disabled="disabled">
         <Icon class="w-3 h-3 text-zinc-500" name="MenuDown" />
       </Button>
     </color-picker>

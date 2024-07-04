@@ -176,7 +176,7 @@ defineExpose({ editor })
       class="echo-editor rounded-[0.5rem] bg-background shadow overflow-hidden outline outline-1"
       :class="[editorClass, dense ? 'dense' : '', editor.isFocused ? 'outline-primary' : 'outline-border']"
     >
-      <ContentMenu :editor="editor" />
+      <ContentMenu :editor="editor" :disabled="props.disabled" />
       <LinkBubbleMenu :editor="editor" />
       <ColumnsMenu :editor="editor" />
       <TableBubbleMenu :editor="editor" />
@@ -185,7 +185,7 @@ defineExpose({ editor })
         class="flex flex-col w-full max-h-full"
         :class="[isFullscreen && 'fixed bg-background inset-0 z-[200] w-full h-full m-0 rounded-none']"
       >
-        <Toolbar v-if="!hideToolbar" :editor="editor" class="border-b py-2 px-1" />
+        <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="props.disabled" class="border-b py-2 px-1" />
         <editor-content :editor="editor" :class="contentClass" :style="contentDynamicStyles" />
         <div class="flex justify-between border-t p-3 items-center">
           <div v-if="hasExtension(editor, 'characterCount')" class="flex flex-col">

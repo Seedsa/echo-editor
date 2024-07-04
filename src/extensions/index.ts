@@ -76,7 +76,7 @@ export type { LineHeightOptions } from './LineHeight'
 export { SlashCommand } from './SlashCommand'
 
 export { Image } from './Image'
-export type { ImageOptions } from './Image'
+export type { SetImageAttrsOptions } from './Image'
 
 export { Video } from './Video/Video'
 export type { VideoOptions } from './Video'
@@ -97,5 +97,6 @@ export { Columns } from './MultiColumn'
 export type { ColumnsOptions } from './MultiColumn'
 
 export { ImageUpload } from './ImageUpload'
+export type { ImageUploadOptions } from './ImageUpload'
 
 export { VideoUpload } from './VideoUpload'

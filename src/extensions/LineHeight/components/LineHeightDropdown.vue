@@ -65,8 +65,8 @@ function toggleLightheight(key: string) {
 
 <template>
   <DropdownMenu>
-    <DropdownMenuTrigger>
-      <ActionButton custom-class="w-12" icon="LineHeight" :tooltip="tooltip">
+    <DropdownMenuTrigger :disabled="disabled">
+      <ActionButton custom-class="w-12" icon="LineHeight" :tooltip="tooltip" :disabled="disabled">
         <Icon class="w-3 h-3 text-zinc-500 ml-1" name="MenuDown" />
       </ActionButton>
     </DropdownMenuTrigger>

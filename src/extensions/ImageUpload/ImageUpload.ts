@@ -6,7 +6,7 @@ import ActionButton from '@/components/ActionButton.vue'
 import { UploadImagesPlugin, createImageUpload, handleImagePaste, handleImageDrop } from '@/plugins/image-upload'
 import { useToast } from '@/components/ui/toast/use-toast'
 
-export interface ImageOptions {
+export interface ImageUploadOptions {
   upload: (file: File) => Promise<string>
   acceptMimes: string[]
   maxSize: number
@@ -20,7 +20,7 @@ declare module '@tiptap/core' {
   }
 }
 
-const DEFAULT_OPTIONS: Partial<ImageOptions> = {
+const DEFAULT_OPTIONS: Partial<ImageUploadOptions> = {
   acceptMimes: ['image/jpeg', 'image/gif', 'image/png', 'image/jpg'],
   maxSize: 1024 * 1024 * 5, // 5MB
 }
@@ -30,7 +30,7 @@ const formatFileSize = (bytes: number): string => {
   return `${megabytes.toFixed(2)}MB`
 }
 
-export const ImageUpload = Node.create<ImageOptions>({
+export const ImageUpload = Node.create<ImageUploadOptions>({
   name: 'imageUpload',
   isolating: true,
   defining: true,

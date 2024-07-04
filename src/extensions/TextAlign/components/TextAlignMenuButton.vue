@@ -71,9 +71,9 @@ function togglePop() {
 
 <template>
   <DropdownMenu>
-    <DropdownMenuTrigger as-child>
+    <DropdownMenuTrigger as-child :disabled="disabled">
       <div style="display: flex">
-        <ActionButton customClass="w-12" enable-tooltip :icon="icon" dropdown :tooltip="tooltip">
+        <ActionButton customClass="w-12" enable-tooltip :icon="icon" dropdown :tooltip="tooltip" :disabled="disabled">
           <Icon class="w-3 h-3 ml-1 text-zinc-500" name="MenuDown" />
         </ActionButton>
       </div>

@@ -3,7 +3,7 @@ import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import TiptapImage from '@tiptap/extension-image'
 import ImageView from './components/ImageView.vue'
 
-interface SetImageAttrsOptions {
+export interface SetImageAttrsOptions {
   src?: string
   /** The alternative text for the image. */
   alt?: string
@@ -27,6 +27,12 @@ declare module '@tiptap/core' {
   }
 }
 export const Image = TiptapImage.extend({
+  inline() {
+    return true
+  },
+  group() {
+    return 'inline'
+  },
   addAttributes() {
     return {
       ...this.parent?.(),
@@ -48,6 +54,7 @@ export const Image = TiptapImage.extend({
   addOptions() {
     return {
       ...this.parent?.(),
+      inline: true,
       upload: null,
     }
   },
