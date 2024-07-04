@@ -135,7 +135,7 @@ export enum VIDEO_SIZE {
 }
 
 export const LINE_HEIGHT_100 = 1.7
-export const DEFAULT_LINE_HEIGHT = '100%'
+export const DEFAULT_LINE_HEIGHT = '1'
 
 /** display in menus */
 export const NODE_TYPE_MENU: any = {
