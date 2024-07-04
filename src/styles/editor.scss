@@ -177,8 +177,8 @@
       @apply outline-none  bg-black/10 dark:bg-white/20 shadow-none transition-colors;
     }
 
-    .selection,
-    *::selection {
+    .selection:not(.image-view),
+    *:not(.image-view)::selection {
       @apply bg-black/10 dark:bg-white/20;
     }
 
