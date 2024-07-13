@@ -10,7 +10,7 @@ import { CellSelection } from '@tiptap/pm/tables'
 import { analyzeCellSelection, isColumnGripSelected } from '../../utils'
 import ActionButton from '@/components/ActionButton.vue'
 import HighlightActionButton from '@/extensions/Highlight/components/HighlightActionButton.vue'
-
+import { useLocale } from '@/locales'
 interface Props {
   editor: Editor
 }
@@ -31,7 +31,7 @@ export interface Emits {
   (event: 'setCellBackground', value: string): void
 }
 const emits = defineEmits<Emits>()
-
+const { t } = useLocale()
 const shouldShow = ({ view, state, from }: ShouldShowProps) => {
   if (!state) {
     return false
@@ -88,7 +88,7 @@ function onDeleteColumn() {
       <ActionButton
         icon="BetweenHorizonalEnd"
         :action="onAddColumnBefore"
-        tooltip="向前插入列"
+        :tooltip="t('editor.table.insertColumnLeft')"
         :tooltip-options="{
           sideOffset: 15,
         }"
@@ -96,7 +96,7 @@ function onDeleteColumn() {
       <ActionButton
         icon="BetweenHorizonalStart"
         :action="onAddColumnAfter"
-        tooltip="向后插入列"
+        :tooltip="t('editor.table.insertColumnRight')"
         :tooltip-options="{
           sideOffset: 15,
         }"
@@ -105,7 +105,7 @@ function onDeleteColumn() {
       <ActionButton
         icon="Trash2"
         :action="onDeleteColumn"
-        tooltip="删除列"
+        :tooltip="t('editor.table.deleteColumn')"
         :tooltip-options="{
           sideOffset: 15,
         }"
@@ -114,7 +114,7 @@ function onDeleteColumn() {
         v-if="Selection?.cellCount! > 1"
         icon="TableCellsMerge"
         :action="() => emits('onMergeCell')"
-        tooltip="合并单元格"
+        :tooltip="t('editor.table.mergeCells')"
         :tooltip-options="{
           sideOffset: 15,
         }"
@@ -123,14 +123,14 @@ function onDeleteColumn() {
         v-if="Selection?.mergedCellCount! > 0"
         icon="TableCellsSplit"
         :action="() => emits('onSplitCell')"
-        tooltip="拆分单元格"
+        :tooltip="t('editor.table.splitCells')"
         :tooltip-options="{
           sideOffset: 15,
         }"
       />
       <HighlightActionButton
         :editor="editor"
-        tooltip="设置单元格背景色"
+        :tooltip="t('editor.table.setCellsBgColor')"
         :action="color => emits('setCellBackground', color as string)"
         :tooltip-options="{
           sideOffset: 15,

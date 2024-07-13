@@ -10,7 +10,7 @@ import { CellSelection } from '@tiptap/pm/tables'
 import { analyzeCellSelection, isRowGripSelected } from '../../utils'
 import ActionButton from '@/components/ActionButton.vue'
 import HighlightActionButton from '@/extensions/Highlight/components/HighlightActionButton.vue'
-
+import { useLocale } from '@/locales'
 interface Props {
   editor: Editor
 }
@@ -31,7 +31,7 @@ export interface Emits {
   (event: 'setCellBackground', value: string): void
 }
 const emits = defineEmits<Emits>()
-
+const { t } = useLocale()
 const shouldShow = ({ view, state, from }: ShouldShowProps) => {
   if (!state) {
     return false
@@ -84,9 +84,9 @@ function onDeleteRow() {
   >
     <div class="flex flex-col h-full leading-none gap-0.5 p-2 bg-background rounded-lg shadow-sm border border-border">
       <ActionButton
-        icon="BetweenVerticalStart"
+        icon="BetweenVerticalEnd"
         :action="onAddRowBefore"
-        tooltip="向上插入列"
+        :tooltip="t('editor.table.insertRowAbove')"
         :tooltip-options="{
           sideOffset: 15,
           side: 'right',
@@ -94,9 +94,9 @@ function onDeleteRow() {
       />
 
       <ActionButton
-        icon="BetweenVerticalEnd"
+        icon="BetweenVerticalStart"
         :action="onAddRowAfter"
-        tooltip="向下插入列"
+        :tooltip="t('editor.table.insertRowBelow')"
         :tooltip-options="{
           side: 'right',
           sideOffset: 15,
@@ -109,13 +109,13 @@ function onDeleteRow() {
           side: 'right',
           sideOffset: 15,
         }"
-        tooltip="删除行"
+        :tooltip="t('editor.table.deleteRow')"
       />
       <ActionButton
         v-if="Selection?.cellCount! > 1"
         icon="TableCellsMerge"
         :action="() => emits('onMergeCell')"
-        tooltip="合并单元格"
+        :tooltip="t('editor.table.mergeCells')"
         :tooltip-options="{
           side: 'right',
           sideOffset: 15,
@@ -125,7 +125,7 @@ function onDeleteRow() {
         v-if="Selection?.mergedCellCount! > 0"
         icon="TableCellsSplit"
         :action="() => emits('onSplitCell')"
-        tooltip="拆分单元格"
+        :tooltip="t('editor.table.splitCells')"
         :tooltip-options="{
           side: 'right',
           sideOffset: 15,
@@ -134,7 +134,7 @@ function onDeleteRow() {
 
       <HighlightActionButton
         :editor="editor"
-        tooltip="设置单元格背景色"
+        :tooltip="t('editor.table.setCellsBgColor')"
         :action="color => emits('setCellBackground', color as string)"
         :tooltip-options="{
           side: 'right',

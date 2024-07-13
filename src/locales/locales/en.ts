@@ -110,6 +110,16 @@ const locale: Record<string, string> = {
   'editor.fullscreen.tooltip.exit': 'Fullscreen Exit',
   'editor.imageUpload.fileTypeNotSupported': 'File type not supported',
   'editor.imageUpload.fileSizeTooBig': 'File size too big, Maximum size is',
+  'editor.table.mergeCells': 'Merge Cells',
+  'editor.table.splitCells': 'Split Cells',
+  'editor.table.delete': 'Delete Table',
+  'editor.table.setCellsBgColor': 'Set Cells Background Color',
+  'editor.table.insertColumnLeft': 'Insert Column Left',
+  'editor.table.insertColumnRight': 'Insert Column Right',
+  'editor.table.deleteColumn': 'Delete Column',
+  'editor.table.insertRowAbove': 'Insert Row Above',
+  'editor.table.insertRowBelow': 'Insert Row Below',
+  'editor.table.deleteRow': 'Delete Row',
 }
 
 export default locale

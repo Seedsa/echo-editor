@@ -108,6 +108,16 @@ const locale: Record<string, string> = {
   'editor.fullscreen.tooltip.exit': '退出全屏',
   'editor.imageUpload.fileTypeNotSupported': '图片类型不支持',
   'editor.imageUpload.fileSizeTooBig': '图片大小不支持, 最大',
+  'editor.table.mergeCells': '合并单元格',
+  'editor.table.splitCells': '拆分单元格',
+  'editor.table.delete': '删除表格',
+  'editor.table.setCellsBgColor': '设置单元格背景颜色',
+  'editor.table.insertColumnLeft': '向前插入列',
+  'editor.table.insertColumnRight': '向后插入列',
+  'editor.table.deleteColumn': '删除列',
+  'editor.table.insertRowAbove': '向上插入列',
+  'editor.table.insertRowBelow': '向下插入列',
+  'editor.table.deleteRow': '删除行',
 }
 
 export default locale
