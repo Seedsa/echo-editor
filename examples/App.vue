@@ -74,6 +74,7 @@ import {
   VideoUpload,
   Code,
 } from 'echo-editor'
+import { ExportWord } from './extensions/ExportWord'
 import OpenAI from 'openai'
 import { DEMO_CONTENT } from './initContent'
 import { createLowlight, common } from 'lowlight'
@@ -153,6 +154,7 @@ const extensions = [
       return Promise.resolve(f)
     },
   }),
+  ExportWord,
   // AI.configure({
   //   completions: text => AICompletions(text),
   // }),
