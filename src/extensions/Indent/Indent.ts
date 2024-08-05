@@ -34,6 +34,8 @@ export const Indent = Extension.create<IndentOptions>({
       minIndent: IndentProps.min,
       maxIndent: IndentProps.max,
       button({ editor, t }: { editor: Editor; t: (...args: any[]) => string }) {
+        const { selection } = editor.state
+        const node = selection.$anchor.parent
         return [
           {
             component: ActionButton,
@@ -41,6 +43,7 @@ export const Indent = Extension.create<IndentOptions>({
               action: () => {
                 editor.commands.indent()
               },
+              disabled: node?.attrs?.indent >= IndentProps.max,
               shortcutKeys: ['Tab'],
               icon: 'IndentIncrease',
               tooltip: t('editor.indent.tooltip'),
@@ -53,6 +56,7 @@ export const Indent = Extension.create<IndentOptions>({
                 editor.commands.outdent()
               },
               shortcutKeys: ['Shift', 'Tab'],
+              disabled: node?.attrs?.indent <= IndentProps.min,
               icon: 'IndentDecrease',
               tooltip: t('editor.outdent.tooltip'),
             },
