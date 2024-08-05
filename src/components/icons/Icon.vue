@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import icons from './icons'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@/utils'
-import { Icon, addCollection } from '@iconify/vue'
+import { Icon } from '@iconify/vue'
 
 const props = defineProps<{
   name: keyof typeof icons

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
 import { COLORS_LIST, DEFAULT_COLOR } from '@/constants'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -17,12 +17,12 @@ interface Emits {
   (event: 'update:modelValue', color: string | undefined): void
   (event: 'change', color: string | undefined): void
 }
-// 将颜色值转换成数组
-const colorsArray = COLORS_LIST
-const chunkedColors: any = []
-for (let i = 0; i < colorsArray.length; i += 10) {
-  chunkedColors.push(colorsArray.slice(i, i + 10))
-}
+const chunkedColors = COLORS_LIST.reduce((acc, color, index) => {
+  const chunkIndex = Math.floor(index / 10)
+  if (!acc[chunkIndex]) acc[chunkIndex] = []
+  acc[chunkIndex].push(color)
+  return acc
+}, [] as string[][])
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
@@ -45,6 +45,9 @@ function setRecentColor(color: string) {
     recentColorsStore.value.pop()
   }
 }
+const recentColors = computed(() => {
+  return recentColorsStore.value.slice(0, 10)
+})
 
 function setColor(color: string | undefined) {
   if (color === undefined) {
@@ -121,12 +124,12 @@ const triggerHtml5Color = () => {
               >
                 <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></span
         ></span>
-        <div>
+        <div v-show="recentColors.length">
           <div class="text-sm my-1">{{ t('editor.recent') }}</div>
           <span class="flex p-0 w-full h-auto relative last:pb-2">
             <span
               class="w-6 h-6 p-0.5 inline-block rounded-sm border border-transparent flex-[0 0 auto] cursor-pointer hover:border-border hover:shadow-sm"
-              v-for="(item, index) in recentColorsStore"
+              v-for="(item, index) in recentColors"
               :key="index"
               @click="setColor(item)"
             >
