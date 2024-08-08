@@ -175,10 +175,11 @@ export const BaseKit = Extension.create<BaseKitOptions>({
       extensions.push(
         Placeholder.configure({
           placeholder: ({ node, pos }) => {
-            if (node?.type?.name === 'heading') {
+            const nodeTypeName = node?.type?.name
+            if (nodeTypeName === 'heading') {
               return `${t.value(`editor.heading.h${node.attrs.level}.tooltip`)}`
             }
-            if (node?.type?.name === 'codeBlock') {
+            if (nodeTypeName === 'table' || nodeTypeName === 'codeBlock') {
               return ''
             }
             if (pos === 0) {

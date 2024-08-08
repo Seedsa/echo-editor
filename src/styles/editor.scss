@@ -3,9 +3,6 @@
     @apply caret-black dark:caret-white outline-0 pr-8 pl-20 py-16 z-0 lg:pl-8 lg:pr-8;
     min-height: 180px;
     padding: 32px 80px;
-    // & > * {
-    //   @apply mx-auto max-w-2xl;
-    // }
     .img-placeholder {
       width: fit-content;
       position: relative;
@@ -26,6 +23,7 @@
     /* Table */
     .tableWrapper {
       @apply my-6;
+
       table {
         .column-resize-handle {
           @apply -bottom-[2px] flex pointer-events-none absolute -right-1 top-0 w-2;
@@ -223,8 +221,6 @@
     }
 
     .image-view {
-      $root: &;
-
       display: inline-block;
       float: none;
       max-width: 100%;
