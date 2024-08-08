@@ -60,6 +60,7 @@ function unSetLink() {
       popperOptions: {
         modifiers: [{ name: 'flip', enabled: false }],
       },
+      appendTo: 'parent',
       placement: 'bottom-start',
       offset: [-2, 16],
       zIndex: 9999,

@@ -58,7 +58,6 @@ export const Link = TiptapLink.extend<LinkOptions>({
                 .focus()
                 .run()
             },
-            id: 'linkk',
             isActive: () => editor.isActive('link') || false,
             disabled: !editor.can().setLink({ href: '' }),
             icon: 'Link',

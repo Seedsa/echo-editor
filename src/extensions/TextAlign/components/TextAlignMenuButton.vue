@@ -5,7 +5,7 @@ import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigge
 import { Toggle } from '@/components/ui/toggle'
 import { icons, Icon } from '@/components/icons'
 import type { Editor } from '@tiptap/vue-3'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip'
 
 import ActionButton from '@/components/ActionButton.vue'
 import type { ButtonViewReturnComponentProps } from '@/type'
@@ -73,27 +73,29 @@ function togglePop() {
   <DropdownMenu>
     <DropdownMenuTrigger as-child :disabled="disabled">
       <div style="display: flex">
-        <ActionButton customClass="w-12" enable-tooltip :icon="icon" dropdown :tooltip="tooltip" :disabled="disabled">
+        <ActionButton customClass="w-12" :icon="icon" :tooltip="tooltip" :disabled="disabled">
           <Icon class="w-3 h-3 ml-1 text-zinc-500" name="MenuDown" />
         </ActionButton>
       </div>
     </DropdownMenuTrigger>
     <DropdownMenuContent class="min-w-4 w-full flex flex-row gap-1" align="start" side="bottom">
-      <Tooltip v-for="(item, index) in props.items" :key="index">
-        <TooltipTrigger as-child>
-          <DropdownMenuItem class="p-0">
-            <Toggle size="sm" @click="item.action" class="w-7 h-7 p-1" :pressed="active.title === item.title">
-              <Icon :name="item.icon" v-if="item.icon" />
-            </Toggle>
-          </DropdownMenuItem>
-        </TooltipTrigger>
-        <TooltipContent class="flex flex-col items-center">
-          <span>{{ item.title }}</span>
-          <span>
-            {{ item.shortcutKeys?.map(item => getShortcutKey(item)).join(' ') }}
-          </span>
-        </TooltipContent>
-      </Tooltip>
+      <TooltipProvider>
+        <Tooltip v-for="(item, index) in props.items" :key="index">
+          <TooltipTrigger as-child>
+            <DropdownMenuItem class="p-0">
+              <Toggle size="sm" @click="item.action" class="w-7 h-7 p-1" :pressed="active.title === item.title">
+                <Icon :name="item.icon" v-if="item.icon" />
+              </Toggle>
+            </DropdownMenuItem>
+          </TooltipTrigger>
+          <TooltipContent class="flex flex-col items-center">
+            <span>{{ item.title }}</span>
+            <span>
+              {{ item.shortcutKeys?.map(item => getShortcutKey(item)).join(' ') }}
+            </span>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>

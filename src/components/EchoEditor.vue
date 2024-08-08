@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, watch, onUnmounted, unref, useAttrs, ref } from 'vue'
-import Toaster from '@/components/ui/toast/Toaster.vue'
-import { AnyExtension, Editor as CoreEditor } from '@tiptap/core'
+import { computed, watch, onUnmounted, unref, useAttrs } from 'vue'
+import { AnyExtension, Editor as CoreEditor, JSONContent } from '@tiptap/core'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import type { EditorOptions } from '@tiptap/vue-3'
-import { EDITOR_UPDATE_THROTTLE_WAIT_TIME, EDITOR_UPDATE_WATCH_THROTTLE_WAIT_TIME } from '@/constants'
+import { EDITOR_UPDATE_THROTTLE_WAIT_TIME } from '@/constants'
 import { differenceBy, getCssUnitWithDefault, hasExtension, isEqual, throttle } from '@/utils/utils'
 import { useLocale } from '@/locales'
 import { useProvideTiptapStore } from '@/hooks/useStore'
@@ -15,19 +14,18 @@ import ContentMenu from './menus/ContentMenu.vue'
 import ColumnsMenu from '@/extensions/MultiColumn/menus'
 import Toolbar from './Toolbar.vue'
 import { EchoEditorOnChange } from '@/type'
-import { useDark, useToggle, watchDebounced, debouncedRef } from '@vueuse/core'
+import { useDark, useToggle } from '@vueuse/core'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
-type HandleKeyDown = NonNullable<EditorOptions['editorProps']['handleKeyDown']>
-type OnUpdate = NonNullable<EditorOptions['onUpdate']>
+type KeyDownHandler = NonNullable<EditorOptions['editorProps']['handleKeyDown']>
+type UpdateHandler = NonNullable<EditorOptions['onUpdate']>
 
-interface Props {
+interface EditorProps {
   modelValue?: string | object
   output?: 'html' | 'json' | 'text'
   dark?: boolean
   dense?: boolean
   disabled?: boolean
-  label?: string
   hideToolbar?: boolean
   disableBubble?: boolean
   hideBubble?: boolean
@@ -40,18 +38,18 @@ interface Props {
   contentClass?: string | string[] | Record<string, any>
 }
 
-interface Emits {
+interface EditorEmits {
   (event: 'enter'): void
   (event: 'change', value: EchoEditorOnChange): void
-  (event: 'update:modelValue', value: Props['modelValue']): void
+  (event: 'update:modelValue', value: EditorProps['modelValue']): void
 }
-const props = withDefaults(defineProps<Props>(), {
+
+const props = withDefaults(defineProps<EditorProps>(), {
   modelValue: '',
   output: 'html',
   dark: undefined,
   dense: false,
   disabled: false,
-  label: undefined,
   hideToolbar: false,
   disableBubble: false,
   hideBubble: false,
@@ -64,105 +62,85 @@ const props = withDefaults(defineProps<Props>(), {
   contentClass: undefined,
 })
 
-const emit = defineEmits<Emits>()
+const emit = defineEmits<EditorEmits>()
 
 const attrs = useAttrs()
-
 const { state, isFullscreen } = useProvideTiptapStore()
+const { t } = useLocale()
+const isDark = useDark()
 
-const sortExtensions = computed<AnyExtension[]>(() => {
-  const diff = differenceBy(props.extensions, state.extensions, 'name')
-  const exts = state.extensions.map((k, i) => {
-    const find = props.extensions.find(ext => ext.name === k.name)
-    if (!find) return k
-    return k.configure(find.options)
-  })
-  return [...exts, ...diff].map((k, i) => k.configure({ sort: i }))
-})
+const sortExtensions = computed(() =>
+  [...state.extensions, ...differenceBy(props.extensions, state.extensions, 'name')].map((k, i) =>
+    k.configure({ sort: i })
+  )
+)
 
 const editor = new Editor({
   content: props.modelValue,
   editorProps: {
-    handleKeyDown: throttle<HandleKeyDown>(function (view, event) {
+    handleKeyDown: throttle<KeyDownHandler>((_, event) => {
       if (event.key === 'Enter' && attrs.enter && !event.shiftKey) {
         emit('enter')
         return true
       }
-
       return false
     }, EDITOR_UPDATE_THROTTLE_WAIT_TIME),
   },
-  onUpdate: throttle<OnUpdate>(({ editor }) => {
-    const output = getOutput(editor, props.output as any)
+  onUpdate: throttle<UpdateHandler>(({ editor }) => {
+    const output = getOutput(editor, props.output)
     emit('update:modelValue', output)
     emit('change', { editor, output })
   }, EDITOR_UPDATE_THROTTLE_WAIT_TIME),
   extensions: unref(sortExtensions),
-  autofocus: false,
   editable: !props.disabled,
-  injectCSS: true,
-})
-const { t } = useLocale()
-const isDark = useDark()
-watch(
-  () => props.dark,
-  val => {
-    const toggle = useToggle(isDark)
-    toggle(val)
-  }
-)
-
-const contentDynamicStyles = computed(() => {
-  const maxWidth = getCssUnitWithDefault(props.maxWidth)
-
-  const maxHeightStyle = {
-    maxWidth: maxWidth,
-    width: !maxWidth ? undefined : '100%',
-    margin: !maxWidth ? undefined : '8px auto',
-  }
-  if (unref(isFullscreen)) return { height: '100%', overflowY: 'auto', ...maxHeightStyle }
-
-  const minHeight = getCssUnitWithDefault(props.minHeight)
-  const maxHeight = getCssUnitWithDefault(props.maxHeight)
-
-  return {
-    minHeight,
-    maxHeight,
-    overflowY: 'auto',
-    ...maxHeightStyle,
-  }
 })
 
-function getOutput(editor: CoreEditor, output: Props['output']) {
-  if (props.removeDefaultWrapper) {
-    if (output === 'html') return editor.isEmpty ? '' : editor.getHTML()
-    if (output === 'json') return editor.isEmpty ? {} : editor.getJSON()
-    if (output === 'text') return editor.isEmpty ? '' : editor.getText()
-    return ''
-  }
+watch(() => props.dark, useToggle(isDark))
 
-  if (output === 'html') return editor.getHTML()
-  if (output === 'json') return editor.getJSON()
-  if (output === 'text') return editor.getText()
-  return ''
+const contentDynamicStyles = computed(() => ({
+  ...(unref(isFullscreen)
+    ? { height: '100%', overflowY: 'auto' as const }
+    : {
+        minHeight: getCssUnitWithDefault(props.minHeight),
+        maxHeight: getCssUnitWithDefault(props.maxHeight),
+        overflowY: 'auto' as const,
+      }),
+  maxWidth: getCssUnitWithDefault(props.maxWidth),
+  width: props.maxWidth ? '100%' : undefined,
+  margin: props.maxWidth ? '8px auto' : undefined,
+}))
+
+function getOutput(editor: CoreEditor, output: EditorProps['output']): string | JSONContent {
+  if (editor.isEmpty && props.removeDefaultWrapper) {
+    return output === 'json' ? {} : ''
+  }
+  switch (output) {
+    case 'html':
+      return editor.getHTML()
+    case 'json':
+      return editor.getJSON()
+    case 'text':
+      return editor.getText()
+    default:
+      return ''
+  }
 }
 
-const onValueChange = throttle((val: NonNullable<Props['modelValue']>) => {
-  if (!editor) return
+watch(
+  () => props.modelValue,
+  val => {
+    if (!editor || isEqual(getOutput(editor, props.output), val)) return
+    const { from, to } = editor.state.selection
+    editor.commands.setContent(val, false)
+    editor.commands.setTextSelection({ from, to })
+  },
+  { deep: true }
+)
 
-  const output = getOutput(editor, props.output as any)
-
-  if (isEqual(output, val)) return
-
-  const { from, to } = editor.state.selection
-  editor.commands.setContent(val, false)
-  editor.commands.setTextSelection({ from, to })
-}, EDITOR_UPDATE_WATCH_THROTTLE_WAIT_TIME)
-
-const onDisabledChange = (val: boolean) => editor?.setEditable(!val)
-
-watch(() => props.modelValue, onValueChange)
-watch(() => props.disabled, onDisabledChange)
+watch(
+  () => props.disabled,
+  val => editor?.setEditable(!val)
+)
 
 onUnmounted(() => editor?.destroy())
 
@@ -170,42 +148,40 @@ defineExpose({ editor })
 </script>
 
 <template>
-  <TooltipProvider :delay-duration="0">
+  <div
+    v-if="editor"
+    class="echo-editor rounded-[0.5rem] bg-background shadow outline outline-1"
+    :class="[
+      editorClass,
+      {
+        dense,
+        'outline-primary': editor.isFocused,
+        'outline-border': !editor.isFocused,
+      },
+    ]"
+  >
+    <ContentMenu :editor="editor" :disabled="disabled" />
+    <LinkBubbleMenu :editor="editor" />
+    <ColumnsMenu :editor="editor" />
+    <TableBubbleMenu :editor="editor" />
+    <BubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
     <div
-      v-if="editor"
-      class="echo-editor rounded-[0.5rem] bg-background shadow overflow-hidden outline outline-1"
-      :class="[editorClass, dense ? 'dense' : '', editor.isFocused ? 'outline-primary' : 'outline-border']"
+      class="relative"
+      :class="{ 'fixed bg-background inset-0 z-[200] w-full h-full m-0 rounded-none': isFullscreen }"
     >
-      <ContentMenu :editor="editor" :disabled="props.disabled" />
-      <LinkBubbleMenu :editor="editor" />
-      <ColumnsMenu :editor="editor" />
-      <TableBubbleMenu :editor="editor" />
-      <BubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
-      <div
-        class="flex flex-col w-full max-h-full"
-        :class="[isFullscreen && 'fixed bg-background inset-0 z-[200] w-full h-full m-0 rounded-none']"
-      >
-        <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="props.disabled" class="border-b py-2 px-1" />
-        <editor-content :editor="editor" :class="contentClass" :style="contentDynamicStyles" />
-        <div class="flex justify-between border-t p-3 items-center">
-          <div v-if="hasExtension(editor, 'characterCount')" class="flex flex-col">
-            <div class="flex justify-end gap-3 text-sm">
-              <template v-if="hasExtension(editor, 'characterCount')">
-                <span>
-                  {{ editor.storage.characterCount.characters() }}
-                  {{ t('editor.characters') }}
-                </span>
-              </template>
-            </div>
+      <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="disabled" class="border-b py-2 px-1" />
+      <editor-content :editor="editor" :class="contentClass" :style="contentDynamicStyles" />
+      <div v-if="hasExtension(editor, 'characterCount')" class="flex justify-between border-t p-3 items-center">
+        <div class="flex flex-col">
+          <div class="flex justify-end gap-3 text-sm">
+            <span>
+              {{ editor.storage.characterCount.characters() }}
+              {{ t('editor.characters') }}
+            </span>
           </div>
-          <slot name="footer" v-bind="{ editor }"> </slot>
         </div>
+        <slot name="footer" :editor="editor" />
       </div>
-      <Toaster />
     </div>
-  </TooltipProvider>
+  </div>
 </template>
-
-<style lang="scss">
-@import '@/styles/index.scss';
-</style>

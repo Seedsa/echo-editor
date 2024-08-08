@@ -3,7 +3,7 @@ import EchoEditor from '@/components/EchoEditor.vue'
 import ActionButton from '@/components/ActionButton.vue'
 import locale, { zhHans, en } from './locales'
 import { setupIcons } from '@/components/icons/setupIcon'
-
+import '@/styles/index.scss'
 setupIcons()
 
 const EchoEditorPlugin: Plugin = {

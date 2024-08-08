@@ -65,7 +65,7 @@ const active = computed(() => {
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger :disabled="disabled">
-      <ActionButton customClass="w-12" :icon="icon" dropdown :tooltip="tooltip" :disabled="disabled">
+      <ActionButton customClass="w-12" :icon="icon" :tooltip="tooltip" :disabled="disabled">
         <Icon class="w-3 h-3 text-gray-500" name="MenuDown" />
       </ActionButton>
     </DropdownMenuTrigger>

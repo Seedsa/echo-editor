@@ -2,10 +2,10 @@
 import { ButtonViewReturnComponentProps } from '@/type'
 import { getShortcutKey } from '@/utils/plateform'
 import { Toggle } from '@/components/ui/toggle'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip'
 import type { TooltipContentProps } from 'radix-vue'
 import { icons, Icon } from '@/components/icons'
-import { TooltipProvider } from '@/components/ui/tooltip'
+import type { Editor } from '@tiptap/core'
 
 interface Props {
   icon?: keyof typeof icons
@@ -19,8 +19,9 @@ interface Props {
   color?: string
   action?: ButtonViewReturnComponentProps['action']
   isActive?: ButtonViewReturnComponentProps['isActive']
+  editor?: Editor
 }
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   icon: undefined,
   title: undefined,
   tooltip: undefined,
@@ -36,8 +37,8 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <TooltipProvider :delay-duration="0">
-    <Tooltip :disabled="disabled">
+  <TooltipProvider>
+    <Tooltip :disabled="disabled" :delay-duration="0">
       <TooltipTrigger>
         <Toggle
           size="sm"

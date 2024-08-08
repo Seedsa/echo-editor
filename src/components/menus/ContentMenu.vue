@@ -5,7 +5,7 @@ import { DragHandlePlugin, dragHandlePluginDefaultKey } from 'echo-drag-handle-p
 import { Button } from '@/components/ui/button'
 import { Node } from '@tiptap/pm/model'
 import { Editor } from '@tiptap/vue-3'
-import { NodeSelection, Plugin } from '@tiptap/pm/state'
+import { NodeSelection, Plugin, PluginKey } from '@tiptap/pm/state'
 import { useLocale } from '@/locales'
 import {
   DropdownMenu,
@@ -18,7 +18,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip'
 import { IndentProps, setNodeIndentMarkup } from '@/utils/indent'
 import { getShortcutKeys } from '@/utils/plateform'
 
@@ -40,7 +40,7 @@ const props = defineProps({
     default: false,
   },
   pluginKey: {
-    type: String,
+    type: PluginKey,
     default: dragHandlePluginDefaultKey,
   },
   onNodeChange: Function, // 节点改变时的回调函数
@@ -66,7 +66,7 @@ onMounted(() => {
       pluginKey: 'ContentItemMenu',
       tippyOptions: {
         offset: [-2, 16],
-        zIndex: 99,
+        zIndex: 9,
         moveTransition: 'transform 0.15s ease-out',
       },
       onNodeChange: handleNodeChange,
@@ -191,16 +191,18 @@ watch(
       </Button>
       <DropdownMenu v-model:open="menuOpen">
         <DropdownMenuTrigger :disable="disabled">
-          <Tooltip>
-            <TooltipTrigger as-child>
-              <Button variant="ghost" size="icon" class="w-7 h-7 cursor-grab" :disabled="disabled">
-                <Icon name="Grip" class="text-sm dark:text-neutral-200 text-neutral-600" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{{ t('editor.draghandle.tooltip') }}</p>
-            </TooltipContent>
-          </Tooltip>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger as-child>
+                <Button variant="ghost" size="icon" class="w-7 h-7 cursor-grab" :disabled="disabled">
+                  <Icon name="Grip" class="text-sm dark:text-neutral-200 text-neutral-600" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{{ t('editor.draghandle.tooltip') }}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </DropdownMenuTrigger>
         <DropdownMenuContent class="w-48" align="start" side="bottom">
           <DropdownMenuItem

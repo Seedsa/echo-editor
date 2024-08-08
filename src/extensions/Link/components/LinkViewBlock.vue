@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator'
 
 interface Props {
   editor: Editor
-  link: string
+  link?: string
 }
 withDefaults(defineProps<Props>(), {
   link: undefined,

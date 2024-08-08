@@ -57,8 +57,8 @@ const items = computed(() => {
 </script>
 
 <template>
-  <div v-bind="$attrs">
-    <div class="flex flex-wrap h-auto relative gap-y-1 gap-x-1">
+  <div class="sticky top-0 h-auto bg-background z-10 overflow-visible transition-all rounded-t-[0.5rem]">
+    <div class="flex flex-wrap gap-y-1 gap-x-1 items-center">
       <template v-for="(item, key) in items" :key="key">
         <div class="flex items-center">
           <Separator v-if="item.spacer" orientation="vertical" class="h-[16px] mx-[10px]" />

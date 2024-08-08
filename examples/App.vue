@@ -1,16 +1,6 @@
 <template>
-  <div
-    style="
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      max-width: 1024px;
-      gap: 24px;
-      margin: 0 auto;
-    "
-  >
-    <div style="display: flex; gap: 12px">
+  <div>
+    <header class="p-3 flex gap-3 justify-center w-full bg-gray-100 text-black">
       <button ghost @click="locale.setLang('zhHans')">中文</button>
       <button ghost @click="locale.setLang('en')">English</button>
       <button ghost @click="theme = 'dark'">dark</button>
@@ -18,21 +8,20 @@
       <button ghost @click="hideToolbar = !hideToolbar">{{ !hideToolbar ? 'Hide Toolbar' : 'Show Toolbar' }}</button>
       <button ghost @click="disabled = !disabled">{{ disabled ? 'Editable' : 'Readonly' }}</button>
       <a href="https://github.com/Seedsa/echo-editor" target="__blank">Github</a>
-    </div>
-    <echo-editor
-      v-model="content"
-      :extensions="extensions"
-      :max-height="1024"
-      :hideToolbar="hideToolbar"
-      :disabled="disabled"
-      :min-height="512"
-      output="html"
-      maxWidth="900"
-      :dark="theme === 'dark'"
-    >
-    </echo-editor>
-    <div title="content" style="margin-top: 20px">
-      {{ content }}
+    </header>
+    <div class="my-0 mx-auto max-w-[1024px] p-6">
+      <echo-editor
+        v-model="content"
+        :extensions="extensions"
+        :hideToolbar="hideToolbar"
+        :disabled="disabled"
+        output="html"
+        :dark="theme === 'dark'"
+      >
+      </echo-editor>
+      <div class="mt-3 text-sm text-zinc-700">
+        {{ content }}
+      </div>
     </div>
   </div>
 </template>
