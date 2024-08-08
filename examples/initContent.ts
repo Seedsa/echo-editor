@@ -81,7 +81,7 @@ export const DEMO_CONTENT = {
             {
               type: 'link',
               attrs: {
-                href: 'https://echo-editor.vercel.app/',
+                href: 'https://echo-editor.jzcloud.site/',
                 target: '_blank',
                 rel: 'noopener noreferrer nofollow',
                 class: 'link',

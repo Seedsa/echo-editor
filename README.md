@@ -12,7 +12,7 @@ English | [中文](./README.zh-CN.md)
 
 ## Demo
 
-[Demo](https://echo-editor.vercel.app/)
+[Demo](https://echo-editor.jzcloud.site/)
 
 ## Features
 

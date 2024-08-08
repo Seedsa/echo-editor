@@ -12,7 +12,7 @@
 
 ## 演示
 
-[演示](https://echo-editor.vercel.app/)
+[演示](https://echo-editor.jzcloud.site/)
 
 ## 特性
 
