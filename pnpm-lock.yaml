@@ -152,9 +152,6 @@ importers:
       echo-drag-handle-plugin:
         specifier: ^0.0.2
         version: 0.0.2(@tiptap/core@2.5.9)(@tiptap/pm@2.5.9)(y-prosemirror@1.2.5)
-      lucide-vue-next:
-        specifier: ^0.378.0
-        version: 0.378.0(vue@3.4.27)
       tippy.js:
         specifier: ^6.3.7
         version: 6.3.7
@@ -4862,14 +4859,6 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
-
-  /lucide-vue-next@0.378.0(vue@3.4.27):
-    resolution: {integrity: sha512-tz2IUhdOf1q0x1mPOTZEJZYfXVLreQorO2ax4M+CxGOTgCNgXH3cljIWWfJ4jUvxn5rbkFlGPbl9EIfIelZBRA==}
-    peerDependencies:
-      vue: '>=3.0.1'
-    dependencies:
-      vue: 3.4.27(typescript@5.4.5)
-    dev: false
 
   /magic-string@0.30.10:
     resolution: {integrity: sha512-iIRwTIf0QKV3UAnYK4PU8uiEc4SRh5jX0mwpIwETPpHdhVM4f53RSwS/vXvN1JhGX+Cs7B8qIq3d6AH49O5fAQ==}
