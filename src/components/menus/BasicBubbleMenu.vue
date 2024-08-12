@@ -6,9 +6,8 @@ import { Separator } from '@/components/ui/separator'
 import type { Editor, Extension } from '@tiptap/vue-3'
 import { BubbleMenu } from '@tiptap/vue-3'
 import type { BaseKitOptions } from '@/extensions/BaseKit'
-import type { BubbleTypeMenu } from './bubble'
+import type { BubbleTypeMenu } from './BasicBubble'
 import { useLocale } from '@/locales'
-import { CellSelection } from '@tiptap/pm/tables'
 
 interface Props {
   editor: Editor
@@ -32,16 +31,11 @@ const nodeType = computed(() => {
   const isImage = selection.node?.type.name === 'image'
   const isLink = props.editor.isActive('link')
   const isVideo = selection.node?.type.name === 'video'
-  const isCell = selection instanceof CellSelection
-  const isTable = selection.node?.type.name === 'table' || isCell
   const isText = selection instanceof TextSelection
-
   if (isLink) return 'link'
   if (isImage) return 'image'
   if (isVideo) return 'video'
-  if (isTable) return 'table'
   if (isText) return 'text'
-
   return undefined
 })
 
@@ -69,7 +63,7 @@ const items = computed(() => {
 })
 </script>
 <template>
-  <BubbleMenu v-show="items.length > 0" :editor="editor" :tippy-options="tippyOptions">
+  <BubbleMenu v-show="items.length" :editor="editor" :tippy-options="tippyOptions">
     <div
       class="border border-neutral-200 dark:border-neutral-800 px-3 py-2 transition-all select-none pointer-events-auto shadow-sm rounded-sm w-auto bg-background"
     >

@@ -4,7 +4,6 @@ import { OrderedList as TiptapOrderedList } from '@tiptap/extension-ordered-list
 import ActionButton from '@/components/ActionButton.vue'
 
 import type { GeneralOptions } from '@/type'
-import { isMacOS } from '@tiptap/core'
 
 export interface OrderedListOptions extends TiptapOrderedListOptions, GeneralOptions<OrderedListOptions> {}
 

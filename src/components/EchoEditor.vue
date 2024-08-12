@@ -7,15 +7,14 @@ import { EDITOR_UPDATE_THROTTLE_WAIT_TIME } from '@/constants'
 import { differenceBy, getCssUnitWithDefault, hasExtension, isEqual, throttle } from '@/utils/utils'
 import { useLocale } from '@/locales'
 import { useProvideTiptapStore } from '@/hooks/useStore'
-import BubbleMenu from './menus/BubbleMenu.vue'
+import BasicBubbleMenu from './menus/BasicBubbleMenu.vue'
 import LinkBubbleMenu from './menus/LinkBubbleMenu.vue'
-import TableBubbleMenu from '@/extensions/Table/menus/TableBubbleMenu.vue'
+import TableBubbleMenu from './menus/TableBubbleMenu.vue'
 import ContentMenu from './menus/ContentMenu.vue'
-import ColumnsMenu from '@/extensions/MultiColumn/menus'
+import ColumnsBubbleMenu from './menus/ColumnsBubbleMenu.vue'
 import Toolbar from './Toolbar.vue'
 import { EchoEditorOnChange } from '@/type'
 import { useDark, useToggle } from '@vueuse/core'
-import { TooltipProvider } from '@/components/ui/tooltip'
 
 type KeyDownHandler = NonNullable<EditorOptions['editorProps']['handleKeyDown']>
 type UpdateHandler = NonNullable<EditorOptions['onUpdate']>
@@ -162,9 +161,9 @@ defineExpose({ editor })
   >
     <ContentMenu :editor="editor" :disabled="disabled" />
     <LinkBubbleMenu :editor="editor" />
-    <ColumnsMenu :editor="editor" />
+    <ColumnsBubbleMenu :editor="editor" />
     <TableBubbleMenu :editor="editor" />
-    <BubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
+    <BasicBubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
     <div
       class="relative"
       :class="{ 'fixed bg-background inset-0 z-[200] w-full h-full m-0 rounded-none': isFullscreen }"

@@ -8,7 +8,7 @@ export const getRenderContainer = (editor: Editor, nodeType: string) => {
     },
   } = editor
 
-  const elements = document.querySelectorAll('.has-focus')
+  const elements = document.querySelectorAll('.focus')
   const elementCount = elements.length
   const innermostNode = elements[elementCount - 1]
   const element = innermostNode

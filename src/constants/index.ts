@@ -169,5 +169,4 @@ export const NODE_TYPE_MENU: any = {
     'textAlign',
   ],
   video: ['video-size-small', 'video-size-medium', 'video-size-large', 'divider', 'remove'],
-  table: ['removeTable'],
 }

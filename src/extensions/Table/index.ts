@@ -1,14 +1,14 @@
 import { TableCellBackground } from './cell-background'
 import type { TableCellBackgroundOptions } from './cell-background'
 
-import { TableHeader } from './header'
-import type { TableHeaderOptions } from './header'
+import { TableHeader } from '@tiptap/extension-table-header'
+import type { TableHeaderOptions } from '@tiptap/extension-table-header'
 
-import { TableRow } from './row'
+import { TableRow } from '@tiptap/extension-table-row'
 import type { TableRowOptions } from '@tiptap/extension-table-row'
 
-import { TableCell } from './cell'
-import type { TableCellOptions } from './cell'
+import { TableCell } from '@tiptap/extension-table-cell'
+import type { TableCellOptions } from '@tiptap/extension-table-cell'
 
 import { Table } from './table'
 import type { TableOptions } from './table'

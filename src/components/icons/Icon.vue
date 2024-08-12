@@ -7,7 +7,6 @@ import { Icon } from '@iconify/vue'
 
 const props = defineProps<{
   name: keyof typeof icons
-  strokeWidth?: string | number
   class?: HTMLAttributes['class']
 }>()
 

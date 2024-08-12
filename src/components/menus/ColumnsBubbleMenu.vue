@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import { sticky } from 'tippy.js'
 import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu, isActive } from '@tiptap/vue-3'
 import ActionButton from '@/components/ActionButton.vue'
-import { ColumnLayout } from '../Columns'
+import { ColumnLayout } from '@/extensions/MultiColumn'
 import { getRenderContainer } from '@/utils/getRenderContainer'
 
 interface Props {

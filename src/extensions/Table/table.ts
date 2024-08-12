@@ -1,13 +1,17 @@
 import TiptapTable from '@tiptap/extension-table'
-import TableRow from './row'
-import TableHeader from './header'
-import { TableCell } from './cell'
-import { TableCellBackground } from './cell-background'
 
+import { TableRow } from '@tiptap/extension-table-row'
 import type { TableRowOptions } from '@tiptap/extension-table-row'
-import type { TableHeaderOptions } from './header'
-import type { TableCellOptions } from './cell'
+
+import { TableCell } from '@tiptap/extension-table-cell'
+import type { TableCellOptions } from '@tiptap/extension-table-cell'
+
+import { TableHeader } from '@tiptap/extension-table-header'
+import type { TableHeaderOptions } from '@tiptap/extension-table-header'
+
+import { TableCellBackground } from './cell-background'
 import type { TableCellBackgroundOptions } from './cell-background'
+
 import { GeneralOptions } from '@/type'
 import TableActionButton from './components/TableActionButton.vue'
 
@@ -31,7 +35,6 @@ export const Table = TiptapTable.extend<TableOptions>({
   addOptions() {
     return {
       ...this.parent?.(),
-      HTMLAttributes: {},
       resizable: true,
       lastColumnResizable: true,
       allowTableNodeSelection: false,
@@ -45,6 +48,7 @@ export const Table = TiptapTable.extend<TableOptions>({
       }),
     }
   },
+
   addExtensions() {
     return [
       TableRow.configure(this.options.tableRow),

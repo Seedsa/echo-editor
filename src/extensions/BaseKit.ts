@@ -26,8 +26,8 @@ import type { TrailingNodeOptions } from './TrailingNode/TrailingNode'
 import Iframe from './Iframe/Iframe'
 import type { IframeOptions } from './Iframe/Iframe'
 
-import type { BubbleOptions } from '../components/menus/bubble'
-import { defaultBubbleList, generateBubbleTypeMenu } from '../components/menus/bubble'
+import type { BubbleOptions } from '../components/menus/BasicBubble'
+import { defaultBubbleList, generateBubbleTypeMenu } from '../components/menus/BasicBubble'
 
 import { TextBubble } from './TextBubble'
 import type { TextBubbleOptions } from './TextBubble'

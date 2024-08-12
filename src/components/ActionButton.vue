@@ -38,7 +38,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <TooltipProvider>
-    <Tooltip :disabled="disabled" :delay-duration="0">
+    <Tooltip :delay-duration="0">
       <TooltipTrigger>
         <Toggle
           size="sm"
