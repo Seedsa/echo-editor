@@ -43,7 +43,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="flex items-center h-[32px]">
+  <div class="flex items-center h-[32px] hover:bg-muted rounded-md">
     <ActionButton :tooltip="tooltip" :disabled="disabled" :action="toggleColor" :tooltip-options="tooltipOptions">
       <template #icon>
         <span class="text-sm flex items-center justify-center"
@@ -80,7 +80,12 @@ watchEffect(() => {
       </template>
     </ActionButton>
     <color-picker v-model="selectedColor" @change="onChange" highlight :disabled="disabled">
-      <Button variant="ghost" size="icon" class="w-3 h-[32px]" :disabled="disabled">
+      <Button
+        variant="ghost"
+        size="icon"
+        class="w-3 h-[32px] rounded-l-none hover:bg-muted-foreground/20"
+        :disabled="disabled"
+      >
         <Icon class="w-3 h-3 text-zinc-500" name="MenuDown" />
       </Button>
     </color-picker>

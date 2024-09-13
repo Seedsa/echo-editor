@@ -34,7 +34,7 @@ function toggleColor(e: any) {
 }
 </script>
 <template>
-  <div class="flex items-center h-[32px]">
+  <div class="flex items-center h-[32px] hover:bg-muted rounded-md">
     <ActionButton :tooltip="tooltip" :disabled="disabled" :action="toggleColor">
       <template #icon>
         <span class="text-sm flex justify-center items-center">
@@ -68,7 +68,12 @@ function toggleColor(e: any) {
       </template>
     </ActionButton>
     <color-picker v-model="selectedColor" @change="onChange" :disabled="disabled">
-      <Button variant="ghost" size="icon" class="h-[32px] w-3" :disabled="disabled">
+      <Button
+        variant="ghost"
+        size="icon"
+        class="h-[32px] w-3 rounded-l-none hover:bg-muted-foreground/20"
+        :disabled="disabled"
+      >
         <Icon class="w-3 h-3 text-zinc-500" name="MenuDown" />
       </Button>
     </color-picker>
