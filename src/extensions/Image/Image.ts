@@ -40,6 +40,9 @@ export const Image = TiptapImage.extend({
         default: null,
         parseHTML: element => {
           const width = element.style.width || element.getAttribute('width') || null
+          if (width && width.endsWith('%')) {
+            return width
+          }
           return width == null ? null : parseInt(width, 10)
         },
         renderHTML: attributes => {
