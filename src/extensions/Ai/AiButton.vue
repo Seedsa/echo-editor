@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { ButtonViewReturnComponentProps } from '@/type'
-import { getShortcutKey } from '@/utils/plateform'
-import { Toggle } from '@/components/ui/toggle'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import type { TooltipContentProps } from 'radix-vue'
-import { icons, Icon } from '@/components/icons'
+import { icons } from '@/components/icons'
+import { useTiptapStore } from '@/hooks/useStore'
+import type { Editor } from '@tiptap/vue-3'
+import ActionButton from '@/components/ActionButton.vue'
+import { useToast } from '@/components/ui/toast/use-toast'
 
 interface Props {
+  editor: Editor
   icon?: keyof typeof icons
   title?: string
   tooltip?: string
@@ -20,6 +21,7 @@ interface Props {
   action?: ButtonViewReturnComponentProps['action']
   isActive?: ButtonViewReturnComponentProps['isActive']
 }
+
 const props = withDefaults(defineProps<Props>(), {
   icon: undefined,
   title: undefined,
@@ -33,25 +35,31 @@ const props = withDefaults(defineProps<Props>(), {
   action: undefined,
   isActive: undefined,
 })
-const open = ref(false)
+
+const store = useTiptapStore()
+const { toast } = useToast()
+
+function handleOpen() {
+  const completionsFunc = props.editor.extensionManager.extensions.find(e => e.name === 'AI')?.options?.completions
+  if (typeof completionsFunc !== 'function') {
+    toast({
+      title: 'AI completions method is not set or is not a valid function',
+      variant: 'destructive',
+    })
+    return
+  }
+  if (completionsFunc.constructor.name !== 'AsyncFunction') {
+    toast({
+      title: 'AI completions method must be an asynchronous function',
+      variant: 'destructive',
+    })
+    return
+  }
+  store!.state.AIMenu = true
+  props.editor?.commands.focus()
+}
 </script>
 
 <template>
-  <Toggle
-    size="sm"
-    class="w-[32px] h-[32px]"
-    :pressed="isActive?.() || false"
-    :disabled="disabled"
-    :class="[customClass]"
-    @click="open = true"
-  >
-    <div v-if="loading">
-      <Icon class="animate-spin" name="LoaderCircle" />
-    </div>
-    <div class="flex gap-1 items-center" v-else>
-      <Icon v-if="icon" :name="icon" />
-      <slot name="icon"></slot>
-    </div>
-    <slot></slot>
-  </Toggle>
+  <ActionButton :action="handleOpen" title="AI" :disabled="disabled" :icon="icon" :tooltip="tooltip" />
 </template>

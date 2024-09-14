@@ -1,4 +1,4 @@
-import { computed, reactive, watchEffect } from 'vue'
+import { computed, reactive, watchEffect, ComputedRef } from 'vue'
 import type { AnyExtension } from '@tiptap/core'
 import { createInjectionState } from '@vueuse/core'
 import { useContext } from './useContext'
@@ -35,6 +35,17 @@ interface Instance {
 
   /** Highlight color */
   highlight?: string
+  /** AI Menu */
+  AIMenu: boolean
+}
+
+/**
+ * Interface representing the returned state and actions from the Tiptap store.
+ */
+interface TiptapStore {
+  state: Instance
+  isFullscreen: ComputedRef<boolean>
+  toggleFullscreen: () => void
 }
 
 export const [useProvideTiptapStore, useTiptapStore] = createInjectionState(() => {
@@ -46,6 +57,7 @@ export const [useProvideTiptapStore, useTiptapStore] = createInjectionState(() =
     isFullscreen: false,
     color: undefined,
     highlight: undefined,
+    AIMenu: false,
   })
 
   const isFullscreen = computed(() => state.isFullscreen)

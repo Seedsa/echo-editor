@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="p-3 flex gap-3 justify-center w-full bg-gray-100 text-black">
+    <header class="p-3 flex gap-3 justify-center w-full bg-gray-100 text-foreground">
       <button ghost @click="locale.setLang('zhHans')">中文</button>
       <button ghost @click="locale.setLang('en')">English</button>
       <button ghost @click="theme = 'dark'">dark</button>
@@ -62,6 +62,7 @@ import {
   ImageUpload,
   VideoUpload,
   Code,
+  AI,
 } from 'echo-editor'
 import { ExportWord } from './extensions/ExportWord'
 import OpenAI from 'openai'
@@ -144,41 +145,42 @@ const extensions = [
     },
   }),
   ExportWord,
-  // AI.configure({
-  //   completions: text => AICompletions(text),
-  // }),
+  AI.configure({
+    completions: AICompletions,
+  }),
 ]
-async function AICompletions(text?: string) {
-  // 从.env中获取key 请自行替换
-  // @ts-ignore
+async function AICompletions(prompt: string, text: string, signal?: AbortSignal) {
+  // recommend https://groq.com
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY
-  if (!apiKey) {
-    console.error('请配置VITE_OPENAI_API_KEY')
-    return
+  const baseURL = import.meta.env.VITE_OPENAI_BASE_URL
+  const model = import.meta.env.VITE_OPENAI_MODEL
+  if (!apiKey || !baseURL || !model) {
+    throw new Error('OpenAI configuration is missing. Please check your environment variables.')
   }
   const openai = new OpenAI({
     apiKey: apiKey,
     dangerouslyAllowBrowser: true,
-    baseURL: 'https://api.deepseek.com/v1',
+    baseURL: baseURL,
   })
-  const stream = await openai.chat.completions.create({
-    model: 'deepseek-chat',
-    messages: [
+  const system = 'be a helpful assistant'
+  try {
+    const stream = await openai.chat.completions.create(
       {
-        role: 'system',
-        content: `你将扮演一个写作助手,帮助我完成文章的创作、续写、优化等`,
+        model,
+        messages: [
+          { role: 'system', content: system },
+          { role: 'user', content: `${prompt} :${text}` },
+        ],
+        stream: true,
       },
-      {
-        role: 'user',
-        content: `${text}`,
-      },
-    ],
-    temperature: 0.7,
-    max_tokens: 256,
-    top_p: 0.9,
-    stream: true,
-  })
-
-  return stream
+      { signal }
+    )
+    return stream
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('Error in AI Completions:', error.message)
+    }
+    throw error
+  }
 }
 </script>

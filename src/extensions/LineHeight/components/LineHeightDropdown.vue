@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, unref } from 'vue'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu'
 import type { Editor } from '@tiptap/vue-3'
 import { useLocale } from '@/locales'
-import { Icon } from '@/components/icons'
-import ActionButton from '@/components/ActionButton.vue'
+import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
+
 import { ButtonViewReturnComponentProps } from '@/type'
 const { t } = useLocale()
 
@@ -64,21 +59,14 @@ function toggleLightheight(key: string) {
 </script>
 
 <template>
-  <DropdownMenu>
-    <DropdownMenuTrigger :disabled="disabled">
-      <ActionButton custom-class="w-12" icon="LineHeight" :tooltip="tooltip" :disabled="disabled">
-        <Icon class="w-3 h-3 text-zinc-500 ml-1" name="MenuDown" />
-      </ActionButton>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent class="min-w-24">
-      <DropdownMenuCheckboxItem
-        v-for="(item, index) in LineHeights"
-        :key="index"
-        :checked="item.value === value"
-        @click="toggleLightheight(item.value)"
-      >
-        {{ item.label }}
-      </DropdownMenuCheckboxItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
+  <ActionDropdownButton :icon="icon" :tooltip="tooltip" :disabled="disabled">
+    <DropdownMenuCheckboxItem
+      v-for="(item, index) in LineHeights"
+      :key="index"
+      :checked="item.value === value"
+      @click="toggleLightheight(item.value)"
+    >
+      {{ item.label }}
+    </DropdownMenuCheckboxItem>
+  </ActionDropdownButton>
 </template>

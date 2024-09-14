@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 import type { Editor } from '@tiptap/vue-3'
-import ActionMenuButton from '@/components/ActionMenuButton.vue'
+import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
 import type { ButtonViewReturnComponentProps } from '@/type'
 import { getShortcutKey } from '@/utils/plateform'
 
@@ -63,22 +63,17 @@ const active = computed(() => {
 </script>
 
 <template>
-  <DropdownMenu>
-    <DropdownMenuTrigger :disabled="disabled">
-      <ActionMenuButton :title="active.title" :tooltip="tooltip" :disabled="disabled" />
-    </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-full">
-      <template v-for="(item, index) in props.items" :key="index">
-        <DropdownMenuCheckboxItem :checked="active.title === item.title" @click="item.action">
-          <div class="ml-1 h-full" :class="`heading-` + item.level">
-            {{ item.title }}
-          </div>
-          <DropdownMenuShortcut class="pl-4">{{
-            item.shortcutKeys?.map(item => getShortcutKey(item)).join(' ')
-          }}</DropdownMenuShortcut>
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuSeparator v-if="item.level === 0" />
-      </template>
-    </DropdownMenuContent>
-  </DropdownMenu>
+  <ActionDropdownButton :disabled="disabled" :tooltip="tooltip" :title="active?.title" btn_class="min-w-24 max-w-32">
+    <template v-for="(item, index) in props.items" :key="index">
+      <DropdownMenuCheckboxItem :checked="active.title === item.title" @click="item.action">
+        <div class="ml-1 h-full" :class="`heading-` + item.level">
+          {{ item.title }}
+        </div>
+        <DropdownMenuShortcut class="pl-4">{{
+          item.shortcutKeys?.map(item => getShortcutKey(item)).join(' ')
+        }}</DropdownMenuShortcut>
+      </DropdownMenuCheckboxItem>
+      <DropdownMenuSeparator v-if="item.level === 0" />
+    </template>
+  </ActionDropdownButton>
 </template>

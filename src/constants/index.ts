@@ -153,7 +153,7 @@ export const NODE_TYPE_MENU: any = {
     'remove',
   ],
   text: [
-    'Ai',
+    'AI',
     'divider',
     'text-bubble',
     'divider',

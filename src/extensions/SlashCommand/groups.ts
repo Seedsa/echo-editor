@@ -154,26 +154,7 @@ export function renderGroups(editor: Editor) {
       ],
     },
   ]
-  const hasAI = hasExtension(editor, 'Ai')
   const hasIframes = hasExtension(editor, 'iframes')
-  if (hasAI) {
-    groups.unshift({
-      name: 'ai',
-      title: 'AI',
-      commands: [
-        {
-          name: 'aiWriter',
-          label: 'AI智能助手',
-          iconName: 'Sparkles',
-          description: 'Let AI finish your thoughts',
-          shouldBeHidden: editor => editor.isActive('columns'),
-          action: ({ editor, range }) => {
-            editor.chain().focus().deleteRange(range).activateMagic().run()
-          },
-        },
-      ],
-    })
-  }
   if (hasIframes) {
     const services = AllEmbedServices
     groups.push({

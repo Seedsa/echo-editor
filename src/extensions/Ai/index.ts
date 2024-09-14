@@ -1,1 +1,1 @@
-export * from './Ai'
+export * from './AI'

@@ -12,9 +12,11 @@ import LinkBubbleMenu from './menus/LinkBubbleMenu.vue'
 import TableBubbleMenu from './menus/TableBubbleMenu.vue'
 import ContentMenu from './menus/ContentMenu.vue'
 import ColumnsBubbleMenu from './menus/ColumnsBubbleMenu.vue'
+import AIMenu from './menus/AIMenu.vue'
 import Toolbar from './Toolbar.vue'
 import { EchoEditorOnChange } from '@/type'
 import { useDark, useToggle } from '@vueuse/core'
+import Toaster from '@/components/ui/toast/Toaster.vue'
 
 type KeyDownHandler = NonNullable<EditorOptions['editorProps']['handleKeyDown']>
 type UpdateHandler = NonNullable<EditorOptions['onUpdate']>
@@ -163,12 +165,13 @@ defineExpose({ editor })
     <LinkBubbleMenu :editor="editor" />
     <ColumnsBubbleMenu :editor="editor" />
     <TableBubbleMenu :editor="editor" />
+    <AIMenu :editor="editor" :disabled="disabled" />
     <BasicBubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
     <div
       class="relative"
       :class="{ 'fixed bg-background inset-0 z-[200] w-full h-full m-0 rounded-none': isFullscreen }"
     >
-      <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="disabled" class="border-b py-2 px-1" />
+      <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="disabled" class="border-b py-1 px-1" />
       <editor-content :editor="editor" :class="contentClass" :style="contentDynamicStyles" />
       <div v-if="hasExtension(editor, 'characterCount')" class="flex justify-between border-t p-3 items-center">
         <div class="flex flex-col">
@@ -182,5 +185,6 @@ defineExpose({ editor })
         <slot name="footer" :editor="editor" />
       </div>
     </div>
+    <Toaster />
   </div>
 </template>

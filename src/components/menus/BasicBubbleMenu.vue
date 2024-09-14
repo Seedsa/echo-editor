@@ -8,6 +8,7 @@ import { BubbleMenu } from '@tiptap/vue-3'
 import type { BaseKitOptions } from '@/extensions/BaseKit'
 import type { BubbleTypeMenu } from './BasicBubble'
 import { useLocale } from '@/locales'
+import { useTiptapStore } from '@/hooks'
 
 interface Props {
   editor: Editor
@@ -17,6 +18,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 })
+
+const store = useTiptapStore()
 
 const { t } = useLocale()
 const tippyOptions = reactive<Record<string, unknown>>({
@@ -63,11 +66,11 @@ const items = computed(() => {
 })
 </script>
 <template>
-  <BubbleMenu v-show="items.length" :editor="editor" :tippy-options="tippyOptions">
+  <BubbleMenu v-show="items.length && !store?.state.AIMenu" :editor="editor" :tippy-options="tippyOptions">
     <div
       class="border border-neutral-200 dark:border-neutral-800 px-3 py-2 transition-all select-none pointer-events-auto shadow-sm rounded-sm w-auto bg-background"
     >
-      <div class="flex items-center flex-nowrap whitespace-nowrap h-[26px] justify-start relative">
+      <div class="flex items-center flex-nowrap whitespace-nowrap h-[26px] justify-start relative gap-0.5">
         <template v-for="(item, key) in items" :key="key">
           <!-- Divider -->
           <Separator v-if="item.type === 'divider'" orientation="vertical" class="mx-1 me-2 h-[16px]" />

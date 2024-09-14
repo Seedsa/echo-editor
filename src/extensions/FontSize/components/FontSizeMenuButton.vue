@@ -2,13 +2,8 @@
 import type { StyleValue } from 'vue'
 import { computed } from 'vue'
 import type { Editor } from '@tiptap/vue-3'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import ActionMenuButton from '@/components/ActionMenuButton.vue'
+import { DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu'
+import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
 import type { ButtonViewReturnComponentProps } from '@/type'
 import { useLocale } from '@/locales'
 
@@ -56,16 +51,13 @@ const active = computed(() => {
 </script>
 
 <template>
-  <DropdownMenu>
-    <DropdownMenuTrigger :disabled="disabled">
-      <ActionMenuButton :title="active.title" :tooltip="tooltip" :disabled="disabled" />
-    </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-32 overflow-y-auto max-h-96">
+  <ActionDropdownButton :disabled="disabled" :tooltip="tooltip" :title="active.title" btn_class="min-w-24 max-w-32">
+    <div class="w-32 overflow-y-auto max-h-96">
       <template v-for="(item, index) in props.items" :key="index">
         <DropdownMenuCheckboxItem :checked="active.title === item.title" @click="item.action">
           <div class="ml-1 h-full">{{ item.title }}</div>
         </DropdownMenuCheckboxItem>
       </template>
-    </DropdownMenuContent>
-  </DropdownMenu>
+    </div>
+  </ActionDropdownButton>
 </template>

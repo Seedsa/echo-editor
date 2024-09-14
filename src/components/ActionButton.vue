@@ -42,10 +42,10 @@ withDefaults(defineProps<Props>(), {
       <TooltipTrigger>
         <Toggle
           size="sm"
-          class="w-[32px] h-[32px]"
+          class="h-[32px]"
           :pressed="isActive?.() || false"
           :disabled="disabled"
-          :class="[customClass]"
+          :class="[customClass, title ? 'w-auto' : 'w-[32px]']"
           @click="action"
         >
           <div v-if="loading">
@@ -55,6 +55,7 @@ withDefaults(defineProps<Props>(), {
             <Icon v-if="icon" :name="icon" />
             <slot name="icon"></slot>
           </div>
+          <div class="ml-1 font-normal" v-if="title">{{ title }}</div>
           <slot></slot>
         </Toggle>
       </TooltipTrigger>

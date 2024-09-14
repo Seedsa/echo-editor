@@ -85,7 +85,7 @@ export { Table } from './Table'
 
 export type { TableOptions } from './Table'
 
-export { AI } from './Ai'
+export { AI } from './AI'
 
 export { FormatPainter } from './FormatPainter'
 export type { FormatPainterOptions } from './FormatPainter'

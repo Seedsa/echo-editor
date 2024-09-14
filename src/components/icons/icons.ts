@@ -49,6 +49,7 @@ export const icons = {
   ChevronsUpDown: 'lucide:chevrons-up-down',
   LineHeight: 'mdi:format-line-height',
   Word: 'mdi:file-word-outline',
+  Paragraph: 'lucide:text',
   Heading1: 'lucide:heading-1',
   Heading2: 'lucide:heading-2',
   Heading3: 'lucide:heading-3',
@@ -79,6 +80,8 @@ export const icons = {
   PanelLeft: 'lucide:panel-left',
   PanelRight: 'lucide:panel-right',
   Columns: 'lucide:columns',
+  AI: 'meteocons:star-fill',
+  ChevronRight: 'lucide:chevron-right',
 }
 
 export default icons

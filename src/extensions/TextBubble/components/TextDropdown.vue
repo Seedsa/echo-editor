@@ -10,6 +10,7 @@ import {
 import { Editor } from '@tiptap/vue-3'
 import { Icon, icons } from '@/components/icons'
 import { useLocale } from '@/locales'
+import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
 interface ContentTypeMenu {
   name: string
   label: string
@@ -41,7 +42,7 @@ const menus = computed<ContentTypeMenu[]>(() => {
     {
       name: 'paragraph',
       label: t.value('editor.paragraph.tooltip'),
-      iconName: 'Heading1',
+      iconName: 'Paragraph',
       isActive: () =>
         props.editor.isActive('paragraph') &&
         !props.editor.isActive('orderedList') &&
@@ -117,26 +118,18 @@ const activeItem = computed(() => {
 </script>
 
 <template>
-  <DropdownMenu>
-    <DropdownMenuTrigger as-child>
-      <Button variant="ghost" class="h-[32px] flex gap-1 px-1.5">
-        <span class="whitespace-nowrap text-sm font-normal"> {{ activeItem?.label }}</span>
-        <Icon name="ChevronDown" class="w-4 h-4" />
-      </Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent hideWhenDetached class="w-full p-1" align="start" :sideOffset="5">
-      <DropdownMenuCheckboxItem
-        v-for="(item, index) in menus"
-        :key="index"
-        @click="item.action"
-        class="cursor-pointer"
-        :checked="item.isActive?.() || false"
-      >
-        <div class="flex items-center gap-2 px-2">
-          <Icon :name="item.iconName" class="h3 w-3" />
-          <span> {{ item.label }}</span>
-        </div></DropdownMenuCheckboxItem
-      >
-    </DropdownMenuContent>
-  </DropdownMenu>
+  <ActionDropdownButton :title="activeItem?.label" :sideOffset="5">
+    <DropdownMenuCheckboxItem
+      v-for="(item, index) in menus"
+      :key="index"
+      @click="item.action"
+      class="cursor-pointer"
+      :checked="item.isActive?.() || false"
+    >
+      <div class="flex items-center gap-2 px-2">
+        <Icon :name="item.iconName" class="h3 w-3" />
+        <span> {{ item.label }}</span>
+      </div></DropdownMenuCheckboxItem
+    >
+  </ActionDropdownButton>
 </template>

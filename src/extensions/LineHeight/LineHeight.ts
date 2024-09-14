@@ -33,6 +33,7 @@ export const LineHeight = Extension.create<LineHeightOptions>({
           component: LineHeightDropdown,
           componentProps: {
             editor,
+            icon: 'LineHeight',
             tooltip: t('editor.lineheight.tooltip'),
           },
         }

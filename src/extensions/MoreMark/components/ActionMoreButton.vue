@@ -3,14 +3,8 @@ import type { StyleValue } from 'vue'
 import { computed } from 'vue'
 import { Icon, icons } from '@/components/icons'
 import type { Editor } from '@tiptap/vue-3'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuShortcut,
-} from '@/components/ui/dropdown-menu'
-import ActionButton from '@/components/ActionButton.vue'
+import { DropdownMenuCheckboxItem, DropdownMenuShortcut } from '@/components/ui/dropdown-menu'
+import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
 import type { ButtonViewReturnComponentProps } from '@/type'
 import { getShortcutKeys } from '@/utils/plateform'
 
@@ -63,26 +57,19 @@ const active = computed(() => {
 </script>
 
 <template>
-  <DropdownMenu>
-    <DropdownMenuTrigger :disabled="disabled">
-      <ActionButton customClass="w-12" :icon="icon" :tooltip="tooltip" :disabled="disabled">
-        <Icon class="w-3 h-3 text-gray-500" name="MenuDown" />
-      </ActionButton>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-full">
-      <DropdownMenuCheckboxItem
-        v-for="(item, index) in props.items"
-        :checked="active.title === item.title"
-        @click="item.action"
-        :key="index"
-        class="flex gap-3 items-center"
-      >
-        <Icon :name="item.icon" v-if="item.icon" />
-        <span class="ml-1">{{ item.title }}</span>
-        <DropdownMenuShortcut class="ml-auto" v-if="item.shortcutKeys">{{
-          getShortcutKeys(item.shortcutKeys)
-        }}</DropdownMenuShortcut>
-      </DropdownMenuCheckboxItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
+  <ActionDropdownButton :icon="icon" :tooltip="tooltip" :disabled="disabled">
+    <DropdownMenuCheckboxItem
+      v-for="(item, index) in props.items"
+      :checked="active.title === item.title"
+      @click="item.action"
+      :key="index"
+      class="flex gap-3 items-center"
+    >
+      <Icon :name="item.icon" v-if="item.icon" />
+      <span class="ml-1">{{ item.title }}</span>
+      <DropdownMenuShortcut class="ml-auto" v-if="item.shortcutKeys">{{
+        getShortcutKeys(item.shortcutKeys)
+      }}</DropdownMenuShortcut>
+    </DropdownMenuCheckboxItem>
+  </ActionDropdownButton>
 </template>

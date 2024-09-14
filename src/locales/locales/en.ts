@@ -112,6 +112,14 @@ const locale: Record<string, string> = {
   'editor.fullscreen.tooltip.exit': 'Fullscreen Exit',
   'editor.imageUpload.fileTypeNotSupported': 'File type not supported',
   'editor.imageUpload.fileSizeTooBig': 'File size too big, Maximum size is',
+  'editor.AI.placeholder': 'Ask AI ...',
+  'editor.AI.generating': 'Generating',
+  'editor.AI.insert': 'Insert below selection',
+  'editor.AI.replace': 'Replace selected content',
+  'editor.AI.regenerate': 'Regenerate',
+  'editor.AI.close': 'Close',
+  'editor.AI.stop': 'Stop',
+  'editor.AI.ask': 'Ask AI',
 }
 
 export default locale

@@ -110,6 +110,14 @@ const locale: Record<string, string> = {
   'editor.fullscreen.tooltip.exit': '退出全屏',
   'editor.imageUpload.fileTypeNotSupported': '图片类型不支持',
   'editor.imageUpload.fileSizeTooBig': '图片大小不支持, 最大',
+  'editor.AI.placeholder': '向智能助手提问 ...',
+  'editor.AI.generating': '正在生成',
+  'editor.AI.insert': '插入选区下方',
+  'editor.AI.replace': '替换选中内容',
+  'editor.AI.regenerate': '重新生成',
+  'editor.AI.close': '关闭',
+  'editor.AI.stop': '停止',
+  'editor.AI.ask': '智能助手',
 }
 
 export default locale
