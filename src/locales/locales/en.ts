@@ -7,6 +7,7 @@ const locale: Record<string, string> = {
   'editor.recent': 'Recently Used',
   'editor.nofill': 'Remove Color',
   'editor.format': 'Format Painter',
+  'editor.modify': 'Modify',
   'editor.draghandle.tooltip': 'Click And Drag',
   'editor.copyToClipboard': 'CopyToClipboard',
   'editor.importWrod.tooltip': 'Import Word',

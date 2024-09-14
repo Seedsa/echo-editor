@@ -111,7 +111,7 @@ const menus = computed<ContentTypeMenu[]>(() => {
 const activeItem = computed(() => {
   return (
     menus.value.filter(item => item.isActive()).pop() ?? {
-      label: '修改',
+      label: t.value('editor.modify'),
     }
   )
 })

@@ -1,10 +1,8 @@
 <template>
   <div>
-    <header class="p-3 flex gap-3 justify-center w-full bg-gray-100 text-foreground">
+    <header class="p-3 flex gap-3 justify-center w-full bg-accent text-foreground">
       <button ghost @click="locale.setLang('zhHans')">中文</button>
       <button ghost @click="locale.setLang('en')">English</button>
-      <button ghost @click="theme = 'dark'">dark</button>
-      <button ghost @click="theme = null">light</button>
       <button ghost @click="hideToolbar = !hideToolbar">{{ !hideToolbar ? 'Hide Toolbar' : 'Show Toolbar' }}</button>
       <button ghost @click="disabled = !disabled">{{ disabled ? 'Editable' : 'Readonly' }}</button>
       <a href="https://github.com/Seedsa/echo-editor" target="__blank">Github</a>
@@ -23,10 +21,61 @@
         {{ content }}
       </div>
     </div>
+    <div
+      class="flex items-center gap-1 fixed bottom-6 right-6 z-[99999] p-1 bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800"
+    >
+      <button
+        @click="theme = 'light'"
+        :class="[theme === 'light' && 'bg-neutral-200 dark:bg-neutral-900']"
+        class="hover:bg-neutral-100 active:bg-neutral-200 dark:hover:bg-neutral-900 dark:active:bg-neutral-800 py-2 px-2 flex group items-center justify-center border border-transparent gap-2 text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-sun w-4 h-4"
+        >
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path>
+          <path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path>
+          <path d="m19.07 4.93-1.41 1.41"></path>
+        </svg></button
+      ><button
+        @click="theme = 'dark'"
+        :class="[theme === 'dark' && 'dark:bg-neutral-900 dark:active:bg-neutral-800']"
+        class="hover:bg-neutral-100 active:bg-neutral-200 dark:hover:bg-neutral-900 dark:active:bg-neutral-800 py-2 px-2 flex group items-center justify-center border border-transparent gap-2 text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-moon w-4 h-4"
+        >
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </button>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import {
   Bold,
   BulletList,
@@ -73,6 +122,7 @@ const content = ref(DEMO_CONTENT)
 const theme = ref<string | null>(null)
 const hideToolbar = ref<boolean>(false)
 const disabled = ref<boolean>(false)
+
 const extensions = [
   BaseKit.configure({
     placeholder: {

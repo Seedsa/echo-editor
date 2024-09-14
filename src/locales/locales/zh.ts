@@ -8,6 +8,7 @@ const locale: Record<string, string> = {
   'editor.moremark': '更多文本样式',
   'editor.nofill': '无填充色',
   'editor.format': '格式刷',
+  'editor.modify': '修改',
   'editor.draghandle.tooltip': '可拖拽和点击',
   'editor.copyToClipboard': '复制到剪切板',
   'editor.importWrod.tooltip': '导入Word',
