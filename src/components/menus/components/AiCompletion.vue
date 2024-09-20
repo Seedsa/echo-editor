@@ -34,7 +34,11 @@ function handleReplace() {
 function handleInsert() {
   const { to } = props.editor.view.state.selection
   if (to) {
-    props.editor.chain().insertContentAt(to, props.completion).focus().run()
+    props.editor
+      .chain()
+      .focus()
+      .insertContentAt(to + 1, props.completion)
+      .run()
   }
 }
 function handleGenerate() {

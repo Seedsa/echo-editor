@@ -8,8 +8,10 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import AiCompletion from './components/AiCompletion.vue'
 import { useFocus } from '@vueuse/core'
+import { useDebounceFn } from '@vueuse/core'
 import { useToast } from '@/components/ui/toast/use-toast'
 import { Icon } from '@/components/icons'
+import Menu from '../ui/menu.vue'
 interface Props {
   editor: Editor
   disabled?: boolean
@@ -23,10 +25,9 @@ const store = useTiptapStore()
 const result = ref<string>('')
 const status = ref<'init' | 'generating' | 'completed'>('init')
 const prompt = ref<string>('')
-const cachedPrompt = ref<string>('')
+const cachedPrompt = ref<any>(null)
 const inputRef = ref<HTMLInputElement | null>(null)
 const { focused } = useFocus(inputRef)
-const currentRequest = ref<AbortController | null>(null)
 const resultContainer = ref<HTMLElement | null>(null)
 const { t } = useLocale()
 const isShaking = ref<boolean>(false)
@@ -41,98 +42,88 @@ function getSelectionText(editor: Editor): string {
   return editor.state.doc.textBetween(from, to, '')
 }
 
-function scrollToBottom() {
-  if (resultContainer.value) {
-    resultContainer.value.scrollTop = resultContainer.value.scrollHeight
-  }
-}
+const scrollToBottom = useDebounceFn(
+  () => {
+    if (resultContainer.value) {
+      resultContainer.value.scrollTop = resultContainer.value.scrollHeight
+    }
+  },
+  100,
+  { maxWait: 200 }
+)
 
 async function handleGenerate() {
   status.value = 'generating'
   result.value = ''
-  const selectionText = getSelectionText(props.editor)
-  // AbortController to cancel request
-  currentRequest.value = new AbortController()
+  handleCompletion(getSelectionText(props.editor), prompt.value)
+}
+
+async function handleCompletion(context: string, prompt_: string) {
+  status.value = 'generating'
+  result.value = ''
   const AIOptions = props.editor.extensionManager.extensions.find(e => e.name === 'AI')?.options
   try {
-    const stream = await AIOptions.completions(prompt.value, selectionText, currentRequest.value.signal)
+    const stream = await AIOptions.completions(prompt_, context)
     if (!stream) {
       throw new Error('Failed to create stream')
     }
     for await (const chunk of stream) {
-      if (currentRequest.value.signal.aborted) {
-        console.log('Request aborted')
-        break
-      }
       result.value += chunk.choices[0]?.delta?.content || ''
       await nextTick()
       scrollToBottom()
     }
-    cachedPrompt.value = prompt.value
-    prompt.value = ''
+    cachedPrompt.value = {
+      context,
+      prompt: prompt_,
+    }
     status.value = 'completed'
+    prompt.value = ''
     await nextTick()
     focused.value = true
     scrollToBottom()
   } catch (error: any) {
-    if (error?.name === 'AbortError') {
-      console.log('Request aborted')
-    } else {
-      toast({
-        title: error?.message || 'Failed to generate AI completion',
-        variant: 'destructive',
-      })
-    }
+    toast({
+      title: error?.message || 'Failed to generate AI completion',
+      variant: 'destructive',
+    })
     handleClose()
-  } finally {
-    currentRequest.value = null
   }
 }
 const tippyOptions = reactive<Record<string, unknown>>({
+  key: 'ai',
   maxWidth: 600,
   zIndex: 99,
   appendTo: 'parent',
+  placement: 'bottom-start',
   onShow(instance) {
     tippyInstance.value = instance
     setTimeout(() => {
       focused.value = true
-    }, 10)
+    }, 30)
   },
   onHide() {
     handleClose()
+    props.editor.chain().unsetHighlight().run()
   },
   onDestroy() {
     tippyInstance.value = null
   },
 })
 
-watch(
-  () => [store!.state.AIMenu],
-  visible => {
-    tippyInstance.value?.setProps({
-      placement: visible.includes(true) ? 'bottom' : 'top',
-    })
-  }
-)
 const shouldShow: any = computed(() => {
   return store?.state.AIMenu
 })
 
 function handleClose() {
-  if (currentRequest.value) {
-    currentRequest.value.abort()
-    currentRequest.value = null
-  }
   store!.state.AIMenu = false
   result.value = ''
   prompt.value = ''
   status.value = 'init'
 }
 function handleReGenerate() {
-  prompt.value = cachedPrompt.value
-  handleGenerate()
+  handleCompletion(cachedPrompt.value?.context, cachedPrompt.value?.prompt)
 }
-// function to handle overlay click
+
 function handleOverlayClick(): void {
   if (status.value === 'init' && prompt.value === '') {
     handleClose()
@@ -143,20 +134,36 @@ function handleOverlayClick(): void {
     isShaking.value = false
   }, 820) // Duration of the shake animation + a little extra
 }
+
+function shortcutClick(item) {
+  const selectionText = getSelectionText(props.editor)
+  handleCompletion(selectionText, item.prompt)
+}
+const shortcutMenus = computed(() => {
+  const shortcuts = props.editor.extensionManager.extensions.find(e => e.name === 'AI')?.options?.shortcuts
+  if (shortcuts && shortcuts.length) {
+    return shortcuts
+  } else {
+    return []
+  }
+})
 </script>
 <template>
-  <div class="absolute inset-0 top-0 left-0 right-0 bottom-0 z-[98]" v-show="shouldShow" @click="handleOverlayClick">
-    <BubbleMenu v-show="shouldShow" :editor="editor" :tippy-options="tippyOptions">
-      <div class="relative min-w-96 z-[99]" :class="{ 'shake-animation': isShaking }">
+  <div class="absolute left-0 right-0 top-0 bottom-0 z-[98]" v-show="shouldShow" @click="handleOverlayClick">
+    <BubbleMenu pluginKey="AIMenu" :update-delay="0" v-show="shouldShow" :editor="editor" :tippy-options="tippyOptions">
+      <div class="relative w-[450px] z-[99]" :class="{ 'shake-animation': isShaking }">
         <div
           class="border rounded-sm shadow-sm bg-background"
-          v-show="status === 'generating' || status === 'completed'"
+          v-show="(status === 'generating' || status === 'completed') && result"
         >
           <div ref="resultContainer" class="p-4 line-height-none block overflow-y-auto" style="max-height: 270px">
-            <div class="text-sm text-foreground line-height-snug" v-html="result" />
+            <div class="text-sm text-foreground line-height-snug" v-html="result"></div>
           </div>
         </div>
-        <form @submit="handleGenerate" class="relative w-full max-w-sm items-center flex bg-background mt-3 rounded-md">
+        <form
+          @submit="handleGenerate"
+          class="relative w-full items-center flex bg-background mt-3 rounded-md shadow-sm"
+        >
           <div
             v-if="status === 'generating'"
             class="text_loading_animation border w-full rounded-md pl-10 pr-20 h-12 py-1 flex items-center text-sm text-foreground"
@@ -171,7 +178,7 @@ function handleOverlayClick(): void {
             class="pl-10 pr-20 h-12 outline-none ring-0 focus-visible:ring-0"
           />
           <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
-            <Icon name="Sparkles" class="w-5 h-5" />
+            <Icon name="OpenAI" class="w-5 h-5" />
           </span>
           <Button
             variant="secondary"
@@ -190,6 +197,9 @@ function handleOverlayClick(): void {
             <Icon name="ChevronRight" class="w-5 h-5" />
           </Button>
         </form>
+        <div class="mt-3 max-w-56" v-show="status === 'init' && shortcutMenus.length && !prompt">
+          <Menu :items="shortcutMenus" @item-click="shortcutClick" />
+        </div>
         <AiCompletion
           @close="handleClose"
           @generate="handleReGenerate"

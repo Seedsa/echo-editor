@@ -1,9 +1,18 @@
 import { Node } from '@tiptap/core'
-import ActionButton from './AIButton.vue'
+import ActionButton from './components/AIButton.vue'
 import { GeneralOptions } from '@/type'
 
+export interface MenuItem {
+  label: string
+  prompt?: string
+  children?: MenuItem[]
+}
 export interface AIOptions extends GeneralOptions<AIOptions> {
   completions: (prompt: string, text: string, signal?: AbortSignal) => Promise<any>
+  /**
+   * AI Shortcuts Menu
+   */
+  shortcuts: MenuItem[]
 }
 
 export const AI = Node.create<AIOptions>({
@@ -16,7 +25,7 @@ export const AI = Node.create<AIOptions>({
       button: ({ editor, t }) => ({
         component: ActionButton,
         componentProps: {
-          icon: 'Sparkles',
+          icon: 'OpenAI',
           tooltip: t('editor.AI.ask'),
         },
       }),

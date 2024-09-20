@@ -151,7 +151,7 @@ defineExpose({ editor })
 <template>
   <div
     v-if="editor"
-    class="echo-editor rounded-[0.5rem] bg-background shadow outline outline-1"
+    class="echo-editor rounded-[0.5rem] bg-background shadow outline outline-1 relative"
     :class="[
       editorClass,
       {

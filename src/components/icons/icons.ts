@@ -33,6 +33,8 @@ export const icons = {
   Minimize: 'lucide:minimize',
   Table: 'lucide:table',
   Sparkles: 'lucide:sparkles',
+  Magic: 'mdi:magic',
+  OpenAI: 'ph:open-ai-logo',
   Pencil: 'lucide:pencil',
   Unlink: 'lucide:unlink',
   BetweenHorizonalEnd: 'lucide:between-horizontal-end',
