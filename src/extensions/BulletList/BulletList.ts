@@ -1,16 +1,33 @@
 import type { BulletListOptions as TiptapBulletListOptions } from '@tiptap/extension-bullet-list'
 import { BulletList as TiptapBulletList } from '@tiptap/extension-bullet-list'
-import ActionButton from '@/components/ActionButton.vue'
+import BulletListMenuButton from './components/BulletListMenuButton.vue'
 import type { GeneralOptions } from '@/type'
 
 export interface BulletListOptions extends TiptapBulletListOptions, GeneralOptions<BulletListOptions> {}
 
 export const BulletList = TiptapBulletList.extend<BulletListOptions>({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      listStyleType: {
+        default: 'disc',
+        parseHTML: (element: HTMLElement) => {
+          const listStyleType = element.style['list-style-type' as keyof CSSStyleDeclaration] ?? 'disc'
+          return { listStyleType }
+        },
+        renderHTML: ({ listStyleType }) => {
+          return {
+            style: `list-style-type: ${listStyleType?.listStyleType || listStyleType}`,
+          }
+        },
+      },
+    }
+  },
   addOptions() {
     return {
       ...this.parent?.(),
       button: ({ editor, t }) => ({
-        component: ActionButton,
+        component: BulletListMenuButton,
         componentProps: {
           action: () => editor.commands.toggleBulletList(),
           isActive: () => editor.isActive('bulletList') || false,

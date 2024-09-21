@@ -63,8 +63,8 @@ const active = computed(() => {
     <TooltipProvider>
       <Tooltip v-for="(item, index) in props.items" :key="index">
         <TooltipTrigger as-child>
-          <DropdownMenuItem class="p-0">
-            <Toggle size="sm" @click="item.action" class="w-7 h-7 p-1" :pressed="active.title === item.title">
+          <DropdownMenuItem class="p-0" @click="item.action">
+            <Toggle size="sm" class="w-7 h-7 p-1" :pressed="active.title === item.title">
               <Icon :name="item.icon" v-if="item.icon" />
             </Toggle>
           </DropdownMenuItem>
