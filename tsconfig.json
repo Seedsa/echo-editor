@@ -29,7 +29,8 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx",
+    "**/*.ts",
     "src/plugins/drag.ts"
   ],
-  "exclude": ["node_modules", "dist", "src/demo"]
+  "exclude": ["node_modules", "dist", "src/examples"]
 }

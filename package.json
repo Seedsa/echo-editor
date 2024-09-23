@@ -21,7 +21,7 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx,.vue src",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx,.vue src --fix",
     "push": "pnpm build:lib && pnpm publish --no-git-checks --registry https://registry.npmjs.org/",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "config": {
     "commitizen": {
@@ -117,9 +117,6 @@
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
-    "radix-vue": "^1.7.3",
-    "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@commitlint/cz-commitlint": "^19.2.0",
@@ -141,10 +138,15 @@
     "lint-staged": "^15.2.2",
     "lodash-unified": "^1.0.3",
     "prettier": "^3.2.5",
+    "radix-vue": "^1.7.3",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.75.0",
+    "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.3",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.4.5",
+    "unplugin-auto-import": "^0.18.3",
+    "unplugin-vue-components": "^0.27.4",
     "vite": "^5.2.0",
     "vite-plugin-dts": "^3.9.0",
     "vue": "^3.4.21",
