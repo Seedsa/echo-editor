@@ -192,7 +192,11 @@ watchEffect(effect => {
 </script>
 
 <template>
-  <NodeViewWrapper class="image-view" :style="{ imageMaxStyle, width: '100%' }">
+  <NodeViewWrapper
+    :as="extension.options.inline ? 'span' : 'div'"
+    class="image-view"
+    :style="{ imageMaxStyle, width: '100%', textAlign: node.attrs.textAlign }"
+  >
     <div
       draggable="true"
       data-drag-handle
@@ -224,3 +228,91 @@ watchEffect(effect => {
     </div>
   </NodeViewWrapper>
 </template>
+
+<style lang="scss" scoped>
+.image-view {
+  &__body {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    clear: both;
+    outline: transparent solid 2px;
+    transition: all 0.2s ease-in;
+
+    &:hover {
+      @apply outline-primary;
+    }
+
+    &--focused:hover,
+    &--resizing:hover {
+      outline-color: transparent;
+    }
+
+    &__placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__image {
+      margin: 0;
+      cursor: pointer !important;
+    }
+  }
+
+  &.focus {
+    img {
+      @apply outline-primary outline-2 outline;
+    }
+  }
+}
+
+.image-resizer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  @apply border border-border;
+
+  &__handler {
+    position: absolute;
+    z-index: 2;
+    box-sizing: border-box;
+    display: block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #fff;
+    border-radius: 2px;
+    @apply bg-blue-500;
+
+    &--tl {
+      top: -6px;
+      left: -6px;
+      cursor: nw-resize;
+    }
+
+    &--tr {
+      top: -6px;
+      right: -6px;
+      cursor: ne-resize;
+    }
+
+    &--bl {
+      bottom: -6px;
+      left: -6px;
+      cursor: sw-resize;
+    }
+
+    &--br {
+      right: -6px;
+      bottom: -6px;
+      cursor: se-resize;
+    }
+  }
+}
+</style>

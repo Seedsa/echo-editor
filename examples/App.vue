@@ -276,7 +276,7 @@ const extensions = [
   Highlight,
   BulletList,
   OrderedList,
-  TextAlign.configure({ types: ['heading', 'paragraph'], spacer: true }),
+  TextAlign.configure({ types: ['heading', 'paragraph', 'image'], spacer: true }),
   Indent,
   LineHeight,
   TaskList.configure({
@@ -298,13 +298,7 @@ const extensions = [
   }),
   Video,
   VideoUpload.configure({
-    upload: (files: File[]) => {
-      const f = files.map(file => ({
-        src: URL.createObjectURL(file),
-        alt: file.name,
-      }))
-      return Promise.resolve(f)
-    },
+    upload: handleFileUpload,
   }),
   Blockquote,
   SlashCommand,
@@ -314,14 +308,7 @@ const extensions = [
   Table,
   Code,
   ImportWord.configure({
-    upload: (files: File[]) => {
-      console.log('files', files)
-      const f = files.map(file => ({
-        src: URL.createObjectURL(file),
-        alt: file.name,
-      }))
-      return Promise.resolve(f)
-    },
+    upload: handleFileUpload,
   }),
   ExportWord,
   AI.configure({
@@ -329,6 +316,13 @@ const extensions = [
     shortcuts: AIShortcuts.value,
   }),
 ]
+async function handleFileUpload(files: File[]) {
+  const f = files.map(file => ({
+    src: URL.createObjectURL(file),
+    alt: file.name,
+  }))
+  return Promise.resolve(f)
+}
 
 async function AICompletions(prompt: string, context: string) {
   // https://groq.com or https://siliconflow.cn/zh-cn for free llm api

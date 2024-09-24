@@ -27,12 +27,6 @@ declare module '@tiptap/core' {
   }
 }
 export const Image = TiptapImage.extend({
-  inline() {
-    return true
-  },
-  group() {
-    return 'inline'
-  },
   addAttributes() {
     return {
       ...this.parent?.(),
@@ -57,8 +51,6 @@ export const Image = TiptapImage.extend({
   addOptions() {
     return {
       ...this.parent?.(),
-      inline: true,
-      upload: null,
     }
   },
 
