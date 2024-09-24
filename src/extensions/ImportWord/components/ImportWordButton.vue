@@ -5,6 +5,7 @@ import { useToast } from '@/components/ui/toast/use-toast'
 import { ButtonViewReturnComponentProps } from '@/type'
 import ActionButton from '@/components/ActionButton.vue'
 import { hasExtension } from '@/utils/utils'
+import { useLocale } from '@/locales'
 
 interface Props {
   editor: Editor
@@ -33,6 +34,7 @@ const { toast } = useToast()
 const loading = ref(false)
 const file = ref()
 const fileInput = ref()
+const { t } = useLocale()
 function triggerFileInput() {
   fileInput.value.click()
 }
@@ -41,6 +43,8 @@ function handleFileChange(event) {
   if (file.value) {
     importWord()
   }
+  // 重置文件输入的值
+  event.target.value = ''
 }
 function base64ToBlob(base64, mimeType) {
   const byteCharacters = atob(base64.split(',')[1])
@@ -69,10 +73,10 @@ async function filerImage(html: string) {
     )?.options
     if (uploadOptions && typeof uploadOptions.upload === 'function') {
       const files: File[] = []
+      // convert base64 image to blob file
       for (let img of images) {
         const originalSrc = img.getAttribute('src')
         const blob = base64ToBlob(originalSrc, 'image/jpeg')
-        // 将 Blob 转换成 File
         const file = blobToFile(blob, 'image.jpeg')
         files.push(file)
       }
@@ -81,14 +85,21 @@ async function filerImage(html: string) {
       for (let i = 0; i < images.length; i++) {
         const img = images[i]
         img.setAttribute('src', uploadRes[i].src)
+        const parent = img.parentElement
+        if (parent?.tagName === 'P') {
+          parent.insertAdjacentElement('beforebegin', img)
+          if (!parent.hasChildNodes() && parent.textContent === '') {
+            parent.remove()
+          }
+        }
       }
       return doc.body.innerHTML
     } else {
-      console.log('未找到上传方法 跳过图片转换')
+      console.warn('Image Upload method found, skip image conversion')
       return doc.body.innerHTML
     }
   } else {
-    console.error('未找到image拓展，无法转换图片')
+    console.error('Image extension not found, unable to convert image')
     return doc.body.innerHTML
   }
 }
@@ -114,6 +125,7 @@ async function importWord() {
     formData.append('config', config)
     formData.append('file', file.value)
     loading.value = true
+    // or use Mammoth.js
     fetch('https://docx-converter.cke-cs.com/v2/convert/docx-html', {
       method: 'POST',
       body: formData,
@@ -124,7 +136,7 @@ async function importWord() {
       })
       .catch(error => {
         toast({
-          title: '导入失败 文件不支持',
+          title: t.value('editor.importWord.error'),
           variant: 'destructive',
         })
         console.error('Error:', error)
@@ -134,11 +146,10 @@ async function importWord() {
 }
 async function handleResult(htmlResult: string) {
   const html = await filerImage(htmlResult)
-  console.log(html)
-  props.editor.chain().setContent(html, true).run()
+  props.editor.chain().setContent(html.toString(), true).run()
   loading.value = false
   toast({
-    title: '导入成功!',
+    title: t.value('editor.importWord.success'),
   })
 }
 </script>

@@ -5,7 +5,7 @@ import type { GeneralOptions } from '@/type'
 
 export interface ImportWordOptions extends GeneralOptions<ImportWordOptions> {
   /**
-   * 将word 转换成html的接口
+   * Function for custom wort to html
    */
   convert?: (file: File) => Promise<string>
 
@@ -30,7 +30,7 @@ export const ImportWord = Extension.create<ImportWordOptions>({
             disabled: !editor.can().setHorizontalRule(),
             icon: 'Word',
             shortcutKeys: ['alt', 'mod', 'S'],
-            tooltip: t('editor.importWrod.tooltip'),
+            tooltip: t('editor.importWord.tooltip'),
           },
         }
       },
