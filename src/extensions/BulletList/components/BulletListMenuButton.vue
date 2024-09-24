@@ -51,7 +51,12 @@ function toggleBulletList(item: BulletListOption): void {
 </script>
 
 <template>
-  <ActionDropdownButtonSplit :action="toggleBulletList" :disabled="disabled" :tooltip="tooltip">
+  <ActionDropdownButtonSplit
+    :action="toggleBulletList"
+    :disabled="disabled"
+    :tooltip="tooltip"
+    class="min-w-4 w-full grid grid-cols-3 gap-1"
+  >
     <TooltipProvider>
       <Tooltip :delay-duration="0" v-for="item in BulletListOptions" :key="item.value">
         <TooltipTrigger>
