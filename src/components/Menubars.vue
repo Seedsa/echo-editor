@@ -22,12 +22,6 @@ interface Props {
   editor: Editor
   disabled?: boolean
 }
-const { t } = useLocale()
-
-const props = withDefaults(defineProps<Props>(), {
-  disabled: false,
-})
-const store = useTiptapStore()
 interface MenuItem {
   title?: string
   action?: () => void
@@ -36,13 +30,35 @@ interface MenuItem {
   checked?: CheckedState | (() => CheckedState)
   shortcut?: string[]
   separator?: boolean
+  requiredExtensions?: string[]
 }
 
 interface MenuGroup {
   title: string
   children: MenuItem[]
 }
+const { t } = useLocale()
 
+const props = withDefaults(defineProps<Props>(), {
+  disabled: false,
+})
+const store = useTiptapStore()
+
+// 获取当前编辑器加载的扩展名
+const activeExtensions = ref(props.editor.extensionManager.extensions.map(ext => ext.name))
+
+// 检查菜单项的扩展是否已经加载
+const isExtensionLoaded = (requiredExtensions?: string[]) => {
+  if (!requiredExtensions) return true
+  return requiredExtensions.every(ext => activeExtensions.value.includes(ext))
+}
+
+const loadedMenuItems = computed(() => {
+  return menubarMenus.value.map(group => ({
+    ...group,
+    children: group.children.filter(item => isExtensionLoaded(item.requiredExtensions)),
+  }))
+})
 const saveDraft = () => {
   const content = props.editor.getHTML()
   if (content) {
@@ -96,6 +112,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.togglePreview()
         },
+        requiredExtensions: ['preview'],
       },
       {
         separator: true,
@@ -141,6 +158,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.undo()
         },
+        requiredExtensions: ['history'],
       },
       {
         title: 'editor.redo.tooltip',
@@ -150,6 +168,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.redo()
         },
+        requiredExtensions: ['history'],
       },
       {
         separator: true,
@@ -240,6 +259,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.toggleFullscreen()
         },
+        requiredExtensions: ['fullscreen'],
       },
       {
         title: 'editor.menubar.menu.preview',
@@ -247,6 +267,7 @@ const menubarMenus = ref<MenuGroup[]>([
           props.editor.commands.togglePreview()
         },
         icon: 'Eye',
+        requiredExtensions: ['preview'],
       },
       {
         separator: true,
@@ -272,6 +293,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.setImageUpload()
         },
+        requiredExtensions: ['image', 'imageUpload'],
       },
       {
         title: 'editor.video.tooltip',
@@ -279,6 +301,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.setVideoUpload()
         },
+        requiredExtensions: ['video', 'videoUpload'],
       },
       {
         title: 'editor.link.tooltip',
@@ -304,6 +327,7 @@ const menubarMenus = ref<MenuGroup[]>([
             .focus()
             .run()
         },
+        requiredExtensions: ['link'],
       },
     ],
   },
@@ -318,6 +342,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.toggleBold()
         },
+        requiredExtensions: ['bold'],
       },
       {
         title: 'editor.italic.tooltip',
@@ -327,6 +352,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.toggleItalic()
         },
+        requiredExtensions: ['italic'],
       },
       {
         title: 'editor.underline.tooltip',
@@ -336,6 +362,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.toggleUnderline()
         },
+        requiredExtensions: ['underline'],
       },
       {
         title: 'editor.strike.tooltip',
@@ -344,6 +371,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.toggleStrike()
         },
+        requiredExtensions: ['strike'],
       },
       {
         title: 'editor.superscript.tooltip',
@@ -352,6 +380,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.toggleSuperscript()
         },
+        requiredExtensions: ['superscript'],
       },
       {
         title: 'editor.subscript.tooltip',
@@ -360,6 +389,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.toggleSubscript()
         },
+        requiredExtensions: ['subscript'],
       },
       {
         title: 'editor.code.tooltip',
@@ -368,6 +398,7 @@ const menubarMenus = ref<MenuGroup[]>([
         action: () => {
           props.editor.commands.toggleCode()
         },
+        requiredExtensions: ['code'],
       },
     ],
   },
@@ -395,15 +426,13 @@ const isChecked = (checked?: CheckedState | (() => CheckedState)) => {
   <Menubar
     class="rounded-b-none shadow-none border-t-transparent border-l-transparent border-r-transparent rounded-t-[0.5rem]"
   >
-    <MenubarMenu v-for="(item, index) in menubarMenus" :key="index">
+    <MenubarMenu v-for="(item, index) in loadedMenuItems" :key="index">
       <MenubarTrigger>{{ t(item.title) }}</MenubarTrigger>
       <MenubarContent>
         <template v-for="(sub, subIndex) in item.children" :key="subIndex">
           <MenubarSeparator v-if="sub?.separator" />
-
           <MenubarCheckboxItem
-            v-else-if="sub.checked"
-            :inset="false"
+            v-else-if="sub.checked && isExtensionLoaded(sub.requiredExtensions)"
             @click="handleClick(sub.action)"
             :checked="isChecked(sub.checked)"
             :disabled="isDisabled(sub.disabled)"
@@ -413,7 +442,12 @@ const isChecked = (checked?: CheckedState | (() => CheckedState)) => {
             {{ t(sub.title!) }}
             <MenubarShortcut v-if="sub.shortcut">{{ getShortcutKeys(sub.shortcut) }}</MenubarShortcut>
           </MenubarCheckboxItem>
-          <MenubarItem v-else @click="handleClick(sub.action)" :disabled="isDisabled(sub.disabled)" class="flex gap-3">
+          <MenubarItem
+            v-else-if="isExtensionLoaded(sub.requiredExtensions)"
+            @click="handleClick(sub.action)"
+            :disabled="isDisabled(sub.disabled)"
+            class="flex gap-3"
+          >
             <Icon v-if="sub.icon" :name="sub.icon" />
             {{ t(sub.title!) }}
             <MenubarShortcut v-if="sub.shortcut">{{ getShortcutKeys(sub.shortcut) }}</MenubarShortcut>
