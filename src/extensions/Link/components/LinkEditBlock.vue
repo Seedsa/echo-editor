@@ -61,9 +61,9 @@ onMounted(() => {
           </span>
         </div>
       </div>
-      <div class="flex items-center space-x-2">
-        <Label>{{ t('editor.link.dialog.openInNewTab') }}</Label>
-        <Switch v-model:checked="openInNewTab" />
+      <div class="flex items-center space-x-2 mt-1">
+        <Checkbox v-model:checked="openInNewTab" id="openInNewTab" />
+        <Label for="openInNewTab">{{ t('editor.link.dialog.openInNewTab') }}</Label>
       </div>
       <Button type="submit" class="mt-2 self-end">{{ t('editor.link.dialog.button.apply') }} </Button>
     </form>
