@@ -4,6 +4,7 @@
       <button ghost @click="locale.setLang('zhHans')">中文</button>
       <button ghost @click="locale.setLang('en')">English</button>
       <button ghost @click="hideToolbar = !hideToolbar">{{ !hideToolbar ? 'Hide Toolbar' : 'Show Toolbar' }}</button>
+      <button ghost @click="hideMenubar = !hideMenubar">{{ !hideMenubar ? 'Hide Menubar' : 'Show Menubar' }}</button>
       <button ghost @click="disabled = !disabled">{{ disabled ? 'Editable' : 'Readonly' }}</button>
       <a href="https://github.com/Seedsa/echo-editor" target="__blank">Github</a>
     </header>
@@ -12,6 +13,7 @@
         v-model="content"
         :extensions="extensions"
         :hideToolbar="hideToolbar"
+        :hideMenubar="hideMenubar"
         :disabled="disabled"
         output="html"
         :dark="theme === 'dark'"
@@ -113,6 +115,7 @@ import {
   FontFamily,
   Code,
   AI,
+  Preview,
 } from 'echo-editor'
 import { ExportWord } from './extensions/ExportWord'
 import OpenAI from 'openai'
@@ -121,6 +124,7 @@ import { createLowlight, common } from 'lowlight'
 const content = ref(DEMO_CONTENT)
 const theme = ref<string | null>(null)
 const hideToolbar = ref<boolean>(false)
+const hideMenubar = ref<boolean>(false)
 const disabled = ref<boolean>(false)
 
 const AIShortcuts = ref([
@@ -313,6 +317,7 @@ const extensions = [
     upload: handleFileUpload,
   }),
   ExportWord,
+  Preview,
   AI.configure({
     completions: AICompletions,
     shortcuts: AIShortcuts.value,

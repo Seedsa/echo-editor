@@ -104,3 +104,6 @@ export { VideoUpload } from './VideoUpload'
 export { FontFamily } from './FontFamily'
 
 export type { FontFamilyOptions } from './FontFamily'
+
+export type { PreviewOptions } from './Preview'
+export { Preview } from './Preview'

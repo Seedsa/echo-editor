@@ -6,14 +6,16 @@ import type { EditorOptions } from '@tiptap/vue-3'
 import { EDITOR_UPDATE_THROTTLE_WAIT_TIME } from '@/constants'
 import { differenceBy, getCssUnitWithDefault, hasExtension, isEqual, throttle } from '@/utils/utils'
 import { useLocale } from '@/locales'
-import { useProvideTiptapStore } from '@/hooks/useStore'
+import { useTiptapStore } from '@/hooks'
 import BasicBubbleMenu from './menus/BasicBubbleMenu.vue'
 import LinkBubbleMenu from './menus/LinkBubbleMenu.vue'
 import TableBubbleMenu from './menus/TableBubbleMenu.vue'
 import ContentMenu from './menus/ContentMenu.vue'
 import ColumnsBubbleMenu from './menus/ColumnsBubbleMenu.vue'
 import AIMenu from './menus/AIMenu.vue'
+import Menubars from './Menubars.vue'
 import Toolbar from './Toolbar.vue'
+import Preview from './Preview.vue'
 import { EchoEditorOnChange } from '@/type'
 import { useDark, useToggle } from '@vueuse/core'
 import Toaster from '@/components/ui/toast/Toaster.vue'
@@ -28,6 +30,7 @@ interface EditorProps {
   dense?: boolean
   disabled?: boolean
   hideToolbar?: boolean
+  hideMenubar?: boolean
   disableBubble?: boolean
   hideBubble?: boolean
   removeDefaultWrapper?: boolean
@@ -52,6 +55,7 @@ const props = withDefaults(defineProps<EditorProps>(), {
   dense: false,
   disabled: false,
   hideToolbar: false,
+  hideMenubar: false,
   disableBubble: false,
   hideBubble: false,
   removeDefaultWrapper: false,
@@ -66,7 +70,7 @@ const props = withDefaults(defineProps<EditorProps>(), {
 const emit = defineEmits<EditorEmits>()
 
 const attrs = useAttrs()
-const { state, isFullscreen } = useProvideTiptapStore()
+const { state, isFullscreen } = useTiptapStore()
 const { t } = useLocale()
 const isDark = useDark()
 
@@ -167,12 +171,19 @@ defineExpose({ editor })
     <TableBubbleMenu :editor="editor" />
     <AIMenu :editor="editor" :disabled="disabled" />
     <BasicBubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
+    <Preview :editor="editor" />
     <div
       class="relative"
-      :class="{ 'fixed bg-background inset-0 z-[200] w-full h-full m-0 rounded-none': isFullscreen }"
+      :class="{ 'fixed bg-background inset-0 z-[10] w-full h-full m-0 rounded-[0.5rem]': isFullscreen }"
     >
+      <Menubars v-if="!hideMenubar" :editor="editor" :disabled="disabled" />
       <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="disabled" class="border-b py-1 px-1" />
-      <editor-content :editor="editor" :class="contentClass" :style="contentDynamicStyles" />
+      <editor-content
+        :editor="editor"
+        :class="contentClass"
+        :style="contentDynamicStyles"
+        :spellcheck="state.spellCheck"
+      />
       <div v-if="hasExtension(editor, 'characterCount')" class="flex justify-between border-t p-3 items-center">
         <div class="flex flex-col">
           <div class="flex justify-end gap-3 text-sm">

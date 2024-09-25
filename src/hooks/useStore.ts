@@ -1,6 +1,6 @@
 import { computed, reactive, watchEffect, ComputedRef } from 'vue'
 import type { AnyExtension } from '@tiptap/core'
-import { createInjectionState } from '@vueuse/core'
+import { createGlobalState } from '@vueuse/core'
 import { useContext } from './useContext'
 
 import { DEFAULT_LANG_VALUE } from '@/constants'
@@ -35,20 +35,18 @@ interface Instance {
 
   /** Highlight color */
   highlight?: string
-  /** AI Menu */
+
+  /** AI Menu visibility */
   AIMenu: boolean
+
+  /** Preview visibility */
+  showPreview: boolean
+
+  /** SpellCheck */
+  spellCheck: boolean
 }
 
-/**
- * Interface representing the returned state and actions from the Tiptap store.
- */
-interface TiptapStore {
-  state: Instance
-  isFullscreen: ComputedRef<boolean>
-  toggleFullscreen: () => void
-}
-
-export const [useProvideTiptapStore, useTiptapStore] = createInjectionState(() => {
+export const useTiptapStore = createGlobalState(() => {
   const { state: _state } = useContext()
 
   const state: Instance = reactive({
@@ -58,12 +56,21 @@ export const [useProvideTiptapStore, useTiptapStore] = createInjectionState(() =
     color: undefined,
     highlight: undefined,
     AIMenu: false,
+    showPreview: false,
+    spellCheck: false,
   })
 
   const isFullscreen = computed(() => state.isFullscreen)
 
   function toggleFullscreen() {
     state.isFullscreen = !state.isFullscreen
+  }
+
+  function togglePreview() {
+    state.showPreview = !state.showPreview
+  }
+  function toggleSpellCheck() {
+    state.spellCheck = !state.spellCheck
   }
 
   watchEffect(() => {
@@ -75,5 +82,7 @@ export const [useProvideTiptapStore, useTiptapStore] = createInjectionState(() =
     state,
     isFullscreen,
     toggleFullscreen,
+    togglePreview,
+    toggleSpellCheck,
   }
 })

@@ -84,6 +84,17 @@ export const icons = {
   Columns: 'lucide:columns',
   AI: 'meteocons:star-fill',
   ChevronRight: 'lucide:chevron-right',
+  Paste: 'lucide:clipboard-paste',
+  Cut: 'lucide:scissors',
+  File: 'lucide:file',
+  Refresh: 'lucide:refresh-ccw',
+  Eye: 'lucide:eye',
+  Printer: 'lucide:printer',
+  Tablet: 'lucide:tablet',
+  Phone: 'lucide:smartphone',
+  Monitor: 'lucide:monitor',
+  TextSelect: 'lucide:text-select',
+  SpellCheck: 'lucide:spell-check-2',
 }
 
 export default icons
