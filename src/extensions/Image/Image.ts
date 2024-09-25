@@ -67,13 +67,22 @@ export const Image = TiptapImage.extend({
         },
     }
   },
-  renderHTML({ HTMLAttributes }) {
+  renderHTML({ node, HTMLAttributes }) {
+    const { textAlign } = node.attrs
+    const style =
+      {
+        left: 'margin-right: auto;',
+        right: 'margin-left: auto;',
+        center: 'margin-left: auto; margin-right: auto;',
+      }[textAlign] || ''
+
     return [
       'img',
       mergeAttributes(
         // Always render the `height="auto"
         {
           height: 'auto',
+          style,
         },
         this.options.HTMLAttributes,
         HTMLAttributes
