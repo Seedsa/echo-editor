@@ -48,6 +48,7 @@ const locale: Record<string, string> = {
   'editor.indent.indent': 'Increase Indent',
   'editor.indent.outdent': 'Decrease Indent',
   'editor.fontFamily.tooltip': 'Font family',
+  'editor.fontFamily.default': 'Default',
   'editor.fontSize.tooltip': 'Font size',
   'editor.fontSize.default.tooltip': 'Default',
   'editor.superscript.tooltip': 'Superscript',

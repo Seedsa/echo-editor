@@ -57,6 +57,7 @@ const active = computed(() => {
         <DropdownMenuCheckboxItem :checked="active.title === item.title" @click="item.action">
           <div class="ml-1 h-full">{{ item.title }}</div>
         </DropdownMenuCheckboxItem>
+        <DropdownMenuSeparator v-if="item.title === t('editor.fontSize.default.tooltip')" />
       </template>
     </div>
   </ActionDropdownButton>

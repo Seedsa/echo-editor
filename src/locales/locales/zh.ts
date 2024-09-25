@@ -45,6 +45,7 @@ const locale: Record<string, string> = {
   'editor.textalign.right.tooltip': '右对齐',
   'editor.textalign.justify.tooltip': '两端对齐',
   'editor.fontFamily.tooltip': '字体',
+  'editor.fontFamily.default': '默认字体',
   'editor.fontSize.tooltip': '字号调整',
   'editor.fontSize.default.tooltip': '默认字号',
   'editor.superscript.tooltip': '上标',

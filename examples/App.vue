@@ -110,6 +110,7 @@ import {
   TextAlign,
   ImageUpload,
   VideoUpload,
+  FontFamily,
   Code,
   AI,
 } from 'echo-editor'
@@ -267,6 +268,7 @@ const extensions = [
   Clear,
   Heading.configure({ spacer: true }),
   FontSize,
+  FontFamily,
   Bold,
   Italic,
   Underline,

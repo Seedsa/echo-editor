@@ -100,3 +100,7 @@ export { ImageUpload } from './ImageUpload'
 export type { ImageUploadOptions } from './ImageUpload'
 
 export { VideoUpload } from './VideoUpload'
+
+export { FontFamily } from './FontFamily'
+
+export type { FontFamilyOptions } from './FontFamily'
