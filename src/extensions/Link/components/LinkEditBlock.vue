@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import type { Editor } from '@tiptap/vue-3'
 import { useLocale } from '@/locales'
+import { useFocus } from '@vueuse/core'
 
 interface Props {
   editor: Editor
@@ -20,6 +21,8 @@ let form = reactive({
   text: '',
   link: '',
 })
+const inputRef = ref<HTMLInputElement | null>(null)
+const { focused } = useFocus(inputRef)
 const openInNewTab = ref<boolean>(false)
 
 watchEffect(() => {
@@ -35,6 +38,9 @@ watchEffect(() => {
 function handleSubmit() {
   emits('onSetLink', form.link, form.text, openInNewTab.value)
 }
+onMounted(() => {
+  focused.value = true
+})
 </script>
 
 <template>
@@ -49,7 +55,7 @@ function handleSubmit() {
       <Label>{{ t('editor.link.dialog.link') }}</Label>
       <div class="flex w-full max-w-sm items-center gap-1.5">
         <div class="relative w-full max-w-sm items-center">
-          <Input type="url" v-model="form.link" required class="pl-10" />
+          <Input type="url" ref="inputRef" v-model="form.link" required class="pl-10" />
           <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
             <Icon class="size-5 text-muted-foreground" name="Link" />
           </span>
