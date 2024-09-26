@@ -25,7 +25,7 @@ export const AI = Node.create<AIOptions>({
       button: ({ editor, t }) => ({
         component: ActionButton,
         componentProps: {
-          icon: 'OpenAI',
+          icon: 'Sparkles',
           tooltip: t('editor.AI.ask'),
         },
       }),

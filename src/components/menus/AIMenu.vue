@@ -178,7 +178,7 @@ const shortcutMenus = computed(() => {
             class="pl-10 pr-20 h-12 outline-none ring-0 focus-visible:ring-0"
           />
           <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
-            <Icon name="OpenAI" class="w-5 h-5" />
+            <Icon name="Sparkles" class="w-5 h-5" />
           </span>
           <Button
             variant="secondary"
