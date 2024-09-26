@@ -16,6 +16,7 @@ import AIMenu from './menus/AIMenu.vue'
 import Menubars from './Menubars.vue'
 import Toolbar from './Toolbar.vue'
 import Preview from './Preview.vue'
+import FindAndReplace from './FindAndReplace.vue'
 import { EchoEditorOnChange } from '@/type'
 import { useDark, useToggle } from '@vueuse/core'
 import Toaster from '@/components/ui/toast/Toaster.vue'
@@ -73,6 +74,7 @@ const attrs = useAttrs()
 const { state, isFullscreen } = useTiptapStore()
 const { t } = useLocale()
 const isDark = useDark()
+const contentRef = ref()
 
 const sortExtensions = computed(() =>
   [...state.extensions, ...differenceBy(props.extensions, state.extensions, 'name')].map((k, i) =>
@@ -172,6 +174,7 @@ defineExpose({ editor })
     <AIMenu :editor="editor" :disabled="disabled" />
     <BasicBubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
     <Preview :editor="editor" />
+    <FindAndReplace :container-ref="contentRef" :editor="editor" />
     <div
       class="relative"
       :class="{ 'fixed bg-background inset-0 z-[10] w-full h-full m-0 rounded-[0.5rem]': isFullscreen }"
@@ -179,6 +182,7 @@ defineExpose({ editor })
       <Menubars v-if="!hideMenubar" :editor="editor" :disabled="disabled" />
       <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="disabled" class="border-b py-1 px-1" />
       <editor-content
+        ref="contentRef"
         :editor="editor"
         :class="contentClass"
         :style="contentDynamicStyles"

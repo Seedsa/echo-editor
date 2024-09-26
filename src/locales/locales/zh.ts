@@ -151,6 +151,11 @@ const locale: Record<string, string> = {
   'editor.menubar.menu.selectAll': '全选',
   'editor.menubar.menu.preview': '预览',
   'editor.menubar.menu.spellCheck': '拼写检查',
+  'editor.findAndReplace.tooltip': '查找和替换',
+  'editor.findAndReplace.find': '查找',
+  'editor.findAndReplace.replace': '替换',
+  'editor.findAndReplace.replaceAll': '全部替换',
+  'editor.findAndReplace.caseSensitive': '区分大小写',
 }
 
 export default locale

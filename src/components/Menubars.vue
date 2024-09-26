@@ -248,6 +248,17 @@ const menubarMenus = ref<MenuGroup[]>([
           props.editor?.chain().focus().selectAll().run()
         },
       },
+      {
+        separator: true,
+      },
+      {
+        title: 'editor.findAndReplace.tooltip',
+        icon: 'DocSearch',
+        action: () => {
+          store.toggleFindAndReplace()
+        },
+        requiredExtensions: ['findAndReplace'],
+      },
     ],
   },
   {

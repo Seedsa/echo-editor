@@ -152,6 +152,11 @@ const locale: Record<string, string> = {
   'editor.menubar.menu.selectAll': 'Select all',
   'editor.menubar.menu.preview': 'Preview',
   'editor.menubar.menu.spellCheck': 'Spell check',
+  'editor.findAndReplace.tooltip': 'Find and replace',
+  'editor.findAndReplace.find': 'Find',
+  'editor.findAndReplace.replace': 'Replace',
+  'editor.findAndReplace.replaceAll': 'Replace All',
+  'editor.findAndReplace.caseSensitive': 'Case Sensitive',
 }
 
 export default locale

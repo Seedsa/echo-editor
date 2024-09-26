@@ -15,6 +15,7 @@ export const icons = {
   AlignJustify: 'radix-icons:text-align-justify',
   AlignLeft: 'radix-icons:text-align-left',
   AlignRight: 'radix-icons:text-align-right',
+  ChevronUp: 'lucide:chevron-up',
   ChevronDown: 'lucide:chevron-down',
   Subscript: 'lucide:subscript',
   Superscript: 'lucide:superscript',
@@ -95,6 +96,8 @@ export const icons = {
   Monitor: 'lucide:monitor',
   TextSelect: 'lucide:text-select',
   SpellCheck: 'lucide:spell-check-2',
+  DocSearch: 'fluent:document-search-24-regular',
+  Close: 'lucide:x',
 }
 
 export default icons

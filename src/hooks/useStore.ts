@@ -44,6 +44,9 @@ interface Instance {
 
   /** SpellCheck */
   spellCheck: boolean
+
+  /** */
+  findAndReplace: boolean
 }
 
 export const useTiptapStore = createGlobalState(() => {
@@ -58,6 +61,7 @@ export const useTiptapStore = createGlobalState(() => {
     AIMenu: false,
     showPreview: false,
     spellCheck: false,
+    findAndReplace: false,
   })
 
   const isFullscreen = computed(() => state.isFullscreen)
@@ -72,6 +76,9 @@ export const useTiptapStore = createGlobalState(() => {
   function toggleSpellCheck() {
     state.spellCheck = !state.spellCheck
   }
+  function toggleFindAndReplace() {
+    state.findAndReplace = !state.findAndReplace
+  }
 
   watchEffect(() => {
     state.extensions = _state.extensions
@@ -84,5 +91,6 @@ export const useTiptapStore = createGlobalState(() => {
     toggleFullscreen,
     togglePreview,
     toggleSpellCheck,
+    toggleFindAndReplace,
   }
 })

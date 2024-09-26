@@ -15,6 +15,7 @@
         :hideToolbar="hideToolbar"
         :hideMenubar="hideMenubar"
         :disabled="disabled"
+        :maxHeight="512"
         output="html"
         :dark="theme === 'dark'"
       >
@@ -113,6 +114,7 @@ import {
   ImageUpload,
   VideoUpload,
   FontFamily,
+  FindAndReplace,
   Code,
   AI,
   Preview,
@@ -313,15 +315,16 @@ const extensions = [
   CodeBlock.configure({ lowlight: createLowlight(common) }),
   Table,
   Code,
-  ImportWord.configure({
-    upload: handleFileUpload,
-  }),
   ExportWord,
-  Preview,
   AI.configure({
     completions: AICompletions,
     shortcuts: AIShortcuts.value,
   }),
+  ImportWord.configure({
+    upload: handleFileUpload,
+  }),
+  FindAndReplace.configure({ spacer: true }),
+  Preview,
 ]
 async function handleFileUpload(files: File[]) {
   const f = files.map(file => ({

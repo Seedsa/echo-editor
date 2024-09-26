@@ -150,6 +150,12 @@
       line-height: 1.2rem;
     }
   }
+  .echo-editor-search-result {
+    @apply bg-yellow-300;
+  }
+  .echo-editor-search-result-current {
+    @apply bg-red-400;
+  }
 }
 
 .heading-0 {
