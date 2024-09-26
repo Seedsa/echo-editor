@@ -16,7 +16,7 @@ import { getShortcutKeys } from '@/utils/plateform'
 import { getSelectionText } from '@/utils/content'
 import type { CheckedState } from 'radix-vue/dist/Menu/utils'
 import { useTiptapStore } from '@/hooks'
-const DRAFT_KEY = 'echo-editor-draft-' // 本地存储的 key
+const DRAFT_KEY = 'echo-editor-draft' // 本地存储的 key
 
 interface Props {
   editor: Editor
@@ -61,7 +61,7 @@ const loadedMenuItems = computed(() => {
 })
 const saveDraft = () => {
   const content = props.editor.getHTML()
-  if (content) {
+  if (content && !props.editor.isEmpty) {
     localStorage.setItem(DRAFT_KEY, content)
   }
 }
