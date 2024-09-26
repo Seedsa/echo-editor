@@ -3,6 +3,10 @@
   p {
     @apply leading-relaxed mb-1.5 first:mt-0 last:mb-0;
   }
+  /* https://github.com/ueberdosis/tiptap/issues/412 */
+  p:empty::after {
+    content: '\00A0';
+  }
 
   & > p {
     @apply mb-1.5 first:mt-0 last:mb-0;
@@ -62,7 +66,7 @@
   }
 
   & img {
-    @apply h-auto max-w-full;
+    @apply h-auto max-w-full block;
   }
 
   @for $i from 1 through 7 /* max-indent */ {
@@ -239,7 +243,7 @@
 
     td,
     th {
-      @apply border border-black/10 min-w-[1em] p-2 box-border relative text-left align-top;
+      @apply border border-black/10 min-w-[1em] p-2 box-border relative text-left align-top border-solid;
       @apply dark:border-white/20;
 
       &:first-of-type:not(a) {
