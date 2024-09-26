@@ -2,6 +2,7 @@
 import { useTiptapStore } from '@/hooks'
 import type { Editor } from '@tiptap/core'
 import ProseMirrorStyle from '@/styles/ProseMirror.scss?inline'
+import GlobalStyle from '@/styles/global.scss?inline'
 import { useHotkeys } from '@/hooks'
 interface Props {
   editor: Editor
@@ -27,7 +28,7 @@ async function handlePrint() {
       <title>Echo Editor</title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <style>${ProseMirrorStyle}</style>
+      <style>${ProseMirrorStyle} ${GlobalStyle}</style>
     </head>
     <body class="is-print">
       <div class="tiptap ProseMirror" translate="no" aria-expanded="false">
