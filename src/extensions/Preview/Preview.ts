@@ -26,6 +26,7 @@ export const Preview = Extension.create<PreviewOptions>({
             store.togglePreview()
           },
           tooltip: t('editor.preview.tooltip'),
+          isActive: () => store.state.showPreview,
         },
       }),
     }
