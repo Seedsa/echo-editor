@@ -228,6 +228,7 @@ export const FindAndReplace = Extension.create<FindAndReplaceOptions, FindAndRep
           action: () => {
             store.toggleFindAndReplace()
           },
+          isActive: () => store.state.findAndReplace,
         },
       }),
     }

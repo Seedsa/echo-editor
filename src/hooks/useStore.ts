@@ -45,7 +45,7 @@ interface Instance {
   /** SpellCheck */
   spellCheck: boolean
 
-  /** */
+  /** FindAndReplace */
   findAndReplace: boolean
 }
 

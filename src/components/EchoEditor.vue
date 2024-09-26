@@ -72,6 +72,8 @@ const emit = defineEmits<EditorEmits>()
 
 const attrs = useAttrs()
 const { state, isFullscreen } = useTiptapStore()
+const store = useTiptapStore()
+
 const { t } = useLocale()
 const isDark = useDark()
 const contentRef = ref()
@@ -177,7 +179,7 @@ defineExpose({ editor })
     <FindAndReplace :container-ref="contentRef" :editor="editor" />
     <div
       class="relative"
-      :class="{ 'fixed bg-background inset-0 z-[10] w-full h-full m-0 rounded-[0.5rem]': isFullscreen }"
+      :class="{ '!fixed bg-background inset-0 z-[10] w-full h-full m-0 rounded-[0.5rem]': isFullscreen }"
     >
       <Menubars v-if="!hideMenubar" :editor="editor" :disabled="disabled" />
       <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="disabled" class="border-b py-1 px-1" />

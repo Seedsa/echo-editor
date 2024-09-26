@@ -131,7 +131,7 @@ onMounted(() => setTimeout(updateSearchReplace))
     <div
       v-show="store.state.findAndReplace && isEditorVisible"
       ref="dialogRef"
-      class="fixed bg-white shadow-lg rounded-lg p-4 w-[320px] border"
+      class="fixed bg-white shadow-lg rounded-lg p-4 w-[320px] border z-[11]"
       :style="{ top: `${position.y}px`, left: `${position.x}px` }"
     >
       <button

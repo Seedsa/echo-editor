@@ -1,41 +1,36 @@
 import { Extension } from '@tiptap/core'
-
-import FullscreenActionButton from './components/FullscreenActionButton.vue'
-
 import type { GeneralOptions } from '@/type'
-import { useFullscreen } from '@vueuse/core'
-
+import ActionButton from '@/components/ActionButton.vue'
+import { useTiptapStore } from '@/hooks'
 export interface FullscreenOptions extends GeneralOptions<FullscreenOptions> {}
 
-declare module '@tiptap/core' {
-  interface Commands<ReturnType> {
-    fullscreen: {
-      toggleFullscreen: () => ReturnType
-    }
-  }
-}
-
+const { isFullscreen, toggleFullscreen } = useTiptapStore()
 export const Fullscreen = Extension.create<FullscreenOptions>({
   name: 'fullscreen',
   addOptions() {
     return {
       ...this.parent?.(),
-      useWindow: false,
       button: ({ editor, extension, t }) => ({
-        component: FullscreenActionButton,
-        componentProps: {},
+        component: ActionButton,
+        componentProps: {
+          tooltip: isFullscreen.value ? t('editor.fullscreen.tooltip.exit') : t('editor.fullscreen.tooltip.fullscreen'),
+          action: () => toggleFullscreen(),
+          icon: isFullscreen.value ? 'Minimize' : 'Maximize',
+          isActive: () => isFullscreen.value,
+        },
       }),
     }
   },
-  addCommands() {
-    const { toggle } = useFullscreen()
+  addKeyboardShortcuts() {
     return {
-      toggleFullscreen:
-        () =>
-        ({ editor }) => {
-          toggle()
-          return true
-        },
+      F11: () => {
+        toggleFullscreen()
+        return true
+      },
+      'Mod-F11': () => {
+        toggleFullscreen()
+        return true
+      },
     }
   },
 })
