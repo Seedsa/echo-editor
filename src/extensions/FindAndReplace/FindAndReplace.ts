@@ -4,6 +4,7 @@ import { Plugin, PluginKey, type EditorState, type Transaction } from '@tiptap/p
 import { Node as PMNode } from '@tiptap/pm/model'
 import ActionButton from '@/components/ActionButton.vue'
 import { useTiptapStore } from '@/hooks'
+import type { GeneralOptions } from '@/type'
 
 const store = useTiptapStore()
 declare module '@tiptap/core' {
@@ -198,7 +199,7 @@ const replaceAll = (
 
 export const findAndReplacePluginKey = new PluginKey('findAndReplacePlugin')
 
-export interface FindAndReplaceOptions {
+export interface FindAndReplaceOptions extends GeneralOptions<FindAndReplaceOptions> {
   searchResultClass: string
   disableRegex: boolean
 }
@@ -218,6 +219,7 @@ export const FindAndReplace = Extension.create<FindAndReplaceOptions, FindAndRep
   name: 'findAndReplace',
   addOptions() {
     return {
+      ...this.parent?.(),
       searchResultClass: 'echo-editor-search-result',
       disableRegex: true,
       button: ({ editor, extension, t }) => ({

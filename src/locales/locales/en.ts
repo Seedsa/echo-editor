@@ -157,6 +157,7 @@ const locale: Record<string, string> = {
   'editor.findAndReplace.replace': 'Replace',
   'editor.findAndReplace.replaceAll': 'Replace All',
   'editor.findAndReplace.caseSensitive': 'Case Sensitive',
+  'editor.printer.tooltip': 'Print',
 }
 
 export default locale

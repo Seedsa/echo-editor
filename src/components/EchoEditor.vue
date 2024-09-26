@@ -16,6 +16,7 @@ import AIMenu from './menus/AIMenu.vue'
 import Menubars from './Menubars.vue'
 import Toolbar from './Toolbar.vue'
 import Preview from './Preview.vue'
+import Printer from './Printer.vue'
 import FindAndReplace from './FindAndReplace.vue'
 import { EchoEditorOnChange } from '@/type'
 import { useDark, useToggle } from '@vueuse/core'
@@ -176,6 +177,7 @@ defineExpose({ editor })
     <AIMenu :editor="editor" :disabled="disabled" />
     <BasicBubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
     <Preview :editor="editor" />
+    <Printer :editor="editor" />
     <FindAndReplace :container-ref="contentRef" :editor="editor" />
     <div
       class="relative"

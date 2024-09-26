@@ -156,6 +156,7 @@ const locale: Record<string, string> = {
   'editor.findAndReplace.replace': '替换',
   'editor.findAndReplace.replaceAll': '全部替换',
   'editor.findAndReplace.caseSensitive': '区分大小写',
+  'editor.printer.tooltip': '打印',
 }
 
 export default locale

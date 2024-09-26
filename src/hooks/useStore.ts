@@ -47,6 +47,8 @@ interface Instance {
 
   /** FindAndReplace */
   findAndReplace: boolean
+  /** Printer */
+  printer: boolean
 }
 
 export const useTiptapStore = createGlobalState(() => {
@@ -62,6 +64,7 @@ export const useTiptapStore = createGlobalState(() => {
     showPreview: false,
     spellCheck: false,
     findAndReplace: false,
+    printer: false,
   })
 
   const isFullscreen = computed(() => state.isFullscreen)
@@ -79,6 +82,9 @@ export const useTiptapStore = createGlobalState(() => {
   function toggleFindAndReplace() {
     state.findAndReplace = !state.findAndReplace
   }
+  function togglePrinter() {
+    state.printer = !state.printer
+  }
 
   watchEffect(() => {
     state.extensions = _state.extensions
@@ -92,5 +98,6 @@ export const useTiptapStore = createGlobalState(() => {
     togglePreview,
     toggleSpellCheck,
     toggleFindAndReplace,
+    togglePrinter,
   }
 })

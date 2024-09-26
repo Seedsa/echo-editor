@@ -109,3 +109,6 @@ export type { PreviewOptions } from './Preview'
 export { Preview } from './Preview'
 
 export { FindAndReplace } from './FindAndReplace'
+
+export { Printer } from './Printer'
+export type { PrinterOptions } from './Printer'

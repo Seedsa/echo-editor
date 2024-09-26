@@ -124,26 +124,7 @@ const menubarMenus = ref<MenuGroup[]>([
         shortcut: ['mod', 'P'],
         action: () => {
           // 实现打印
-          const content = props.editor.getHTML()
-          if (content) {
-            const printWindow = window.open('', '', 'width=600,height=600') // 打开新窗口
-            if (printWindow) {
-              printWindow.document.write(`
-      <html>
-        <head>
-          <title></title>
-        </head>
-        <body>
-          ${content}
-        </body>
-      </html>
-    `)
-              printWindow.document.close() // 关闭文档流
-              printWindow.focus() // 聚焦到打印窗口
-              printWindow.print() // 调用打印
-              printWindow.close() // 打印后关闭窗口
-            }
-          }
+          store.state.printer = true
         },
       },
     ],

@@ -114,6 +114,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "echo-drag-handle-plugin": "^0.0.2",
+    "hotkeys-js": "^3.13.7",
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {

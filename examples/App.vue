@@ -118,6 +118,7 @@ import {
   Code,
   AI,
   Preview,
+  Printer,
 } from 'echo-editor'
 import { ExportWord } from './extensions/ExportWord'
 import OpenAI from 'openai'
@@ -324,6 +325,7 @@ const extensions = [
     upload: handleFileUpload,
   }),
   FindAndReplace.configure({ spacer: true }),
+  Printer,
   Preview,
 ]
 async function handleFileUpload(files: File[]) {

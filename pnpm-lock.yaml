@@ -152,6 +152,9 @@ importers:
       echo-drag-handle-plugin:
         specifier: ^0.0.2
         version: 0.0.2(@tiptap/core@2.6.6)(@tiptap/pm@2.6.6)(y-prosemirror@1.2.5)
+      hotkeys-js:
+        specifier: ^3.13.7
+        version: 3.13.7
       tippy.js:
         specifier: ^6.3.7
         version: 6.3.7
@@ -1908,7 +1911,7 @@ packages:
   /@types/node-fetch@2.6.11:
     resolution: {integrity: sha512-24xFj9R5+rfQJLRyM56qh+wnVSYhyXC2tkoBndtY0U+vubqNsYXGjufB2nn8Q6gt0LrARwL6UBtMCSVCwl4B1g==}
     dependencies:
-      '@types/node': 18.19.33
+      '@types/node': 20.12.12
       form-data: 4.0.0
     dev: false
 
@@ -4211,6 +4214,10 @@ packages:
     dependencies:
       parse-passwd: 1.0.0
     dev: true
+
+  /hotkeys-js@3.13.7:
+    resolution: {integrity: sha512-ygFIdTqqwG4fFP7kkiYlvayZppeIQX2aPpirsngkv1xM1lP0piDY5QEh68nQnIKvz64hfocxhBaD/uK3sSK1yQ==}
+    dev: false
 
   /http-errors@2.0.0:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
