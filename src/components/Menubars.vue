@@ -89,6 +89,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.menubar.menu.newDoc',
         icon: 'File',
+        disabled: () => !props.editor.isEditable,
         action: () => {
           saveDraft()
           clearEditor()
@@ -97,7 +98,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.menubar.menu.restoreLastDraft',
         icon: 'Refresh',
-        disabled: () => !hasDraft(),
+        disabled: () => !hasDraft() || !props.editor.isEditable,
         action: () => {
           restoreDraft() // 恢复保存的草稿
           clearDraft()
@@ -154,7 +155,7 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.undo.tooltip',
         icon: 'Undo2',
         shortcut: ['mod', 'Z'],
-        disabled: () => !props.editor.can().undo(),
+        disabled: () => !props.editor.can().undo() || !props.editor.isEditable,
         action: () => {
           props.editor.commands.undo()
         },
@@ -164,7 +165,7 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.redo.tooltip',
         icon: 'Redo2',
         shortcut: ['shift', 'mod', 'Z'],
-        disabled: () => !props.editor.can().redo(),
+        disabled: () => !props.editor.can().redo() || !props.editor.isEditable,
         action: () => {
           props.editor.commands.redo()
         },
@@ -177,6 +178,7 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.menubar.menu.cut',
         icon: 'Cut',
         shortcut: ['mod', 'X'],
+        disabled: () => !props.editor.isEditable,
         action: async () => {
           const text = getSelectionText(props.editor)
           if (text) {
@@ -200,6 +202,7 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.menubar.menu.paste',
         icon: 'Paste',
         shortcut: ['mod', 'V'],
+        disabled: () => !props.editor.isEditable,
         action: async () => {
           try {
             const clipboardItems = await navigator.clipboard.read()
@@ -231,6 +234,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.menubar.menu.pasteAsText',
         icon: 'Paste',
+        disabled: () => !props.editor.isEditable,
         action: async () => {
           const text = await navigator.clipboard.readText()
           if (text) {
@@ -243,6 +247,7 @@ const menubarMenus = ref<MenuGroup[]>([
       },
       {
         title: 'editor.menubar.menu.selectAll',
+        disabled: () => !props.editor.isEditable,
         icon: 'TextSelect',
         action: () => {
           props.editor?.chain().focus().selectAll().run()
@@ -301,6 +306,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.image.tooltip',
         icon: 'ImageUp',
+        disabled: () => !props.editor.isEditable || !props.editor.can().setImage({}),
         action: () => {
           props.editor.commands.setImageUpload()
         },
@@ -309,6 +315,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.video.tooltip',
         icon: 'Video',
+        disabled: () => !props.editor.isEditable || !props.editor.can().setVideo({}),
         action: () => {
           props.editor.commands.setVideoUpload()
         },
@@ -317,6 +324,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.link.tooltip',
         icon: 'Link',
+        disabled: () => !props.editor.isEditable || !props.editor.can().setLink({ href: '' }),
         action: () => {
           props.editor
             .chain()
@@ -349,7 +357,7 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.bold.tooltip',
         icon: 'Bold',
         shortcut: ['Mod', 'B'],
-        disabled: () => !props.editor.can().toggleBold(),
+        disabled: () => !props.editor.isEditable || !props.editor.can().toggleBold(),
         action: () => {
           props.editor.commands.toggleBold()
         },
@@ -359,7 +367,7 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.italic.tooltip',
         icon: 'Italic',
         shortcut: ['Mod', 'I'],
-        disabled: () => !props.editor.can().toggleItalic(),
+        disabled: () => !props.editor.isEditable || !props.editor.can().toggleItalic(),
         action: () => {
           props.editor.commands.toggleItalic()
         },
@@ -369,7 +377,7 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.underline.tooltip',
         icon: 'Underline',
         shortcut: ['Mod', 'U'],
-        disabled: () => !props.editor.can().toggleUnderline(),
+        disabled: () => !props.editor.isEditable || !props.editor.can().toggleUnderline(),
         action: () => {
           props.editor.commands.toggleUnderline()
         },
@@ -378,7 +386,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.strike.tooltip',
         icon: 'Strikethrough',
-        disabled: () => !props.editor.can().toggleStrike(),
+        disabled: () => !props.editor.isEditable || !props.editor.can().toggleStrike(),
         action: () => {
           props.editor.commands.toggleStrike()
         },
@@ -387,7 +395,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.superscript.tooltip',
         icon: 'Superscript',
-        disabled: () => !props.editor.can().toggleSuperscript(),
+        disabled: () => !props.editor.isEditable || !props.editor.can().toggleSuperscript(),
         action: () => {
           props.editor.commands.toggleSuperscript()
         },
@@ -396,7 +404,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.subscript.tooltip',
         icon: 'Subscript',
-        disabled: () => !props.editor.can().toggleSubscript(),
+        disabled: () => !props.editor.isEditable || !props.editor.can().toggleSubscript(),
         action: () => {
           props.editor.commands.toggleSubscript()
         },
@@ -405,7 +413,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.code.tooltip',
         icon: 'Code',
-        disabled: () => !props.editor.can().toggleCode(),
+        disabled: () => !props.editor.isEditable || !props.editor.can().toggleCode(),
         action: () => {
           props.editor.commands.toggleCode()
         },

@@ -177,8 +177,12 @@ onMounted(() => setTimeout(updateSearchReplace))
         </div>
         <div class="flex gap-3 mt-3">
           <Button type="submit">{{ t('editor.findAndReplace.find') }}</Button>
-          <Button variant="secondary" @click="replace">{{ t('editor.findAndReplace.replace') }}</Button>
-          <Button variant="secondary" @click="replaceAll">{{ t('editor.findAndReplace.replaceAll') }}</Button>
+          <Button variant="secondary" @click="replace" :disabled="!editor.isEditable">{{
+            t('editor.findAndReplace.replace')
+          }}</Button>
+          <Button variant="secondary" @click="replaceAll" :disabled="!editor.isEditable">{{
+            t('editor.findAndReplace.replaceAll')
+          }}</Button>
         </div>
       </form>
     </div>
