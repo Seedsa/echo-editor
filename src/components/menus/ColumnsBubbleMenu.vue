@@ -58,7 +58,6 @@ const onColumnTwo = () => {
     <div class="p-2 bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800">
       <div class="flex gap-1 items-center">
         <ActionButton
-          title="ok"
           icon="PanelLeft"
           tooltip="左侧边栏"
           :action="onColumnLeft"
@@ -66,7 +65,6 @@ const onColumnTwo = () => {
           :tooltip-options="{ sideOffset: 15 }"
         />
         <ActionButton
-          title="ok"
           icon="Columns"
           tooltip="两栏布局"
           :action="onColumnTwo"
@@ -74,7 +72,6 @@ const onColumnTwo = () => {
           :tooltip-options="{ sideOffset: 15 }"
         />
         <ActionButton
-          title="ok"
           icon="PanelRight"
           tooltip="右侧边栏"
           :action="onColumnRight"
