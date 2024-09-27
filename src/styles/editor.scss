@@ -139,17 +139,6 @@
     }
   }
   /*  */
-  &.dense {
-    .ProseMirror {
-      min-height: 32px;
-      padding: 6px 12px;
-    }
-
-    p {
-      padding: 0;
-      line-height: 1.2rem;
-    }
-  }
   .echo-editor-search-result {
     @apply bg-yellow-300;
   }

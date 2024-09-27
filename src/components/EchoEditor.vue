@@ -20,28 +20,82 @@ import Preview from './Preview.vue'
 import Printer from './Printer.vue'
 import FindAndReplace from './FindAndReplace.vue'
 import { EchoEditorOnChange } from '@/type'
-import { useDark, useToggle } from '@vueuse/core'
+import { useDark } from '@vueuse/core'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 
 type KeyDownHandler = NonNullable<EditorOptions['editorProps']['handleKeyDown']>
 type UpdateHandler = NonNullable<EditorOptions['onUpdate']>
 
 interface EditorProps {
+  /**
+   * input value
+   */
   modelValue?: string | object
+  /**
+   * Editor output type
+   *
+   * @default 'html'
+   */
   output?: 'html' | 'json' | 'text'
+  /**
+   * dark mode
+   *
+   * @default false
+   */
   dark?: boolean
-  dense?: boolean
+  /**
+   * Readonly
+   *
+   * @default false
+   */
   disabled?: boolean
+  /**
+   * Hide Editor Toolbar
+   *
+   * @default false
+   */
   hideToolbar?: boolean
+  /**
+   * Hide Editor Menubar
+   *
+   * @default false
+   */
   hideMenubar?: boolean
-  disableBubble?: boolean
+  /**
+   * Hide Editor Bubble Menu
+   *
+   * @default false
+   */
   hideBubble?: boolean
+  /**
+   * Remove tiptap default wrapper when editor is empty eg. <p></p>
+   *
+   * @default false
+   */
   removeDefaultWrapper?: boolean
+  /**
+   * Editor content maximum width
+   */
   maxWidth?: string | number
+  /**
+   * Editor content minimum height
+   */
   minHeight?: string | number
+  /**
+   * Editor content maximum height
+   */
   maxHeight?: string | number
+  /**
+   * Tiptap extensions
+   */
   extensions?: AnyExtension[]
+  /**
+   * Editor container class
+   */
   editorClass?: string | string[] | Record<string, any>
+  /**
+   * Editor content class
+   */
   contentClass?: string | string[] | Record<string, any>
 }
 
@@ -55,11 +109,9 @@ const props = withDefaults(defineProps<EditorProps>(), {
   modelValue: '',
   output: 'html',
   dark: undefined,
-  dense: false,
   disabled: false,
   hideToolbar: false,
   hideMenubar: false,
-  disableBubble: false,
   hideBubble: false,
   removeDefaultWrapper: false,
   maxWidth: undefined,
@@ -74,13 +126,12 @@ const emit = defineEmits<EditorEmits>()
 
 const attrs = useAttrs()
 const { state, isFullscreen } = useTiptapStore()
-const store = useTiptapStore()
 
 const { t } = useLocale()
 const isDark = useDark()
-const contentRef = ref()
+const contentRef = ref<HTMLElement | null>(null)
 
-const sortExtensions = computed(() =>
+const sortExtensions = computed<AnyExtension[]>(() =>
   [...state.extensions, ...differenceBy(props.extensions, state.extensions, 'name')].map((k, i) =>
     k.configure({ sort: i })
   )
@@ -106,7 +157,14 @@ const editor = new Editor({
   editable: !props.disabled,
 })
 
-watch(() => props.dark, useToggle(isDark))
+watch(
+  () => props.dark,
+  val => {
+    if (val !== undefined) {
+      isDark.value = val
+    }
+  }
+)
 
 const contentDynamicStyles = computed(() => ({
   ...(unref(isFullscreen)
@@ -123,8 +181,11 @@ const contentDynamicStyles = computed(() => ({
 }))
 
 function getOutput(editor: CoreEditor, output: EditorProps['output']): string | JSONContent {
-  if (editor.isEmpty && props.removeDefaultWrapper) {
-    return output === 'json' ? {} : ''
+  if (props.removeDefaultWrapper) {
+    if (output === 'html') return editor.isEmpty ? '' : editor.getHTML()
+    if (output === 'json') return editor.isEmpty ? {} : editor.getJSON()
+    if (output === 'text') return editor.isEmpty ? '' : editor.getText()
+    return ''
   }
   switch (output) {
     case 'html':
@@ -166,7 +227,6 @@ defineExpose({ editor })
     :class="[
       editorClass,
       {
-        dense,
         'outline-primary': editor.isFocused,
         'outline-border': !editor.isFocused,
       },
@@ -191,13 +251,15 @@ defineExpose({ editor })
           :style="contentDynamicStyles"
           :spellcheck="state.spellCheck"
         />
-        <ContentMenu :editor="editor" :disabled="disabled" />
-        <LinkBubbleMenu :editor="editor" />
-        <ColumnsBubbleMenu :editor="editor" />
-        <TableBubbleMenu :editor="editor" />
-        <AIMenu :editor="editor" :disabled="disabled" />
-        <ImageBubbleMenu :editor="editor" :disabled="disableBubble" />
-        <BasicBubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
+        <template v-if="!hideBubble && !disabled && editor.isEditable">
+          <ContentMenu :editor="editor" />
+          <LinkBubbleMenu :editor="editor" />
+          <ColumnsBubbleMenu :editor="editor" />
+          <TableBubbleMenu :editor="editor" />
+          <AIMenu :editor="editor" />
+          <ImageBubbleMenu :editor="editor" />
+          <BasicBubbleMenu :editor="editor" />
+        </template>
       </div>
       <div v-if="hasExtension(editor, 'characterCount')" class="flex justify-between border-t p-3 items-center">
         <div class="flex flex-col">

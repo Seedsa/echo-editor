@@ -10,7 +10,7 @@ import { getSelectionText } from '@/utils/content'
 interface Props {
   editor: Editor
   disabled?: boolean
-  containerRef: Object
+  containerRef: HTMLElement | null
 }
 
 const props = withDefaults(defineProps<Props>(), {

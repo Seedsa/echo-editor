@@ -84,7 +84,7 @@ const locale: Record<string, string> = {
   'editor.link.dialog.text.placeholder': 'Add Description',
   'editor.link.dialog.button.apply': 'Apply',
   'editor.image.tooltip': 'Image',
-  'editor.image.menu.size': 'Size',
+  'editor.image.menu.size': 'Set Size',
   'editor.image.menu.size.width': 'Width',
   'editor.image.menu.size.height': 'Height',
   'editor.image.dragger.tooltip': 'Click or drag the image to the area to upload',
