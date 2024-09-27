@@ -254,7 +254,7 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.fullscreen.tooltip.fullscreen',
         icon: 'Maximize',
         action: () => {
-          props.editor.commands.toggleFullscreen()
+          store.toggleFullscreen()
         },
         requiredExtensions: ['fullscreen'],
       },
