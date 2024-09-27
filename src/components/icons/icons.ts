@@ -97,6 +97,7 @@ export const icons = {
   SpellCheck: 'lucide:spell-check-2',
   DocSearch: 'fluent:document-search-24-regular',
   Close: 'lucide:x',
+  ImageSize: 'fluent:resize-image-24-filled',
 }
 
 export default icons

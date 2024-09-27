@@ -120,13 +120,6 @@ export const DEFAULT_FONT_SIZE_LIST = [
 /** Default font size value */
 export const DEFAULT_FONT_SIZE_VALUE = 'defaut' as const
 
-/** Options for setting image size in the bubble menu */
-export enum IMAGE_SIZE {
-  'size-small' = 200,
-  'size-medium' = 500,
-  'size-large' = '100%',
-}
-
 /** Options for setting video size in the bubble menu */
 export enum VIDEO_SIZE {
   'size-small' = 480,
@@ -139,19 +132,6 @@ export const DEFAULT_LINE_HEIGHT = '1'
 
 /** display in menus */
 export const NODE_TYPE_MENU: any = {
-  image: [
-    'divider',
-    'image-size-small',
-    'image-size-medium',
-    'image-size-large',
-    'divider',
-    'image-left',
-    'image-center',
-    'image-right',
-    'divider',
-    'image-aspect-ratio',
-    'remove',
-  ],
   text: [
     'AI',
     'divider',

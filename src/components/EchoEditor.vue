@@ -12,6 +12,7 @@ import LinkBubbleMenu from './menus/LinkBubbleMenu.vue'
 import TableBubbleMenu from './menus/TableBubbleMenu.vue'
 import ContentMenu from './menus/ContentMenu.vue'
 import ColumnsBubbleMenu from './menus/ColumnsBubbleMenu.vue'
+import ImageBubbleMenu from './menus/ImageBubbleMenu.vue'
 import AIMenu from './menus/AIMenu.vue'
 import Menubars from './Menubars.vue'
 import Toolbar from './Toolbar.vue'
@@ -176,6 +177,7 @@ defineExpose({ editor })
     <TableBubbleMenu :editor="editor" />
     <AIMenu :editor="editor" :disabled="disabled" />
     <BasicBubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
+    <ImageBubbleMenu :editor="editor" :disabled="disableBubble" />
     <Preview :editor="editor" />
     <Printer :editor="editor" />
     <FindAndReplace :container-ref="contentRef" :editor="editor" />

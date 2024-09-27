@@ -31,12 +31,10 @@ const tippyOptions = reactive<Record<string, unknown>>({
 
 const nodeType = computed(() => {
   const selection = props.editor.state.selection as NodeSelection
-  const isImage = selection.node?.type.name === 'image'
   const isLink = props.editor.isActive('link')
   const isVideo = selection.node?.type.name === 'video'
   const isText = selection instanceof TextSelection
   if (isLink) return 'link'
-  if (isImage) return 'image'
   if (isVideo) return 'video'
   if (isText) return 'text'
   return undefined

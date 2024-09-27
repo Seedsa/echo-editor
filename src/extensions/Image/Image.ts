@@ -27,11 +27,20 @@ declare module '@tiptap/core' {
   }
 }
 export const Image = TiptapImage.extend({
+  group: 'block',
+  defining: true,
+  isolating: true,
   addAttributes() {
     return {
       ...this.parent?.(),
-      width: {
+      originWidth: {
         default: null,
+      },
+      originHeight: {
+        default: null,
+      },
+      width: {
+        default: '100%',
         parseHTML: element => {
           const width = element.style.width || element.getAttribute('width') || null
           if (width && width.endsWith('%')) {
@@ -62,7 +71,7 @@ export const Image = TiptapImage.extend({
       ...this.parent?.(),
       updateImage:
         options =>
-        ({ commands }) => {
+        ({ commands, editor }) => {
           return commands.updateAttributes(this.name, options)
         },
     }
@@ -79,7 +88,6 @@ export const Image = TiptapImage.extend({
     return [
       'img',
       mergeAttributes(
-        // Always render the `height="auto"
         {
           height: 'auto',
           style,

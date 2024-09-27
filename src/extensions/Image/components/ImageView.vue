@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, unref, watchEffect } from 'vue'
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
-
 import { IMAGE_MAX_SIZE, IMAGE_MIN_SIZE, IMAGE_THROTTLE_WAIT_TIME } from '@/constants'
 import { clamp, isNumber, throttle } from '@/utils/utils'
 
@@ -12,36 +11,24 @@ const props = defineProps({
     required: true,
   },
 })
+
 type Size = {
   width: number
   height: number
 }
+
 const ResizeDirection = {
   TOP_LEFT: 'tl',
   TOP_RIGHT: 'tr',
   BOTTOM_LEFT: 'bl',
   BOTTOM_RIGHT: 'br',
 }
-const maxSize = ref<Size>({
-  width: IMAGE_MAX_SIZE,
-  height: IMAGE_MAX_SIZE,
-})
 
-const originalSize = ref({
-  width: 0,
-  height: 0,
-})
+const maxSize = ref<Size>({ width: IMAGE_MAX_SIZE, height: IMAGE_MAX_SIZE })
+const originalSize = ref<Size>({ width: 0, height: 0 })
+const resizing = ref(false)
 
-const resizeDirections = ref<string[]>([
-  ResizeDirection.TOP_LEFT,
-  ResizeDirection.TOP_RIGHT,
-  ResizeDirection.BOTTOM_LEFT,
-  ResizeDirection.BOTTOM_RIGHT,
-])
-
-const resizing = ref<boolean>(false)
-
-const resizerState = ref({
+const resizerState = ref<{ x: number; y: number; w: number; h: number; dir: string }>({
   x: 0,
   y: 0,
   w: 0,
@@ -50,105 +37,77 @@ const resizerState = ref({
 })
 
 const imgAttrs = computed(() => {
-  const { src, alt, width: w, height: h } = props.node.attrs
-  const width = isNumber(w) ? w + 'px' : w
-  const height = isNumber(h) ? h + 'px' : h
+  const { src, alt, width, height } = props.node.attrs
   return {
     src: src || undefined,
     alt: alt || undefined,
     style: {
-      width: width || undefined,
-      height: height || undefined,
+      width: isNumber(width) ? `${width}px` : width,
+      height: isNumber(height) ? `${height}px` : height,
     },
   }
 })
 
-const imageMaxStyle = computed(() => {
-  const {
-    style: { width },
-  } = unref(imgAttrs)
+const imageMaxStyle = computed(() => ({
+  width: unref(imgAttrs).style.width === '100%' ? '100%' : undefined,
+}))
 
-  return { width: width === '100%' ? width : undefined }
+const imageRef = ref<HTMLElement | null>(null)
+
+const resizeObserver = new ResizeObserver(entries => {
+  for (const entry of entries) {
+    const { width, height } = entry.contentRect
+    props.updateAttributes({ originWidth: width, originHeight: height })
+  }
 })
 
-function onImageLoad(e: Record<string, any>) {
-  originalSize.value = {
-    width: e.target.width,
-    height: e.target.height,
-  }
+watchEffect(() => {
+  if (imageRef.value) resizeObserver.observe(imageRef.value)
+})
+
+function onImageLoad(e: Event) {
+  const target = e.target as HTMLImageElement
+  originalSize.value = { width: target.width, height: target.height }
 }
 
-// https://github.com/scrumpy/tiptap/issues/361#issuecomment-540299541
 function selectImage() {
   const { editor, getPos } = props
   editor.commands.setNodeSelection(getPos())
 }
 
-/* 当窗口或编辑器调整大小时调用 */
-const getMaxSize = throttle(function () {
+const getMaxSize = throttle(() => {
   const { editor } = props
-  const { width } = getComputedStyle(editor.view.dom)
-  maxSize.value.width = parseInt(width, 10)
+  maxSize.value.width = parseInt(getComputedStyle(editor.view.dom).width, 10)
 }, IMAGE_THROTTLE_WAIT_TIME)
 
-/*
- * 记录触发事件的位置并调整方向
- * 计算图像的初始宽度和高度
- */
 function onMouseDown(e: MouseEvent, dir: string) {
   e.preventDefault()
   e.stopPropagation()
 
-  resizerState.value.x = e.clientX
-  resizerState.value.y = e.clientY
-
-  const originalWidth = unref(originalSize).width
-  const originalHeight = unref(originalSize).height
+  const { width: originalWidth, height: originalHeight } = unref(originalSize)
   const aspectRatio = originalWidth / originalHeight
 
-  let width = Number(props.node.attrs.width)
-  let height = Number(props.node.attrs.height)
+  let width = Number(props.node.attrs.width) || originalWidth
+  let height = Number(props.node.attrs.height) || Math.round(width / aspectRatio)
   const maxWidth = unref(maxSize).width
 
-  if (width && !height) {
-    width = width > maxWidth ? maxWidth : width
-    height = Math.round(width / aspectRatio)
-  } else if (height && !width) {
-    width = Math.round(height * aspectRatio)
-    width = width > maxWidth ? maxWidth : width
-  } else if (!width && !height) {
-    width = originalWidth > maxWidth ? maxWidth : originalWidth
-    height = Math.round(width / aspectRatio)
-  } else {
-    width = width > maxWidth ? maxWidth : width
-  }
+  width = Math.min(width > maxWidth ? maxWidth : width, maxWidth)
+  height = Math.round(width / aspectRatio)
 
-  resizerState.value.w = width
-  resizerState.value.h = height
-  resizerState.value.dir = dir
-
+  Object.assign(resizerState.value, { x: e.clientX, y: e.clientY, w: width, h: height, dir })
   resizing.value = true
 
   onEvents()
 }
 
-const onMouseMove = throttle(function (e: MouseEvent) {
-  e.preventDefault()
-  e.stopPropagation()
+const onMouseMove = throttle((e: MouseEvent) => {
   if (!unref(resizing)) return
 
-  const { x, y, w, h, dir } = unref(resizerState)
-
+  const { x, y, w, dir } = unref(resizerState)
   const dx = (e.clientX - x) * (/l/.test(dir) ? -1 : 1)
-  const dy = (e.clientY - y) * (/t/.test(dir) ? -1 : 1)
-
   const width = clamp(w + dx, IMAGE_MIN_SIZE, unref(maxSize).width)
-  const height = null
 
-  props.updateAttributes({
-    width,
-    height,
-  })
+  props.updateAttributes({ width })
 }, IMAGE_THROTTLE_WAIT_TIME)
 
 function onMouseUp(e: MouseEvent) {
@@ -157,73 +116,70 @@ function onMouseUp(e: MouseEvent) {
   if (!unref(resizing)) return
 
   resizing.value = false
-
-  resizerState.value = {
-    x: 0,
-    y: 0,
-    w: 0,
-    h: 0,
-    dir: '',
-  }
+  Object.assign(resizerState.value, { x: 0, y: 0, w: 0, h: 0, dir: '' })
 
   offEvents()
   selectImage()
 }
 
 function onEvents() {
-  document?.addEventListener('mousemove', onMouseMove, true)
-  document?.addEventListener('mouseup', onMouseUp, true)
+  document.addEventListener('mousemove', onMouseMove, true)
+  document.addEventListener('mouseup', onMouseUp, true)
 }
 
 function offEvents() {
-  document?.removeEventListener('mousemove', onMouseMove, true)
-  document?.removeEventListener('mouseup', onMouseUp, true)
+  document.removeEventListener('mousemove', onMouseMove, true)
+  document.removeEventListener('mouseup', onMouseUp, true)
 }
 
-const resizeOb: ResizeObserver = new ResizeObserver(() => getMaxSize())
-
+const resizeObserverDom = new ResizeObserver(getMaxSize)
 watchEffect(effect => {
-  unref(resizeOb).observe(props.editor.view.dom)
+  resizeObserverDom.observe(props.editor.view.dom)
+  effect(() => resizeObserverDom.disconnect())
+})
 
-  effect(() => {
-    unref(resizeOb).disconnect()
-  })
+const blockAlignStyle = computed(() => {
+  const { textAlign } = props.node.attrs
+  return (
+    {
+      left: 'margin-right: auto;',
+      right: 'margin-left: auto;',
+      center: 'margin-left: auto; margin-right: auto;',
+    }[textAlign] || ''
+  )
 })
 </script>
 
 <template>
-  <NodeViewWrapper
-    :as="extension.options.inline ? 'span' : 'div'"
-    class="image-view"
-    :style="{ imageMaxStyle, width: '100%', textAlign: node.attrs.textAlign }"
-  >
-    <div
-      draggable="true"
-      data-drag-handle
-      :class="{
-        'image-view__body--focused': selected,
-        'image-view__body--resizing': resizing,
-      }"
-      class="image-view__body"
-      :style="imageMaxStyle"
-    >
-      <img
-        :src="imgAttrs.src"
-        :alt="imgAttrs.alt"
-        :style="imgAttrs.style"
-        height="auto"
-        class="image-view__body__image block"
-        @load="onImageLoad"
-        @click="selectImage"
-      />
-      <div v-if="editor.view.editable" v-show="selected || resizing" class="image-resizer">
-        <span
-          v-for="direction in resizeDirections"
-          :key="direction"
-          :class="`image-resizer__handler--${direction}`"
-          class="image-resizer__handler"
-          @mousedown="onMouseDown($event, direction)"
-        ></span>
+  <NodeViewWrapper class="node-image">
+    <div class="image-view" :style="[imgAttrs.style, blockAlignStyle]">
+      <div
+        draggable="true"
+        data-drag-handle
+        :class="{
+          'image-view__body--focused': selected,
+          'image-view__body--resizing': resizing,
+        }"
+        class="image-view__body"
+        :style="imageMaxStyle"
+      >
+        <img
+          :src="imgAttrs.src"
+          :alt="imgAttrs.alt"
+          ref="imageRef"
+          class="image-view__body__image block"
+          @load="onImageLoad"
+          @click="selectImage"
+        />
+        <div v-if="editor.view.editable" v-show="selected || resizing" class="image-resizer">
+          <span
+            v-for="direction in Object.values(ResizeDirection)"
+            :key="direction"
+            :class="`image-resizer__handler--${direction}`"
+            class="image-resizer__handler"
+            @mousedown="onMouseDown($event, direction)"
+          ></span>
+        </div>
       </div>
     </div>
   </NodeViewWrapper>
@@ -231,41 +187,24 @@ watchEffect(effect => {
 
 <style lang="scss" scoped>
 .image-view {
+  max-width: 100%;
   &__body {
     position: relative;
     display: inline-block;
     max-width: 100%;
-    clear: both;
     outline: transparent solid 2px;
     transition: all 0.2s ease-in;
 
     &:hover {
       @apply outline-primary;
     }
-
-    &--focused:hover,
-    &--resizing:hover {
-      outline-color: transparent;
-    }
-
-    &__placeholder {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
+    &--focused {
+      @apply outline-primary;
     }
 
     &__image {
       margin: 0;
       cursor: pointer !important;
-    }
-  }
-
-  &.focus {
-    img {
-      @apply outline-primary outline-2 outline;
     }
   }
 }
@@ -288,26 +227,23 @@ watchEffect(effect => {
     height: 12px;
     border: 1px solid #fff;
     border-radius: 2px;
-    @apply bg-blue-500;
+    @apply bg-primary;
 
     &--tl {
       top: -6px;
       left: -6px;
       cursor: nw-resize;
     }
-
     &--tr {
       top: -6px;
       right: -6px;
       cursor: ne-resize;
     }
-
     &--bl {
       bottom: -6px;
       left: -6px;
       cursor: sw-resize;
     }
-
     &--br {
       right: -6px;
       bottom: -6px;
