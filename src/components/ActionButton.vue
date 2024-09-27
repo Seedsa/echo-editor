@@ -6,6 +6,7 @@ import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/comp
 import type { TooltipContentProps } from 'radix-vue'
 import { icons, Icon } from '@/components/icons'
 import type { Editor } from '@tiptap/core'
+import type { HTMLAttributes } from 'vue'
 
 interface Props {
   icon?: keyof typeof icons
@@ -20,6 +21,7 @@ interface Props {
   action?: ButtonViewReturnComponentProps['action']
   isActive?: ButtonViewReturnComponentProps['isActive']
   editor?: Editor
+  class?: HTMLAttributes['class']
 }
 withDefaults(defineProps<Props>(), {
   icon: undefined,

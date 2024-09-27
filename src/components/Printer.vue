@@ -7,12 +7,10 @@ import { useHotkeys } from '@/hooks'
 interface Props {
   editor: Editor
   disabled?: boolean
-  containerRef: Object
 }
 
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
-  containerRef: undefined,
 })
 const { state } = useTiptapStore()
 const srcdoc = ref('')

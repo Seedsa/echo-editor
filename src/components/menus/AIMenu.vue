@@ -90,7 +90,6 @@ async function handleCompletion(context: string, prompt_: string) {
   }
 }
 const tippyOptions = reactive<Record<string, unknown>>({
-  key: 'ai',
   maxWidth: 600,
   zIndex: 99,
   appendTo: 'parent',

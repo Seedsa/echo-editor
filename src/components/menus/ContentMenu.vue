@@ -27,7 +27,7 @@ type PluginRefType = Plugin<{
 }>
 
 interface Props {
-  className: string
+  className?: string
   editor: Editor
   disabled?: boolean
   pluginKey?: PluginKey | string

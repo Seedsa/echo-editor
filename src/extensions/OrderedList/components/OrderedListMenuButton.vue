@@ -5,6 +5,7 @@ import { useLocale } from '@/locales'
 import type { Editor } from '@tiptap/vue-3'
 import ActionDropdownButtonSplit from '@/components/ActionDropdownButtonSplit.vue'
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { ButtonViewReturnComponentProps } from '@/type'
 
 interface OrderedListOption {
   label: string
@@ -23,11 +24,15 @@ interface Props {
   editor: Editor
   disabled?: boolean
   tooltip?: string
+  shortcutKeys?: string[]
+  isActive?: ButtonViewReturnComponentProps['isActive']
 }
 
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   tooltip: '',
+  shortcutKeys: undefined,
+  isActive: undefined,
 })
 
 const { t } = useLocale()
@@ -77,11 +82,13 @@ function toggleOrderedList(item: OrderedListOption) {
     :action="toggleOrderedList"
     :disabled="disabled"
     :tooltip="tooltip"
+    :is-active="isActive"
+    :shortcutKeys="shortcutKeys"
     class="min-w-4 w-full grid grid-cols-3 gap-1"
   >
     <TooltipProvider>
       <Tooltip :delay-duration="0" v-for="item in OrderedListOptions" :key="item.value">
-        <TooltipTrigger>
+        <TooltipTrigger as-child>
           <DropdownMenuItem class="p-0" @click="toggleOrderedList(item)">
             <div
               :class="[active === item.value ? 'bg-accent border border-accent-foreground' : '']"

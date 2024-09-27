@@ -30,7 +30,14 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger :disabled="disabled">
-      <ActionMenuButton :class="btn_class" :title="title" :icon="icon" :tooltip="tooltip" :disabled="disabled" />
+      <ActionMenuButton
+        :class="btn_class"
+        :title="title"
+        :icon="icon"
+        :tooltip="tooltip"
+        :disabled="disabled"
+        :is-active="isActive"
+      />
     </DropdownMenuTrigger>
     <DropdownMenuContent :class="cn('min-w-24', props.class)" align="start" side="bottom" v-bind="$attrs">
       <slot />

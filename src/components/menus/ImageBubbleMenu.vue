@@ -109,6 +109,7 @@ function handleRemove() {
       popperOptions: {
         modifiers: [{ name: 'flip', enabled: false }],
       },
+      appendTo: 'parent',
       getReferenceClientRect: getReferenceClientRect.value,
       plugins: [sticky],
       sticky: 'popper',

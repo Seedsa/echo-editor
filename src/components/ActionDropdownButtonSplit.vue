@@ -13,6 +13,7 @@ interface Props {
   tooltip?: string
   disabled?: boolean
   class?: string
+  shortcutKeys?: string[]
   btn_class?: string
   action?: ButtonViewReturnComponentProps['action']
   isActive?: ButtonViewReturnComponentProps['isActive']
@@ -25,13 +26,14 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   action: undefined,
   isActive: undefined,
+  shortcutKeys: undefined,
   class: '',
   btn_class: '',
 })
 </script>
 
 <template>
-  <div class="flex items-center h-[32px] hover:bg-muted rounded-md">
+  <div class="flex items-center h-[32px] hover:bg-muted rounded-md" :class="[isActive?.() && 'bg-muted']">
     <ActionButton
       :class="btn_class"
       :action="action"
@@ -39,6 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
       :icon="icon"
       :tooltip="tooltip"
       :disabled="disabled"
+      :shortcut-keys="shortcutKeys"
     >
     </ActionButton>
     <DropdownMenu>
