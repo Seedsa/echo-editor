@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { Icon } from '@/components/icons'
-import { DragHandlePlugin, dragHandlePluginDefaultKey } from 'echo-drag-handle-plugin'
+import { DragHandlePlugin } from 'echo-drag-handle-plugin'
 import { Button } from '@/components/ui/button'
 import { Node } from '@tiptap/pm/model'
-import { Editor } from '@tiptap/vue-3'
+import type { Editor } from '@tiptap/vue-3'
 import { NodeSelection, Plugin, PluginKey } from '@tiptap/pm/state'
 import { useLocale } from '@/locales'
 import {
@@ -26,28 +26,17 @@ type PluginRefType = Plugin<{
   locked: boolean
 }>
 
-const props = defineProps({
-  className: {
-    type: String,
-    default: 'drag-handle',
-  },
-  editor: {
-    type: Editor,
-    required: true,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  pluginKey: {
-    type: PluginKey,
-    default: dragHandlePluginDefaultKey,
-  },
-  onNodeChange: Function, // 节点改变时的回调函数
-  tippyOptions: {
-    type: Object,
-    default: () => ({}),
-  },
+interface Props {
+  className: string
+  editor: Editor
+  disabled?: boolean
+  pluginKey?: PluginKey | string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  className: 'drag-handle',
+  disabled: false,
+  pluginKey: 'ContentItemMenu',
 })
 const { t } = useLocale()
 
@@ -63,7 +52,7 @@ onMounted(() => {
     pluginRef.value = DragHandlePlugin({
       editor: props.editor,
       element: dragElement.value,
-      pluginKey: 'ContentItemMenu',
+      pluginKey: props.pluginKey,
       tippyOptions: {
         offset: [-2, 16],
         zIndex: 9,
@@ -128,6 +117,9 @@ function handleNodeChange(e) {
   currentNodePos.value = e.pos
 }
 function handleAdd() {
+  if (!props.editor.isEditable) {
+    return
+  }
   if (currentNodePos.value !== -1) {
     const currentNodeSize = currentNode.value?.nodeSize || 0
     const insertPos = currentNodePos.value + currentNodeSize
