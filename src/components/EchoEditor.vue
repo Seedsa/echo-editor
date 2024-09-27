@@ -115,6 +115,7 @@ const contentDynamicStyles = computed(() => ({
         minHeight: getCssUnitWithDefault(props.minHeight),
         maxHeight: getCssUnitWithDefault(props.maxHeight),
         overflowY: 'auto' as const,
+        scrollBehavior: 'smooth',
       }),
   maxWidth: getCssUnitWithDefault(props.maxWidth),
   width: props.maxWidth ? '100%' : undefined,
@@ -171,29 +172,33 @@ defineExpose({ editor })
       },
     ]"
   >
-    <ContentMenu :editor="editor" :disabled="disabled" />
-    <LinkBubbleMenu :editor="editor" />
-    <ColumnsBubbleMenu :editor="editor" />
-    <TableBubbleMenu :editor="editor" />
-    <AIMenu :editor="editor" :disabled="disabled" />
-    <BasicBubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
-    <ImageBubbleMenu :editor="editor" :disabled="disableBubble" />
     <Preview :editor="editor" />
     <Printer :editor="editor" />
     <FindAndReplace :container-ref="contentRef" :editor="editor" />
     <div
-      class="relative"
-      :class="{ '!fixed bg-background inset-0 z-[10] w-full h-full m-0 rounded-[0.5rem]': isFullscreen }"
+      class="relative flex flex-col overflow-hidden"
+      :class="{
+        '!fixed bg-background inset-0 z-[10]  w-full h-full m-0 rounded-[0.5rem]': isFullscreen,
+      }"
     >
       <Menubars v-if="!hideMenubar" :editor="editor" :disabled="disabled" />
-      <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="disabled" class="border-b py-1 px-1" />
-      <editor-content
-        ref="contentRef"
-        :editor="editor"
-        :class="contentClass"
-        :style="contentDynamicStyles"
-        :spellcheck="state.spellCheck"
-      />
+      <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="disabled" class="border-b py-1 px-1 overflow-hidden" />
+      <div class="overflow-hidden relative flex-1">
+        <editor-content
+          ref="contentRef"
+          :editor="editor"
+          :class="contentClass"
+          :style="contentDynamicStyles"
+          :spellcheck="state.spellCheck"
+        />
+        <ContentMenu :editor="editor" :disabled="disabled" />
+        <LinkBubbleMenu :editor="editor" />
+        <ColumnsBubbleMenu :editor="editor" />
+        <TableBubbleMenu :editor="editor" />
+        <AIMenu :editor="editor" :disabled="disabled" />
+        <ImageBubbleMenu :editor="editor" :disabled="disableBubble" />
+        <BasicBubbleMenu v-if="!hideBubble" :editor="editor" :disabled="disableBubble" />
+      </div>
       <div v-if="hasExtension(editor, 'characterCount')" class="flex justify-between border-t p-3 items-center">
         <div class="flex flex-col">
           <div class="flex justify-end gap-3 text-sm">
