@@ -4,6 +4,8 @@ import { useElementBounding, useElementVisibility } from '@vueuse/core'
 import { useTiptapStore } from '@/hooks'
 import type { Editor } from '@tiptap/core'
 import { useLocale } from '@/locales'
+import { useHotkeys } from '@/hooks'
+import { getSelectionText } from '@/utils/content'
 
 interface Props {
   editor: Editor
@@ -37,6 +39,7 @@ const isEditorVisible = useElementVisibility(computedAnchorElement)
 // 计算对话框位置
 const position = ref({ x: 0, y: 0 })
 
+const resultLength = computed(() => props.editor?.storage.findAndReplace?.results.length || 0)
 // 监听锚点元素位置变化和可见性
 watch([top, right, isEditorVisible], () => {
   if (isEditorVisible.value && dialogRef.value) {
@@ -66,10 +69,6 @@ const goToSelection = () => {
   node instanceof HTMLElement && node.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
 
-function handleFind(e) {
-  e.preventDefault()
-  next()
-}
 watch(
   () => searchTerm.value.trim(),
   (val, oldVal) => {
@@ -93,6 +92,7 @@ watch(
     if (val) {
       await nextTick()
       focused.value = true
+      searchTerm.value = getSelectionText(props.editor) || ''
     } else {
       clear()
     }
@@ -124,6 +124,12 @@ function handleChange(e) {
   caseSensitive.value = e
 }
 onMounted(() => setTimeout(updateSearchReplace))
+
+const { bind, unbind } = useHotkeys('ctrl+f,command+f', () => {
+  store.state.findAndReplace = true
+})
+props.editor.on('focus', bind)
+props.editor.on('blur', unbind)
 </script>
 
 <template>
@@ -140,51 +146,49 @@ onMounted(() => setTimeout(updateSearchReplace))
       >
         <Icon name="Close" />
       </button>
-      <form @submit="handleFind" class="mt-1">
-        <Label>{{ t('editor.findAndReplace.find') }}</Label>
-        <div class="flex w-full max-w-sm items-center gap-1.5">
-          <div class="relative w-full max-w-sm items-center">
-            <Input v-model="searchTerm" class="pr-10" ref="inputRef" />
-            <span class="absolute end-0 inset-y-0 flex items-center justify-center px-2 text-sm">
-              {{
-                editor?.storage?.findAndReplace?.results.length
-                  ? editor?.storage?.findAndReplace?.resultIndex + 1
-                  : editor?.storage?.findAndReplace?.resultIndex
-              }}
-              /
-              {{ editor?.storage?.findAndReplace?.results.length }}
-            </span>
-          </div>
-          <div class="flex gap-1">
-            <Button @click="previous" variant="outline" size="icon" class="px-2.5">
-              <Icon name="ChevronUp" class="w-5 h-5" />
-            </Button>
-            <Button type="submit" variant="outline" size="icon" class="px-2.5">
-              <Icon name="ChevronDown" class="w-5 h-5" />
-            </Button>
-          </div>
+      <Label>{{ t('editor.findAndReplace.find') }}</Label>
+      <div class="flex w-full max-w-sm items-center gap-1.5">
+        <div class="relative w-full max-w-sm items-center">
+          <Input v-model="searchTerm" @keyup.enter="next" class="pr-10" ref="inputRef" />
+          <span class="absolute end-0 inset-y-0 flex items-center justify-center px-2 text-sm">
+            {{
+              editor?.storage?.findAndReplace?.results.length
+                ? editor?.storage?.findAndReplace?.resultIndex + 1
+                : editor?.storage?.findAndReplace?.resultIndex
+            }}
+            /
+            {{ editor?.storage?.findAndReplace?.results.length }}
+          </span>
         </div>
-        <Label>{{ t('editor.findAndReplace.replace') }}</Label>
-        <Input v-model="replaceTerm" />
-        <div class="flex items-center space-x-2 mt-2">
-          <Checkbox id="terms" :checked="caseSensitive" @update:checked="handleChange" />
-          <label
-            for="terms"
-            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            {{ t('editor.findAndReplace.caseSensitive') }}
-          </label>
+        <div class="flex gap-1">
+          <Button @click="previous" variant="outline" size="icon" class="px-2.5">
+            <Icon name="ChevronUp" class="w-5 h-5" />
+          </Button>
+          <Button @click="next" variant="outline" size="icon" class="px-2.5">
+            <Icon name="ChevronDown" class="w-5 h-5" />
+          </Button>
         </div>
-        <div class="flex gap-3 mt-3">
-          <Button type="submit">{{ t('editor.findAndReplace.find') }}</Button>
-          <Button variant="secondary" @click="replace" :disabled="!editor.isEditable">{{
-            t('editor.findAndReplace.replace')
-          }}</Button>
-          <Button variant="secondary" @click="replaceAll" :disabled="!editor.isEditable">{{
-            t('editor.findAndReplace.replaceAll')
-          }}</Button>
-        </div>
-      </form>
+      </div>
+      <Label>{{ t('editor.findAndReplace.replace') }}</Label>
+      <Input v-model="replaceTerm" />
+      <div class="flex items-center space-x-2 mt-2">
+        <Checkbox id="terms" :checked="caseSensitive" @update:checked="handleChange" />
+        <label
+          for="terms"
+          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          {{ t('editor.findAndReplace.caseSensitive') }}
+        </label>
+      </div>
+      <div class="flex gap-3 mt-3">
+        <Button type="submit" :disabled="!resultLength">{{ t('editor.findAndReplace.find') }}</Button>
+        <Button variant="secondary" @click="replace" :disabled="!editor.isEditable || !resultLength">{{
+          t('editor.findAndReplace.replace')
+        }}</Button>
+        <Button variant="secondary" @click="replaceAll" :disabled="!editor.isEditable || !resultLength">{{
+          t('editor.findAndReplace.replaceAll')
+        }}</Button>
+      </div>
     </div>
   </Teleport>
 </template>
