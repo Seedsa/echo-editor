@@ -14,6 +14,7 @@ const locale: Record<string, string> = {
   'editor.copyToClipboard': 'CopyToClipboard',
   'editor.importWord.tooltip': 'Import from Word',
   'editor.importWord.success': 'Import Success',
+  'editor.importWord.fileTooLarge': 'File is Too large',
   'editor.importWord.error': 'Import Failed, File not supported',
   'editor.slash': "Press '/' for commands",
   'editor.slash.empty': 'No Result',

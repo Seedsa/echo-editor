@@ -104,6 +104,7 @@ const menubarMenus = ref<MenuGroup[]>([
           clearDraft()
         },
       },
+
       {
         separator: true,
       },
@@ -114,6 +115,17 @@ const menubarMenus = ref<MenuGroup[]>([
           props.editor.commands.togglePreview()
         },
         requiredExtensions: ['preview'],
+      },
+      {
+        separator: true,
+      },
+      {
+        title: 'editor.importWord.tooltip',
+        icon: 'Word',
+        action: () => {
+          props.editor.commands.toggleImportWord()
+        },
+        requiredExtensions: ['importWord'],
       },
       {
         separator: true,

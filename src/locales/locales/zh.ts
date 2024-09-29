@@ -15,6 +15,7 @@ const locale: Record<string, string> = {
   'editor.copyToClipboard': '复制到剪切板',
   'editor.importWord.tooltip': '导入Word',
   'editor.importWord.success': '导入成功',
+  'editor.importWord.fileTooLarge': '文件大小超出限制',
   'editor.importWord.error': '导入失败,文件不支持',
   'editor.slash': "输入 '/' 唤起更多",
   'editor.slash.empty': '暂无搜索结果',
