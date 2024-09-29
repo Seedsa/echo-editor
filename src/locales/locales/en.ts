@@ -85,6 +85,8 @@ const locale: Record<string, string> = {
   'editor.link.dialog.text.placeholder': 'Add Description',
   'editor.link.dialog.button.apply': 'Apply',
   'editor.image.tooltip': 'Image',
+  'editor.image.menu.flipX': 'Flip vertical',
+  'editor.image.menu.flipY': 'Flip horizontal',
   'editor.image.menu.size': 'Set Size',
   'editor.image.menu.size.width': 'Width',
   'editor.image.menu.size.height': 'Height',

@@ -84,6 +84,8 @@ const locale: Record<string, string> = {
   'editor.link.dialog.text.placeholder': '添加描述',
   'editor.link.dialog.button.apply': '应用',
   'editor.image.tooltip': '图片',
+  'editor.image.menu.flipX': '水平翻转',
+  'editor.image.menu.flipY': '垂直翻转',
   'editor.image.menu.size': '宽高',
   'editor.image.menu.size.width': '宽度',
   'editor.image.menu.size.height': '高度',

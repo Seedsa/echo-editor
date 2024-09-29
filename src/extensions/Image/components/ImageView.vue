@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, unref, watchEffect } from 'vue'
+import { computed, ref, unref } from 'vue'
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import { IMAGE_MAX_SIZE, IMAGE_MIN_SIZE, IMAGE_THROTTLE_WAIT_TIME } from '@/constants'
 import { clamp, isNumber, throttle } from '@/utils/utils'
@@ -37,13 +37,19 @@ const resizerState = ref<{ x: number; y: number; w: number; h: number; dir: stri
 })
 
 const imgAttrs = computed(() => {
-  const { src, alt, width, height } = props.node.attrs
+  const { src, alt, width, height, flipX, flipY } = props.node.attrs
+  const transformStyles: any = []
+  if (flipX) transformStyles.push('rotateX(180deg)')
+  if (flipY) transformStyles.push('rotateY(180deg)')
+  const transform = transformStyles.join(' ')
+
   return {
     src: src || undefined,
     alt: alt || undefined,
     style: {
       width: isNumber(width) ? `${width}px` : width,
       height: isNumber(height) ? `${height}px` : height,
+      transform: transform || 'none',
     },
   }
 })
@@ -57,18 +63,10 @@ const imageRef = ref<HTMLElement | null>(null)
 const resizeObserver = new ResizeObserver(entries => {
   for (const entry of entries) {
     const { width, height } = entry.contentRect
+    originalSize.value = { width, height }
     props.updateAttributes({ originWidth: width, originHeight: height })
   }
 })
-
-watchEffect(() => {
-  if (imageRef.value) resizeObserver.observe(imageRef.value)
-})
-
-function onImageLoad(e: Event) {
-  const target = e.target as HTMLImageElement
-  originalSize.value = { width: target.width, height: target.height }
-}
 
 function selectImage() {
   const { editor, getPos } = props
@@ -133,10 +131,6 @@ function offEvents() {
 }
 
 const resizeObserverDom = new ResizeObserver(getMaxSize)
-watchEffect(effect => {
-  resizeObserverDom.observe(props.editor.view.dom)
-  effect(() => resizeObserverDom.disconnect())
-})
 
 const blockAlignStyle = computed(() => {
   const { textAlign } = props.node.attrs
@@ -147,6 +141,16 @@ const blockAlignStyle = computed(() => {
       center: 'margin-left: auto; margin-right: auto;',
     }[textAlign] || ''
   )
+})
+onMounted(() => {
+  if (imageRef.value) resizeObserver.observe(imageRef.value)
+  resizeObserverDom.observe(props.editor.view.dom)
+})
+
+onBeforeUnmount(() => {
+  offEvents()
+  resizeObserver.disconnect()
+  resizeObserverDom.disconnect()
 })
 </script>
 
@@ -168,7 +172,6 @@ const blockAlignStyle = computed(() => {
           :alt="imgAttrs.alt"
           ref="imageRef"
           class="image-view__body__image block"
-          @load="onImageLoad"
           @click="selectImage"
         />
         <div v-if="editor.view.editable" v-show="selected || resizing" class="image-resizer">
@@ -195,9 +198,6 @@ const blockAlignStyle = computed(() => {
     outline: transparent solid 2px;
     transition: all 0.2s ease-in;
 
-    &:hover {
-      @apply outline-primary;
-    }
     &--focused {
       @apply outline-primary;
     }

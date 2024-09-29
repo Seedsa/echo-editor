@@ -11,6 +11,10 @@ export interface SetImageAttrsOptions {
   title?: string
   /** The width of the image. */
   width?: number | string | null
+  /** image FlipX */
+  flipX?: boolean
+  /** image FlipY */
+  flipY?: boolean
 }
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -33,6 +37,12 @@ export const Image = TiptapImage.extend({
   addAttributes() {
     return {
       ...this.parent?.(),
+      flipX: {
+        default: false,
+      },
+      flipY: {
+        default: false,
+      },
       originWidth: {
         default: null,
       },
@@ -77,14 +87,16 @@ export const Image = TiptapImage.extend({
     }
   },
   renderHTML({ node, HTMLAttributes }) {
-    const { textAlign } = node.attrs
-    const style =
+    const { textAlign, flipX, flipY } = node.attrs
+    const textAlignStyle =
       {
         left: 'margin-right: auto;',
         right: 'margin-left: auto;',
         center: 'margin-left: auto; margin-right: auto;',
       }[textAlign] || ''
-
+    const transformStyle =
+      flipX || flipY ? `transform: rotateX(${flipX ? '180' : '0'}deg) rotateY(${flipY ? '180' : '0'}deg);` : ''
+    const style = `${textAlignStyle} ${transformStyle}`
     return [
       'img',
       mergeAttributes(

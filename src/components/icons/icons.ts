@@ -98,6 +98,8 @@ export const icons = {
   DocSearch: 'fluent:document-search-24-regular',
   Close: 'lucide:x',
   ImageSize: 'fluent:resize-image-24-filled',
+  FlipVertical: 'lucide:flip-vertical',
+  FlipHorizontal: 'lucide:flip-horizontal',
 }
 
 export default icons

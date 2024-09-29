@@ -92,6 +92,29 @@ function updateHeightFromWidth() {
 function handleSetImageAlign(align: ImageAlignments) {
   setImageAlign(align)
 }
+function handleFlipX() {
+  const image = props.editor.getAttributes('image')
+  const { flipX } = image
+  props.editor
+    .chain()
+    .focus(undefined, { scrollIntoView: false })
+    .updateImage({
+      flipX: !flipX,
+    })
+    .run()
+}
+function handleFlipY() {
+  const image = props.editor.getAttributes('image')
+  const { flipY } = image
+  props.editor
+    .chain()
+    .focus(undefined, { scrollIntoView: false })
+    .updateImage({
+      flipY: !flipY,
+    })
+    .run()
+}
+
 function handleRemove() {
   const { state, dispatch } = props.editor.view
   deleteSelection(state, dispatch)
@@ -119,6 +142,9 @@ function handleRemove() {
       class="border border-neutral-200 dark:border-neutral-800 px-3 py-2 transition-all select-none pointer-events-auto shadow-sm rounded-sm w-auto bg-background"
     >
       <div class="flex items-center flex-nowrap whitespace-nowrap h-[26px] justify-start relative gap-0.5">
+        <ActionButton :tooltip="t('editor.image.menu.flipX')" icon="FlipVertical" :action="handleFlipX" />
+        <ActionButton :tooltip="t('editor.image.menu.flipY')" icon="FlipHorizontal" :action="handleFlipY" />
+        <Separator orientation="vertical" class="mx-1 me-2 h-[16px]" />
         <Popover>
           <PopoverTrigger>
             <ActionButton :title="t('editor.image.menu.size')" icon="ImageSize" />
