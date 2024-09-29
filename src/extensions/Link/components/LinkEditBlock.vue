@@ -13,7 +13,7 @@ interface Props {
   editor: Editor
 }
 const props = withDefaults(defineProps<Props>(), {})
-const emits = defineEmits(['onSetLink'])
+const emits = defineEmits(['onSetLink', 'onClickOutside'])
 
 const { t } = useLocale()
 
@@ -24,6 +24,8 @@ let form = reactive({
 const inputRef = ref<HTMLInputElement | null>(null)
 const { focused } = useFocus(inputRef)
 const openInNewTab = ref<boolean>(false)
+const target = ref(null)
+onClickOutside(target, event => emits('onClickOutside', event))
 
 watchEffect(() => {
   const { href: link, target } = props.editor.getAttributes('link')
@@ -44,7 +46,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="p-2 bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800">
+  <div
+    ref="target"
+    class="p-2 bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800"
+  >
     <form @submit.prevent="handleSubmit" class="flex flex-col gap-2">
       <Label> {{ t('editor.link.dialog.text') }} </Label>
       <div class="flex w-full max-w-sm items-center gap-1.5">

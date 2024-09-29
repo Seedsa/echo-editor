@@ -4,6 +4,7 @@ import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu } from '@tiptap/vue-3'
 import LinkEditBlock from '@/extensions/Link/components/LinkEditBlock.vue'
 import LinkViewBlock from '@/extensions/Link/components/LinkViewBlock.vue'
+import { TextSelection } from '@tiptap/pm/state'
 
 interface Props {
   editor: Editor
@@ -50,12 +51,20 @@ function unSetLink() {
   props.editor.chain().extendMarkRange('link').unsetLink().focus().run()
   showEdit.value = false
 }
+function onClickOutside() {
+  const { state, view } = props.editor
+  const { tr, selection } = state
+  const transaction = tr.setSelection(TextSelection.create(state.doc, selection.from))
+  view.dispatch(transaction)
+  showEdit.value = false
+}
 </script>
 
 <template>
   <BubbleMenu
     :editor="editor"
     v-show="shouldShow"
+    :update-delay="0"
     :tippy-options="{
       popperOptions: {
         modifiers: [{ name: 'flip', enabled: false }],
@@ -63,13 +72,13 @@ function unSetLink() {
       appendTo: 'parent',
       placement: 'bottom-start',
       offset: [-2, 16],
-      zIndex: 9999,
+      zIndex: 99,
       onHidden: () => {
         showEdit = false
       },
     }"
   >
-    <LinkEditBlock @onSetLink="onSetLink" :editor="editor" v-if="showEdit" />
+    <LinkEditBlock @onSetLink="onSetLink" @on-click-outside="onClickOutside" :editor="editor" v-if="showEdit" />
     <LinkViewBlock :editor="editor" @clear="unSetLink" @edit="showEdit = true" :link="link" v-else />
   </BubbleMenu>
 </template>
