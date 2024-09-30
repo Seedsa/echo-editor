@@ -174,6 +174,7 @@ const contentDynamicStyles = computed(() => ({
         maxHeight: getCssUnitWithDefault(props.maxHeight),
         overflowY: 'auto' as const,
         scrollBehavior: 'smooth',
+        scrollbarWidth: 'thin',
       }),
   maxWidth: getCssUnitWithDefault(props.maxWidth),
   width: props.maxWidth ? '100%' : undefined,
