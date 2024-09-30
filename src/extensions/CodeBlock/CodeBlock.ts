@@ -2,14 +2,15 @@ import ActionButton from '@/components/ActionButton.vue'
 import { CodeBlockLowlight as TiptapCodeBlock } from '@tiptap/extension-code-block-lowlight'
 import type { CodeBlockLowlightOptions as TiptapCodeBlockOptions } from '@tiptap/extension-code-block-lowlight'
 import type { GeneralOptions } from '@/type'
-
+import CodeBlockView from './components/CodeBlockView.vue'
+import { VueNodeViewRenderer } from '@tiptap/vue-3'
 export interface CodeBlockOptions extends TiptapCodeBlockOptions, GeneralOptions<CodeBlockOptions> {}
 
 export const CodeBlock = TiptapCodeBlock.extend<CodeBlockOptions>({
   addOptions() {
     return {
       ...this.parent?.(),
-      defaultLanguage: null,
+      language: 'auto',
       button: ({ editor, t }) => ({
         component: ActionButton,
         componentProps: {
@@ -21,5 +22,8 @@ export const CodeBlock = TiptapCodeBlock.extend<CodeBlockOptions>({
         },
       }),
     }
+  },
+  addNodeView() {
+    return VueNodeViewRenderer(CodeBlockView)
   },
 })

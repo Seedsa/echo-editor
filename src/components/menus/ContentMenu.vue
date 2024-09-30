@@ -178,7 +178,13 @@ watch(
       class="flex items-center gap-0.5"
       style="transition-property: top, left; transition-timing-function: ease-in-out; transition-duration: 0.2s"
     >
-      <Button variant="ghost" @click="handleAdd" size="icon" class="w-7 h-7" :disabled="disabled">
+      <Button
+        variant="ghost"
+        @click="handleAdd"
+        size="icon"
+        class="w-7 h-7 cursor-grab rounded-sm"
+        :disabled="disabled"
+      >
         <Icon name="Plus" class="text-lg text-neutral-600 dark:text-neutral-200" />
       </Button>
       <DropdownMenu v-model:open="menuOpen">
@@ -186,7 +192,7 @@ watch(
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger as-child>
-                <Button variant="ghost" size="icon" class="w-7 h-7 cursor-grab" :disabled="disabled">
+                <Button variant="ghost" size="icon" class="w-6 h-7 cursor-grab rounded-sm" :disabled="disabled">
                   <Icon name="Grip" class="text-sm dark:text-neutral-200 text-neutral-600" />
                 </Button>
               </TooltipTrigger>

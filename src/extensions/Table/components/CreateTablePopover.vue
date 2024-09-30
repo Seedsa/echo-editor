@@ -88,7 +88,7 @@ function resetTableGridSize(): void {
               @mouseover="selectTableGridSize(row, col)"
               @mousedown="onMouseDown(row, col)"
             >
-              <div class="w-4 h-4 p-1 border rounded-[2px] box-border"></div>
+              <div class="w-4 h-4 p-1 border box-border"></div>
             </div>
           </div>
         </div>
