@@ -12,6 +12,15 @@ export function renderGroups(editor: Editor) {
       title: t.value('editor.slash.format'),
       commands: [
         {
+          name: 'paragraph',
+          label: t.value('editor.paragraph.tooltip'),
+          aliases: ['paragraph', 'zw'],
+          iconName: 'Paragraph',
+          action: ({ editor, range }) => {
+            editor.chain().focus().deleteRange(range).setHeading({ level: 1 }).run()
+          },
+        },
+        {
           name: 'heading1',
           label: t.value('editor.heading.h1.tooltip'),
           aliases: ['h1', 'bt', 'bt1'],
@@ -32,7 +41,7 @@ export function renderGroups(editor: Editor) {
         {
           name: 'heading3',
           label: t.value('editor.heading.h3.tooltip'),
-          aliases: ['h3', 'bt', 'bt3'],
+          aliases: ['h3', 'bt', 'bt3', 'heading3'],
           iconName: 'Heading3',
           action: ({ editor, range }) => {
             editor.chain().focus().deleteRange(range).setNode('heading', { level: 3 }).run()
@@ -41,7 +50,7 @@ export function renderGroups(editor: Editor) {
         {
           name: 'bulletList',
           label: t.value('editor.bulletlist.tooltip'),
-          aliases: ['ul', 'yxlb'],
+          aliases: ['ul', 'yxlb', 'bulletList'],
           iconName: 'List',
           action: ({ editor, range }) => {
             editor.chain().focus().deleteRange(range).toggleBulletList().run()
@@ -57,13 +66,14 @@ export function renderGroups(editor: Editor) {
           },
         },
         {
-          name: 'taskList',
-          label: t.value('editor.tasklist.tooltip'),
-          iconName: 'ListTodo',
-          description: 'Task list with todo items',
-          aliases: ['todo'],
+          name: 'codeBlock',
+          label: t.value('editor.codeblock.tooltip'),
+          iconName: 'Code2',
+          aliases: ['codeBlock'],
+          description: 'Code block with syntax highlighting',
+          shouldBeHidden: editor => editor.isActive('columns'),
           action: ({ editor, range }) => {
-            editor.chain().focus().deleteRange(range).toggleTaskList().run()
+            editor.chain().focus().deleteRange(range).setCodeBlock().run()
           },
         },
         {
@@ -77,13 +87,40 @@ export function renderGroups(editor: Editor) {
           },
         },
         {
-          name: 'codeBlock',
-          label: t.value('editor.codeblock.tooltip'),
-          iconName: 'Code2',
-          description: 'Code block with syntax highlighting',
-          shouldBeHidden: editor => editor.isActive('columns'),
+          name: 'horizontalrule',
+          label: t.value('editor.horizontalrule.tooltip'),
+          aliases: ['fgx', 'horizontalRule'],
+          iconName: 'Minus',
           action: ({ editor, range }) => {
-            editor.chain().focus().deleteRange(range).setCodeBlock().run()
+            editor.chain().focus().deleteRange(range).setHorizontalRule().run()
+          },
+        },
+        {
+          name: 'link',
+          label: t.value('editor.link.tooltip'),
+          aliases: ['link', 'lianjie', 'lj'],
+          iconName: 'Link',
+          action: ({ editor, range }) => {
+            editor
+              .chain()
+              .deleteRange(range)
+              .extendMarkRange('link')
+              .insertContent({
+                type: 'text',
+                text: 'link',
+                marks: [
+                  {
+                    type: 'link',
+                    attrs: {
+                      href: '',
+                      target: '_blank',
+                    },
+                  },
+                ],
+              })
+              .setLink({ href: '' })
+              .focus()
+              .run()
           },
         },
       ],
@@ -115,16 +152,6 @@ export function renderGroups(editor: Editor) {
           },
         },
         {
-          name: 'horizontalRule',
-          label: t.value('editor.horizontalrule.tooltip'),
-          iconName: 'Minus',
-          description: 'Insert a horizontal divider',
-          aliases: ['hr', 'fgx', 'fg'],
-          action: ({ editor, range }) => {
-            editor.chain().focus().deleteRange(range).setHorizontalRule().run()
-          },
-        },
-        {
           name: 'video',
           label: t.value('editor.video.tooltip'),
           iconName: 'Video',
@@ -133,6 +160,16 @@ export function renderGroups(editor: Editor) {
           shouldBeHidden: editor => editor.isActive('columns'),
           action: ({ editor, range }) => {
             editor.chain().focus().deleteRange(range).setVideoUpload().run()
+          },
+        },
+        {
+          name: 'taskList',
+          label: t.value('editor.tasklist.tooltip'),
+          iconName: 'ListTodo',
+          description: 'Task list with todo items',
+          aliases: ['todo'],
+          action: ({ editor, range }) => {
+            editor.chain().focus().deleteRange(range).toggleTaskList().run()
           },
         },
         {

@@ -329,13 +329,13 @@ const menubarMenus = ref<MenuGroup[]>([
                 {
                   type: 'link',
                   attrs: {
-                    href: 'link',
+                    href: '',
                     target: '_blank',
                   },
                 },
               ],
             })
-            .setLink({ href: 'link' })
+            .setLink({ href: '' })
             .focus()
             .run()
         },

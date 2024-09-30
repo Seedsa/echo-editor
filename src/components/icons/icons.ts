@@ -51,7 +51,7 @@ export const icons = {
   ChevronsUpDown: 'lucide:chevrons-up-down',
   LineHeight: 'mdi:format-line-height',
   Word: 'mdi:file-word-outline',
-  Paragraph: 'lucide:text',
+  Paragraph: 'ci:text',
   Heading1: 'lucide:heading-1',
   Heading2: 'lucide:heading-2',
   Heading3: 'lucide:heading-3',

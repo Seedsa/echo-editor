@@ -72,7 +72,7 @@ const locale: Record<string, string> = {
   'editor.indent.tooltip': '增加缩进',
   'editor.outdent.tooltip': '减少缩进',
   'editor.columns.tooltip': '分栏',
-  'editor.link.tooltip': '网络链接',
+  'editor.link.tooltip': '链接',
   'editor.link.unlink.tooltip': '取消链接',
   'editor.link.open.tooltip': '打开链接',
   'editor.link.edit.tooltip': '编辑链接',
