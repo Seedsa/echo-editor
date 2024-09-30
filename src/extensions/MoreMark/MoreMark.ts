@@ -72,7 +72,7 @@ export const MoreMark = Extension.create<MoreMarkOptions>({
           componentProps: {
             icon: 'Type',
             tooltip: t('editor.moremark'),
-            disabled: !editor.isEditable,
+            disabled: !editor.isEditable || items.every(item => item.disabled),
             items,
           },
         }

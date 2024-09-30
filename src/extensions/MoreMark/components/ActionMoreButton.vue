@@ -63,6 +63,7 @@ const active = computed(() => {
       :checked="active.title === item.title"
       @click="item.action"
       :key="index"
+      :disabled="item.disabled"
       class="flex gap-3 items-center"
     >
       <Icon :name="item.icon" v-if="item.icon" />
