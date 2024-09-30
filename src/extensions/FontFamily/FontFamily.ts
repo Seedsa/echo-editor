@@ -38,6 +38,7 @@ export const FontFamily = TiptapFontFamily.extend<FontFamilyOptions>({
           component: FontFamilyButton,
           componentProps: {
             editor,
+            disabled: !editor.can().setFontFamily(''),
             tooltip: t('editor.fontFamily.tooltip'),
           },
         }
