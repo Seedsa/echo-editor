@@ -58,7 +58,7 @@ const items = computed(() => {
 
 <template>
   <div class="sticky top-0 h-auto bg-background z-10 overflow-visible transition-all rounded-t-[0.5rem]">
-    <div class="flex flex-wrap gap-y-1 gap-x-1 items-center">
+    <div class="flex flex-nowrap overflow-x-auto sm:flex-wrap gap-y-1 gap-x-1 items-center">
       <template v-for="(item, key) in items" :key="key">
         <div class="flex items-center">
           <Separator v-if="item.spacer" orientation="vertical" class="h-[16px] mx-[10px]" />

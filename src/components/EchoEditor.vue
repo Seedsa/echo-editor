@@ -252,7 +252,7 @@ defineExpose({ editor })
           :spellcheck="state.spellCheck"
         />
         <template v-if="!hideBubble && !disabled && editor.isEditable">
-          <ContentMenu :editor="editor" />
+          <ContentMenu :editor="editor" class="hidden sm:block" />
           <LinkBubbleMenu :editor="editor" />
           <ColumnsBubbleMenu :editor="editor" />
           <TableBubbleMenu :editor="editor" />

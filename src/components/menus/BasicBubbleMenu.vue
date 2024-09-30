@@ -66,9 +66,11 @@ const items = computed(() => {
 <template>
   <BubbleMenu v-show="items.length && !store?.state.AIMenu" :editor="editor" :tippy-options="tippyOptions">
     <div
-      class="border border-neutral-200 dark:border-neutral-800 px-3 py-2 transition-all select-none pointer-events-auto shadow-sm rounded-sm w-auto bg-background"
+      class="border border-neutral-200 dark:border-neutral-800 px-3 py-2 transition-all select-none pointer-events-auto shadow-sm rounded-sm bg-background w-auto max-w-[calc(-68px_+_100vw)]"
     >
-      <div class="flex items-center flex-nowrap whitespace-nowrap h-[26px] justify-start relative gap-0.5">
+      <div
+        class="flex items-center flex-nowrap whitespace-nowrap h-[26px] justify-start relative gap-0.5 overflow-x-auto overflow-y-hidden"
+      >
         <template v-for="(item, key) in items" :key="key">
           <!-- Divider -->
           <Separator v-if="item.type === 'divider'" orientation="vertical" class="mx-1 me-2 h-[16px]" />

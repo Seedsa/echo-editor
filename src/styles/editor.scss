@@ -1,8 +1,7 @@
 .echo-editor {
   .ProseMirror {
-    @apply caret-black dark:caret-white outline-0 pr-8 pl-20 py-16 z-0 lg:pl-8 lg:pr-8;
+    @apply caret-black dark:caret-white outline-0 px-4 py-2 sm:px-20 sm:py-6;
     min-height: 180px;
-    padding: 32px 80px;
     .img-placeholder {
       width: fit-content;
       position: relative;
