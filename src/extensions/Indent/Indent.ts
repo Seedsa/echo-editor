@@ -43,7 +43,7 @@ export const Indent = Extension.create<IndentOptions>({
               action: () => {
                 editor.commands.indent()
               },
-              disabled: node?.attrs?.indent >= IndentProps.max,
+              disabled: node?.attrs?.indent >= IndentProps.max || !editor.can().indent(),
               shortcutKeys: ['Tab'],
               icon: 'IndentIncrease',
               tooltip: t('editor.indent.tooltip'),
@@ -56,7 +56,7 @@ export const Indent = Extension.create<IndentOptions>({
                 editor.commands.outdent()
               },
               shortcutKeys: ['Shift', 'Tab'],
-              disabled: node?.attrs?.indent <= IndentProps.min,
+              disabled: node?.attrs?.indent <= IndentProps.min || !editor.can().outdent(),
               icon: 'IndentDecrease',
               tooltip: t('editor.outdent.tooltip'),
             },
