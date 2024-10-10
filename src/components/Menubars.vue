@@ -45,8 +45,7 @@ const props = withDefaults(defineProps<Props>(), {
 const store = useTiptapStore()
 
 // 获取当前编辑器加载的扩展名
-const activeExtensions = ref(props.editor.extensionManager.extensions.map(ext => ext.name))
-
+const activeExtensions = computed(() => props.editor.extensionManager.extensions.map(ext => ext.name))
 // 检查菜单项的扩展是否已经加载
 const isExtensionLoaded = (requiredExtensions?: string[]) => {
   if (!requiredExtensions) return true
@@ -134,6 +133,7 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.menubar.menu.print',
         icon: 'Printer',
         shortcut: ['mod', 'P'],
+        requiredExtensions: ['printer'],
         action: () => {
           // 实现打印
           store.state.printer = true

@@ -137,7 +137,7 @@ props.editor.on('blur', unbind)
     <div
       v-show="store.state.findAndReplace && isEditorVisible"
       ref="dialogRef"
-      class="fixed bg-white shadow-lg rounded-lg p-4 w-[320px] border z-[11]"
+      class="findAndReplaceDialog fixed bg-white shadow-lg rounded-lg p-4 w-[320px] border z-[11]"
       :style="{ top: `${position.y}px`, left: `${position.x}px` }"
     >
       <button
