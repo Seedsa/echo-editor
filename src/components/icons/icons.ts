@@ -95,7 +95,7 @@ export const icons = {
   Monitor: 'lucide:monitor',
   TextSelect: 'lucide:text-select',
   SpellCheck: 'lucide:spell-check-2',
-  DocSearch: 'fluent:document-search-24-regular',
+  DocSearch: 'lucide:text-search',
   Close: 'lucide:x',
   ImageSize: 'fluent:resize-image-24-filled',
   FlipVertical: 'lucide:flip-vertical',

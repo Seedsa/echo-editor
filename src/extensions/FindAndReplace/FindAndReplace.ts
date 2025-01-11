@@ -227,6 +227,7 @@ export const FindAndReplace = Extension.create<FindAndReplaceOptions, FindAndRep
         componentProps: {
           icon: 'DocSearch',
           tooltip: t('editor.findAndReplace.tooltip'),
+          shortcutKeys: ['mod', 'F'],
           action: () => {
             store.toggleFindAndReplace()
           },
