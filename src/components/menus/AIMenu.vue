@@ -12,6 +12,9 @@ import { useDebounceFn } from '@vueuse/core'
 import { useToast } from '@/components/ui/toast/use-toast'
 import { Icon } from '@/components/icons'
 import Menu from '../ui/menu.vue'
+import { DOMSerializer } from 'prosemirror-model'
+import { useAIConversation } from '@/hooks/useAIConversation'
+
 interface Props {
   editor: Editor
   disabled?: boolean
@@ -22,24 +25,38 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const store = useTiptapStore()
-const result = ref<string>('')
-const status = ref<'init' | 'generating' | 'completed'>('init')
 const prompt = ref<string>('')
-const cachedPrompt = ref<any>(null)
+const cachedPrompt = ref<CachedPrompt | null>(null)
 const inputRef = ref<HTMLInputElement | null>(null)
 const { focused } = useFocus(inputRef)
-const resultContainer = ref<HTMLElement | null>(null)
+const resultContainer = ref<HTMLDivElement | null>(null)
 const { t } = useLocale()
 const isShaking = ref<boolean>(false)
-const { toast } = useToast()
-let tippyInstance = ref<any>(null)
+const tippyInstance = ref<any>(null)
 
-function getSelectionText(editor: Editor): string {
-  const { from, to, empty } = editor.state.selection
-  if (empty) {
-    return ''
-  }
-  return editor.state.doc.textBetween(from, to, '')
+const { result, status, handleCompletion, resetConversation } = useAIConversation(props.editor)
+
+const { toast } = useToast()
+
+interface ShortcutItem {
+  label: string
+  prompt: string
+  icon?: string
+}
+
+interface CachedPrompt {
+  context: string
+  prompt: string
+}
+
+const getSelectionText = (editor: Editor) => {
+  const slice = editor.state.selection.content()
+  const serializer = DOMSerializer.fromSchema(editor.schema)
+  const fragment = serializer.serializeFragment(slice.content)
+  const div = document.createElement('div')
+  div.appendChild(fragment)
+
+  return div.innerHTML
 }
 
 const scrollToBottom = useDebounceFn(
@@ -53,42 +70,47 @@ const scrollToBottom = useDebounceFn(
 )
 
 async function handleGenerate() {
-  status.value = 'generating'
-  result.value = ''
-  handleCompletion(getSelectionText(props.editor), prompt.value)
-}
+  if (!props.editor) {
+    toast({
+      title: t.value('editor.AI.error'),
+      description: t.value('editor.AI.editorNotFound'),
+      variant: 'destructive',
+    })
+    return
+  }
 
-async function handleCompletion(context: string, prompt_: string) {
-  status.value = 'generating'
-  result.value = ''
-  const AIOptions = props.editor.extensionManager.extensions.find(e => e.name === 'AI')?.options
   try {
-    const stream = await AIOptions.completions(prompt_, context)
-    if (!stream) {
-      throw new Error('Failed to create stream')
+    status.value = 'generating'
+    const selectionText = getSelectionText(props.editor)
+
+    if (!selectionText.trim()) {
+      toast({
+        title: t.value('editor.AI.error'),
+        description: t.value('editor.AI.noSelection'),
+        variant: 'destructive',
+      })
+      return
     }
-    for await (const chunk of stream) {
-      result.value += chunk.choices[0]?.delta?.content || ''
-      await nextTick()
-      scrollToBottom()
-    }
+
+    await handleCompletion(selectionText, prompt.value)
     cachedPrompt.value = {
-      context,
-      prompt: prompt_,
+      context: selectionText,
+      prompt: prompt.value,
     }
-    status.value = 'completed'
     prompt.value = ''
     await nextTick()
     focused.value = true
     scrollToBottom()
-  } catch (error: any) {
+  } catch (error) {
     toast({
-      title: error?.message || 'Failed to generate AI completion',
+      title: t.value('editor.AI.error'),
+      description: error instanceof Error ? error.message : t.value('editor.AI.unknownError'),
       variant: 'destructive',
     })
     handleClose()
   }
 }
+
 const tippyOptions = reactive<Record<string, unknown>>({
   maxWidth: 600,
   zIndex: 99,
@@ -115,12 +137,44 @@ const shouldShow: any = computed(() => {
 
 function handleClose() {
   store!.state.AIMenu = false
-  result.value = ''
   prompt.value = ''
-  status.value = 'init'
+  cachedPrompt.value = null
+  resetConversation()
 }
+
 function handleReGenerate() {
-  handleCompletion(cachedPrompt.value?.context, cachedPrompt.value?.prompt)
+  if (!cachedPrompt.value?.context || !cachedPrompt.value?.prompt) {
+    toast({
+      title: t.value('editor.AI.error'),
+      description: t.value('editor.AI.noCachedPrompt'),
+      variant: 'destructive',
+    })
+    return
+  }
+
+  try {
+    status.value = 'generating'
+    resetConversation()
+    handleCompletion(cachedPrompt.value.context, cachedPrompt.value.prompt)
+      .then(() => {
+        scrollToBottom()
+      })
+      .catch(error => {
+        toast({
+          title: t.value('editor.AI.error'),
+          description: error instanceof Error ? error.message : t.value('editor.AI.regenerateError'),
+          variant: 'destructive',
+        })
+        handleClose()
+      })
+  } catch (error) {
+    toast({
+      title: t.value('editor.AI.error'),
+      description: error instanceof Error ? error.message : t.value('editor.AI.unknownError'),
+      variant: 'destructive',
+    })
+    handleClose()
+  }
 }
 
 function handleOverlayClick(): void {
@@ -134,17 +188,49 @@ function handleOverlayClick(): void {
   }, 820) // Duration of the shake animation + a little extra
 }
 
-function shortcutClick(item) {
-  const selectionText = getSelectionText(props.editor)
-  handleCompletion(selectionText, item.prompt)
-}
-const shortcutMenus = computed(() => {
-  const shortcuts = props.editor.extensionManager.extensions.find(e => e.name === 'AI')?.options?.shortcuts
-  if (shortcuts && shortcuts.length) {
-    return shortcuts
-  } else {
-    return []
+function shortcutClick(item: ShortcutItem) {
+  if (!props.editor) {
+    toast({
+      title: t.value('editor.AI.error'),
+      description: t.value('editor.AI.editorNotFound'),
+      variant: 'destructive',
+    })
+    return
   }
+
+  try {
+    const selectionText = getSelectionText(props.editor)
+    cachedPrompt.value = {
+      context: selectionText,
+      prompt: item.prompt,
+    }
+    status.value = 'generating'
+    handleCompletion(selectionText, item.prompt)
+      .then(() => {
+        scrollToBottom()
+        focused.value = true
+      })
+      .catch(error => {
+        toast({
+          title: t.value('editor.AI.error'),
+          description: error instanceof Error ? error.message : t.value('editor.AI.shortcutError'),
+          variant: 'destructive',
+        })
+        handleClose()
+      })
+  } catch (error) {
+    toast({
+      title: t.value('editor.AI.error'),
+      description: error instanceof Error ? error.message : t.value('editor.AI.unknownError'),
+      variant: 'destructive',
+    })
+    handleClose()
+  }
+}
+
+const shortcutMenus = computed<ShortcutItem[]>(() => {
+  const shortcuts = props.editor?.extensionManager.extensions.find(e => e.name === 'AI')?.options?.shortcuts
+  return Array.isArray(shortcuts) ? shortcuts : []
 })
 </script>
 <template>
@@ -156,7 +242,14 @@ const shortcutMenus = computed(() => {
           v-show="(status === 'generating' || status === 'completed') && result"
         >
           <div ref="resultContainer" class="p-4 line-height-none block overflow-y-auto" style="max-height: 270px">
-            <div class="text-sm text-foreground line-height-snug" v-html="result"></div>
+            <div
+              class="text-sm text-foreground line-height-snug ProseMirror"
+              :style="{
+                padding: 0,
+                minHeight: 'auto',
+              }"
+              v-html="result"
+            ></div>
           </div>
         </div>
         <form
@@ -191,9 +284,9 @@ const shortcutMenus = computed(() => {
             :disabled="!prompt"
             v-else
             @click="handleGenerate"
-            class="absolute end-0 inset-y-0 flex items-center justify-center px-2 w-[32px] h-[32px] m-2"
+            class="absolute end-0 inset-y-0 flex items-center justify-center px-2 w-[32px] h-[32px] m-2 rounded-full"
           >
-            <Icon name="ChevronRight" class="w-5 h-5" />
+            <Icon name="ArrowUp" class="w-5 h-5 font-bold" />
           </Button>
         </form>
         <div class="mt-3 max-w-56" v-show="status === 'init' && shortcutMenus.length && !prompt">

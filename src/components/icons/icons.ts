@@ -84,6 +84,7 @@ export const icons = {
   Columns: 'lucide:columns',
   AI: 'meteocons:star-fill',
   ChevronRight: 'lucide:chevron-right',
+  ArrowUp: 'lucide:arrow-up',
   Paste: 'lucide:clipboard-paste',
   Cut: 'lucide:scissors',
   File: 'lucide:file',

@@ -8,7 +8,7 @@ export interface MenuItem {
   children?: MenuItem[]
 }
 export interface AIOptions extends GeneralOptions<AIOptions> {
-  completions: (prompt: string, text: string, signal?: AbortSignal) => Promise<any>
+  completions: (history: Array<{ role: string; content: string }>, signal?: AbortSignal) => Promise<any>
   /**
    * AI Shortcuts Menu
    */

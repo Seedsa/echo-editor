@@ -395,41 +395,43 @@ async function handleFileUpload(files: File[]) {
   return Promise.resolve(f)
 }
 
-async function AICompletions(prompt: string, context: string) {
-  // https://groq.com or https://siliconflow.cn/zh-cn for free llm api
-  // currently, continuous conversation is not supported.need find better way to do this
+async function AICompletions(history: Array<{ role: string; content: string }> = [], signal?: AbortSignal) {
+  // groq.com for free llm api,recommend deepseek r1 70b
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY
   const baseURL = import.meta.env.VITE_OPENAI_BASE_URL
   const model = import.meta.env.VITE_OPENAI_MODEL
+
   if (!apiKey || !baseURL || !model) {
     throw new Error('OpenAI configuration is missing. Please check your environment variables.')
   }
+
   const openai = new OpenAI({
     apiKey: apiKey,
     dangerouslyAllowBrowser: true,
     baseURL: baseURL,
   })
-  const systemMsg = [
-    'Answer the question based on the context below.',
-    'The response should be in HTML format.',
-    'The response should preserve any HTML formatting, links, and styles in the context.',
-  ]
-  const systemPrompt = systemMsg.map(item => ({ role: 'system', content: item }))
-  const userPrompt = [
-    {
-      role: 'user',
-      content: `Question: ${prompt} Context:${context}`,
-    },
-  ]
-  const finalMessages: any = [...systemPrompt, ...userPrompt]
+
+  const systemMsg = `Only answer the question based on the context provided below. The response should be in HTML format, preserving all HTML tags, links, and styles.`
+
+  const systemPrompt = [{ role: 'system', content: systemMsg }]
+  const finalMessages = [...systemPrompt]
+
+  if (history.length > 0) {
+    finalMessages.push(...history)
+  }
 
   try {
-    const stream = await openai.chat.completions.create({
-      model,
-      messages: finalMessages,
-      temperature: 0.7,
-      stream: true,
-    })
+    const stream = await openai.chat.completions.create(
+      {
+        model,
+        messages: finalMessages,
+        temperature: 0.7,
+        stream: true,
+        reasoning_format: 'parsed', // groq deepseek r1 need this
+      } as any,
+      { signal }
+    )
+
     return stream
   } catch (error) {
     if (error instanceof Error) {
