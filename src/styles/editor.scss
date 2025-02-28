@@ -93,6 +93,11 @@
       @apply outline-none  bg-black/10 dark:bg-white/20 shadow-none transition-colors;
     }
 
+    .selection {
+      @apply inline-block;
+    }
+
+    .selection,
     *::selection {
       @apply bg-black/10 dark:bg-white/20;
     }

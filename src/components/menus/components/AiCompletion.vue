@@ -22,13 +22,11 @@ function handleReplace() {
   props.editor
     .chain()
     .focus()
-    .insertContentAt(
-      {
-        from: selection.from,
-        to: selection.to,
-      },
-      props.completion
-    )
+    .deleteRange({
+      from: selection.from,
+      to: selection.to,
+    })
+    .insertContent(props.completion)
     .run()
 }
 function handleInsert() {

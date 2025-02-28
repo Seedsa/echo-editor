@@ -34,6 +34,7 @@ const resultContainer = ref<HTMLDivElement | null>(null)
 const { t } = useLocale()
 const isShaking = ref<boolean>(false)
 const tippyInstance = ref<any>(null)
+const menuRef = ref()
 
 const { result, status, handleCompletion, resetConversation } = useAIConversation(props.editor)
 
@@ -125,11 +126,12 @@ const tippyOptions = reactive<Record<string, unknown>>({
   },
   onHide() {
     handleClose()
-    props.editor.chain().unsetHighlight().run()
   },
   onDestroy() {
     tippyInstance.value = null
   },
+  // hideOnClick: true,
+  interactive: true,
 })
 
 const shouldShow: any = computed(() => {
@@ -137,10 +139,10 @@ const shouldShow: any = computed(() => {
 })
 
 function handleClose() {
-  store!.state.AIMenu = false
   prompt.value = ''
   cachedPrompt.value = null
   resetConversation()
+  store!.state.AIMenu = false
 }
 
 function handleReGenerate() {
@@ -243,11 +245,23 @@ const shortcutMenus = computed<ShortcutItem[]>(() => {
     })),
   }))
 })
+function handleKey(e) {
+  if (status.value === 'init' && shortcutMenus.value.length && !prompt.value) {
+    menuRef.value?.handleKeyDown(e)
+  }
+}
 </script>
 <template>
-  <div class="absolute left-0 right-0 top-0 bottom-0 z-[98]" v-show="shouldShow" @click="handleOverlayClick">
+  <div
+    class="absolute left-0 right-0 top-0 bottom-0"
+    :style="{
+      zIndex: status === 'init' && prompt === '' ? -1 : 98,
+    }"
+    v-show="shouldShow"
+    @click="handleOverlayClick"
+  >
     <BubbleMenu pluginKey="AIMenu" :update-delay="0" v-show="shouldShow" :editor="editor" :tippy-options="tippyOptions">
-      <div class="relative w-[450px] z-[99]" :class="{ 'shake-animation': isShaking }">
+      <div @keydown="handleKey" class="relative w-[450px] z-[99]" :class="{ 'shake-animation': isShaking }">
         <div
           class="border rounded-sm shadow-sm bg-background"
           v-show="(status === 'generating' || status === 'completed') && result"
@@ -301,7 +315,7 @@ const shortcutMenus = computed<ShortcutItem[]>(() => {
           </Button>
         </form>
         <div class="mt-3 max-w-56" v-show="status === 'init' && shortcutMenus.length && !prompt">
-          <Menu :items="shortcutMenus" @item-click="shortcutClick" />
+          <Menu ref="menuRef" :items="shortcutMenus" @item-click="shortcutClick" />
         </div>
         <AiCompletion
           @close="handleClose"
