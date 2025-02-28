@@ -1,86 +1,139 @@
 <template>
-  <div>
-    <header class="p-3 flex gap-3 justify-center w-full bg-accent text-foreground">
-      <button ghost @click="locale.setLang('zhHans')">中文</button>
-      <button ghost @click="locale.setLang('en')">English</button>
-      <button ghost @click="hideToolbar = !hideToolbar">{{ !hideToolbar ? 'Hide Toolbar' : 'Show Toolbar' }}</button>
-      <button ghost @click="hideMenubar = !hideMenubar">{{ !hideMenubar ? 'Hide Menubar' : 'Show Menubar' }}</button>
-      <button ghost @click="disabled = !disabled">{{ disabled ? 'Editable' : 'Readonly' }}</button>
-      <a href="https://github.com/Seedsa/echo-editor" target="__blank">Github</a>
-    </header>
-    <div class="my-0 mx-auto max-w-[1024px] p-6">
-      <echo-editor
-        v-model="content"
-        :extensions="extensions"
-        :hideToolbar="hideToolbar"
-        :hideMenubar="hideMenubar"
-        :disabled="disabled"
-        :maxHeight="512"
-        output="html"
-        :dark="theme === 'dark'"
-      >
-      </echo-editor>
-      <div class="mt-3 text-sm bg-zinc-600">
-        <div class="flex flex-col gap-2 p-3 bg-zinc-800">
-          <label>HTML</label><code>{{ content }}</code>
+  <div class="min-h-screen bg-background">
+    <header
+      class="border-grid sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+    >
+      <div class="container flex h-14 items-center sticky">
+        <div class="mr-4 md:mr-1 hidden md:flex">
+          <a href="/" class="mr-4 md:mr-2 lg:mr-6 flex items-center lg:space-x1 xl:space-x-2">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              class="mr-2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 7v10" />
+              <path d="M8 9v6" opacity="0.7" />
+              <path d="M4 11v2" opacity="0.4" />
+              <path d="M16 9v6" opacity="0.7" />
+              <path d="M20 11v2" opacity="0.4" />
+              <rect x="10" y="5" width="4" height="14" fill="currentColor" opacity="0.1" />
+            </svg>
+            <span class="font-bold"> Echo Editor </span>
+          </a>
+          <nav class="flex items-center gap-4 text-sm xl:gap-6"></nav>
+        </div>
+        <div class="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+          <div class="w-full flex-1 md:w-auto md:flex-none"></div>
+          <nav class="flex items-center gap-0.5">
+            <a
+              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground w-8 h-8"
+              href="https://github.com/Seedsa/echo-editor"
+              target="_blank"
+              ><svg viewBox="0 0 15 15" width="1.2em" height="1.2em" class="w-4 h-4">
+                <path
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  d="M7.5.25a7.25 7.25 0 0 0-2.292 14.13c.363.066.495-.158.495-.35c0-.172-.006-.628-.01-1.233c-2.016.438-2.442-.972-2.442-.972c-.33-.838-.805-1.06-.805-1.06c-.658-.45.05-.441.05-.441c.728.051 1.11.747 1.11.747c.647 1.108 1.697.788 2.11.602c.066-.468.254-.788.46-.969c-1.61-.183-3.302-.805-3.302-3.583a2.8 2.8 0 0 1 .747-1.945c-.075-.184-.324-.92.07-1.92c0 0 .61-.194 1.994.744A7 7 0 0 1 7.5 3.756A7 7 0 0 1 9.315 4c1.384-.938 1.992-.743 1.992-.743c.396.998.147 1.735.072 1.919c.465.507.745 1.153.745 1.945c0 2.785-1.695 3.398-3.31 3.577c.26.224.492.667.492 1.343c0 .97-.009 1.751-.009 1.989c0 .194.131.42.499.349A7.25 7.25 0 0 0 7.499.25"
+                  clip-rule="evenodd"
+                ></path></svg></a
+            ><button
+              @click="colorMode.toggleTheme()"
+              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground w-8 h-8"
+              aria-label="Toggle dark mode"
+            >
+              <svg
+                v-if="colorMode.theme.value === 'dark'"
+                viewBox="0 0 24 24"
+                width="1.2em"
+                height="1.2em"
+                class="w-4 h-4 text-foreground"
+              >
+                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path
+                    d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+                  ></path>
+                </g>
+              </svg>
+              <svg v-else viewBox="0 0 24 24" width="1.2em" height="1.2em" class="w-4 h-4 text-foreground">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9"
+                ></path>
+              </svg>
+            </button>
+          </nav>
         </div>
       </div>
-    </div>
-    <div
-      class="flex items-center gap-1 fixed bottom-6 right-6 z-[99999] p-1 bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800"
-    >
-      <button
-        @click="theme = 'light'"
-        :class="[theme === 'light' && 'bg-neutral-200 dark:bg-neutral-900']"
-        class="hover:bg-neutral-100 active:bg-neutral-200 dark:hover:bg-neutral-900 dark:active:bg-neutral-800 py-2 px-2 flex group items-center justify-center border border-transparent gap-2 text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-sun w-4 h-4"
+    </header>
+
+    <div class="my-0 mx-auto max-w-[1024px] p-6">
+      <div class="mb-2">
+        <button
+          class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          @click="locale.setLang('zhHans')"
         >
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2"></path>
-          <path d="M12 20v2"></path>
-          <path d="m4.93 4.93 1.41 1.41"></path>
-          <path d="m17.66 17.66 1.41 1.41"></path>
-          <path d="M2 12h2"></path>
-          <path d="M20 12h2"></path>
-          <path d="m6.34 17.66-1.41 1.41"></path>
-          <path d="m19.07 4.93-1.41 1.41"></path>
-        </svg></button
-      ><button
-        @click="theme = 'dark'"
-        :class="[theme === 'dark' && 'dark:bg-neutral-900 dark:active:bg-neutral-800']"
-        class="hover:bg-neutral-100 active:bg-neutral-200 dark:hover:bg-neutral-900 dark:active:bg-neutral-800 py-2 px-2 flex group items-center justify-center border border-transparent gap-2 text-sm font-semibold rounded-md disabled:opacity-50 whitespace-nowrap"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-moon w-4 h-4"
+          中文
+        </button>
+        <button
+          class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          @click="locale.setLang('en')"
         >
-          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-        </svg>
-      </button>
+          English
+        </button>
+        <button
+          class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          @click="hideToolbar = !hideToolbar"
+        >
+          {{ !hideToolbar ? 'Hide Toolbar' : 'Show Toolbar' }}
+        </button>
+        <button
+          class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          @click="hideMenubar = !hideMenubar"
+        >
+          {{ !hideMenubar ? 'Hide Menubar' : 'Show Menubar' }}
+        </button>
+        <button
+          class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          @click="disabled = !disabled"
+        >
+          {{ disabled ? 'Editable' : 'Readonly' }}
+        </button>
+      </div>
+      <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+        <echo-editor
+          v-model="content"
+          :extensions="extensions"
+          :hideToolbar="hideToolbar"
+          :hideMenubar="hideMenubar"
+          :disabled="disabled"
+          :maxHeight="512"
+          output="html"
+          :dark="theme === 'dark'"
+        >
+        </echo-editor>
+      </div>
+      <div class="mt-6 rounded-lg border bg-muted p-4">
+        <h3 class="mb-2 text-sm font-medium">HTML Output</h3>
+        <div class="rounded bg-muted-foreground/5 max-h-[500px] overflow-auto">
+          <span>{{ content }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import {
   Bold,
   BulletList,
@@ -126,11 +179,15 @@ import { ExportWord } from './extensions/ExportWord'
 import OpenAI from 'openai'
 import { DEMO_CONTENT } from './initContent'
 import { createLowlight, common } from 'lowlight'
+import { useColorMode } from './composables/useColorMode'
+
 const content = ref(DEMO_CONTENT)
 const theme = ref<string | null>(null)
 const hideToolbar = ref<boolean>(false)
 const hideMenubar = ref<boolean>(false)
 const disabled = ref<boolean>(false)
+
+const colorMode = useColorMode()
 
 const AIShortcuts = ref([
   {
