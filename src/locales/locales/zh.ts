@@ -170,6 +170,40 @@ const locale: Record<string, string> = {
   'editor.findAndReplace.replaceAll': '全部替换',
   'editor.findAndReplace.caseSensitive': '区分大小写',
   'editor.printer.tooltip': '打印',
+  'editor.AI.shortcuts.generate.title': '从选中内容生成',
+  'editor.AI.shortcuts.generate.improve': '改进写作',
+  'editor.AI.shortcuts.generate.shorter': '精简内容',
+  'editor.AI.shortcuts.generate.longer': '扩展内容',
+  'editor.AI.shortcuts.generate.summarize': '总结内容',
+  'editor.AI.shortcuts.generate.continue': '继续写作',
+
+  'editor.AI.shortcuts.tone.title': '改变语气',
+  'editor.AI.shortcuts.tone.professional': '专业的',
+  'editor.AI.shortcuts.tone.casual': '随意的',
+  'editor.AI.shortcuts.tone.direct': '直接的',
+  'editor.AI.shortcuts.tone.confident': '自信的',
+  'editor.AI.shortcuts.tone.friendly': '友好的',
+
+  'editor.AI.shortcuts.translate.title': '翻译',
+  'editor.AI.shortcuts.translate.english': '英语',
+  'editor.AI.shortcuts.translate.chinese': '简体中文',
+  'editor.AI.shortcuts.translate.spanish': '西班牙语',
+  'editor.AI.shortcuts.translate.german': '德语',
+  'editor.AI.shortcuts.translate.french': '法语',
+  'editor.AI.shortcuts.translate.portuguese': '葡萄牙语',
+  'editor.AI.shortcuts.translate.korean': '韩语',
+  'editor.AI.shortcuts.translate.japanese': '日语',
+  'editor.AI.shortcuts.translate.hindi': '印地语',
+  'editor.AI.shortcuts.translate.russian': '俄语',
+  'editor.AI.shortcuts.translate.arabic': '阿拉伯语',
+
+
+  'editor.AI.shortcuts.style.title': '改变风格',
+  'editor.AI.shortcuts.style.business': '商务',
+  'editor.AI.shortcuts.style.legal': '法律',
+  'editor.AI.shortcuts.style.journalism': '新闻',
+  'editor.AI.shortcuts.style.medical': '医疗',
+  'editor.AI.shortcuts.style.poetic': '诗意的',
 }
 
 export default locale

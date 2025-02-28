@@ -14,6 +14,7 @@ import { Icon } from '@/components/icons'
 import Menu from '../ui/menu.vue'
 import { DOMSerializer } from 'prosemirror-model'
 import { useAIConversation } from '@/hooks/useAIConversation'
+import { DEFAULT_SHORTCUTS } from '@/extensions/AI/constants'
 
 interface Props {
   editor: Editor
@@ -230,7 +231,17 @@ function shortcutClick(item: ShortcutItem) {
 
 const shortcutMenus = computed<ShortcutItem[]>(() => {
   const shortcuts = props.editor?.extensionManager.extensions.find(e => e.name === 'AI')?.options?.shortcuts
-  return Array.isArray(shortcuts) ? shortcuts : []
+  const mergedShortcuts = [...DEFAULT_SHORTCUTS, ...shortcuts]
+
+  // 对菜单项进行本地化处理
+  return mergedShortcuts.map(item => ({
+    ...item,
+    label: t.value(item.label),
+    children: item.children?.map(child => ({
+      ...child,
+      label: t.value(child.label),
+    })),
+  }))
 })
 </script>
 <template>
