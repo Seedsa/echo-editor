@@ -20,8 +20,10 @@
         :dark="theme === 'dark'"
       >
       </echo-editor>
-      <div class="mt-3 text-sm text-zinc-700">
-        {{ content }}
+      <div class="mt-3 text-sm bg-zinc-600">
+        <div class="flex flex-col gap-2 p-3 bg-zinc-800">
+          <label>HTML</label><code>{{ content }}</code>
+        </div>
       </div>
     </div>
     <div
