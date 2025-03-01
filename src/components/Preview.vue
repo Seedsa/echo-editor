@@ -44,7 +44,7 @@ const currentEditorContent = computed(() => {
               type="single"
               default-value="100"
               @update:model-value="
-                value => {
+                (value: any) => {
                   resizableRef?.resize(parseInt(value))
                 }
               "

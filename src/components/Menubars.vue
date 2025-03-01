@@ -53,10 +53,46 @@ const isExtensionLoaded = (requiredExtensions?: string[]) => {
 }
 
 const loadedMenuItems = computed(() => {
-  return menubarMenus.value.map(group => ({
-    ...group,
-    children: group.children.filter(item => isExtensionLoaded(item.requiredExtensions)),
-  }))
+  return menubarMenus.value
+    .map(group => {
+      // 首先过滤出有效的子项
+      const filteredChildren = group.children.filter(item => isExtensionLoaded(item.requiredExtensions))
+
+      // 处理分隔符：移除开头的分隔符、结尾的分隔符，以及连续的分隔符
+      const cleanedChildren = filteredChildren.reduce((acc: MenuItem[], curr, index) => {
+        // 跳过开头的分隔符
+        if (index === 0 && curr.separator) {
+          return acc
+        }
+
+        // 跳过结尾的分隔符
+        if (index === filteredChildren.length - 1 && curr.separator) {
+          return acc
+        }
+
+        // 跳过连续的分隔符
+        if (curr.separator && acc[acc.length - 1]?.separator) {
+          return acc
+        }
+
+        // 如果当前是分隔符，确保后面还有非分隔符的项目
+        if (curr.separator) {
+          const hasNextItem = filteredChildren.slice(index + 1).some(item => !item.separator)
+          if (!hasNextItem) {
+            return acc
+          }
+        }
+
+        acc.push(curr)
+        return acc
+      }, [])
+
+      return {
+        ...group,
+        children: cleanedChildren,
+      }
+    })
+    .filter(group => group.children.length > 0) // 过滤掉没有子项的菜单组
 })
 const saveDraft = () => {
   const content = props.editor.getHTML()
@@ -103,7 +139,6 @@ const menubarMenus = ref<MenuGroup[]>([
           clearDraft()
         },
       },
-
       {
         separator: true,
       },

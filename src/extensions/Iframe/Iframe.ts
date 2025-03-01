@@ -21,7 +21,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export default Node.create<IframeOptions>({
+export const Iframe = Node.create<IframeOptions>({
   name: 'iframes',
   group: 'block',
   atom: true,
@@ -68,15 +68,15 @@ export default Node.create<IframeOptions>({
     return {
       setIframe:
         (options: { src: string; service: string }) =>
-        ({ tr, dispatch }) => {
-          const { selection } = tr
-          const node = this.type.create(options)
+          ({ tr, dispatch }) => {
+            const { selection } = tr
+            const node = this.type.create(options)
 
-          if (dispatch) {
-            tr.replaceRangeWith(selection.from, selection.to, node)
-          }
-          return true
-        },
+            if (dispatch) {
+              tr.replaceRangeWith(selection.from, selection.to, node)
+            }
+            return true
+          },
     }
   },
 })

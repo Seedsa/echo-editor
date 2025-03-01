@@ -1,8 +1,19 @@
 import { Extension } from '@tiptap/core'
-import type { Item } from './components/FontSizeMenuButton.vue'
 import FontSizeMenuButton from './components/FontSizeMenuButton.vue'
 import type { GeneralOptions } from '@/type'
 import { DEFAULT_FONT_SIZE_LIST, DEFAULT_FONT_SIZE_VALUE } from '@/constants'
+
+/**
+ * Interface for font size menu items
+ */
+export interface Item {
+  title: string
+  isActive: () => boolean
+  action: () => void
+  disabled: boolean
+  divider: boolean
+  default: boolean
+}
 
 /**
  * Represents the interface for font size options, extending GeneralOptions.

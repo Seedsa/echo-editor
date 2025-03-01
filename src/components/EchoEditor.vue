@@ -233,9 +233,9 @@ defineExpose({ editor })
       },
     ]"
   >
-    <Preview :editor="editor" />
-    <Printer :editor="editor" />
-    <FindAndReplace :container-ref="contentRef" :editor="editor" />
+    <Preview v-if="hasExtension(editor, 'preview')" :editor="editor" />
+    <Printer v-if="hasExtension(editor, 'printer')" :editor="editor" />
+    <FindAndReplace v-if="hasExtension(editor, 'findAndReplace')" :container-ref="contentRef" :editor="editor" />
     <div
       class="relative flex flex-col overflow-hidden"
       :class="{
@@ -254,11 +254,11 @@ defineExpose({ editor })
         />
         <template v-if="!hideBubble && !disabled && editor.isEditable">
           <ContentMenu :editor="editor" class="hidden sm:block" />
-          <LinkBubbleMenu :editor="editor" />
-          <ColumnsBubbleMenu :editor="editor" />
-          <TableBubbleMenu :editor="editor" />
-          <AIMenu :editor="editor" />
-          <ImageBubbleMenu :editor="editor" />
+          <LinkBubbleMenu v-if="hasExtension(editor, 'link')" :editor="editor" />
+          <ColumnsBubbleMenu v-if="hasExtension(editor, 'columns')" :editor="editor" />
+          <TableBubbleMenu v-if="hasExtension(editor, 'table')" :editor="editor" />
+          <AIMenu v-if="hasExtension(editor, 'AI')" :editor="editor" />
+          <ImageBubbleMenu v-if="hasExtension(editor, 'image')" :editor="editor" />
           <BasicBubbleMenu :editor="editor" />
         </template>
       </div>

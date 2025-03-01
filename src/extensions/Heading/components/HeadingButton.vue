@@ -1,25 +1,12 @@
 <script lang="ts" setup>
-import type { StyleValue } from 'vue'
 import { computed } from 'vue'
 import { MenuCheckboxItem, MenuSeparator, MenuShortcut } from '@/components/ui/menu'
 
 import type { Editor } from '@tiptap/vue-3'
 import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
-import type { ButtonViewReturnComponentProps } from '@/type'
 import { getShortcutKey } from '@/utils/plateform'
+import { Item } from '../types'
 
-export interface Item {
-  title: string
-  icon?: any
-  level?: number
-  isActive: NonNullable<ButtonViewReturnComponentProps['isActive']>
-  action?: ButtonViewReturnComponentProps['action']
-  style?: StyleValue
-  shortcutKeys?: string[]
-  disabled?: boolean
-  divider?: boolean
-  default?: boolean
-}
 interface Props {
   editor: Editor
   disabled?: boolean

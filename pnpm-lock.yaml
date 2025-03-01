@@ -222,6 +222,9 @@ importers:
       lodash-unified:
         specifier: ^1.0.3
         version: 1.0.3(@types/lodash-es@4.17.12)(lodash-es@4.17.21)(lodash@4.17.21)
+      lowlight:
+        specifier: ^3.1.0
+        version: 3.3.0
       prettier:
         specifier: ^3.2.5
         version: 3.5.2

@@ -112,3 +112,6 @@ export { FindAndReplace } from './FindAndReplace'
 
 export { Printer } from './Printer'
 export type { PrinterOptions } from './Printer'
+
+export { Iframe } from './Iframe'
+export type { IframeOptions } from './Iframe'

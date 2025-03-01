@@ -21,6 +21,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip'
 import { IndentProps, setNodeIndentMarkup } from '@/utils/indent'
 import { getShortcutKeys } from '@/utils/plateform'
+import { hasExtension } from '@/utils/utils'
 
 type PluginRefType = Plugin<{
   locked: boolean
@@ -180,6 +181,7 @@ watch(
       style="transition-property: top, left; transition-timing-function: ease-in-out; transition-duration: 0.2s"
     >
       <Button
+        v-if="hasExtension(editor, 'slashCommand')"
         variant="ghost"
         @click="handleAdd"
         size="icon"
@@ -223,8 +225,8 @@ watch(
             <Icon name="Copy" />
             <span>{{ t('editor.copy') }}</span>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuSub>
+          <DropdownMenuSeparator v-if="hasExtension(editor, 'textAlign') || hasExtension(editor, 'indent')" />
+          <DropdownMenuSub v-if="hasExtension(editor, 'textAlign')">
             <DropdownMenuSubTrigger class="flex gap-3">
               <Icon name="AlignCenter" />
               <span>{{ t('editor.textalign.tooltip') }}</span>
@@ -251,7 +253,7 @@ watch(
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
-          <DropdownMenuSub>
+          <DropdownMenuSub v-if="hasExtension(editor, 'indent')">
             <DropdownMenuSubTrigger class="flex gap-3">
               <Icon name="IndentIncrease" />
               <span>{{ t('editor.indent') }}</span>

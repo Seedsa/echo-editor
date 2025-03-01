@@ -23,8 +23,6 @@ import { useLocale } from '@/locales'
 import { TrailingNode } from './TrailingNode/TrailingNode'
 import { Selection } from './Selection/Selection'
 import type { TrailingNodeOptions } from './TrailingNode/TrailingNode'
-import Iframe from './Iframe/Iframe'
-import type { IframeOptions } from './Iframe/Iframe'
 
 import type { BubbleOptions } from '../components/menus/BasicBubble'
 import { defaultBubbleList, generateBubbleTypeMenu } from '../components/menus/BasicBubble'
@@ -120,12 +118,6 @@ export interface BaseKitOptions {
    */
   bubble: Partial<BubbleOptions<BaseKitOptions>>
 
-  /**
-   * Iframe options or false, indicating whether to enable the iframe
-   *
-   * @default true
-   */
-  iframe: Partial<IframeOptions> | false
 
   /**
    * Trailing node options or false, indicating whether to enable the trailing node
@@ -174,15 +166,18 @@ export const BaseKit = Extension.create<BaseKitOptions>({
     if (this.options.placeholder !== false) {
       extensions.push(
         Placeholder.configure({
-          placeholder: ({ node, pos }) => {
+          placeholder: ({ node, pos, editor }) => {
             const nodeTypeName = node?.type?.name
             if (nodeTypeName === 'heading') {
               return `${t.value(`editor.heading.h${node.attrs.level}.tooltip`)}`
             }
-            if (nodeTypeName === 'table' || nodeTypeName === 'codeBlock') {
+            if (nodeTypeName === 'table' || nodeTypeName === 'codeBlock' || nodeTypeName === 'bulletList' || nodeTypeName === 'orderedList') {
               return ''
             }
-            if (pos === 0) {
+            const hasSlashExtension = editor.extensionManager.extensions.some(
+              extension => extension.name === 'slashCommand'
+            )
+            if (pos === 0 || !hasSlashExtension) {
               return t.value('editor.content')
             }
             return t.value('editor.slash')
@@ -244,9 +239,6 @@ export const BaseKit = Extension.create<BaseKitOptions>({
 
     if (this.options.textStyle !== false) {
       extensions.push(TextStyle.configure(this.options.textStyle))
-    }
-    if (this.options.iframe !== false) {
-      extensions.push(Iframe.configure(this.options.iframe))
     }
     if (this.options.trailingNode !== false) {
       extensions.push(TrailingNode.configure(this.options.trailingNode))

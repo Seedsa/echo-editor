@@ -153,7 +153,8 @@
     "vite": "^5.2.0",
     "vite-plugin-dts": "^3.9.0",
     "vue": "^3.4.21",
-    "vue-tsc": "^2.0.6"
+    "vue-tsc": "^2.0.6",
+    "lowlight": "^3.1.0"
   },
   "peerDependencies": {
     "vue": ">= 3.0.0"

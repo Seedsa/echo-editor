@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useTiptapStore } from '@/hooks'
 import type { Editor } from '@tiptap/core'
+// @ts-ignore
 import ProseMirrorStyle from '@/styles/ProseMirror.scss?inline'
+// @ts-ignore
 import GlobalStyle from '@/styles/global.scss?inline'
 import { useHotkeys } from '@/hooks'
 interface Props {

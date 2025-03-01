@@ -44,6 +44,14 @@ interface ShortcutItem {
   label: string
   prompt: string
   icon?: string
+  children?: ShortcutItem[]
+}
+
+interface MenuItem {
+  label: string
+  icon?: string
+  children?: MenuItem[]
+  [key: string]: any // 允许其他属性
 }
 
 interface CachedPrompt {
@@ -191,7 +199,7 @@ function handleOverlayClick(): void {
   }, 820) // Duration of the shake animation + a little extra
 }
 
-function shortcutClick(item: ShortcutItem) {
+function shortcutClick(item: MenuItem) {
   if (!props.editor) {
     toast({
       title: t.value('editor.AI.error'),
@@ -203,12 +211,14 @@ function shortcutClick(item: ShortcutItem) {
 
   try {
     const selectionText = getSelectionText(props.editor)
+    const shortcutItem = item as ShortcutItem
+
     cachedPrompt.value = {
       context: selectionText,
-      prompt: item.prompt,
+      prompt: shortcutItem.prompt,
     }
     status.value = 'generating'
-    handleCompletion(selectionText, item.prompt)
+    handleCompletion(selectionText, shortcutItem.prompt)
       .then(() => {
         scrollToBottom()
         focused.value = true

@@ -25,10 +25,13 @@ export default defineConfig({
     }),
     dts({
       insertTypesEntry: true,
+      outDir: 'lib',
+      exclude: ['src/demo/**/*', 'examples/**/*']
     }),
   ],
   optimizeDeps: {
     include: ['vue'],
+    exclude: ['examples/*', 'src/demo/*']
   },
   resolve: {
     alias: {

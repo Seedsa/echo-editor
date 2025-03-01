@@ -57,7 +57,7 @@ const items = computed(() => {
 </script>
 
 <template>
-  <div class="sticky top-0 h-auto bg-background z-10 overflow-visible rounded-t-[0.5rem]">
+  <div class="sticky top-0 h-auto bg-background z-10 overflow-visible rounded-t-[0.5rem]" v-if="items.length">
     <div class="flex flex-nowrap overflow-x-auto sm:flex-wrap gap-y-1 gap-x-1 items-center py-0.5">
       <template v-for="(item, key) in items" :key="key">
         <div class="flex items-center">

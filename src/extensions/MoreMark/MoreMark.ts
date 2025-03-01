@@ -4,7 +4,7 @@ import type { SubscriptExtensionOptions as TiptapSubscriptOptions } from '@tipta
 import { Subscript as TiptapSubscript } from '@tiptap/extension-subscript'
 import type { SuperscriptExtensionOptions as TiptapSuperscriptOptions } from '@tiptap/extension-superscript'
 import { Superscript as TiptapSuperscript } from '@tiptap/extension-superscript'
-import type { Item } from './components/ActionMoreButton.vue'
+import type { Item } from './types'
 import ActionMoreButton from './components/ActionMoreButton.vue'
 import type { GeneralOptions } from '@/type'
 import { hasExtension } from '@/utils/utils'
