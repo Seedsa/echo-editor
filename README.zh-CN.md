@@ -1,6 +1,6 @@
 # Echo Editor
 
-一款基于 [tiptap](https://tiptap.dev) 和 [shadcn-vue](https://www.shadcn-vue.com/) 组件的下一代富文本编辑器。
+一款基于 [tiptap](https://tiptap.dev) 和 [shadcn-vue](https://www.shadcn-vue.com/) 组件的下一代AI富文本编辑器。
 
 [![MIT 许可证](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![](https://img.shields.io/npm/v/echo-editor.svg?label=version)](https://www.npmjs.com/package/echo-editor)

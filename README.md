@@ -1,6 +1,6 @@
 # Echo Editor
 
-A modern WYSIWYG rich-text editor base on [tiptap](https://tiptap.dev) uses [shadcn-vue](https://www.shadcn-vue.com/) components.
+A modern AI-powered WYSIWYG rich-text editor for Vue, base on [tiptap](https://tiptap.dev) and [shadcn-vue](https://www.shadcn-vue.com/).
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![](https://img.shields.io/npm/v/echo-editor.svg?label=version)](https://www.npmjs.com/package/echo-editor)

@@ -3,7 +3,7 @@
   "version": "0.4.2",
   "private": false,
   "license": "MIT",
-  "description": "A modern WYSIWYG rich-text editor using tiptap for Vue.js",
+  "description": "A modern AI-powered WYSIWYG rich-text editor for Vue, based on Tiptap and shadcn-vue",
   "author": "SEED<hello.mr.lji@gmail.com>",
   "homepage": "https://github.com/Seedsa/echo-editor/",
   "repository": {
