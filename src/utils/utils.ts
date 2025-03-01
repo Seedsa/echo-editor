@@ -1,4 +1,8 @@
 import type { Editor } from '@tiptap/core'
+import differenceBy from 'lodash/differenceBy'
+import isEqual from 'lodash/isEqual'
+import throttle from 'lodash/throttle'
+import truncate from 'lodash/truncate'
 
 export const getCssUnitWithDefault = (value?: string | number, defaultUnit: string = 'px') => {
   if (!value) return value
@@ -45,4 +49,4 @@ export function hasExtension(editor: Editor, name: string): boolean {
   return true
 }
 
-export { differenceBy, isEqual, throttle, truncate } from 'lodash-unified'
+export { differenceBy, isEqual, throttle, truncate }
