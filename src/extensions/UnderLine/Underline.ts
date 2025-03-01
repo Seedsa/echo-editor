@@ -4,7 +4,7 @@ import ActionButton from '@/components/ActionButton.vue'
 
 import type { GeneralOptions } from '@/type'
 
-export interface UnderlineOptions extends TiptapUnderlineOptions, GeneralOptions<UnderlineOptions> {}
+export interface UnderlineOptions extends TiptapUnderlineOptions, GeneralOptions<UnderlineOptions> { }
 
 export const Underline = TiptapUnderline.extend<UnderlineOptions>({
   addOptions() {
@@ -14,9 +14,9 @@ export const Underline = TiptapUnderline.extend<UnderlineOptions>({
         return {
           component: ActionButton,
           componentProps: {
-            action: () => editor.commands.toggleUnderline(),
+            action: () => editor.chain().toggleUnderline().focus().run(),
             isActive: () => editor.isActive('underline') || false,
-            disabled: !editor.can().toggleUnderline(),
+            disabled: !editor.isEditable || !editor.can().toggleUnderline(),
             icon: 'Underline',
             shortcutKeys: ['mod', 'U'],
             tooltip: t('editor.underline.tooltip'),

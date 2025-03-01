@@ -7,7 +7,7 @@ import { getMarkRange } from '@tiptap/core'
 import LinkEditPopover from './components/LinkEditPopover.vue'
 import type { GeneralOptions } from '@/type'
 
-export interface LinkOptions extends TiptapLinkOptions, GeneralOptions<LinkOptions> {}
+export interface LinkOptions extends TiptapLinkOptions, GeneralOptions<LinkOptions> { }
 
 export const Link = TiptapLink.extend<LinkOptions>({
   inclusive: false,
@@ -59,7 +59,7 @@ export const Link = TiptapLink.extend<LinkOptions>({
                 .run()
             },
             isActive: () => editor.isActive('link') || false,
-            disabled: !editor.can().setLink({ href: '' }),
+            disabled: !editor.isEditable || !editor.can().setLink({ href: '' }),
             icon: 'Link',
             tooltip: t('editor.link.tooltip'),
           },

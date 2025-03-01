@@ -5,7 +5,7 @@ import OrderedListMenuButton from './components/OrderedListMenuButton.vue'
 
 import type { GeneralOptions } from '@/type'
 
-export interface OrderedListOptions extends TiptapOrderedListOptions, GeneralOptions<OrderedListOptions> {}
+export interface OrderedListOptions extends TiptapOrderedListOptions, GeneralOptions<OrderedListOptions> { }
 
 export const OrderedList = TiptapOrderedList.extend<OrderedListOptions>({
   addAttributes() {
@@ -30,9 +30,9 @@ export const OrderedList = TiptapOrderedList.extend<OrderedListOptions>({
       button: ({ editor, t }) => ({
         component: OrderedListMenuButton,
         componentProps: {
-          action: () => editor.commands.toggleOrderedList(),
+          action: () => editor.chain().toggleOrderedList().focus().run(),
           isActive: () => editor.isActive('orderedList') || false,
-          disabled: !editor.can().toggleOrderedList(),
+          disabled: !editor.isEditable || !editor.can().toggleOrderedList(),
           icon: 'ListOrdered',
           shortcutKeys: ['mod', 'shift', '7'],
           tooltip: t('editor.orderedlist.tooltip'),

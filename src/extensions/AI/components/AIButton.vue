@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ButtonViewReturnComponentProps } from '@/type'
-import type { TooltipContentProps } from 'radix-vue'
+import type { TooltipContentProps } from 'reka-ui'
 import { icons } from '@/components/icons'
 import { useTiptapStore } from '@/hooks/useStore'
 import type { Editor } from '@tiptap/vue-3'

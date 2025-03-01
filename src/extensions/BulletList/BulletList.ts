@@ -3,7 +3,7 @@ import { BulletList as TiptapBulletList } from '@tiptap/extension-bullet-list'
 import BulletListMenuButton from './components/BulletListMenuButton.vue'
 import type { GeneralOptions } from '@/type'
 
-export interface BulletListOptions extends TiptapBulletListOptions, GeneralOptions<BulletListOptions> {}
+export interface BulletListOptions extends TiptapBulletListOptions, GeneralOptions<BulletListOptions> { }
 
 export const BulletList = TiptapBulletList.extend<BulletListOptions>({
   addAttributes() {
@@ -29,9 +29,9 @@ export const BulletList = TiptapBulletList.extend<BulletListOptions>({
       button: ({ editor, t }) => ({
         component: BulletListMenuButton,
         componentProps: {
-          action: () => editor.commands.toggleBulletList(),
+          action: () => editor?.chain().focus().toggleBulletList().run(),
           isActive: () => editor.isActive('bulletList') || false,
-          disabled: !editor.can().toggleBulletList(),
+          disabled: !editor?.isEditable || !editor.can().toggleBulletList(),
           shortcutKeys: ['shift', 'mod', '8'],
           icon: 'List',
           tooltip: t('editor.bulletlist.tooltip'),

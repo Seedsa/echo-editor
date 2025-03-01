@@ -79,7 +79,7 @@ function resetTextFormatting() {
   chain.run()
 }
 function copyNodeToClipboard() {
-  props.editor.chain().focus().setNodeSelection(currentNodePos.value).run()
+  props.editor.commands.setNodeSelection(currentNodePos.value)
   // TODO API已被弃用 可能会导致不生效
   document.execCommand('copy')
 }
@@ -91,10 +91,11 @@ function duplicateNode() {
     .chain()
     .setMeta('hideDragHandle', true)
     .insertContentAt(currentNodePos.value + (currentNode.value?.nodeSize || 0), selectedNode.toJSON())
+    .focus()
     .run()
 }
 function setTextAlign(alignments: string) {
-  props.editor.commands.setTextAlign(alignments)
+  props.editor.chain().setTextAlign(alignments).focus().run()
 }
 function increaseIndent() {
   const indentTr = setNodeIndentMarkup(props.editor.state.tr, currentNodePos.value, 1)

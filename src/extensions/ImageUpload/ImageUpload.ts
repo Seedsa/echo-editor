@@ -57,8 +57,8 @@ export const ImageUpload = Node.create<ImageUploadOptions>({
     return {
       setImageUpload:
         () =>
-        ({ commands }) =>
-          commands.insertContent(`<div data-type="${this.name}"></div>`),
+          ({ commands }) =>
+            commands.insertContent(`<div data-type="${this.name}"></div>`),
     }
   },
 
@@ -74,8 +74,8 @@ export const ImageUpload = Node.create<ImageUploadOptions>({
       button: ({ editor, extension, t }: { editor: any; extension: any; t: (key: string) => string }) => ({
         component: ActionButton,
         componentProps: {
-          action: () => editor.commands.setImageUpload(),
-          disabled: !editor.can().setImage({}),
+          action: () => editor?.chain().setImageUpload(),
+          disabled: !editor?.isEditable || !editor.can().setImage({}),
           icon: 'ImageUp',
           tooltip: t('editor.image.tooltip'),
         },

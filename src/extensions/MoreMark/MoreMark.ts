@@ -33,18 +33,18 @@ export const MoreMark = Extension.create<MoreMarkOptions>({
         const subscript = extension.options.subscript
         const superscript = extension.options.superscript
         const subBtn: Item = {
-          action: () => editor.commands.toggleSubscript(),
+          action: () => editor.chain().toggleSubscript().focus().run(),
           isActive: () => editor.isActive('subscript') || false,
-          disabled: !editor.can().toggleSubscript(),
+          disabled: !editor.isEditable || !editor.can().toggleSubscript(),
           icon: 'Subscript',
           title: t('editor.subscript.tooltip'),
           shortcutKeys: ['mod', '.'],
         }
 
         const superBtn: Item = {
-          action: () => editor.commands.toggleSuperscript(),
+          action: () => editor.chain().toggleSuperscript().focus().run(),
           isActive: () => editor.isActive('superscript') || false,
-          disabled: !editor.can().toggleSuperscript(),
+          disabled: !editor.isEditable || !editor.can().toggleSuperscript(),
           icon: 'Superscript',
           title: t('editor.superscript.tooltip'),
           shortcutKeys: ['mod', ','],
@@ -57,9 +57,9 @@ export const MoreMark = Extension.create<MoreMarkOptions>({
         if (superscript !== false) items.push(superBtn)
         if (hasCode) {
           const codeBtn: Item = {
-            action: () => editor.commands.toggleCode(),
+            action: () => editor.chain().toggleCode().focus().run(),
             isActive: () => editor.isActive('code') || false,
-            disabled: !editor.can().toggleCode(),
+            disabled: !editor.isEditable || !editor.can().toggleCode(),
             icon: 'Code',
             title: t('editor.code.tooltip'),
             shortcutKeys: ['mod', 'E'],

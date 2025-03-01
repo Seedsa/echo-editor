@@ -9,7 +9,7 @@ import type { BaseKitOptions } from '../BaseKit'
 
 import type { GeneralOptions } from '@/type'
 
-export interface HeadingOptions extends TiptapHeadingOptions, GeneralOptions<HeadingOptions> {}
+export interface HeadingOptions extends TiptapHeadingOptions, GeneralOptions<HeadingOptions> { }
 
 export const Heading = TiptapHeading.extend<HeadingOptions>({
   addOptions() {
@@ -22,18 +22,18 @@ export const Heading = TiptapHeading.extend<HeadingOptions>({
         const baseKitExt = extensions.find(k => k.name === 'base-kit') as Extension<BaseKitOptions>
 
         const items: Item[] = levels.map(level => ({
-          action: () => editor.commands.toggleHeading({ level }),
+          action: () => editor?.chain().toggleHeading({ level }).focus().run(),
           isActive: () => editor.isActive('heading', { level }) || false,
-          disabled: !editor.can().toggleHeading({ level }),
+          disabled: !editor?.isEditable || !editor.can().toggleHeading({ level }),
           title: t(`editor.heading.h${level}.tooltip`),
           level: level,
           shortcutKeys: ['alt', 'mod', `${level}`],
         }))
         if (baseKitExt && baseKitExt.options.paragraph !== false) {
           items.unshift({
-            action: () => editor.commands.setParagraph(),
+            action: () => editor?.chain().setParagraph().focus().run(),
             isActive: () => editor.isActive('paragraph') || false,
-            disabled: !editor.can().setParagraph(),
+            disabled: !editor?.isEditable || !editor.can().setParagraph(),
             level: 0,
             title: t('editor.paragraph.tooltip'),
             shortcutKeys: ['alt', 'mod', '0'],

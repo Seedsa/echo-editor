@@ -4,7 +4,7 @@ import ActionButton from '@/components/ActionButton.vue'
 
 import type { GeneralOptions } from '@/type'
 
-export interface BoldOptions extends TiptapImageOptions, GeneralOptions<BoldOptions> {}
+export interface BoldOptions extends TiptapImageOptions, GeneralOptions<BoldOptions> { }
 
 export const Bold = TiptapBold.extend<BoldOptions>({
   addOptions() {
@@ -13,9 +13,9 @@ export const Bold = TiptapBold.extend<BoldOptions>({
       button: ({ editor, t }) => ({
         component: ActionButton,
         componentProps: {
-          action: () => editor.commands.toggleBold(),
+          action: () => editor?.chain().focus().toggleBold().run(),
           isActive: () => editor.isActive('bold') || false,
-          disabled: !editor.can().toggleBold(),
+          disabled: !editor?.isEditable || !editor.can().toggleBold(),
           icon: 'Bold',
           shortcutKeys: ['mod', 'B'],
           tooltip: t('editor.bold.tooltip'),

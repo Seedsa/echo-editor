@@ -38,7 +38,7 @@ export const FontFamily = TiptapFontFamily.extend<FontFamilyOptions>({
           component: FontFamilyButton,
           componentProps: {
             editor,
-            disabled: !editor.can().setFontFamily(''),
+            disabled: !editor?.isEditable || !editor.can().setFontFamily(''),
             tooltip: t('editor.fontFamily.tooltip'),
           },
         }
@@ -71,14 +71,14 @@ export const FontFamily = TiptapFontFamily.extend<FontFamilyOptions>({
     return {
       setFontFamily:
         fontFamily =>
-        ({ chain }) => {
-          return chain().setMark('textStyle', { fontFamily }).run()
-        },
+          ({ chain }) => {
+            return chain().setMark('textStyle', { fontFamily }).run()
+          },
       unsetFontFamily:
         () =>
-        ({ chain }) => {
-          return chain().setMark('textStyle', { fontFamily: null }).removeEmptyTextStyle().run()
-        },
+          ({ chain }) => {
+            return chain().setMark('textStyle', { fontFamily: null }).removeEmptyTextStyle().run()
+          },
     }
   },
 })

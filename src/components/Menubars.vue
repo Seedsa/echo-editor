@@ -14,7 +14,7 @@ import type { Editor } from '@tiptap/core'
 import { Icon, icons } from '@/components/icons'
 import { getShortcutKeys } from '@/utils/plateform'
 import { getSelectionText } from '@/utils/content'
-import type { CheckedState } from 'radix-vue/dist/Menu/utils'
+import type { CheckedState } from 'reka-ui/dist/Menu/utils'
 import { useTiptapStore } from '@/hooks'
 const DRAFT_KEY = 'echo-editor-draft' // 本地存储的 key
 
@@ -68,7 +68,7 @@ const saveDraft = () => {
 const restoreDraft = () => {
   const content = localStorage.getItem(DRAFT_KEY)
   if (content) {
-    props.editor.commands.setContent(content, true)
+    props.editor?.chain().setContent(content, true).focus().run()
   }
 }
 const clearEditor = () => {
@@ -111,7 +111,7 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.menubar.menu.preview',
         icon: 'Eye',
         action: () => {
-          props.editor.commands.togglePreview()
+          props.editor?.chain().togglePreview().focus().run()
         },
         requiredExtensions: ['preview'],
       },
@@ -121,8 +121,9 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.importWord.tooltip',
         icon: 'Word',
+        disabled: () => !props.editor.isEditable || !props.editor.can().toggleImportWord(),
         action: () => {
-          props.editor.commands.toggleImportWord()
+          props.editor.chain().toggleImportWord().focus().run()
         },
         requiredExtensions: ['importWord'],
       },
@@ -150,7 +151,7 @@ const menubarMenus = ref<MenuGroup[]>([
         shortcut: ['mod', 'Z'],
         disabled: () => !props.editor.can().undo() || !props.editor.isEditable,
         action: () => {
-          props.editor.commands.undo()
+          props.editor.chain().undo().focus().run()
         },
         requiredExtensions: ['history'],
       },
@@ -160,7 +161,7 @@ const menubarMenus = ref<MenuGroup[]>([
         shortcut: ['shift', 'mod', 'Z'],
         disabled: () => !props.editor.can().redo() || !props.editor.isEditable,
         action: () => {
-          props.editor.commands.redo()
+          props.editor.chain().redo().focus().run()
         },
         requiredExtensions: ['history'],
       },
@@ -176,7 +177,7 @@ const menubarMenus = ref<MenuGroup[]>([
           const text = getSelectionText(props.editor)
           if (text) {
             await navigator.clipboard.writeText(text) // 将文本写入剪贴板
-            props.editor.commands.deleteSelection() // 删除选中的内容
+            props.editor.chain().deleteSelection().focus().run()
           }
         },
       },
@@ -266,14 +267,14 @@ const menubarMenus = ref<MenuGroup[]>([
         title: 'editor.fullscreen.tooltip.fullscreen',
         icon: 'Maximize',
         action: () => {
-          store.toggleFullscreen()
+          props.editor?.chain().setFullscreen().focus().run()
         },
         requiredExtensions: ['fullscreen'],
       },
       {
         title: 'editor.menubar.menu.preview',
         action: () => {
-          props.editor.commands.togglePreview()
+          props.editor.chain().togglePreview().focus().run()
         },
         icon: 'Eye',
         requiredExtensions: ['preview'],
@@ -301,7 +302,7 @@ const menubarMenus = ref<MenuGroup[]>([
         icon: 'ImageUp',
         disabled: () => !props.editor.isEditable || !props.editor.can().setImage({}),
         action: () => {
-          props.editor.commands.setImageUpload()
+          props.editor.chain()?.setImageUpload().focus().run()
         },
         requiredExtensions: ['image', 'imageUpload'],
       },
@@ -310,7 +311,7 @@ const menubarMenus = ref<MenuGroup[]>([
         icon: 'Video',
         disabled: () => !props.editor.isEditable || !props.editor.can().setVideo({}),
         action: () => {
-          props.editor.commands.setVideoUpload()
+          props.editor.chain()?.setVideoUpload().focus().run()
         },
         requiredExtensions: ['video', 'videoUpload'],
       },
@@ -352,7 +353,7 @@ const menubarMenus = ref<MenuGroup[]>([
         shortcut: ['Mod', 'B'],
         disabled: () => !props.editor.isEditable || !props.editor.can().toggleBold(),
         action: () => {
-          props.editor.commands.toggleBold()
+          props.editor.chain().toggleBold().focus().run()
         },
         requiredExtensions: ['bold'],
       },
@@ -362,7 +363,7 @@ const menubarMenus = ref<MenuGroup[]>([
         shortcut: ['Mod', 'I'],
         disabled: () => !props.editor.isEditable || !props.editor.can().toggleItalic(),
         action: () => {
-          props.editor.commands.toggleItalic()
+          props.editor.chain().toggleItalic().focus().run()
         },
         requiredExtensions: ['italic'],
       },
@@ -372,7 +373,7 @@ const menubarMenus = ref<MenuGroup[]>([
         shortcut: ['Mod', 'U'],
         disabled: () => !props.editor.isEditable || !props.editor.can().toggleUnderline(),
         action: () => {
-          props.editor.commands.toggleUnderline()
+          props.editor.chain().toggleUnderline().focus().run()
         },
         requiredExtensions: ['underline'],
       },
@@ -381,7 +382,7 @@ const menubarMenus = ref<MenuGroup[]>([
         icon: 'Strikethrough',
         disabled: () => !props.editor.isEditable || !props.editor.can().toggleStrike(),
         action: () => {
-          props.editor.commands.toggleStrike()
+          props.editor.chain().toggleStrike().focus().run()
         },
         requiredExtensions: ['strike'],
       },
@@ -390,7 +391,7 @@ const menubarMenus = ref<MenuGroup[]>([
         icon: 'Superscript',
         disabled: () => !props.editor.isEditable || !props.editor.can().toggleSuperscript(),
         action: () => {
-          props.editor.commands.toggleSuperscript()
+          props.editor.chain().toggleSuperscript().focus().run()
         },
         requiredExtensions: ['superscript'],
       },
@@ -399,7 +400,7 @@ const menubarMenus = ref<MenuGroup[]>([
         icon: 'Subscript',
         disabled: () => !props.editor.isEditable || !props.editor.can().toggleSubscript(),
         action: () => {
-          props.editor.commands.toggleSubscript()
+          props.editor.chain().toggleSubscript().focus().run()
         },
         requiredExtensions: ['subscript'],
       },
@@ -408,7 +409,7 @@ const menubarMenus = ref<MenuGroup[]>([
         icon: 'Code',
         disabled: () => !props.editor.isEditable || !props.editor.can().toggleCode(),
         action: () => {
-          props.editor.commands.toggleCode()
+          props.editor.chain().toggleCode().focus().run()
         },
         requiredExtensions: ['code'],
       },

@@ -66,7 +66,6 @@
     "node": "^18.0.0"
   },
   "dependencies": {
-    "@radix-icons/vue": "^1.0.0",
     "@tiptap/core": "^2.11.5",
     "@tiptap/extension-blockquote": "^2.11.5",
     "@tiptap/extension-bold": "^2.11.5",
@@ -110,11 +109,13 @@
     "@tiptap/pm": "^2.11.5",
     "@tiptap/suggestion": "^2.11.5",
     "@tiptap/vue-3": "^2.11.5",
-    "@vueuse/core": "^10.9.0",
-    "class-variance-authority": "^0.7.0",
+    "@vueuse/core": "^10.11.1",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "echo-drag-handle-plugin": "^0.0.2",
     "hotkeys-js": "^3.13.7",
+    "lucide-vue-next": "^0.477.0",
+    "reka-ui": "^2.0.2",
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
@@ -139,10 +140,9 @@
     "lint-staged": "^15.2.2",
     "lodash-unified": "^1.0.3",
     "prettier": "^3.2.5",
-    "radix-vue": "^1.7.3",
     "rollup-plugin-visualizer": "^5.12.0",
-    "sass": "^1.75.0",
-    "tailwind-merge": "^2.3.0",
+    "sass": "1.75.0",
+    "tailwind-merge": "^2.6.0",
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.4.5",

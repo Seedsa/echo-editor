@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, unref } from 'vue'
-import { DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import type { Editor } from '@tiptap/vue-3'
 import { useLocale } from '@/locales'
 import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
@@ -48,11 +55,11 @@ const props = withDefaults(defineProps<Props>(), {
   isActive: undefined,
 })
 
-function toggleLightheight(key: string) {
+function toggleLineHeight(key: string) {
   if (key === 'default') {
-    props.editor.commands.unsetLineHeight()
+    props.editor.chain().unsetLineHeight().focus().run()
   } else {
-    props.editor.commands.setLineHeight(key)
+    props.editor.chain().setLineHeight(key).focus().run()
   }
   value.value = key
 }
@@ -60,11 +67,12 @@ function toggleLightheight(key: string) {
 
 <template>
   <ActionDropdownButton :icon="icon" :tooltip="tooltip" :disabled="disabled">
+    <div v-for="(item, index) in LineHeights" @click="toggleLineHeight(item.value)" :key="index">{{ item.label }}</div>
     <DropdownMenuCheckboxItem
       v-for="(item, index) in LineHeights"
       :key="index"
       :checked="item.value === value"
-      @click="toggleLightheight(item.value)"
+      @select="toggleLineHeight(item.value)"
     >
       {{ item.label }}
     </DropdownMenuCheckboxItem>

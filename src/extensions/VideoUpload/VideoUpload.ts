@@ -37,8 +37,8 @@ export const VideoUpload = Node.create<VideoOptions>({
     return {
       setVideoUpload:
         () =>
-        ({ commands }) =>
-          commands.insertContent(`<div data-type="${this.name}"></div>`),
+          ({ commands }) =>
+            commands.insertContent(`<div data-type="${this.name}"></div>`),
     }
   },
   addNodeView() {
@@ -52,9 +52,9 @@ export const VideoUpload = Node.create<VideoOptions>({
         return {
           component: ActionButton,
           componentProps: {
-            action: () => editor.commands.setVideoUpload(),
+            action: () => editor.chain().setVideoUpload().focus().run(),
             isActive: () => editor.isActive('video') || false,
-            disabled: !editor.can().setVideo({}),
+            disabled: !editor.isEditable || !editor.can().setVideo({}),
             icon: 'Video',
             tooltip: t('editor.video.tooltip'),
           },

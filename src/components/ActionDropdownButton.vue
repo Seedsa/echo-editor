@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<Props>(), {
         :is-active="isActive"
       />
     </DropdownMenuTrigger>
-    <DropdownMenuContent :class="cn('min-w-24', props.class)" align="start" side="bottom" v-bind="$attrs">
+    <DropdownMenuContent :class="cn('min-w-24', props.class)" align="start" side="bottom">
       <slot />
     </DropdownMenuContent>
   </DropdownMenu>

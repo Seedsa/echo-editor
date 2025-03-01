@@ -10,7 +10,7 @@ import type { GeneralOptions } from '@/type'
 /**
  * Represents the interface for font size options, extending GeneralOptions.
  */
-export interface FormatPainterOptions extends GeneralOptions<FormatPainterOptions> {}
+export interface FormatPainterOptions extends GeneralOptions<FormatPainterOptions> { }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -48,21 +48,21 @@ export const FormatPainter = Extension.create<FormatPainterOptions>({
     return {
       setPainter:
         (marks: Mark[]) =>
-        ({
-          view: {
-            dispatch,
-            state: { tr },
-            dom,
-          },
-        }) => {
-          const svgCursor = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#000" d="M9 22v-6H4V7q0-1.65 1.175-2.825T8 3h12v13h-5v6zM6 10h12V5h-1v4h-2V5h-1v2h-2V5H8q-.825 0-1.412.588T6 7zm0 4h12v-2H6zm0 0v-2z"/></svg>`
-          const encodedSvg = encodeURIComponent(svgCursor)
-          const cursorUrl = `url("data:image/svg+xml;utf8,${encodedSvg}"), auto`
+          ({
+            view: {
+              dispatch,
+              state: { tr },
+              dom,
+            },
+          }) => {
+            const svgCursor = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#000" d="M9 22v-6H4V7q0-1.65 1.175-2.825T8 3h12v13h-5v6zM6 10h12V5h-1v4h-2V5h-1v2h-2V5H8q-.825 0-1.412.588T6 7zm0 4h12v-2H6zm0 0v-2z"/></svg>`
+            const encodedSvg = encodeURIComponent(svgCursor)
+            const cursorUrl = `url("data:image/svg+xml;utf8,${encodedSvg}"), auto`
 
-          dom.style.cursor = cursorUrl
-          dispatch(tr.setMeta('painterAction', { type: 'start', marks }))
-          return true
-        },
+            dom.style.cursor = cursorUrl
+            dispatch(tr.setMeta('painterAction', { type: 'start', marks }))
+            return true
+          },
     }
   },
 

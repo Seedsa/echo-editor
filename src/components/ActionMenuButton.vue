@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
           </div>
         </Button>
       </TooltipTrigger>
-      <TooltipContent v-if="tooltip || (shortcutKeys && shortcutKeys.length)">
+      <TooltipContent hideWhenDetached v-if="tooltip || (shortcutKeys && shortcutKeys.length)">
         <div class="max-w-24 text-center flex flex-col items-center">
           <div>{{ tooltip }}</div>
           <div class="flex" v-if="shortcutKeys && shortcutKeys.length">

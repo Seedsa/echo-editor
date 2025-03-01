@@ -4,7 +4,7 @@ import HighlightActionButton from './components/HighlightActionButton.vue'
 
 import type { GeneralOptions } from '@/type'
 
-export interface HighlightOptions extends TiptapHighlightOptions, GeneralOptions<HighlightOptions> {}
+export interface HighlightOptions extends TiptapHighlightOptions, GeneralOptions<HighlightOptions> { }
 
 export const Highlight = TiptapHighlight.extend<HighlightOptions>({
   addOptions() {
@@ -20,7 +20,7 @@ export const Highlight = TiptapHighlight.extend<HighlightOptions>({
           },
           editor,
           isActive: () => editor.isActive('highlight') || false,
-          disabled: !editor.can().setHighlight(),
+          disabled: !editor?.isEditable || !editor.can().setHighlight(),
           shortcutKeys: ['⇧', 'mod', 'H'],
           tooltip: t('editor.highlight.tooltip'),
         },

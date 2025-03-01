@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch, onUnmounted, unref, useAttrs } from 'vue'
+import { computed, watch, onUnmounted, unref, useAttrs, ref } from 'vue'
 import { AnyExtension, Editor as CoreEditor, JSONContent } from '@tiptap/core'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import type { EditorOptions } from '@tiptap/vue-3'
@@ -22,6 +22,7 @@ import FindAndReplace from './FindAndReplace.vue'
 import { EchoEditorOnChange } from '@/type'
 import { useDark } from '@vueuse/core'
 import Toaster from '@/components/ui/toast/Toaster.vue'
+import { useEditorFocus } from '@/hooks/useEditorFocus'
 
 type KeyDownHandler = NonNullable<EditorOptions['editorProps']['handleKeyDown']>
 type UpdateHandler = NonNullable<EditorOptions['onUpdate']>
@@ -148,14 +149,11 @@ const editor = new Editor({
       return false
     }, EDITOR_UPDATE_THROTTLE_WAIT_TIME),
   },
-  onUpdate: throttle<UpdateHandler>(({ editor }) => {
-    const output = getOutput(editor, props.output)
-    emit('update:modelValue', output)
-    emit('change', { editor, output })
-  }, EDITOR_UPDATE_THROTTLE_WAIT_TIME),
   extensions: unref(sortExtensions),
   editable: !props.disabled,
 })
+
+const { isFocused } = useEditorFocus({ editor })
 
 watch(
   () => props.dark,
@@ -216,7 +214,9 @@ watch(
   val => editor?.setEditable(!val)
 )
 
-onUnmounted(() => editor?.destroy())
+onUnmounted(() => {
+  editor?.destroy()
+})
 
 defineExpose({ editor })
 </script>
@@ -228,8 +228,8 @@ defineExpose({ editor })
     :class="[
       editorClass,
       {
-        'outline-primary': editor.isFocused,
-        'outline-border': !editor.isFocused,
+        'outline-primary': isFocused,
+        'outline-border': !isFocused,
       },
     ]"
   >

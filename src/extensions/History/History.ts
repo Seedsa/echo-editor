@@ -5,7 +5,7 @@ import ActionButton from '@/components/ActionButton.vue'
 
 import type { GeneralOptions } from '@/type'
 
-export interface HistoryOptions extends TiptapHistoryOptions, GeneralOptions<HistoryOptions> {}
+export interface HistoryOptions extends TiptapHistoryOptions, GeneralOptions<HistoryOptions> { }
 
 export const History = TiptapHistory.extend<HistoryOptions>({
   addOptions() {
@@ -18,11 +18,11 @@ export const History = TiptapHistory.extend<HistoryOptions>({
           component: ActionButton,
           componentProps: {
             action: () => {
-              if (item === 'undo') editor.commands.undo()
-              if (item === 'redo') editor.commands.redo()
+              if (item === 'undo') editor?.chain().undo().focus().run()
+              if (item === 'redo') editor?.chain().redo().focus().run()
             },
             shortcutKeys: item === 'undo' ? ['mod', 'Z'] : ['shift', 'mod', 'Z'],
-            disabled: !editor.can()[item](),
+            disabled: !editor?.isEditable || !editor.can()[item](),
             icon: item === 'undo' ? 'Undo2' : 'Redo2',
             tooltip: t(`editor.${item}.tooltip`),
           },

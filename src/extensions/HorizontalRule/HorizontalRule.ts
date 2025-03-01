@@ -6,7 +6,7 @@ import ActionButton from '@/components/ActionButton.vue'
 
 import type { GeneralOptions } from '@/type'
 
-export interface HorizontalRuleOptions extends TiptapHorizontalRuleOptions, GeneralOptions<HorizontalRuleOptions> {}
+export interface HorizontalRuleOptions extends TiptapHorizontalRuleOptions, GeneralOptions<HorizontalRuleOptions> { }
 
 export const HorizontalRule = TiptapHorizontalRule.extend<HorizontalRuleOptions>({
   renderHTML() {
@@ -24,8 +24,8 @@ export const HorizontalRule = TiptapHorizontalRule.extend<HorizontalRuleOptions>
       button: ({ editor, t }) => ({
         component: ActionButton,
         componentProps: {
-          action: () => editor.commands.setHorizontalRule(),
-          disabled: !editor.can().setHorizontalRule(),
+          action: () => editor?.chain().focus().setHorizontalRule().run(),
+          disabled: !editor?.isEditable || !editor.can().setHorizontalRule(),
           icon: 'Minus',
           shortcutKeys: ['mod', 'alt', 'S'],
           tooltip: t('editor.horizontalrule.tooltip'),
@@ -35,7 +35,7 @@ export const HorizontalRule = TiptapHorizontalRule.extend<HorizontalRuleOptions>
   },
   addKeyboardShortcuts() {
     return {
-      'Mod-Alt-s': () => this.editor.commands.setHorizontalRule(),
+      'Mod-Alt-s': () => this.editor.chain().setHorizontalRule().focus().run()
     }
   },
 })

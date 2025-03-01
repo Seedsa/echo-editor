@@ -56,12 +56,12 @@ export const FontSize = Extension.create<FontSizeOptions>({
           },
           action: () => {
             if (k === DEFAULT_FONT_SIZE_VALUE) {
-              editor.commands.unsetFontSize()
+              editor?.chain().unsetFontSize().focus().run();
               return
             }
-            editor.commands.setFontSize(String(k))
+            editor?.chain().setFontSize(String(k)).focus().run();
           },
-          disabled: !editor.can().setFontSize(String(k)),
+          disabled: !editor?.isEditable || !editor.can().setFontSize(String(k)),
           divider: k === DEFAULT_FONT_SIZE_VALUE || false,
           default: k === DEFAULT_FONT_SIZE_VALUE || false,
         }))
@@ -104,14 +104,14 @@ export const FontSize = Extension.create<FontSizeOptions>({
     return {
       setFontSize:
         fontSize =>
-        ({ chain }) => {
-          return chain().setMark('textStyle', { fontSize }).run()
-        },
+          ({ chain }) => {
+            return chain().setMark('textStyle', { fontSize }).run()
+          },
       unsetFontSize:
         () =>
-        ({ chain }) => {
-          return chain().setMark('textStyle', { fontSize: null }).removeEmptyTextStyle().run()
-        },
+          ({ chain }) => {
+            return chain().setMark('textStyle', { fontSize: null }).removeEmptyTextStyle().run()
+          },
     }
   },
 })

@@ -51,9 +51,9 @@ const activeFontFamily = computed(() => {
 })
 function toggleFontType(name: string) {
   if (name === activeFontFamily.value) {
-    props.editor.commands.unsetFontFamily()
+    props.editor?.chain().unsetFontFamily().focus().run()
   } else {
-    props.editor.commands.setFontFamily(name)
+    props.editor?.chain().setFontFamily(name).focus().run()
   }
 }
 </script>
