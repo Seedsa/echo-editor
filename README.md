@@ -1,6 +1,6 @@
 # Echo Editor
 
-A modern AI-powered WYSIWYG rich-text editor for Vue, base on [tiptap](https://tiptap.dev) and [shadcn-vue](https://www.shadcn-vue.com/).
+A modern AI-powered WYSIWYG rich-text editor for Vue, based on [tiptap](https://tiptap.dev) and [shadcn-vue](https://www.shadcn-vue.com/).
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![](https://img.shields.io/npm/v/echo-editor.svg?label=version)](https://www.npmjs.com/package/echo-editor)
@@ -12,28 +12,37 @@ English | [中文](./README.zh-CN.md)
 
 ## Demo
 
-[Demo](https://echo-editor.jzcloud.site/)
+[Live Demo](https://echo-editor.jzcloud.site/)
 
 ## Features
 
-- Use [shadcn-vue](https://www.shadcn-vue.com/) components
-- Markdown support
-- TypeScript support
-- I18n support(`en`, `zhHans`)
-- Create your own extensions
-- Tailwind CSS support
+- 🎨 Beautiful UI with [shadcn-vue](https://www.shadcn-vue.com/) components
+- ✨ AI-powered writing assistance
+- 📝 Markdown support with real-time preview
+- 🔤 Rich text formatting (headings, lists, quotes, etc.)
+- 📊 Tables and code blocks
+- 🎯 Custom font sizes and styles
+- 📄 Import from Word documents
+- 🌍 I18n support (`en`, `zhHans`)
+- 🧩 Extensible architecture - create your own extensions
+- 🎭 TypeScript support
+- 🎨 Tailwind CSS support
 
 ## Installation
 
 ```bash
-  npm install echo-editor
-  pnpm install echo-editor
-  yarn add echo-editor
+npm install echo-editor
+# or
+pnpm install echo-editor
+# or
+yarn add echo-editor
 ```
 
 ## Usage
 
-```
+### Method 1: Global Registration
+
+```ts
 // main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -41,71 +50,74 @@ import EchoEditor from 'echo-editor'
 import 'echo-editor/style.css'
 
 const app = createApp(App)
-
 app.use(EchoEditor)
-
 app.mount('#app')
-
 ```
 
-```
-// App.vue
+```ts
 <script setup>
-import {
-  BaseKit,
-} from 'echo-editor';
+import { ref } from 'vue'
+import { BaseKit } from 'echo-editor'
 
+const content = ref('')
 const extensions = [
   BaseKit.configure({
     placeholder: {
-      placeholder: '请输入...',
+      placeholder: 'Start writing...',
     },
-})]
+  }),
+]
 </script>
 
 <template>
-<echo-editor
-    :extensions="extensions"
-/>
+  <echo-editor :extensions="extensions" v-model="content" />
 </template>
 ```
 
-## Run Locally
+### Method 2: Direct Usage
 
-Clone the project
+```ts
+<script setup>
+import { EchoEditor, BaseKit } from 'echo-editor'
+import 'echo-editor/style.css'
 
-```bash
-  git clone https://github.com/Seedsa/echo-editor.git
+const content = ref('')
+const extensions = [
+  BaseKit.configure({
+    placeholder: {
+      placeholder: 'Start writing...',
+    },
+  }),
+]
+</script>
+
+<template>
+  <echo-editor :extensions="extensions" v-model="content" />
+</template>
 ```
 
-Go to the project directory
+## Development
+
+1. Install [pnpm](https://pnpm.io/installation)
+2. Clone the repository
+3. Run `pnpm install`
+4. Start development server with `pnpm dev`
+
+To test the build version:
 
 ```bash
-  cd echo-editor
+pnpm examples
 ```
 
-Install dependencies
+## Contributing
 
-```bash
-  pnpm install
-```
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Start the Demo server
+## Related Projects
 
-```bash
-  npm run build:lib
-  npm run dev
-```
-
-## Related
-
-Here are some related projects
-
-[shadcn-vue](https://www.shadcn-vue.com/)
-
-[tiptap](https://tiptap.dev)
-
-[iconify](https://icon-sets.iconify.design)
+- [shadcn-vue](https://www.shadcn-vue.com/)
+- [tiptap](https://tiptap.dev)
+- [iconify](https://icon-sets.iconify.design)
 
 ## License
 

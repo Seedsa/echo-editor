@@ -1,6 +1,6 @@
 # Echo Editor
 
-一款基于 [tiptap](https://tiptap.dev) 和 [shadcn-vue](https://www.shadcn-vue.com/) 组件的下一代AI富文本编辑器。
+一款基于 [tiptap](https://tiptap.dev) 和 [shadcn-vue](https://www.shadcn-vue.com/) 的新一代 AI 富文本编辑器。
 
 [![MIT 许可证](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![](https://img.shields.io/npm/v/echo-editor.svg?label=version)](https://www.npmjs.com/package/echo-editor)
@@ -8,32 +8,41 @@
 
 [English](./README.md) | 中文
 
-![App Screenshot](./screenshot/screenshot.png)
+![应用截图](./screenshot/screenshot.png)
 
-## 演示
+## 在线演示
 
-[演示](https://echo-editor.jzcloud.site/)
+[查看演示](https://echo-editor.jzcloud.site/)
 
 ## 特性
 
-- 使用 [shadcn-vue](https://www.shadcn-vue.com/) 组件
-- 支持 Markdown
-- 支持 TypeScript
-- 国际化支持（`en`, `zhHans`）
-- 支持自定义扩展
-- Tailwind CSS
+- 🎨 使用 [shadcn-vue](https://www.shadcn-vue.com/) 精美组件
+- ✨ AI 智能写作辅助
+- 📝 支持 Markdown 及实时预览
+- 🔤 丰富的文本格式化功能（标题、列表、引用等）
+- 📊 表格和代码块支持
+- 🎯 自定义字体大小和样式
+- 📄 支持导入 Word 文档
+- 🌍 国际化支持（`en`、`zhHans`）
+- 🧩 可扩展架构 - 支持自定义扩展
+- 🎭 TypeScript 支持
+- 🎨 Tailwind CSS 支持
 
 ## 安装
 
 ```bash
-  npm install echo-editor
-  pnpm install echo-editor
-  yarn add echo-editor
+npm install echo-editor
+# 或
+pnpm install echo-editor
+# 或
+yarn add echo-editor
 ```
 
-## 使用
+## 使用方法
 
-```
+### 方式一：全局注册
+
+```ts
 // main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -41,71 +50,73 @@ import EchoEditor from 'echo-editor'
 import 'echo-editor/style.css'
 
 const app = createApp(App)
-
 app.use(EchoEditor)
-
 app.mount('#app')
-
 ```
 
-```
-// App.vue
+```ts
 <script setup>
-import {
-  BaseKit,
-} from 'echo-editor';
+import { BaseKit } from 'echo-editor'
 
+const content = ref('')
 const extensions = [
   BaseKit.configure({
     placeholder: {
-      placeholder: '请输入...',
+      placeholder: '开始写作...',
     },
-})]
+  }),
+]
 </script>
 
 <template>
-<echo-editor
-    :extensions="extensions"
-/>
+  <echo-editor :extensions="extensions" v-model="content" />
 </template>
 ```
 
-## 本地运行
+### 方式二：直接使用
 
-克隆项目
+```ts
+<script setup>
+import { EchoEditor, BaseKit } from 'echo-editor'
+import 'echo-editor/style.css'
 
-```bash
-  git clone https://github.com/Seedsa/echo-editor.git
+const content = ref('')
+const extensions = [
+  BaseKit.configure({
+    placeholder: {
+      placeholder: '开始写作...',
+    },
+  }),
+]
+</script>
+
+<template>
+  <echo-editor :extensions="extensions" v-model="content" />
+</template>
 ```
 
-进入项目目录
+## 开发
+
+1. 安装 [pnpm](https://pnpm.io/installation)
+2. 克隆仓库
+3. 运行 `pnpm install`
+4. 使用 `pnpm dev` 启动开发服务器
+
+测试构建版本：
 
 ```bash
-  cd echo-editor
+pnpm examples
 ```
 
-安装依赖
+## 贡献
 
-```bash
-  pnpm install
-```
-
-启动演示服务器
-
-```bash
-  npm run build:lib
-  npm run dev
-```
+欢迎提交 Pull Request 来帮助改进项目！
 
 ## 相关项目
 
-以下是一些相关项目
-
-[shadcn-vue](https://www.shadcn-vue.com/)
-
-[tiptap](https://tiptap.dev)
-
-[iconify](https://icon-sets.iconify.design)
+- [shadcn-vue](https://www.shadcn-vue.com/)
+- [tiptap](https://tiptap.dev)
+- [iconify](https://icon-sets.iconify.design)
 
 ## 许可证
 
