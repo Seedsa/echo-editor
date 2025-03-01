@@ -2,7 +2,7 @@
 import type { StyleValue } from 'vue'
 import { computed } from 'vue'
 import type { Editor } from '@tiptap/vue-3'
-import { DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu'
+import { MenuCheckboxItem, MenuSeparator } from '@/components/ui/menu'
 import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import type { ButtonViewReturnComponentProps } from '@/type'
@@ -55,10 +55,10 @@ const active = computed(() => {
   <ActionDropdownButton :disabled="disabled" :tooltip="tooltip" :title="active.title" btn_class="min-w-24 max-w-32">
     <ScrollArea class="w-32 h-96">
       <template v-for="(item, index) in props.items" :key="index">
-        <DropdownMenuCheckboxItem :checked="active.title === item.title" @click="item.action">
+        <MenuCheckboxItem :model-value="active.title === item.title" @select="item.action">
           <div class="ml-1 h-full">{{ item.title }}</div>
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuSeparator v-if="item.title === t('editor.fontSize.default.tooltip')" />
+        </MenuCheckboxItem>
+        <MenuSeparator v-if="item.title === t('editor.fontSize.default.tooltip')" />
       </template>
     </ScrollArea>
   </ActionDropdownButton>

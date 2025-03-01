@@ -33,7 +33,7 @@ export const LineHeight = Extension.create<LineHeightOptions>({
           component: LineHeightDropdown,
           componentProps: {
             editor,
-            disabled: !editor.isEditable || !editor.can().setLineHeight('100%'),
+            disabled: !editor.isEditable || !editor.can().setLineHeight('400%'),
             icon: 'LineHeight',
             tooltip: t('editor.lineheight.tooltip'),
           },

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import ActionMenuButton from '@/components/ActionMenuButton.vue'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import Button from '@/components/ui/button/Button.vue'
 import ActionButton from './ActionButton.vue'
 import { Icon } from '@/components/icons'
@@ -44,8 +43,8 @@ const props = withDefaults(defineProps<Props>(), {
       :shortcut-keys="shortcutKeys"
     >
     </ActionButton>
-    <DropdownMenu>
-      <DropdownMenuTrigger :disabled="disabled">
+    <Popover>
+      <PopoverTrigger :disabled="disabled">
         <Button
           variant="ghost"
           size="icon"
@@ -54,10 +53,10 @@ const props = withDefaults(defineProps<Props>(), {
         >
           <Icon class="w-3 h-3 text-zinc-500" name="MenuDown" />
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent :class="cn('min-w-24', props.class)" align="start" side="bottom" v-bind="$attrs">
+      </PopoverTrigger>
+      <PopoverContent :class="cn('min-w-32 p-1 w-full', props.class)" align="start" side="bottom" v-bind="$attrs">
         <slot />
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </PopoverContent>
+    </Popover>
   </div>
 </template>

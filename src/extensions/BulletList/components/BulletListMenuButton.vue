@@ -4,7 +4,7 @@ import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/comp
 import { useLocale } from '@/locales'
 import type { Editor } from '@tiptap/vue-3'
 import ActionDropdownButtonSplit from '@/components/ActionDropdownButtonSplit.vue'
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { MenuItem } from '@/components/ui/menu'
 
 interface BulletListOption {
   label: string
@@ -60,7 +60,7 @@ function toggleBulletList(item: BulletListOption): void {
     <TooltipProvider>
       <Tooltip :delay-duration="0" v-for="item in BulletListOptions" :key="item.value">
         <TooltipTrigger>
-          <DropdownMenuItem class="p-0" @click="toggleBulletList(item)">
+          <MenuItem class="p-0" @click="toggleBulletList(item)">
             <div
               :class="[active === item.value ? 'bg-accent border border-accent-foreground' : '']"
               class="h-[48px] flex flex-col w-[48px] box-border rounded-sm border"
@@ -74,7 +74,7 @@ function toggleBulletList(item: BulletListOption): void {
                 </li>
               </ol>
             </div>
-          </DropdownMenuItem>
+          </MenuItem>
         </TooltipTrigger>
         <TooltipContent side="bottom">{{ t(item.label) }}</TooltipContent>
       </Tooltip>

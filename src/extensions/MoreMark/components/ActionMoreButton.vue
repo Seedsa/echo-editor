@@ -3,7 +3,7 @@ import type { StyleValue } from 'vue'
 import { computed } from 'vue'
 import { Icon, icons } from '@/components/icons'
 import type { Editor } from '@tiptap/vue-3'
-import { DropdownMenuCheckboxItem, DropdownMenuShortcut } from '@/components/ui/dropdown-menu'
+import { MenuCheckboxItem, MenuShortcut } from '@/components/ui/menu'
 import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
 import type { ButtonViewReturnComponentProps } from '@/type'
 import { getShortcutKeys } from '@/utils/plateform'
@@ -58,9 +58,9 @@ const active = computed(() => {
 
 <template>
   <ActionDropdownButton :icon="icon" :tooltip="tooltip" :disabled="disabled">
-    <DropdownMenuCheckboxItem
+    <MenuCheckboxItem
       v-for="(item, index) in props.items"
-      :checked="active.title === item.title"
+      :model-value="active.title === item.title"
       @click="item.action"
       :key="index"
       :disabled="item.disabled"
@@ -68,9 +68,7 @@ const active = computed(() => {
     >
       <Icon :name="item.icon" v-if="item.icon" />
       <span class="ml-1">{{ item.title }}</span>
-      <DropdownMenuShortcut class="ml-auto" v-if="item.shortcutKeys">{{
-        getShortcutKeys(item.shortcutKeys)
-      }}</DropdownMenuShortcut>
-    </DropdownMenuCheckboxItem>
+      <MenuShortcut class="ml-auto" v-if="item.shortcutKeys">{{ getShortcutKeys(item.shortcutKeys) }}</MenuShortcut>
+    </MenuCheckboxItem>
   </ActionDropdownButton>
 </template>

@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuCheckboxItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { MenuCheckboxItem } from '@/components/ui/menu'
 import { Editor } from '@tiptap/vue-3'
 import { Icon, icons } from '@/components/icons'
 import { useLocale } from '@/locales'
@@ -119,17 +113,17 @@ const activeItem = computed(() => {
 
 <template>
   <ActionDropdownButton :title="activeItem?.label" :sideOffset="5">
-    <DropdownMenuCheckboxItem
+    <MenuCheckboxItem
       v-for="(item, index) in menus"
       :key="index"
       @click="item.action"
       class="cursor-pointer"
-      :checked="item.isActive?.() || false"
+      :modelValue="item.isActive?.() || false"
     >
       <div class="flex items-center gap-2 px-2">
         <Icon :name="item.iconName" class="h3 w-3" />
         <span> {{ item.label }}</span>
-      </div></DropdownMenuCheckboxItem
+      </div></MenuCheckboxItem
     >
   </ActionDropdownButton>
 </template>

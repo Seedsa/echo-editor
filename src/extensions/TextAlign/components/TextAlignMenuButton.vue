@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { StyleValue } from 'vue'
 import { computed } from 'vue'
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { MenuItem } from '@/components/ui/menu'
 import { Toggle } from '@/components/ui/toggle'
 import { icons, Icon } from '@/components/icons'
 import type { Editor } from '@tiptap/vue-3'
@@ -63,11 +63,11 @@ const active = computed(() => {
     <TooltipProvider>
       <Tooltip v-for="(item, index) in props.items" :key="index">
         <TooltipTrigger as-child>
-          <DropdownMenuItem class="p-0" @click="item.action">
+          <MenuItem class="p-0" @click="item.action">
             <Toggle size="sm" class="w-7 h-7 p-1" :pressed="active.title === item.title">
               <Icon :name="item.icon" v-if="item.icon" />
             </Toggle>
-          </DropdownMenuItem>
+          </MenuItem>
         </TooltipTrigger>
         <TooltipContent class="flex flex-col items-center">
           <span>{{ item.title }}</span>

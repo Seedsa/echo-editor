@@ -45,7 +45,7 @@ withDefaults(defineProps<Props>(), {
         <Toggle
           size="sm"
           class="h-[32px]"
-          :pressed="isActive?.() || false"
+          :model-value="isActive?.() || false"
           :disabled="disabled"
           :class="[customClass, title ? 'w-auto' : 'w-[32px]']"
           @click="action"

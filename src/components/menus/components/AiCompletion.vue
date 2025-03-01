@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Editor } from '@tiptap/core'
 import { Icon } from '@/components/icons'
-import MenuItem from '@/components/ui/menu-item.vue'
+import { MenuItem } from '@/components/ui/menu'
 import { Separator } from '@/components/ui/separator'
 import { useLocale } from '@/locales'
 

@@ -4,7 +4,7 @@ import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/comp
 import { useLocale } from '@/locales'
 import type { Editor } from '@tiptap/vue-3'
 import ActionDropdownButtonSplit from '@/components/ActionDropdownButtonSplit.vue'
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { MenuItem } from '@/components/ui/menu'
 import { ButtonViewReturnComponentProps } from '@/type'
 
 interface OrderedListOption {
@@ -89,7 +89,7 @@ function toggleOrderedList(item: OrderedListOption) {
     <TooltipProvider>
       <Tooltip :delay-duration="0" v-for="item in OrderedListOptions" :key="item.value">
         <TooltipTrigger as-child>
-          <DropdownMenuItem class="p-0" @click="toggleOrderedList(item)">
+          <MenuItem class="p-0" @click="toggleOrderedList(item)">
             <div
               :class="[active === item.value ? 'bg-accent border border-accent-foreground' : '']"
               class="h-[72px] flex flex-col w-[72px] box-border rounded-sm border"
@@ -103,7 +103,7 @@ function toggleOrderedList(item: OrderedListOption) {
                 </li>
               </ol>
             </div>
-          </DropdownMenuItem>
+          </MenuItem>
         </TooltipTrigger>
         <TooltipContent side="bottom">{{ t(item.label) }}</TooltipContent>
       </Tooltip>

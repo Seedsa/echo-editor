@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { StyleValue } from 'vue'
 import { computed } from 'vue'
-import { DropdownMenuCheckboxItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
+import { MenuCheckboxItem, MenuSeparator } from '@/components/ui/menu'
 import { Editor, getMarkAttributes } from '@tiptap/vue-3'
 import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
 import type { ButtonViewReturnComponentProps } from '@/type'
@@ -61,12 +61,12 @@ function toggleFontType(name: string) {
 <template>
   <ActionDropdownButton :disabled="disabled" :tooltip="tooltip" :title="activeFontFamily" btn_class="min-w-24 max-w-32">
     <template v-for="(item, index) in fontFamilyOptions" :key="index">
-      <DropdownMenuCheckboxItem :checked="activeFontFamily === item" @click="toggleFontType(item)">
+      <MenuCheckboxItem :model-value="activeFontFamily === item" @click="toggleFontType(item)">
         <span class="ml-1 h-full" :data-font="item" :style="{ fontFamily: item ?? undefined }">
           {{ item }}
         </span>
-      </DropdownMenuCheckboxItem>
-      <DropdownMenuSeparator v-if="item === t('editor.fontFamily.default')" />
+      </MenuCheckboxItem>
+      <MenuSeparator v-if="item === t('editor.fontFamily.default')" />
     </template>
   </ActionDropdownButton>
 </template>

@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, unref } from 'vue'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { MenuCheckboxItem } from '@/components/ui/menu'
 import type { Editor } from '@tiptap/vue-3'
 import { useLocale } from '@/locales'
 import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
@@ -67,14 +60,13 @@ function toggleLineHeight(key: string) {
 
 <template>
   <ActionDropdownButton :icon="icon" :tooltip="tooltip" :disabled="disabled">
-    <div v-for="(item, index) in LineHeights" @click="toggleLineHeight(item.value)" :key="index">{{ item.label }}</div>
-    <DropdownMenuCheckboxItem
+    <MenuCheckboxItem
       v-for="(item, index) in LineHeights"
       :key="index"
-      :checked="item.value === value"
+      :modelValue="item.value === value"
       @select="toggleLineHeight(item.value)"
     >
       {{ item.label }}
-    </DropdownMenuCheckboxItem>
+    </MenuCheckboxItem>
   </ActionDropdownButton>
 </template>

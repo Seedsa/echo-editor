@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import ActionMenuButton from '@/components/ActionMenuButton.vue'
 import { ButtonViewReturnComponentProps } from '@/type'
 import { cn } from '@/utils'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 
 interface Props {
   icon?: any
@@ -28,8 +28,8 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <DropdownMenu>
-    <DropdownMenuTrigger :disabled="disabled">
+  <Popover>
+    <PopoverTrigger :disabled="disabled">
       <ActionMenuButton
         :class="btn_class"
         :title="title"
@@ -38,9 +38,9 @@ const props = withDefaults(defineProps<Props>(), {
         :disabled="disabled"
         :is-active="isActive"
       />
-    </DropdownMenuTrigger>
-    <DropdownMenuContent :class="cn('min-w-24', props.class)" align="start" side="bottom">
+    </PopoverTrigger>
+    <PopoverContent :class="cn('p-1 min-w-32 w-full', props.class)" align="start" side="bottom">
       <slot />
-    </DropdownMenuContent>
-  </DropdownMenu>
+    </PopoverContent>
+  </Popover>
 </template>
