@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-background">
     <header
-      class="border-grid sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      class="border-grid w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
     >
       <div class="container flex h-14 items-center sticky">
         <div class="mr-4 md:mr-1 hidden md:flex">
@@ -277,8 +277,22 @@ async function handleFileUpload(files: File[]) {
   return Promise.resolve(f)
 }
 
+/**
+ * AI Completions handler function
+ * WARNING: This is just a demo implementation. In production:
+ * - DO NOT expose API keys in the frontend
+ * - DO implement this through your backend API
+ * - DO add proper error handling and rate limiting
+ *
+ * @param history - Chat history array containing messages with role and content
+ * @param signal - AbortSignal for cancelling requests
+ * @returns OpenAI chat completion stream
+ */
 async function AICompletions(history: Array<{ role: string; content: string }> = [], signal?: AbortSignal) {
-  // groq.com for free llm api,recommend deepseek r1 70b
+  // groq.com For free llm api recommend deepseek r1 70b
+  // SECURITY WARNING: API keys should never be exposed in the frontend
+  // This is just for demo purposes
+  // In production, implement this through your backend API
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY
   const baseURL = import.meta.env.VITE_OPENAI_BASE_URL
   const model = import.meta.env.VITE_OPENAI_MODEL
