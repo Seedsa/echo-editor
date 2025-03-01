@@ -52,7 +52,7 @@ export const VideoUpload = Node.create<VideoOptions>({
         return {
           component: ActionButton,
           componentProps: {
-            action: () => editor.chain().setVideoUpload().focus().run(),
+            action: () => editor.chain().setVideoUpload().run(),
             isActive: () => editor.isActive('video') || false,
             disabled: !editor.isEditable || !editor.can().setVideo({}),
             icon: 'Video',

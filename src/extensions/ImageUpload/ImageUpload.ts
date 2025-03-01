@@ -74,7 +74,7 @@ export const ImageUpload = Node.create<ImageUploadOptions>({
       button: ({ editor, extension, t }: { editor: any; extension: any; t: (key: string) => string }) => ({
         component: ActionButton,
         componentProps: {
-          action: () => editor?.chain().setImageUpload(),
+          action: () => editor?.chain().setImageUpload().run(),
           disabled: !editor?.isEditable || !editor.can().setImage({}),
           icon: 'ImageUp',
           tooltip: t('editor.image.tooltip'),

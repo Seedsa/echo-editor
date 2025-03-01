@@ -95,7 +95,7 @@ function duplicateNode() {
     .run()
 }
 function setTextAlign(alignments: string) {
-  props.editor.chain().setTextAlign(alignments).focus().run()
+  props.editor.chain().setTextAlign(alignments).run()
 }
 function increaseIndent() {
   const indentTr = setNodeIndentMarkup(props.editor.state.tr, currentNodePos.value, 1)

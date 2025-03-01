@@ -302,7 +302,7 @@ const menubarMenus = ref<MenuGroup[]>([
         icon: 'ImageUp',
         disabled: () => !props.editor.isEditable || !props.editor.can().setImage({}),
         action: () => {
-          props.editor.chain()?.setImageUpload().focus().run()
+          props.editor.chain()?.setImageUpload().run()
         },
         requiredExtensions: ['image', 'imageUpload'],
       },
@@ -311,7 +311,7 @@ const menubarMenus = ref<MenuGroup[]>([
         icon: 'Video',
         disabled: () => !props.editor.isEditable || !props.editor.can().setVideo({}),
         action: () => {
-          props.editor.chain()?.setVideoUpload().focus().run()
+          props.editor.chain()?.setVideoUpload().run()
         },
         requiredExtensions: ['video', 'videoUpload'],
       },

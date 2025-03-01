@@ -31,7 +31,6 @@ function handleFile(event) {
       .chain()
       .setVideo({ src: res[0].src, width: '100%' })
       .deleteRange({ from: props.getPos(), to: props.getPos() })
-      .focus()
       .run()
     loading.value = false
   })
@@ -44,7 +43,6 @@ function handleLink() {
       width: '100%',
     })
     .deleteRange({ from: props.getPos(), to: props.getPos() })
-    .focus()
     .run()
 }
 function handleDelete() {
@@ -57,7 +55,7 @@ function handleClick() {
 
 <template>
   <NodeViewWrapper as="div" data-drag-handle>
-    <Popover defaultOpen modal>
+    <Popover defaultOpen>
       <PopoverTrigger as-child>
         <div
           class="flex items-center w-full p-3 my-3 hover:bg-accent border border-border text-muted-foreground cursor-pointer rounded-sm transition-all"
