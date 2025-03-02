@@ -175,12 +175,15 @@ import {
   Preview,
   Printer,
   Iframe,
+  EchoEditor,
 } from 'echo-editor'
 import { ExportWord } from './extensions/ExportWord'
 import OpenAI from 'openai'
 import { DEMO_CONTENT } from './initContent'
 import { createLowlight, common } from 'lowlight'
 import { useColorMode } from './composables/useColorMode'
+import './style.css'
+import 'echo-editor/style.css'
 
 const content = ref(DEMO_CONTENT)
 const theme = ref<string | null>(null)

@@ -19,7 +19,7 @@ import Toolbar from './Toolbar.vue'
 import Preview from './Preview.vue'
 import Printer from './Printer.vue'
 import FindAndReplace from './FindAndReplace.vue'
-import { EchoEditorOnChange } from '@/type'
+import { EchoEditorOnChange, EchoEditorProps, EchoEditorEmits } from '@/type'
 import { useDark } from '@vueuse/core'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { useEditorFocus } from '@/hooks/useEditorFocus'
@@ -27,86 +27,7 @@ import { useEditorFocus } from '@/hooks/useEditorFocus'
 type KeyDownHandler = NonNullable<EditorOptions['editorProps']['handleKeyDown']>
 type UpdateHandler = NonNullable<EditorOptions['onUpdate']>
 
-interface EditorProps {
-  /**
-   * input value
-   */
-  modelValue?: string | object
-  /**
-   * Editor output type
-   *
-   * @default 'html'
-   */
-  output?: 'html' | 'json' | 'text'
-  /**
-   * dark mode
-   *
-   * @default false
-   */
-  dark?: boolean
-  /**
-   * Readonly
-   *
-   * @default false
-   */
-  disabled?: boolean
-  /**
-   * Hide Editor Toolbar
-   *
-   * @default false
-   */
-  hideToolbar?: boolean
-  /**
-   * Hide Editor Menubar
-   *
-   * @default false
-   */
-  hideMenubar?: boolean
-  /**
-   * Hide Editor Bubble Menu
-   *
-   * @default false
-   */
-  hideBubble?: boolean
-  /**
-   * Remove tiptap default wrapper when editor is empty eg. <p></p>
-   *
-   * @default false
-   */
-  removeDefaultWrapper?: boolean
-  /**
-   * Editor content maximum width
-   */
-  maxWidth?: string | number
-  /**
-   * Editor content minimum height
-   */
-  minHeight?: string | number
-  /**
-   * Editor content maximum height
-   */
-  maxHeight?: string | number
-  /**
-   * Tiptap extensions
-   */
-  extensions?: AnyExtension[]
-  /**
-   * Editor container class
-   */
-  editorClass?: string | string[] | Record<string, any>
-  /**
-   * Editor content class
-   */
-  contentClass?: string | string[] | Record<string, any>
-}
-
-interface EditorEmits {
-  (event: 'enter'): void
-  (event: 'change', value: EchoEditorOnChange): void
-  (event: 'update:modelValue', value: EditorProps['modelValue']): void
-}
-
-const props = withDefaults(defineProps<EditorProps>(), {
+const props = withDefaults(defineProps<EchoEditorProps>(), {
   modelValue: '',
   output: 'html',
   dark: undefined,
@@ -123,7 +44,7 @@ const props = withDefaults(defineProps<EditorProps>(), {
   contentClass: undefined,
 })
 
-const emit = defineEmits<EditorEmits>()
+const emit = defineEmits<EchoEditorEmits>()
 
 const attrs = useAttrs()
 const { state, isFullscreen } = useTiptapStore()
@@ -138,7 +59,7 @@ const sortExtensions = computed<AnyExtension[]>(() =>
   )
 )
 
-const editor = new Editor({
+const editorConfig = computed<Partial<EditorOptions>>(() => ({
   content: props.modelValue,
   editorProps: {
     handleKeyDown: throttle<KeyDownHandler>((_, event) => {
@@ -149,9 +70,16 @@ const editor = new Editor({
       return false
     }, EDITOR_UPDATE_THROTTLE_WAIT_TIME),
   },
+  onUpdate: throttle<UpdateHandler>(({ editor }) => {
+    const output = getOutput(editor, props.output)
+    emit('update:modelValue', output)
+    emit('change', { editor, output })
+  }, EDITOR_UPDATE_THROTTLE_WAIT_TIME),
   extensions: unref(sortExtensions),
   editable: !props.disabled,
-})
+}))
+
+const editor = new Editor(unref(editorConfig))
 
 const { isFocused } = useEditorFocus({ editor })
 
@@ -179,13 +107,13 @@ const contentDynamicStyles = computed(() => ({
   margin: props.maxWidth ? '8px auto' : undefined,
 }))
 
-function getOutput(editor: CoreEditor, output: EditorProps['output']): string | JSONContent {
+function getOutput(editor: CoreEditor, output: EchoEditorProps['output']): string | JSONContent {
   if (props.removeDefaultWrapper) {
-    if (output === 'html') return editor.isEmpty ? '' : editor.getHTML()
-    if (output === 'json') return editor.isEmpty ? {} : editor.getJSON()
-    if (output === 'text') return editor.isEmpty ? '' : editor.getText()
-    return ''
+    if (editor.isEmpty) {
+      return output === 'json' ? {} : ''
+    }
   }
+
   switch (output) {
     case 'html':
       return editor.getHTML()
@@ -194,6 +122,7 @@ function getOutput(editor: CoreEditor, output: EditorProps['output']): string | 
     case 'text':
       return editor.getText()
     default:
+      console.warn(`Invalid output type: ${output}`)
       return ''
   }
 }

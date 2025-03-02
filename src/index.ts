@@ -15,7 +15,10 @@ export { en, locale, zhHans }
 export * from '@/extensions'
 export { useEditor } from '@tiptap/vue-3'
 export type * from '@/type'
-export { type Editor as EditorInstance } from '@tiptap/core'
+export { type Editor as EditorInstance, type JSONContent, } from '@tiptap/core'
+export type { EchoEditorProps, EchoEditorEmits } from './type'
+
 export { EchoEditorPlugin, EchoEditor, ActionButton }
 
 export default EchoEditorPlugin
+

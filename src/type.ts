@@ -1,4 +1,4 @@
-import type { Editor as CoreEditor, Extension, JSONContent } from '@tiptap/core'
+import type { Editor as CoreEditor, Extension, JSONContent, AnyExtension } from '@tiptap/core'
 import type { Editor } from '@tiptap/vue-3'
 import { icons } from '@/components/icons'
 export type { Editor, JSONContent } from '@tiptap/core'
@@ -108,4 +108,99 @@ export interface ButtonViewParams<T = any> {
  */
 export interface ButtonView<T = any> {
   (options: ButtonViewParams<T>): ButtonViewReturn | ButtonViewReturn[]
+}
+
+export interface EchoEditorProps {
+  /**
+   * Input value
+   * Can be HTML string or JSON content
+   */
+  modelValue?: string | JSONContent
+
+  /**
+   * Editor output type
+   * - html: outputs HTML string
+   * - json: outputs JSON object
+   * - text: outputs plain text
+   * @default 'html'
+   */
+  output?: 'html' | 'json' | 'text'
+
+  /**
+   * Dark mode
+   * @default undefined - follows system
+   */
+  dark?: boolean
+
+  /**
+   * Make editor readonly
+   * @default false
+   */
+  disabled?: boolean
+
+  /**
+   * Hide Editor Toolbar
+   * @default false
+   */
+  hideToolbar?: boolean
+
+  /**
+   * Hide Editor Menubar
+   * @default false
+   */
+  hideMenubar?: boolean
+
+  /**
+   * Hide Editor Bubble Menu
+   * @default false
+   */
+  hideBubble?: boolean
+
+  /**
+   * Remove tiptap default wrapper when editor is empty eg. <p></p>
+   * @default false
+   */
+  removeDefaultWrapper?: boolean
+
+  /**
+   * Editor content maximum width
+   * Can be number (px) or CSS unit string
+   */
+  maxWidth?: string | number
+
+  /**
+   * Editor content minimum height
+   * Can be number (px) or CSS unit string
+   */
+  minHeight?: string | number
+
+  /**
+   * Editor content maximum height
+   * Can be number (px) or CSS unit string
+   */
+  maxHeight?: string | number
+
+  /**
+   * Tiptap extensions
+   * Used to extend editor functionality
+   */
+  extensions?: AnyExtension[]
+
+  /**
+   * Editor container class
+   * Accepts string, array or object
+   */
+  editorClass?: string | string[] | Record<string, any>
+
+  /**
+   * Editor content class
+   * Accepts string, array or object
+   */
+  contentClass?: string | string[] | Record<string, any>
+}
+
+export interface EchoEditorEmits {
+  (event: 'enter'): void
+  (event: 'change', value: EchoEditorOnChange): void
+  (event: 'update:modelValue', value: string | JSONContent): void
 }

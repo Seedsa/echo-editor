@@ -95,6 +95,12 @@
       <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
         <EchoEditor :extensions="extensions" v-model="content" :maxHeight="512" output="html" />
       </div>
+      <div class="mt-6 rounded-lg border bg-muted p-4">
+        <h3 class="mb-2 text-sm font-medium">HTML Output</h3>
+        <div class="rounded bg-muted-foreground/5 max-h-[500px] overflow-auto">
+          <span>{{ content }}</span>
+        </div>
+      </div>
     </main>
   </div>
 </template>
@@ -144,12 +150,13 @@ import {
   Printer,
   Iframe,
 } from '../index'
+import { JSONContent } from '../index'
 import { DEMO_CONTENT } from './content'
 import { createLowlight, common } from 'lowlight'
 import OpenAI from 'openai'
 import { useColorMode } from './useColorMode'
 
-const content = ref(DEMO_CONTENT)
+const content = ref<string | JSONContent>(DEMO_CONTENT)
 const colorMode = useColorMode()
 
 const extensions = [
