@@ -1,0 +1,59 @@
+name: Publish Package to npmjs
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      discussions: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Library
+        run: pnpm build:lib
+
+      - name: Type check
+        run: pnpm type:check
+
+      - name: Install conventional-changelog-cli
+        run: pnpm add -D conventional-changelog-cli
+
+      - name: Generate CHANGELOG.md
+        run: pnpm conventional-changelog -p angular -i CHANGELOG.md -s
+
+      - name: Publish to NPM
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          body_path: CHANGELOG.md
+          make_latest: true
+          token: ${{ secrets.ACCESS_TOKEN }}
