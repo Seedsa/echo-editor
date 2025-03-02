@@ -46,8 +46,8 @@ export const DEMO_CONTENT = {
       ],
     },
     { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
-    { type: 'paragraph', attrs: { textAlign: 'center', indent: 0, lineHeight: null } },
-    { type: 'paragraph', attrs: { textAlign: 'center', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
     {
       type: 'image',
       attrs: {
