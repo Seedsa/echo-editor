@@ -14,7 +14,6 @@ import type { Editor } from '@tiptap/core'
 import { Icon, icons } from '@/components/icons'
 import { getShortcutKeys } from '@/utils/plateform'
 import { getSelectionText } from '@/utils/content'
-import type { CheckedState } from 'reka-ui/dist/Menu/utils'
 import { useTiptapStore } from '@/hooks'
 const DRAFT_KEY = 'echo-editor-draft' // 本地存储的 key
 
@@ -27,7 +26,7 @@ interface MenuItem {
   action?: () => void
   icon?: keyof typeof icons
   disabled?: boolean | (() => boolean)
-  checked?: CheckedState | (() => CheckedState)
+  checked?: boolean | (() => boolean)
   shortcut?: string[]
   separator?: boolean
   requiredExtensions?: string[]
@@ -462,7 +461,7 @@ const isDisabled = (disabled?: boolean | (() => boolean)) => {
   }
   return typeof disabled === 'function' ? disabled() : disabled
 }
-const isChecked = (checked?: CheckedState | (() => CheckedState)) => {
+const isChecked = (checked?: boolean | (() => boolean)) => {
   if (checked === undefined) {
     return false
   }
