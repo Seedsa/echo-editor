@@ -19,6 +19,10 @@
         @apply animate-spin border-current border-t-transparent rounded-full border-[3px] inline-block;
       }
     }
+    .highlight-paragraph {
+      @apply bg-black/10 dark:bg-white/20;
+    }
+
     /* Table */
     .tableWrapper {
       @apply overflow-x-auto;

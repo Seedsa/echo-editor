@@ -22,6 +22,7 @@ import { TextStyle } from '@tiptap/extension-text-style'
 import { useLocale } from '@/locales'
 import { TrailingNode } from './TrailingNode/TrailingNode'
 import { Selection } from './Selection/Selection'
+import { HighlightParagraph } from './HighlightParagraph'
 import type { TrailingNodeOptions } from './TrailingNode/TrailingNode'
 
 import type { BubbleOptions } from '../components/menus/BasicBubble'
@@ -137,6 +138,12 @@ export interface BaseKitOptions {
    * @default true
    */
   selection: any | false
+  /**
+   * highlightParagraph options or false, indicating whether to enable the highlightParagraph
+   *
+   * @default true
+   */
+  highlightParagraph: any | false
 }
 
 export const BaseKit = Extension.create<BaseKitOptions>({
@@ -246,6 +253,10 @@ export const BaseKit = Extension.create<BaseKitOptions>({
 
     if (this.options.selection !== false) {
       extensions.push(Selection)
+    }
+    if (this.options.highlightParagraph !== false) {
+      extensions.push(HighlightParagraph)
+
     }
 
     return extensions

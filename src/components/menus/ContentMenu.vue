@@ -152,8 +152,10 @@ watch(
   val => {
     if (val) {
       // 显示时锁定drop handle
+      props.editor.commands.setHighlightParagraph(currentNodePos.value)
       props.editor.commands.setMeta('lockDragHandle', true)
     } else {
+      props.editor.commands.clearHighlightParagraph()
       props.editor.commands.setMeta('lockDragHandle', false)
     }
   }
