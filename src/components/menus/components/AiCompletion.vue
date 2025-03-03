@@ -26,7 +26,12 @@ function handleReplace() {
       from: selection.from,
       to: selection.to,
     })
-    .insertContent(props.completion)
+    .insertContent(props.completion, {
+      parseOptions: {
+        preserveWhitespace: false,
+      },
+      updateSelection: true,
+    })
     .run()
 }
 function handleInsert() {

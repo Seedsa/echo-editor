@@ -273,7 +273,20 @@ async function AICompletions(history: Array<{ role: string; content: string }> =
     baseURL: baseURL,
   })
 
-  const systemMsg = `Only answer the question based on the context provided below. The response should be in HTML format, preserving all HTML tags, links, and styles.`
+  const systemMsg = `You are a professional writing assistant. Please respond based on the user's context:
+
+1. Maintain a professional, accurate, and objective tone
+2. Ensure responses are clear, coherent, and well-structured
+3. Responses must be in HTML format, preserving all HTML tags, links, and styles
+4. Support the following writing enhancements:
+   - Grammar and spelling corrections
+   - Improved sentence structure and expression
+   - Optimized article formatting and layout
+   - Maintain the core meaning of the original text
+5. If context includes code, maintain code formatting and provide optimization suggestions
+6. Add appropriate HTML elements like headings, lists, quotes etc. to enhance readability as needed
+
+Please respond only based on the provided context, do not add irrelevant information.`
 
   const systemPrompt = [{ role: 'system', content: systemMsg }]
   const finalMessages = [...systemPrompt]

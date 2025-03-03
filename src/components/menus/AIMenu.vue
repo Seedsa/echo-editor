@@ -3,18 +3,18 @@ import { computed, reactive, ref, watch, nextTick } from 'vue'
 import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu } from '@tiptap/vue-3'
 import { useLocale } from '@/locales'
-import { useTiptapStore } from '@/hooks'
+import { useHotkeys, useTiptapStore } from '@/hooks'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import AiCompletion from './components/AiCompletion.vue'
 import { useFocus } from '@vueuse/core'
-import { useDebounceFn } from '@vueuse/core'
 import { useToast } from '@/components/ui/toast/use-toast'
 import { Icon } from '@/components/icons'
 import Menu from '../ui/menu.vue'
 import { DOMSerializer } from 'prosemirror-model'
 import { useAIConversation } from '@/hooks/useAIConversation'
 import { DEFAULT_SHORTCUTS } from '@/extensions/AI/constants'
+import { Props as TippyProps } from 'tippy.js'
 
 interface Props {
   editor: Editor
@@ -36,7 +36,7 @@ const isShaking = ref<boolean>(false)
 const tippyInstance = ref<any>(null)
 const menuRef = ref()
 
-const { result, status, handleCompletion, resetConversation } = useAIConversation(props.editor)
+const { result, status, handleCompletion, resetConversation, stopGeneration } = useAIConversation(props.editor)
 
 const { toast } = useToast()
 
@@ -69,14 +69,18 @@ const getSelectionText = (editor: Editor) => {
   return div.innerHTML
 }
 
-const scrollToBottom = useDebounceFn(
+const scrollToBottom = async () => {
+  await nextTick()
+  if (resultContainer.value) {
+    resultContainer.value.scrollTop = resultContainer.value.scrollHeight
+  }
+}
+
+watch(
+  () => result.value,
   () => {
-    if (resultContainer.value) {
-      resultContainer.value.scrollTop = resultContainer.value.scrollHeight
-    }
-  },
-  100,
-  { maxWait: 200 }
+    scrollToBottom()
+  }
 )
 
 async function handleGenerate() {
@@ -110,7 +114,6 @@ async function handleGenerate() {
     prompt.value = ''
     await nextTick()
     focused.value = true
-    scrollToBottom()
   } catch (error) {
     toast({
       title: t.value('editor.AI.error'),
@@ -120,26 +123,31 @@ async function handleGenerate() {
     handleClose()
   }
 }
+const { bind, unbind } = useHotkeys('esc', () => {
+  stopGeneration()
+  handleClose()
+})
 
-const tippyOptions = reactive<Record<string, unknown>>({
+const tippyOptions = reactive<Partial<TippyProps>>({
   maxWidth: 600,
   zIndex: 99,
   appendTo: 'parent',
   placement: 'bottom-start',
   onShow(instance) {
     tippyInstance.value = instance
+    bind()
     setTimeout(() => {
       focused.value = true
     }, 30)
   },
   onHide() {
+    unbind()
     handleClose()
   },
   onDestroy() {
     tippyInstance.value = null
+    unbind()
   },
-  // hideOnClick: true,
-  interactive: true,
 })
 
 const shouldShow: any = computed(() => {
@@ -276,9 +284,9 @@ function handleKey(e) {
           class="border rounded-sm shadow-sm bg-background"
           v-show="(status === 'generating' || status === 'completed') && result"
         >
-          <div ref="resultContainer" class="p-4 line-height-none block overflow-y-auto" style="max-height: 270px">
+          <div ref="resultContainer" class="p-4 line-height-none block overflow-y-auto" style="max-height: 210px">
             <div
-              class="text-sm text-foreground line-height-snug ProseMirror"
+              class="text-sm text-foreground EchoContentView"
               :style="{
                 padding: 0,
                 minHeight: 'auto',
