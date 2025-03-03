@@ -235,23 +235,34 @@ watch(
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem class="flex gap-3" @click="setTextAlign('left')">
+                <DropdownMenuCheckboxItem
+                  :model-value="editor.isActive({ textAlign: 'left' }) ?? false"
+                  class="flex gap-3"
+                  @click="setTextAlign('left')"
+                >
                   <Icon name="AlignLeft" />
                   <span>{{ t('editor.textalign.left.tooltip') }}</span>
                   <span class="ml-auto text-xs text-neutral-400">{{ getShortcutKeys(['Mod', 'Shift', 'L']) }}</span>
-                </DropdownMenuItem>
-
-                <DropdownMenuItem class="flex gap-3" @click="setTextAlign('center')">
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
+                  :model-value="editor.isActive({ textAlign: 'center' }) ?? false"
+                  class="flex gap-3"
+                  @click="setTextAlign('center')"
+                >
                   <Icon name="AlignCenter" />
                   <span>{{ t('editor.textalign.center.tooltip') }}</span>
                   <span class="ml-auto text-xs text-neutral-400">{{ getShortcutKeys(['Mod', 'Shift', 'E']) }}</span>
-                </DropdownMenuItem>
+                </DropdownMenuCheckboxItem>
 
-                <DropdownMenuItem class="flex gap-3" @click="setTextAlign('right')">
+                <DropdownMenuCheckboxItem
+                  :model-value="editor.isActive({ textAlign: 'right' }) ?? false"
+                  class="flex gap-3"
+                  @click="setTextAlign('right')"
+                >
                   <Icon name="AlignRight" />
                   <span>{{ t('editor.textalign.right.tooltip') }}</span>
                   <span class="ml-auto text-xs text-neutral-400">{{ getShortcutKeys(['Mod', 'Shift', 'R']) }}</span>
-                </DropdownMenuItem>
+                </DropdownMenuCheckboxItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
