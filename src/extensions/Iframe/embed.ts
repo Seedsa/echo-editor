@@ -109,10 +109,10 @@ export const EmbedServiceLink = {
     tips: 'Modao > More > Share > Embed > COPY',
   },
   lanhu: {
-    example: 'https://lanhuapp.com/link/#/invite?sid=evP7L',
-    src: 'https://lanhuapp.com/url/evP7L',
+    example: 'https://lanhuapp.com/web/#/item/project/stage?pid=uuid',
+    src: 'https://lanhuapp.com/web/#/item/project/stage?pid=uuid',
     srcPrefix: '',
-    linkRule: ['https:\\/\\/lanhuapp.com\\/url\\/\\w+'],
+    linkRule: ['lanhuapp\\.com\\/web\\/#\\/item\\/project\\/stage\\?pid=[\\w-]+'],
     tips: 'Lanhu > Project > Share > Copy Link',
   },
   figma: {
@@ -151,6 +151,67 @@ export const EmbedServiceLink = {
     srcPrefix: '',
     linkRule: ['.+'],
   },
+}
+
+// Add stricter type definitions
+interface EmbedResult {
+  validLink: boolean
+  validId: boolean
+  matchedUrl: string
+  originalLink: string
+  src: string
+}
+
+interface EmbedServiceConfig {
+  example: string
+  src: string
+  srcPrefix: string
+  linkRule: string[]
+  idRule?: string
+  tips?: string
+}
+
+// Use Map to store service handlers to avoid multiple switch-case
+const serviceHandlers = new Map<string, (originalLink: string, result: EmbedResult) => EmbedResult>([
+  ['youtube', getYoutubeSrc],
+  ['youku', getYoukuSrc],
+  ['bilibili', getBilibiliSrc],
+  ['qqvideo', getQQVideoSrc],
+  ['amap', getAMapSrc],
+  ['baidu_map', getBaiduMapSrc],
+  ['modao', getModaoSrc],
+  ['lanhu', getLanhuSrc],
+  ['figma', getFigmaSrc],
+  ['canva', getCanvaSrc],
+  ['processon', getProcessonSrc],
+  ['codepen', getCodepenSrc],
+  ['jinshuju', getJinshujuSrc],
+  ['iframe', getCommonSrc],
+])
+
+// Cache regex patterns for better performance
+const regexCache = new Map<string, RegExp>()
+
+function getMatchedUrl(service: string, originalLink: string, result: EmbedResult): EmbedResult {
+  const link = EmbedServiceLink[service]
+  const linkRule = link.linkRule
+
+  for (const rule of linkRule) {
+    let regex = regexCache.get(rule)
+    if (!regex) {
+      regex = new RegExp(rule)
+      regexCache.set(rule, regex)
+    }
+
+    const match = originalLink.match(regex)
+    if (match?.[0]) {
+      result.validLink = true
+      result.matchedUrl = match[0]
+      return result
+    }
+  }
+
+  return result
 }
 
 function getYoutubeSrc(originalLink, result) {
@@ -248,10 +309,18 @@ function getModaoSrc(originalLink, result) {
   return result
 }
 
-function getLanhuSrc(originalLink, result) {
-  result.src = result.matchedUrl
-  result.validId = true
-  result.originalLink = result.src
+function getLanhuSrc(originalLink: string, result: EmbedResult): EmbedResult {
+  // 从URL中提取项目ID
+  const pidMatch = originalLink.match(/pid=([\w-]+)/)
+  if (pidMatch && pidMatch[1]) {
+    // 构建嵌入式URL
+    result.src = `https://lanhuapp.com/web/#/item/project/stage?pid=${pidMatch[1]}&type=share_embed`
+    result.validId = true
+  } else {
+    result.src = originalLink
+    result.validId = true
+  }
+  result.originalLink = originalLink
 
   return result
 }
@@ -305,24 +374,6 @@ function getCommonSrc(originalLink, result) {
   return result
 }
 
-function getMatchedUrl(service, originalLink, result) {
-  let link = EmbedServiceLink[service]
-  let linkRule = link.linkRule
-
-  for (var rule of linkRule) {
-    let regex = new RegExp(rule)
-    let match = originalLink.match(regex)
-    if (match && match.length > 0) {
-      result.validLink = true
-      result.matchedUrl = match[0]
-
-      return result
-    }
-  }
-
-  return result
-}
-
 export function getExampleUrl(service: string) {
   let exampleUrl = ''
   let link = EmbedServiceLink[service]
@@ -332,54 +383,44 @@ export function getExampleUrl(service: string) {
   return exampleUrl
 }
 
-export const getServiceSrc = (service, originalLink) => {
-  let result = {
+// Update getServiceSrc type declaration
+export const getServiceSrc = (service: string, originalLink: string): EmbedResult => {
+  if (!service || !originalLink) {
+    return {
+      validLink: false,
+      validId: false,
+      matchedUrl: '',
+      originalLink: originalLink || '',
+      src: '',
+    }
+  }
+
+  if (!EmbedServiceLink[service]) {
+    console.warn(`Unknown embed service: ${service}`)
+    return {
+      validLink: false,
+      validId: false,
+      matchedUrl: '',
+      originalLink,
+      src: '',
+    }
+  }
+
+  let result: EmbedResult = {
     validLink: false,
     validId: false,
     matchedUrl: '',
-    originalLink: originalLink,
+    originalLink,
     src: '',
   }
 
-  // matched url
+  // Match URL pattern
   result = getMatchedUrl(service, originalLink, result)
   if (!result.validLink) {
     return result
   }
 
-  // src
-  switch (service) {
-    case 'youtube':
-      return getYoutubeSrc(originalLink, result)
-    case 'youku':
-      return getYoukuSrc(originalLink, result)
-    case 'bilibili':
-      return getBilibiliSrc(originalLink, result)
-    case 'qqvideo':
-      return getQQVideoSrc(originalLink, result)
-    case 'amap':
-      return getAMapSrc(originalLink, result)
-    case 'baidu_map':
-      return getBaiduMapSrc(originalLink, result)
-    case 'google_map':
-      return getGoogleMapSrc(originalLink, result)
-    case 'modao':
-      return getModaoSrc(originalLink, result)
-    case 'lanhu':
-      return getLanhuSrc(originalLink, result)
-    case 'figma':
-      return getFigmaSrc(originalLink, result)
-    case 'canva':
-      return getCanvaSrc(originalLink, result)
-    case 'processon':
-      return getProcessonSrc(originalLink, result)
-    case 'codepen':
-      return getCodepenSrc(originalLink, result)
-    case 'jinshuju':
-      return getJinshujuSrc(originalLink, result)
-    case 'iframe':
-      return getCommonSrc(originalLink, result)
-  }
-
-  return result
+  // Get corresponding handler function
+  const handler = serviceHandlers.get(service) || getCommonSrc
+  return handler(originalLink, result)
 }
