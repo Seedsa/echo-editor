@@ -69,6 +69,9 @@ const editorConfig = computed<Partial<EditorOptions>>(() => ({
       }
       return false
     }, EDITOR_UPDATE_THROTTLE_WAIT_TIME),
+    attributes: {
+      class: 'EchoContentView',
+    },
   },
   onUpdate: throttle<UpdateHandler>(({ editor }) => {
     const output = getOutput(editor, props.output)

@@ -16,8 +16,7 @@ const getStylesHtml = () => {
       const rules = Array.from(sheet.cssRules || [])
       rules.forEach(rule => {
         if (rule instanceof CSSStyleRule) {
-          // 检查选择器是否包含 .ProseMirror
-          if (rule.selectorText.includes('.ProseMirror')) {
+          if (rule.selectorText.includes('.EchoContentView')) {
             proseMirrorStyles += rule.cssText + '\n'
           }
         }
@@ -32,7 +31,7 @@ const getStylesHtml = () => {
   const styleElements = Array.from(document.querySelectorAll('style'))
   styleElements.forEach(style => {
     const styleContent = style.textContent || ''
-    if (styleContent.includes('.ProseMirror')) {
+    if (styleContent.includes('.EchoContentView')) {
       proseMirrorStyles += styleContent + '\n'
     }
   })
@@ -61,7 +60,7 @@ function generatePrintHTML(content: string): string {
       <style>${getStylesHtml()}</style>
     </head>
     <body class="echo-editor">
-      <div class="tiptap ProseMirror" translate="no" aria-expanded="false">
+      <div class="tiptap EchoContentView" translate="no" aria-expanded="false">
           ${content}
       </div>
     </body>

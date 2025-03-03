@@ -74,7 +74,7 @@ const currentEditorContent = computed(() => {
             id="preview-resize-panel-1"
           >
             <ScrollArea class="h-full w-full rounded-md border p-3 border-none">
-              <div v-html="currentEditorContent" class="ProseMirror" />
+              <div v-html="currentEditorContent" class="EchoContentView" />
             </ScrollArea>
           </ResizablePanel>
           <ResizableHandle

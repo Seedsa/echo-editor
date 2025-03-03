@@ -1,4 +1,10 @@
-.ProseMirror {
+/**
+ * Styles for rich text content rendering
+ * This stylesheet defines the appearance of various elements in the rich text editor's content view,
+ * including typography, headings, lists, blockquotes, code blocks, tables and other formatting elements.
+ */
+
+.EchoContentView {
   /* Typography */
   p {
     @apply leading-relaxed mb-1.5 first:mt-0 last:mb-0;
