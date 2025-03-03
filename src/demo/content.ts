@@ -8,7 +8,7 @@ export const DEMO_CONTENT = {
     },
     {
       type: 'paragraph',
-      attrs: { textAlign: 'start', indent: 0, lineHeight: null },
+      attrs: { textAlign: 'left', indent: 0, lineHeight: null },
       content: [
         { type: 'text', text: 'A modern WYSIWYG AI rich text editor based on ' },
         {
@@ -45,9 +45,9 @@ export const DEMO_CONTENT = {
         { type: 'text', text: ' for Vue.js' },
       ],
     },
-    { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
-    { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
-    { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { textAlign: 'left', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { textAlign: 'left', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { textAlign: 'left', indent: 0, lineHeight: null } },
     {
       type: 'image',
       attrs: {
@@ -58,16 +58,16 @@ export const DEMO_CONTENT = {
         width: 500,
       },
     },
-    { type: 'paragraph', attrs: { textAlign: 'start', indent: 0, lineHeight: null } },
+    { type: 'paragraph', attrs: { textAlign: 'left', indent: 0, lineHeight: null } },
     { type: 'horizontalRule' },
     {
       type: 'heading',
-      attrs: { textAlign: 'start', indent: 0, lineHeight: null, level: 2 },
+      attrs: { textAlign: 'left', indent: 0, lineHeight: null, level: 2 },
       content: [{ type: 'text', text: 'Demo' }],
     },
     {
       type: 'paragraph',
-      attrs: { textAlign: 'start', indent: 0, lineHeight: null },
+      attrs: { textAlign: 'left', indent: 0, lineHeight: null },
       content: [
         { type: 'text', text: '👉' },
         {
@@ -89,7 +89,7 @@ export const DEMO_CONTENT = {
     },
     {
       type: 'heading',
-      attrs: { textAlign: 'start', indent: 0, lineHeight: null, level: 2 },
+      attrs: { textAlign: 'left', indent: 0, lineHeight: null, level: 2 },
       content: [{ type: 'text', text: 'Features' }],
     },
     {
@@ -228,7 +228,7 @@ export const DEMO_CONTENT = {
     },
     {
       type: 'heading',
-      attrs: { textAlign: 'start', indent: 0, lineHeight: null, level: 2 },
+      attrs: { textAlign: 'left', indent: 0, lineHeight: null, level: 2 },
       content: [{ type: 'text', text: 'Installation' }],
     },
     {
