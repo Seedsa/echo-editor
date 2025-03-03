@@ -219,13 +219,25 @@ const toggleWordWrap = () => {
   })
 }
 
+const validateAndUpdateLanguage = (attrs: any) => {
+  const validatedAttrs = { ...attrs }
+  if (validatedAttrs.language && !languages.some(lang => lang.value === validatedAttrs.language)) {
+    validatedAttrs.language = 'plaintext'
+    props.updateAttributes({
+      language: 'plaintext',
+    })
+  }
+  return validatedAttrs
+}
+
 onMounted(() => {
+  const attrs = validateAndUpdateLanguage(props.node.attrs)
   codeEditor.value = createEditor(containerRef.value, {
     readOnly: !props.editor.isEditable,
-    language: props.node.attrs.language || 'plaintext',
-    tabSize: props.node.attrs.tabSize ?? 2,
-    lineNumbers: props.node.attrs.lineNumbers ?? true,
-    wordWrap: props.node.attrs.wordWrap ?? false,
+    language: attrs.language || 'plaintext',
+    tabSize: attrs.tabSize ?? 2,
+    lineNumbers: attrs.lineNumbers ?? true,
+    wordWrap: attrs.wordWrap ?? false,
     value: code.value,
     rtl: false,
     onUpdate(value) {
@@ -266,7 +278,8 @@ watch(
 watch(
   () => [props.node.attrs.language, props.node.attrs.lineNumbers, props.node.attrs.wordWrap, props.node.attrs.tabSize],
   () => {
-    codeEditor.value?.setOptions(props.node.attrs)
+    const attrs = validateAndUpdateLanguage(props.node.attrs)
+    codeEditor.value?.setOptions(attrs)
   }
 )
 </script>
