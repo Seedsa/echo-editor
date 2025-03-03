@@ -180,7 +180,6 @@ import {
 import { ExportWord } from './extensions/ExportWord'
 import OpenAI from 'openai'
 import { DEMO_CONTENT } from './initContent'
-import { createLowlight, common } from 'lowlight'
 import { useColorMode } from './composables/useColorMode'
 import './style.css'
 import 'echo-editor/style.css'
@@ -246,7 +245,7 @@ const extensions = [
   SlashCommand,
   HorizontalRule,
   Fullscreen.configure({ spacer: true }),
-  CodeBlock.configure({ lowlight: createLowlight(common) }),
+  CodeBlock,
   Table,
   Code,
   ExportWord,

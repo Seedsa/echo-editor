@@ -233,7 +233,7 @@ export const DEMO_CONTENT = {
     },
     {
       type: 'codeBlock',
-      attrs: { language: null },
+      attrs: { language: 'bash' },
       content: [
         { type: 'text', text: 'pnpm add echo-editor\n// or\nor yarn add echo-editor\n// or\nor npm i echo-editor -S' },
       ],
@@ -245,7 +245,7 @@ export const DEMO_CONTENT = {
     },
     {
       type: 'codeBlock',
-      attrs: { language: null },
+      attrs: { language: "typescript", },
       content: [
         {
           type: 'text',

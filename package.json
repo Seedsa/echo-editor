@@ -65,7 +65,7 @@
     "LICENSE"
   ],
   "engines": {
-    "node": "^18.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@tiptap/core": "^2.11.5",
@@ -75,8 +75,6 @@
     "@tiptap/extension-bullet-list": "^2.11.5",
     "@tiptap/extension-character-count": "^2.11.5",
     "@tiptap/extension-code": "^2.11.5",
-    "@tiptap/extension-code-block": "^2.11.5",
-    "@tiptap/extension-code-block-lowlight": "^2.11.5",
     "@tiptap/extension-color": "^2.11.5",
     "@tiptap/extension-document": "^2.11.5",
     "@tiptap/extension-dropcursor": "^2.11.5",
@@ -142,6 +140,7 @@
     "lint-staged": "^15.2.2",
     "lodash-unified": "^1.0.3",
     "prettier": "^3.2.5",
+    "prism-code-editor": "^3.4.0",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "1.75.0",
     "tailwind-merge": "^2.6.0",
@@ -153,8 +152,7 @@
     "vite": "^5.2.0",
     "vite-plugin-dts": "^3.9.0",
     "vue": "^3.4.21",
-    "vue-tsc": "^2.0.6",
-    "lowlight": "^3.1.0"
+    "vue-tsc": "^2.0.6"
   },
   "peerDependencies": {
     "vue": ">= 3.0.0"

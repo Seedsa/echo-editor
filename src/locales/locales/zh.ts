@@ -204,6 +204,11 @@ const locale: Record<string, string> = {
   'editor.AI.shortcuts.style.journalism': '新闻',
   'editor.AI.shortcuts.style.medical': '医疗',
   'editor.AI.shortcuts.style.poetic': '诗意的',
+  'editor.codeblock.selectLang': '选择语言',
+  'editor.codeblock.copy': '复制代码',
+  'editor.codeblock.lineNumbers': '显示/隐藏行号',
+  'editor.codeblock.wordWrap': '自动换行',
+  'editor.codeblock.tabSize': '缩进大小',
 }
 
 export default locale

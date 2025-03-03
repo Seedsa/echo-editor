@@ -98,7 +98,7 @@ const menus = computed<ContentTypeMenu[]>(() => {
       label: t.value('editor.codeblock.tooltip'),
       isActive: () => props.editor.isActive('codeBlock'),
       iconName: 'Code2',
-      action: () => props.editor.chain().focus().clearNodes().toggleCodeBlock().focus().run(),
+      action: () => props.editor.chain().focus().clearNodes().setCodeBlock().focus().run(),
     },
   ]
 })

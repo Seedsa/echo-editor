@@ -152,7 +152,6 @@ import {
 } from '../index'
 import { JSONContent } from '../index'
 import { DEMO_CONTENT } from './content'
-import { createLowlight, common } from 'lowlight'
 import OpenAI from 'openai'
 import { useColorMode } from './useColorMode'
 
@@ -209,7 +208,7 @@ const extensions = [
   SlashCommand,
   HorizontalRule,
   Fullscreen.configure({ spacer: true }),
-  CodeBlock.configure({ lowlight: createLowlight(common) }),
+  CodeBlock,
   Table,
   Code,
   AI.configure({
