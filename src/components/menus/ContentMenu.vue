@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { Icon } from '@/components/icons'
-import { DragHandlePlugin } from 'echo-drag-handle-plugin'
+import { DragHandlePlugin } from '@/plugins/DragHandle'
 import { Button } from '@/components/ui/button'
 import { Node } from '@tiptap/pm/model'
 import type { Editor } from '@tiptap/vue-3'
@@ -194,7 +194,7 @@ watch(
       </Button>
       <DropdownMenu v-model:open="menuOpen">
         <DropdownMenuTrigger :disable="disabled">
-          <TooltipProvider>
+          <TooltipProvider :delay-duration="0">
             <Tooltip>
               <TooltipTrigger as-child>
                 <Button variant="ghost" size="icon" class="w-6 h-7 cursor-grab rounded-sm" :disabled="disabled">
