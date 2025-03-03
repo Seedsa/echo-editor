@@ -155,7 +155,7 @@ const menubarMenus = ref<MenuGroup[]>([
       {
         title: 'editor.importWord.tooltip',
         icon: 'Word',
-        disabled: () => !props.editor.isEditable || !props.editor.can().toggleImportWord(),
+        disabled: () => !props.editor.isEditable,
         action: () => {
           props.editor.chain().toggleImportWord().focus().run()
         },
@@ -481,7 +481,7 @@ const isChecked = (checked?: boolean | (() => boolean)) => {
           <MenubarCheckboxItem
             v-else-if="sub.checked && isExtensionLoaded(sub.requiredExtensions)"
             @click="handleClick(sub.action)"
-            :checked="isChecked(sub.checked)"
+            :model-value="isChecked(sub.checked)"
             :disabled="isDisabled(sub.disabled)"
             class="flex gap-3"
           >
