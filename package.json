@@ -1,6 +1,6 @@
 {
   "name": "echo-editor",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "private": false,
   "license": "MIT",
   "description": "A modern AI-powered WYSIWYG rich-text editor for Vue, based on Tiptap and shadcn-vue",
@@ -115,7 +115,8 @@
     "hotkeys-js": "^3.13.7",
     "lucide-vue-next": "^0.477.0",
     "reka-ui": "^2.0.2",
-    "tippy.js": "^6.3.7"
+    "tippy.js": "^6.3.7",
+    "y-prosemirror": "^1.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
