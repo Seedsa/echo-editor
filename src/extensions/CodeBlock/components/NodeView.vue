@@ -85,7 +85,7 @@
             <TooltipTrigger>
               <Select v-model:model-value="node.attrs.tabSize">
                 <SelectTrigger class="w-[60px] border-none outline-none text-sm h-7 hover:bg-[#5a5d5e4f]">
-                  <SelectValue :placeholder="node.attrs?.tabSize.toString() ?? ''" />
+                  <Icon name="IndentIncrease" class="w-4 h-4" />
                 </SelectTrigger>
                 <SelectContent
                   class="bg-[#21252b] text-[#ccc] border-[#3a3f4b]"
