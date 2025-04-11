@@ -5,6 +5,7 @@ import { BubbleMenu, isActive } from '@tiptap/vue-3'
 import ActionButton from '@/components/ActionButton.vue'
 import { ColumnLayout } from '@/extensions/MultiColumn'
 import { getRenderContainer } from '@/utils/getRenderContainer'
+import { useLocale } from '@/locales'
 
 interface Props {
   editor: Editor
@@ -14,6 +15,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 })
+const { t } = useLocale()
 
 const shouldShow = ({ editor }) => {
   return isActive(editor.view.state, 'columns')
@@ -26,16 +28,8 @@ const getReferenceClientRect = () => {
   return rect
 }
 
-const onColumnLeft = () => {
-  props.editor.chain().focus().setLayout(ColumnLayout.SidebarLeft).run()
-}
-
-const onColumnRight = () => {
-  props.editor.chain().focus().setLayout(ColumnLayout.SidebarRight).run()
-}
-
-const onColumnTwo = () => {
-  props.editor.chain().focus().setLayout(ColumnLayout.TwoColumn).run()
+const onDelete = () => {
+  props.editor.chain().focus().deleteNode('columns').run()
 }
 </script>
 
@@ -58,24 +52,10 @@ const onColumnTwo = () => {
     <div class="p-2 bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800">
       <div class="flex gap-1 items-center">
         <ActionButton
-          icon="PanelLeft"
-          tooltip="左侧边栏"
-          :action="onColumnLeft"
+          icon="Trash"
+          :tooltip="t('editor.remove')"
+          :action="onDelete"
           :isActive="() => editor.isActive('columns', { layout: ColumnLayout.SidebarLeft })"
-          :tooltip-options="{ sideOffset: 15 }"
-        />
-        <ActionButton
-          icon="Columns"
-          tooltip="两栏布局"
-          :action="onColumnTwo"
-          :isActive="() => editor.isActive('columns', { layout: ColumnLayout.TwoColumn })"
-          :tooltip-options="{ sideOffset: 15 }"
-        />
-        <ActionButton
-          icon="PanelRight"
-          tooltip="右侧边栏"
-          :action="onColumnRight"
-          :isActive="() => editor.isActive('columns', { layout: ColumnLayout.SidebarRight })"
           :tooltip-options="{ sideOffset: 15 }"
         />
       </div>

@@ -198,6 +198,38 @@ export function renderGroups(editor: Editor) {
               .run()
           },
         },
+        {
+          name: 'three-columns',
+          label: t.value('editor.threeColumns.tooltip'),
+          iconName: 'Columns3',
+          description: 'Add three column content',
+          aliases: ['columns', 'cols', '3cols'],
+          shouldBeHidden: editor => !hasExtension(editor, 'columns') || editor.isActive('columns'),
+          action: ({ editor, range }) => {
+            editor
+              .chain()
+              .deleteRange(range)
+              .setThreeColumns()
+              .focus(editor.state.selection.head - 1)
+              .run()
+          },
+        },
+        {
+          name: 'four-columns',
+          label: t.value('editor.fourColumns.tooltip'),
+          iconName: 'Columns4',
+          description: 'Add four column content',
+          aliases: ['columns', 'cols', '4cols'],
+          shouldBeHidden: editor => !hasExtension(editor, 'columns') || editor.isActive('columns'),
+          action: ({ editor, range }) => {
+            editor
+              .chain()
+              .deleteRange(range)
+              .setFourColumns()
+              .focus(editor.state.selection.head - 1)
+              .run()
+          },
+        },
       ],
     },
   ]
