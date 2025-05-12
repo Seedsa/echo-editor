@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-background">
+  <div class="min-h-screen bg-background echo-editor">
     <header
       class="border-grid w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
     >

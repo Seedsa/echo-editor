@@ -167,7 +167,6 @@ defineExpose({ editor })
   >
     <Preview v-if="hasExtension(editor, 'preview')" :editor="editor" />
     <Printer v-if="hasExtension(editor, 'printer')" :editor="editor" />
-    <FindAndReplace v-if="hasExtension(editor, 'findAndReplace')" :container-ref="contentRef" :editor="editor" />
     <div
       class="relative flex flex-col overflow-hidden"
       :class="{
@@ -177,6 +176,7 @@ defineExpose({ editor })
       <Menubars v-if="!hideMenubar" :editor="editor" :disabled="disabled" />
       <Toolbar v-if="!hideToolbar" :editor="editor" :disabled="disabled" class="border-b py-1 px-1 overflow-hidden" />
       <div class="overflow-hidden relative flex-1">
+        <FindAndReplace v-if="hasExtension(editor, 'findAndReplace')" :container-ref="contentRef" :editor="editor" />
         <editor-content
           ref="contentRef"
           :editor="editor"
