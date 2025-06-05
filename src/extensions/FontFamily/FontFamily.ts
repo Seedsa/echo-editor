@@ -1,5 +1,8 @@
-import type { FontFamilyOptions as TiptapFontFamilyOptions } from '@tiptap/extension-font-family'
-import { FontFamily as TiptapFontFamily } from '@tiptap/extension-font-family'
+import {
+  FontFamilyOptions as TiptapFontFamilyOptions,
+  FontFamily as TiptapFontFamily,
+} from "@tiptap/extension-text-style";
+
 import FontFamilyButton from './components/FontFamilyMenuButton.vue'
 import type { GeneralOptions } from '@/type'
 import { DEFAULT_FONT_FAMILY_MAP } from '@/constants'
@@ -64,7 +67,7 @@ export const FontFamily = TiptapFontFamily.extend<FontFamilyOptions>({
           },
         },
       },
-    ]
+    ];
   },
 
   addCommands() {

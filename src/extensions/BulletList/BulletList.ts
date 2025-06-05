@@ -1,5 +1,8 @@
-import type { BulletListOptions as TiptapBulletListOptions } from '@tiptap/extension-bullet-list'
-import { BulletList as TiptapBulletList } from '@tiptap/extension-bullet-list'
+import {
+  BulletListOptions as TiptapBulletListOptions,
+  BulletList as TiptapBulletList,
+} from "@tiptap/extension-list";
+
 import BulletListMenuButton from './components/BulletListMenuButton.vue'
 import type { GeneralOptions } from '@/type'
 

@@ -1,5 +1,7 @@
-import type { OrderedListOptions as TiptapOrderedListOptions } from '@tiptap/extension-ordered-list'
-import { OrderedList as TiptapOrderedList } from '@tiptap/extension-ordered-list'
+import {
+  OrderedListOptions as TiptapOrderedListOptions,
+  OrderedList as TiptapOrderedList,
+} from "@tiptap/extension-list";
 
 import OrderedListMenuButton from './components/OrderedListMenuButton.vue'
 

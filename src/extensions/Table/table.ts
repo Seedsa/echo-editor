@@ -1,13 +1,12 @@
-import TiptapTable from '@tiptap/extension-table'
-
-import { TableRow } from '@tiptap/extension-table-row'
-import type { TableRowOptions } from '@tiptap/extension-table-row'
-
-import { TableCell } from '@tiptap/extension-table-cell'
-import type { TableCellOptions } from '@tiptap/extension-table-cell'
-
-import { TableHeader } from '@tiptap/extension-table-header'
-import type { TableHeaderOptions } from '@tiptap/extension-table-header'
+import {
+  Table as TiptapTable,
+  TableRow,
+  TableRowOptions,
+  TableCell,
+  TableCellOptions,
+  TableHeader,
+  TableHeaderOptions,
+} from "@tiptap/extension-table";
 
 import { TableCellBackground } from './cell-background'
 import type { TableCellBackgroundOptions } from './cell-background'

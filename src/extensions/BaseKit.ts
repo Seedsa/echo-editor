@@ -1,24 +1,26 @@
+import { TextStyleOptions, TextStyle } from "@tiptap/extension-text-style";
+import { ListItemOptions, ListItem } from "@tiptap/extension-list";
+
+import {
+  CharacterCountOptions,
+  CharacterCount,
+  DropcursorOptions,
+  Dropcursor,
+  FocusOptions,
+  Focus,
+  Gapcursor,
+  PlaceholderOptions,
+  Placeholder,
+} from "@tiptap/extensions";
+
 import type { AnyExtension } from '@tiptap/core'
 import { Extension } from '@tiptap/core'
-import type { CharacterCountOptions } from '@tiptap/extension-character-count'
-import { CharacterCount } from '@tiptap/extension-character-count'
 import { Document } from './Document'
-import type { DropcursorOptions } from '@tiptap/extension-dropcursor'
-import { Dropcursor } from '@tiptap/extension-dropcursor'
-import type { FocusOptions } from '@tiptap/extension-focus'
-import Focus from '@tiptap/extension-focus'
-import { Gapcursor } from '@tiptap/extension-gapcursor'
 import type { HardBreakOptions } from '@tiptap/extension-hard-break'
 import { HardBreak } from '@tiptap/extension-hard-break'
-import type { ListItemOptions } from '@tiptap/extension-list-item'
-import { ListItem } from '@tiptap/extension-list-item'
 import type { ParagraphOptions } from '@tiptap/extension-paragraph'
 import { Paragraph } from '@tiptap/extension-paragraph'
-import type { PlaceholderOptions } from '@tiptap/extension-placeholder'
-import { Placeholder } from '@tiptap/extension-placeholder'
 import { Text } from '@tiptap/extension-text'
-import type { TextStyleOptions } from '@tiptap/extension-text-style'
-import { TextStyle } from '@tiptap/extension-text-style'
 import { useLocale } from '@/locales'
 import { TrailingNode } from './TrailingNode/TrailingNode'
 import { Selection } from './Selection/Selection'
