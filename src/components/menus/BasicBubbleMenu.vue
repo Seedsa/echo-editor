@@ -4,7 +4,7 @@ import type { NodeSelection } from '@tiptap/pm/state'
 import { TextSelection } from '@tiptap/pm/state'
 import { Separator } from '@/components/ui/separator'
 import type { Editor, Extension } from '@tiptap/vue-3'
-import { BubbleMenu } from '@tiptap/vue-3'
+import { BubbleMenu } from '@tiptap/vue-3/menus'
 import type { BaseKitOptions } from '@/extensions/BaseKit'
 import type { BubbleTypeMenu } from './BasicBubble'
 import { useLocale } from '@/locales'
@@ -22,12 +22,6 @@ const props = withDefaults(defineProps<Props>(), {
 const store = useTiptapStore()
 
 const { t } = useLocale()
-const tippyOptions = reactive<Record<string, unknown>>({
-  maxWidth: 'auto',
-  zIndex: 20,
-  appendTo: 'parent',
-  moveTransition: 'transform 0.15s ease-out',
-})
 
 const nodeType = computed(() => {
   const selection = props.editor.state.selection as NodeSelection
@@ -62,9 +56,19 @@ const items = computed(() => {
   if (!nodeType.value) return []
   return unref(nodeMenus)?.[nodeType.value] ?? []
 })
+const shouldShow = ({ editor }) => {
+  return items.value.length && !store?.state.AIMenu
+}
 </script>
 <template>
-  <BubbleMenu v-show="items.length && !store?.state.AIMenu" :editor="editor" :tippy-options="tippyOptions">
+  <BubbleMenu
+    :should-show="shouldShow"
+    :editor="editor"
+    :options="{
+      autoPlacement: true,
+    }"
+    class="z-20 bg-red-500 transition-all duration-300"
+  >
     <div
       class="border border-neutral-200 dark:border-neutral-800 px-3 py-2 transition-all select-none pointer-events-auto shadow-sm rounded-sm bg-background w-auto max-w-[calc(-68px_+_100vw)] overflow-x-auto"
     >
@@ -80,7 +84,7 @@ const items = computed(() => {
             :editor="editor"
             :disabled="disabled || item.componentProps?.disabled"
           >
-            <template v-for="(element, slotName, i) in item.componentSlots" :key="i" #[`${slotName}`]="values">
+            <template v-for="(element, slotName) in item.componentSlots" :key="slotName" #[`${slotName}`]="values">
               <component :is="element" v-bind="values?.props" />
             </template>
           </component>

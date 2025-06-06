@@ -1,16 +1,15 @@
-import { HistoryOptions as TiptapHistoryOptions, History as TiptapHistory } from "@tiptap/extensions";
+import type { UndoRedoOptions as TipTapUndoRedoOptions } from '@tiptap/extensions'
+import { UndoRedo as TiptapUndoRedo } from "@tiptap/extensions";
 
 import ActionButton from '@/components/ActionButton.vue'
-
 import type { GeneralOptions } from '@/type'
 
-export interface HistoryOptions extends TiptapHistoryOptions, GeneralOptions<HistoryOptions> { }
+export interface UndoRedoOptions extends TipTapUndoRedoOptions, GeneralOptions<UndoRedoOptions> { }
 
-export const History = TiptapHistory.extend<HistoryOptions>({
+export const History = TiptapUndoRedo.extend<UndoRedoOptions>({
   addOptions() {
     return {
-      ...this.parent?.(),
-      depth: 10,
+      ...this.parent!(),
       button: ({ editor, t }) => {
         const historys: ['undo', 'redo'] = ['undo', 'redo']
         return historys.map(item => ({

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import type { Editor } from '@tiptap/vue-3'
-import { BubbleMenu, isActive } from '@tiptap/vue-3'
-import { Instance, sticky } from 'tippy.js'
+import { isActive, type Editor } from '@tiptap/vue-3'
+import { BubbleMenu } from '@tiptap/vue-3/menus'
 import { getRenderContainer } from '@/utils/getRenderContainer'
 import { useLocale } from '@/locales'
 import { deleteSelection } from '@tiptap/pm/commands'
@@ -121,23 +120,7 @@ function handleRemove() {
 }
 </script>
 <template>
-  <BubbleMenu
-    :editor="editor"
-    pluginKey="image-menus-123"
-    :shouldShow="shouldShow"
-    :updateDelay="0"
-    :tippy-options="{
-      offset: [0, 8],
-      zIndex: 10,
-      popperOptions: {
-        modifiers: [{ name: 'flip', enabled: false }],
-      },
-      appendTo: 'parent',
-      getReferenceClientRect: getReferenceClientRect.value,
-      plugins: [sticky],
-      sticky: 'popper',
-    }"
-  >
+  <BubbleMenu :editor="editor" pluginKey="image-menus-123" :shouldShow="shouldShow" :updateDelay="0">
     <div
       class="border border-neutral-200 dark:border-neutral-800 px-3 py-2 transition-all select-none pointer-events-auto shadow-sm rounded-sm w-auto bg-background"
     >

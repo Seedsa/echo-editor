@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { sticky } from 'tippy.js'
-import type { Editor } from '@tiptap/vue-3'
-import { BubbleMenu, isActive } from '@tiptap/vue-3'
+import { isActive, type Editor } from '@tiptap/vue-3'
+import { BubbleMenu } from '@tiptap/vue-3/menus'
 import ActionButton from '@/components/ActionButton.vue'
 import { ColumnLayout } from '@/extensions/MultiColumn'
 import { getRenderContainer } from '@/utils/getRenderContainer'
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
 const { t } = useLocale()
 
 const shouldShow = ({ editor }) => {
-  return isActive(editor.view.state, 'columns')
+  return editor.isActive('columns')
 }
 // 获取参考元素的位置
 const getReferenceClientRect = () => {

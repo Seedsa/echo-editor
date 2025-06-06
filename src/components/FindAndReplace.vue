@@ -38,6 +38,7 @@ const updateSearchReplace = (clearIndex: boolean = false) => {
   props.editor.commands.setReplaceTerm(replaceTerm.value)
   props.editor.commands.setCaseSensitive(caseSensitive.value)
 }
+
 const goToSelection = () => {
   if (!props.editor) return
   const { results, resultIndex } = props.editor.storage.findAndReplace

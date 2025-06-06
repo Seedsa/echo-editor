@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watch, nextTick } from 'vue'
 import type { Editor } from '@tiptap/vue-3'
-import { BubbleMenu } from '@tiptap/vue-3'
+import { BubbleMenu } from '@tiptap/vue-3/menus'
 import { useLocale } from '@/locales'
 import { useHotkeys, useTiptapStore } from '@/hooks'
 import { Input } from '@/components/ui/input'
@@ -150,9 +150,9 @@ const tippyOptions = reactive<Partial<TippyProps>>({
   },
 })
 
-const shouldShow: any = computed(() => {
+const shouldShow = ({ editor }) => {
   return store?.state.AIMenu
-})
+}
 
 function handleClose() {
   prompt.value = ''
@@ -278,7 +278,13 @@ function handleKey(e) {
     v-show="shouldShow"
     @click="handleOverlayClick"
   >
-    <BubbleMenu pluginKey="AIMenu" :update-delay="0" v-show="shouldShow" :editor="editor" :tippy-options="tippyOptions">
+    <BubbleMenu
+      pluginKey="AIMenu"
+      :update-delay="0"
+      :should-show="shouldShow"
+      :editor="editor"
+      :tippy-options="tippyOptions"
+    >
       <div @keydown="handleKey" class="relative w-[450px] z-[99]" :class="{ 'shake-animation': isShaking }">
         <div
           class="border rounded-sm shadow-sm bg-background"

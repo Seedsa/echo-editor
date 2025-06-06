@@ -25,10 +25,10 @@ importers:
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
       '@tiptap/extension-bullet-list':
         specifier: next
-        version: 3.0.0-beta.6(@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.6(@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-character-count':
         specifier: next
-        version: 3.0.0-beta.5(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.5(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-code':
         specifier: next
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))
@@ -40,16 +40,16 @@ importers:
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-dropcursor':
         specifier: next
-        version: 3.0.0-beta.6(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.6(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-focus':
         specifier: next
-        version: 3.0.0-beta.6(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.6(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-font-family':
         specifier: next
         version: 3.0.0-beta.6(@tiptap/extension-text-style@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6)))
       '@tiptap/extension-gapcursor':
         specifier: next
-        version: 3.0.0-beta.6(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.6(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-hard-break':
         specifier: next
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))
@@ -61,7 +61,7 @@ importers:
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-history':
         specifier: next
-        version: 3.0.0-beta.6(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.6(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-horizontal-rule':
         specifier: next
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
@@ -75,20 +75,20 @@ importers:
         specifier: next
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
       '@tiptap/extension-list':
-        specifier: 3.0.0-next.4
-        version: 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+        specifier: next
+        version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
       '@tiptap/extension-list-item':
         specifier: next
-        version: 3.0.0-beta.6(@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.6(@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-ordered-list':
         specifier: next
-        version: 3.0.0-beta.6(@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.6(@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-paragraph':
         specifier: next
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-placeholder':
         specifier: next
-        version: 3.0.0-beta.6(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.6(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-strike':
         specifier: next
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))
@@ -112,10 +112,10 @@ importers:
         version: 3.0.0-beta.6(@tiptap/extension-table@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-task-item':
         specifier: next
-        version: 3.0.0-beta.5(@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.5(@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-task-list':
         specifier: next
-        version: 3.0.0-beta.5(@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
+        version: 3.0.0-beta.5(@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extension-text':
         specifier: next
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))
@@ -129,8 +129,8 @@ importers:
         specifier: next
         version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))
       '@tiptap/extensions':
-        specifier: 3.0.0-next.4
-        version: 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+        specifier: next
+        version: 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
       '@tiptap/pm':
         specifier: next
         version: 3.0.0-beta.6
@@ -928,11 +928,11 @@ packages:
     peerDependencies:
       '@tiptap/extension-list': 3.0.0-beta.6
 
-  '@tiptap/extension-list@3.0.0-next.4':
-    resolution: {integrity: sha512-Ok4EfSb9uQLSW0NC2k7nwDXJYYH476m7EhTrm++wHlW/+HGty4fCIUGKk+zPSa+KyBN+noeLCch87npzdALsRA==}
+  '@tiptap/extension-list@3.0.0-beta.6':
+    resolution: {integrity: sha512-fv4UmN4wch3FhKOZUrKItmG4EBoT3iiiIO2pbdRtjbOJJ+zOcWkMENit2GtcFGKIjgD3XEOF06yMHAfMKwseWw==}
     peerDependencies:
-      '@tiptap/core': ^3.0.0-next.4
-      '@tiptap/pm': ^3.0.0-next.4
+      '@tiptap/core': 3.0.0-beta.6
+      '@tiptap/pm': 3.0.0-beta.6
 
   '@tiptap/extension-ordered-list@3.0.0-beta.6':
     resolution: {integrity: sha512-Du/a4JQ900JW7qF4sWIeCYHPnWjArZrGD/hX+8Nze5CeeYi9haB2cviEpAE3rXVFhhTSbvoUENNovJApgxJZ9g==}
@@ -1017,11 +1017,11 @@ packages:
     peerDependencies:
       '@tiptap/core': 3.0.0-beta.6
 
-  '@tiptap/extensions@3.0.0-next.4':
-    resolution: {integrity: sha512-3sfgF/GwBFlagh+PYsFT4OoSypqYNVkTCzjl1opkiXCKwaFSukzjUGOIJZjyQ/xgLE5eaNtwdAF5H320CZs84w==}
+  '@tiptap/extensions@3.0.0-beta.6':
+    resolution: {integrity: sha512-syBewTiKmFwzsUn0Pu/Ktss276paw0ZnUCcw67HvMkZECA18usg525TYt/SVuaiZ5DleNcvrkBOkTqvLcMVQ+w==}
     peerDependencies:
-      '@tiptap/core': ^3.0.0-next.3
-      '@tiptap/pm': ^3.0.0-next.3
+      '@tiptap/core': 3.0.0-beta.6
+      '@tiptap/pm': 3.0.0-beta.6
 
   '@tiptap/pm@3.0.0-beta.6':
     resolution: {integrity: sha512-0df/6qDZPXvycR2V9PM51tkKpJyZJX+SzKSEWLPNpboOvZae5cG2dIWbhF2OAypT5uz5aY16MZIDldd5On1bfg==}
@@ -4488,13 +4488,13 @@ snapshots:
       '@tiptap/core': 3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6)
       '@tiptap/pm': 3.0.0-beta.6
 
-  '@tiptap/extension-bullet-list@3.0.0-beta.6(@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-bullet-list@3.0.0-beta.6(@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extension-list': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extension-list': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
-  '@tiptap/extension-character-count@3.0.0-beta.5(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-character-count@3.0.0-beta.5(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extensions': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extensions': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
   '@tiptap/extension-code@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
@@ -4508,9 +4508,9 @@ snapshots:
     dependencies:
       '@tiptap/core': 3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6)
 
-  '@tiptap/extension-dropcursor@3.0.0-beta.6(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-dropcursor@3.0.0-beta.6(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extensions': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extensions': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
   '@tiptap/extension-floating-menu@3.0.0-beta.6(@floating-ui/dom@1.7.1)(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)':
     dependencies:
@@ -4519,17 +4519,17 @@ snapshots:
       '@tiptap/pm': 3.0.0-beta.6
     optional: true
 
-  '@tiptap/extension-focus@3.0.0-beta.6(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-focus@3.0.0-beta.6(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extensions': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extensions': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
   '@tiptap/extension-font-family@3.0.0-beta.6(@tiptap/extension-text-style@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6)))':
     dependencies:
       '@tiptap/extension-text-style': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))
 
-  '@tiptap/extension-gapcursor@3.0.0-beta.6(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-gapcursor@3.0.0-beta.6(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extensions': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extensions': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
   '@tiptap/extension-hard-break@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
@@ -4543,9 +4543,9 @@ snapshots:
     dependencies:
       '@tiptap/core': 3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6)
 
-  '@tiptap/extension-history@3.0.0-beta.6(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-history@3.0.0-beta.6(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extensions': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extensions': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
   '@tiptap/extension-horizontal-rule@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)':
     dependencies:
@@ -4566,26 +4566,26 @@ snapshots:
       '@tiptap/pm': 3.0.0-beta.6
       linkifyjs: 4.2.0
 
-  '@tiptap/extension-list-item@3.0.0-beta.6(@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-list-item@3.0.0-beta.6(@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extension-list': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extension-list': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
-  '@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)':
+  '@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)':
     dependencies:
       '@tiptap/core': 3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6)
       '@tiptap/pm': 3.0.0-beta.6
 
-  '@tiptap/extension-ordered-list@3.0.0-beta.6(@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-ordered-list@3.0.0-beta.6(@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extension-list': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extension-list': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
   '@tiptap/extension-paragraph@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
       '@tiptap/core': 3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6)
 
-  '@tiptap/extension-placeholder@3.0.0-beta.6(@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-placeholder@3.0.0-beta.6(@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extensions': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extensions': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
   '@tiptap/extension-strike@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
@@ -4618,13 +4618,13 @@ snapshots:
       '@tiptap/core': 3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6)
       '@tiptap/pm': 3.0.0-beta.6
 
-  '@tiptap/extension-task-item@3.0.0-beta.5(@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-task-item@3.0.0-beta.5(@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extension-list': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extension-list': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
-  '@tiptap/extension-task-list@3.0.0-beta.5(@tiptap/extension-list@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
+  '@tiptap/extension-task-list@3.0.0-beta.5(@tiptap/extension-list@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
-      '@tiptap/extension-list': 3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
+      '@tiptap/extension-list': 3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)
 
   '@tiptap/extension-text-align@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))':
     dependencies:
@@ -4642,7 +4642,7 @@ snapshots:
     dependencies:
       '@tiptap/core': 3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6)
 
-  '@tiptap/extensions@3.0.0-next.4(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)':
+  '@tiptap/extensions@3.0.0-beta.6(@tiptap/core@3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6))(@tiptap/pm@3.0.0-beta.6)':
     dependencies:
       '@tiptap/core': 3.0.0-beta.6(@tiptap/pm@3.0.0-beta.6)
       '@tiptap/pm': 3.0.0-beta.6

@@ -135,7 +135,7 @@ watch(
   val => {
     if (!editor || isEqual(getOutput(editor, props.output), val)) return
     const { from, to } = editor.state.selection
-    editor.commands.setContent(val, false)
+    editor.commands.setContent(val)
     editor.commands.setTextSelection({ from, to })
   },
   { deep: true }

@@ -13,15 +13,17 @@ import type { TableCellBackgroundOptions } from './cell-background'
 import { Table } from './table'
 import type { TableOptions } from './table'
 
+export type {
+  TableCellOptions,
+  TableRowOptions,
+  TableHeaderOptions,
+}
 export {
   Table,
   TableOptions,
   TableCell,
-  TableCellOptions,
   TableRow,
-  TableRowOptions,
   TableHeader,
-  TableHeaderOptions,
   TableCellBackground,
   TableCellBackgroundOptions,
 }

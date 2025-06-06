@@ -46,9 +46,9 @@ export type ExtensionNameKeys =
  */
 export interface GeneralOptions<T> {
   /** Enabled divider */
-  divider: boolean
+  divider?: boolean
   /** Enabled spacer */
-  spacer: boolean
+  spacer?: boolean
   /** Button view function */
   button: ButtonView<T>
   /** Show on Toolbar */
