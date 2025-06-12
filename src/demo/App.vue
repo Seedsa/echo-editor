@@ -91,9 +91,15 @@
         >
           English
         </button>
+        <button
+          class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          @click="disabled = !disabled"
+        >
+          {{ disabled ? 'Editable' : 'Readonly' }}
+        </button>
       </div>
       <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
-        <EchoEditor :extensions="extensions" v-model="content" :maxHeight="512" output="html" />
+        <EchoEditor :extensions="extensions" :disabled="disabled" v-model="content" :maxHeight="512" output="html" />
       </div>
       <div class="mt-6 rounded-lg border bg-muted p-4">
         <h3 class="mb-2 text-sm font-medium">HTML Output</h3>
@@ -157,6 +163,7 @@ import { useColorMode } from './useColorMode'
 
 const content = ref<string | JSONContent>(DEMO_CONTENT)
 const colorMode = useColorMode()
+const disabled = ref<boolean>(false)
 
 const extensions = [
   BaseKit.configure({

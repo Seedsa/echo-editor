@@ -47,7 +47,7 @@ const props = withDefaults(defineProps<EchoEditorProps>(), {
 const emit = defineEmits<EchoEditorEmits>()
 
 const attrs = useAttrs()
-const { state, isFullscreen } = useTiptapStore()
+const { state, isFullscreen, setDisabled } = useTiptapStore()
 
 const { t } = useLocale()
 const isDark = useDark()
@@ -143,7 +143,10 @@ watch(
 
 watch(
   () => props.disabled,
-  val => editor?.setEditable(!val)
+  val => {
+    editor?.setEditable(!val)
+    setDisabled(val)
+  }
 )
 
 onUnmounted(() => {

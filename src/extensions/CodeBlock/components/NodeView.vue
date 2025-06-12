@@ -163,6 +163,7 @@ import { matchTags } from 'prism-code-editor/match-tags'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useLocale } from '@/locales'
+import { useTiptapStore } from '@/hooks'
 
 const props = defineProps(nodeViewProps)
 
@@ -170,6 +171,7 @@ const { t } = useLocale()
 
 const containerRef = ref(null)
 
+const { state } = useTiptapStore()
 const code = ref(props.node.attrs.code || props.node.textContent || '')
 let codeEditor = ref<PrismEditor | null>(null)
 
@@ -233,7 +235,7 @@ const validateAndUpdateLanguage = (attrs: any) => {
 onMounted(() => {
   const attrs = validateAndUpdateLanguage(props.node.attrs)
   codeEditor.value = createEditor(containerRef.value, {
-    readOnly: !props.editor.isEditable,
+    readOnly: state.disabled,
     language: attrs.language || 'plaintext',
     tabSize: attrs.tabSize ?? 2,
     lineNumbers: attrs.lineNumbers ?? true,
@@ -268,7 +270,7 @@ onBeforeUnmount(() => {
 })
 
 watch(
-  () => props.editor.isEditable,
+  () => state.disabled,
   (val: boolean) => {
     codeEditor.value?.setOptions({
       readOnly: val,

@@ -49,6 +49,8 @@ interface Instance {
   findAndReplace: boolean
   /** Printer */
   printer: boolean
+  /** Disabled */
+  disabled: boolean
 }
 
 export const useTiptapStore = createGlobalState(() => {
@@ -65,6 +67,7 @@ export const useTiptapStore = createGlobalState(() => {
     spellCheck: false,
     findAndReplace: false,
     printer: false,
+    disabled: false,
   })
 
   const isFullscreen = computed(() => state.isFullscreen)
@@ -85,6 +88,9 @@ export const useTiptapStore = createGlobalState(() => {
   function togglePrinter() {
     state.printer = !state.printer
   }
+  function setDisabled(disabled: boolean) {
+    state.disabled = disabled
+  }
 
   watchEffect(() => {
     state.extensions = _state.extensions
@@ -99,5 +105,6 @@ export const useTiptapStore = createGlobalState(() => {
     toggleSpellCheck,
     toggleFindAndReplace,
     togglePrinter,
+    setDisabled,
   }
 })
