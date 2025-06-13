@@ -97,9 +97,24 @@
         >
           {{ disabled ? 'Editable' : 'Readonly' }}
         </button>
+        <button
+          class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          @click="toggleMinimal"
+        >
+          {{ minimal ? 'Full' : 'Minimal' }}
+        </button>
       </div>
       <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
-        <EchoEditor :extensions="extensions" :disabled="disabled" v-model="content" :maxHeight="512" output="html" />
+        <EchoEditor
+          ref="editor"
+          :key="minimal ? 'minimal' : 'full'"
+          :hideMenubar="minimal"
+          :extensions="extensions"
+          :disabled="disabled"
+          v-model="content"
+          :maxHeight="512"
+          output="html"
+        />
       </div>
       <div class="mt-6 rounded-lg border bg-muted p-4">
         <h3 class="mb-2 text-sm font-medium">HTML Output</h3>
@@ -112,7 +127,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import {
   Bold,
   BulletList,
@@ -164,8 +179,34 @@ import { useColorMode } from './useColorMode'
 const content = ref<string | JSONContent>(DEMO_CONTENT)
 const colorMode = useColorMode()
 const disabled = ref<boolean>(false)
+const minimal = ref(false)
+const editor = ref()
 
-const extensions = [
+const minimalExtensions = [
+  BaseKit.configure({
+    characterCount: {
+      limit: 50000,
+    },
+  }),
+  Heading,
+  Bold.configure({ spacer: true }),
+  Italic,
+  Underline,
+  HorizontalRule,
+  TextAlign.configure({ types: ['heading', 'paragraph', 'image'], spacer: true }),
+  Image,
+  Blockquote.configure({ spacer: true }),
+  Code,
+  Link,
+  Color,
+  TaskList.configure({ spacer: true }),
+  OrderedList,
+  BulletList,
+]
+
+const extensions = computed(() => (minimal.value ? minimalExtensions : fullExtensions))
+
+const fullExtensions = [
   BaseKit.configure({
     characterCount: {
       limit: 50000,
@@ -242,6 +283,10 @@ const extensions = [
   Preview,
   Iframe,
 ]
+
+function toggleMinimal() {
+  minimal.value = !minimal.value
+}
 
 async function handleFileUpload(files: File[]) {
   const f = files.map(file => ({

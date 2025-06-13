@@ -93,6 +93,12 @@
         </button>
         <button
           class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          @click="toggleMinimal"
+        >
+          {{ minimal ? 'Full' : 'Minimal' }}
+        </button>
+        <button
+          class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
           @click="hideToolbar = !hideToolbar"
         >
           {{ !hideToolbar ? 'Hide Toolbar' : 'Show Toolbar' }}
@@ -115,7 +121,8 @@
           v-model="content"
           :extensions="extensions"
           :hideToolbar="hideToolbar"
-          :hideMenubar="hideMenubar"
+          :hideMenubar="hideMenubar || minimal"
+          :key="minimal ? 'minimal' : 'full'"
           :disabled="disabled"
           :maxHeight="512"
           output="html"
@@ -133,7 +140,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import {
   Bold,
   BulletList,
@@ -189,10 +196,34 @@ const theme = ref<string | null>(null)
 const hideToolbar = ref<boolean>(false)
 const hideMenubar = ref<boolean>(false)
 const disabled = ref<boolean>(false)
+const minimal = ref(false)
 
 const colorMode = useColorMode()
 
-const extensions = [
+const extensions = computed(() => (minimal.value ? minimalExtensions : fullExtensions))
+
+const minimalExtensions = [
+  BaseKit.configure({
+    characterCount: {
+      limit: 50000,
+    },
+  }),
+  Heading,
+  Bold.configure({ spacer: true }),
+  Italic,
+  Underline,
+  HorizontalRule,
+  TextAlign.configure({ types: ['heading', 'paragraph', 'image'], spacer: true }),
+  Image,
+  Blockquote.configure({ spacer: true }),
+  Code,
+  Link,
+  Color,
+  TaskList.configure({ spacer: true }),
+  OrderedList,
+  BulletList,
+]
+const fullExtensions = [
   BaseKit.configure({
     placeholder: {
       showOnlyCurrent: true,
@@ -279,6 +310,9 @@ async function handleFileUpload(files: File[]) {
     alt: file.name,
   }))
   return Promise.resolve(f)
+}
+function toggleMinimal() {
+  minimal.value = !minimal.value
 }
 
 /**
