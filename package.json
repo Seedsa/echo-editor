@@ -140,7 +140,7 @@
     "lint-staged": "^15.2.2",
     "lodash-unified": "^1.0.3",
     "prettier": "^3.2.5",
-    "prism-code-editor": "^3.4.0",
+    "prism-code-editor": "^4.0.0",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "1.75.0",
     "tailwind-merge": "^2.6.0",

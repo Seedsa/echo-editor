@@ -47,6 +47,9 @@ export const CodeBlock = Node.create({
       language: {
         default: 'plaintext',
       },
+      theme: {
+        default: 'github-light',
+      },
       lineNumbers: {
         default: true,
       },

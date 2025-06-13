@@ -220,8 +220,8 @@ importers:
         specifier: ^3.2.5
         version: 3.5.2
       prism-code-editor:
-        specifier: ^3.4.0
-        version: 3.4.0
+        specifier: ^4.0.0
+        version: 4.0.0
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.14.0(rollup@4.34.8)
@@ -3261,8 +3261,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  prism-code-editor@3.4.0:
-    resolution: {integrity: sha512-64247B2jxa3RD5zdIOdG/QgiFBX+OIsITBz1BaFPU3gYmCPrxef9wbmFUeh8j7HVAB0IuVU6ildZH+qKla66sg==}
+  prism-code-editor@4.0.0:
+    resolution: {integrity: sha512-N2dU1p18CLbPJu+7a4gdc4KC3Y2JUf6+W42wYfiGjZa7ozgnqtzVuroVXuRnpVaI2CytV6dW0YfhRfCtMUyomA==}
 
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
@@ -7382,7 +7382,7 @@ snapshots:
 
   prettier@3.5.2: {}
 
-  prism-code-editor@3.4.0: {}
+  prism-code-editor@4.0.0: {}
 
   process-nextick-args@2.0.1: {}
 

@@ -205,6 +205,7 @@ const locale: Record<string, string> = {
   'editor.AI.shortcuts.style.medical': 'Medical',
   'editor.AI.shortcuts.style.poetic': 'Poetic',
   'editor.codeblock.selectLang': 'Select Language',
+  'editor.codeblock.selectTheme': 'Select Theme',
   'editor.codeblock.copy': 'Copy Code',
   'editor.codeblock.lineNumbers': 'Toggle Line Numbers',
   'editor.codeblock.wordWrap': 'Toggle Word Wrap',

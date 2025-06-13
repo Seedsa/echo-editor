@@ -1,110 +1,115 @@
 <template>
-  <node-view-wrapper :id="node.attrs.id" class="echo-node-view my-8">
-    <div ref="containerRef" class="echo-node-container echo-hover-shadow echo-select-outline echo-node-code-block">
-      <div v-if="editor.isEditable" class="echo-code-block-toolbar">
-        <TooltipProvider :delay-duration="0">
-          <Tooltip>
-            <TooltipTrigger class="w-[160px]">
-              <Select v-model:model-value="node.attrs.language">
-                <SelectTrigger class="w-[160px] border-none outline-none text-sm h-7 hover:bg-[#5a5d5e4f]">
-                  <SelectValue placeholder="Select language" />
-                </SelectTrigger>
-                <SelectContent
-                  class="bg-[#21252b] text-[#ccc] border-[#3a3f4b]"
-                  @close-auto-focus="e => e.preventDefault()"
+  <node-view-wrapper :id="node.attrs.id" class="echo-node-view my-4">
+    <div
+      ref="containerRef"
+      :class="`relative w-full overflow-hidden rounded-sm outline-1 outline-solid outline-border outline`"
+    >
+      <div
+        v-if="editor.isEditable"
+        class="echo-code-block-toolbar bg-muted text-foreground flex items-center justify-between z-10 p-1 border-b"
+      >
+        <div class="flex items-center gap-2">
+          <TooltipProvider :delay-duration="0">
+            <Tooltip>
+              <TooltipTrigger class="w-[160px]">
+                <Select v-model:model-value="node.attrs.language">
+                  <SelectTrigger class="w-[160px] border-none shadow-none outline-none text-sm h-7">
+                    <SelectValue placeholder="Select language" />
+                  </SelectTrigger>
+                  <SelectContent @close-auto-focus="e => e.preventDefault()">
+                    <SelectItem v-for="lang in languages" :key="lang.value" :value="lang.value">
+                      {{ lang.label }}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </TooltipTrigger>
+              <TooltipContent :side-offset="8">{{ t('editor.codeblock.selectLang') }}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <TooltipProvider :delay-duration="0">
+            <Tooltip>
+              <TooltipTrigger class="w-[160px]">
+                <Select v-model:model-value="node.attrs.theme">
+                  <SelectTrigger class="w-[160px] shadow-none border-none outline-none text-sm h-7">
+                    <SelectValue placeholder="Select Theme" />
+                  </SelectTrigger>
+                  <SelectContent @close-auto-focus="e => e.preventDefault()">
+                    <SelectItem v-for="t in themes" :key="t.value" :value="t.value">
+                      {{ t.label }}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </TooltipTrigger>
+              <TooltipContent :side-offset="8">{{ t('editor.codeblock.selectTheme') }}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+        <div class="flex items-center gap-2">
+          <TooltipProvider :delay-duration="0">
+            <Tooltip>
+              <TooltipTrigger>
+                <div @click="copyCode" class="h-7 w-7 rounded-sm flex justify-center items-center cursor-pointer">
+                  <Icon name="Copy" class="w-4 h-4"></Icon>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent :side-offset="8">{{ t('editor.codeblock.copy') }}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <div class="toolbar-divider"></div>
+
+          <TooltipProvider :delay-duration="0">
+            <Tooltip>
+              <TooltipTrigger>
+                <div
+                  @click="toggleLineNumbers"
+                  class="h-7 w-7 rounded-sm flex justify-center items-center cursor-pointer"
+                  :class="{ 'bg-accent-foreground text-accent': node.attrs.lineNumbers }"
                 >
-                  <SelectItem
-                    class="focus:bg-[#5a5d5e4f] focus:text-[#fff]"
-                    v-for="lang in languages"
-                    :key="lang.value"
-                    :value="lang.value"
-                  >
-                    {{ lang.label }}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </TooltipTrigger>
-            <TooltipContent :side-offset="5">{{ t('editor.codeblock.selectLang') }}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+                  <Icon name="List" class="w-4 h-4"></Icon>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent :side-offset="8">{{ t('editor.codeblock.lineNumbers') }}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
 
-        <div class="toolbar-divider"></div>
+          <div class="toolbar-divider"></div>
 
-        <TooltipProvider :delay-duration="0">
-          <Tooltip>
-            <TooltipTrigger>
-              <div
-                @click="copyCode"
-                class="h-7 w-7 hover:bg-[#5a5d5e4f] rounded-sm flex justify-center items-center cursor-pointer"
-              >
-                <Icon name="Copy" class="w-4 h-4"></Icon>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent :side-offset="5">{{ t('editor.codeblock.copy') }}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-
-        <div class="toolbar-divider"></div>
-
-        <TooltipProvider :delay-duration="0">
-          <Tooltip>
-            <TooltipTrigger>
-              <div
-                @click="toggleLineNumbers"
-                class="h-7 w-7 hover:bg-[#5a5d5e4f] rounded-sm flex justify-center items-center cursor-pointer"
-                :class="{ 'bg-[#5a5d5e4f]': node.attrs.lineNumbers }"
-              >
-                <Icon name="List" class="w-4 h-4"></Icon>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent :side-offset="5">{{ t('editor.codeblock.lineNumbers') }}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-
-        <div class="toolbar-divider"></div>
-
-        <TooltipProvider :delay-duration="0">
-          <Tooltip>
-            <TooltipTrigger>
-              <div
-                @click="toggleWordWrap"
-                class="h-7 w-7 hover:bg-[#5a5d5e4f] rounded-sm flex justify-center items-center cursor-pointer"
-                :class="{ 'bg-[#5a5d5e4f]': node.attrs.wordWrap }"
-              >
-                <Icon name="WrapText" class="w-4 h-4"></Icon>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent :side-offset="5">{{ t('editor.codeblock.wordWrap') }}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-
-        <div class="toolbar-divider"></div>
-
-        <TooltipProvider :delay-duration="0">
-          <Tooltip>
-            <TooltipTrigger>
-              <Select v-model:model-value="node.attrs.tabSize">
-                <SelectTrigger class="w-[60px] border-none outline-none text-sm h-7 hover:bg-[#5a5d5e4f]">
-                  <Icon name="IndentIncrease" class="w-4 h-4" />
-                </SelectTrigger>
-                <SelectContent
-                  class="bg-[#21252b] text-[#ccc] border-[#3a3f4b]"
-                  @close-auto-focus="e => e.preventDefault()"
+          <TooltipProvider :delay-duration="0">
+            <Tooltip>
+              <TooltipTrigger>
+                <div
+                  @click="toggleWordWrap"
+                  class="h-7 w-7 rounded-sm flex justify-center items-center cursor-pointer"
+                  :class="{ 'bg-accent-foreground text-accent': node.attrs.wordWrap }"
                 >
-                  <SelectItem
-                    class="focus:bg-[#5a5d5e4f] focus:text-[#fff]"
-                    v-for="size in tabSizes"
-                    :key="size"
-                    :value="size"
-                  >
-                    {{ size }}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </TooltipTrigger>
-            <TooltipContent :side-offset="5">{{ t('editor.codeblock.tabSize') }}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+                  <Icon name="WrapText" class="w-4 h-4"></Icon>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent :side-offset="8">{{ t('editor.codeblock.wordWrap') }}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <div class="toolbar-divider"></div>
+
+          <TooltipProvider :delay-duration="0">
+            <Tooltip>
+              <TooltipTrigger>
+                <Select v-model:model-value="node.attrs.tabSize">
+                  <SelectTrigger class="w-[60px] border-none outline-none text-sm h-7">
+                    <Icon name="IndentIncrease" class="w-4 h-4" />
+                  </SelectTrigger>
+                  <SelectContent @close-auto-focus="e => e.preventDefault()">
+                    <SelectItem v-for="size in tabSizes" :key="size" :value="size">
+                      {{ size }}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </TooltipTrigger>
+              <TooltipContent :side-offset="8">{{ t('editor.codeblock.tabSize') }}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </div>
     </div>
   </node-view-wrapper>
@@ -151,11 +156,14 @@ import 'prism-code-editor/prism/languages/tsx'
 import 'prism-code-editor/prism/languages/yaml'
 import 'prism-code-editor/prism/languages/regex'
 import 'prism-code-editor/layout.css'
+import { loadTheme } from 'prism-code-editor/themes'
+import { IncludedTheme } from 'prism-code-editor/themes'
 
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import { createEditor, type PrismEditor } from 'prism-code-editor'
 import { defaultCommands, editHistory } from 'prism-code-editor/commands'
 import { cursorPosition } from 'prism-code-editor/cursor'
+
 import { indentGuides } from 'prism-code-editor/guides'
 import { highlightBracketPairs } from 'prism-code-editor/highlight-brackets'
 import { matchBrackets } from 'prism-code-editor/match-brackets'
@@ -193,9 +201,67 @@ const languages = [
   { value: 'bash', label: 'Bash' },
   { value: 'php', label: 'PHP' },
 ]
+const themes: { value: IncludedTheme; label: string }[] = [
+  {
+    label: 'Atom One Dark',
+    value: 'atom-one-dark',
+  },
+  {
+    label: 'Dracula',
+    value: 'dracula',
+  },
+  {
+    label: 'Github Dark',
+    value: 'github-dark',
+  },
+  {
+    label: 'Github Dark Dimmed',
+    value: 'github-dark-dimmed',
+  },
+  {
+    label: 'Github Light',
+    value: 'github-light',
+  },
+  {
+    label: 'Night Owl',
+    value: 'night-owl',
+  },
+  {
+    label: 'Night Owl Light',
+    value: 'night-owl-light',
+  },
+  {
+    label: 'Prism',
+    value: 'prism',
+  },
+  {
+    label: 'PrismOkaidia',
+    value: 'prism-okaidia',
+  },
+  {
+    label: 'PrismSolarizedLight',
+    value: 'prism-solarized-light',
+  },
+  {
+    label: 'PrismTomorrow',
+    value: 'prism-tomorrow',
+  },
+  {
+    label: 'PrismTwilight',
+    value: 'prism-twilight',
+  },
+  {
+    label: 'VSCodeDark',
+    value: 'vs-code-dark',
+  },
+  {
+    label: 'VSCodeLight',
+    value: 'vs-code-light',
+  },
+]
 
 const tabSizes = [2, 4, 8]
-
+const style: any = document.querySelector('style')
 const copyCode = () => {
   if (code.value) {
     navigator.clipboard
@@ -229,11 +295,13 @@ const validateAndUpdateLanguage = (attrs: any) => {
       language: 'plaintext',
     })
   }
+
   return validatedAttrs
 }
 
 onMounted(() => {
   const attrs = validateAndUpdateLanguage(props.node.attrs)
+
   codeEditor.value = createEditor(containerRef.value, {
     readOnly: state.disabled,
     language: attrs.language || 'plaintext',
@@ -255,6 +323,9 @@ onMounted(() => {
     defaultCommands(),
     editHistory()
   )
+  loadTheme(attrs.theme).then(theme => {
+    style.textContent = theme
+  })
 
   if (props.node.attrs.shouldFocus) {
     nextTick(() => {
@@ -278,66 +349,38 @@ watch(
   }
 )
 watch(
-  () => [props.node.attrs.language, props.node.attrs.lineNumbers, props.node.attrs.wordWrap, props.node.attrs.tabSize],
+  () => [
+    props.node.attrs.language,
+    props.node.attrs.theme,
+    props.node.attrs.lineNumbers,
+    props.node.attrs.wordWrap,
+    props.node.attrs.tabSize,
+  ],
   () => {
     const attrs = validateAndUpdateLanguage(props.node.attrs)
     codeEditor.value?.setOptions(attrs)
   }
 )
+
+watch(
+  () => props.node.attrs.theme,
+  (val: string) => {
+    props.updateAttributes({
+      theme: val,
+    })
+    loadTheme(val).then(theme => {
+      style.textContent = theme
+    })
+  }
+)
 </script>
 
 <style lang="scss">
-.echo-node-view {
-  --editor__bg: #292c33;
-  --widget__border: #3a3f4b;
-  --widget__bg: #21252b;
-  --widget__color: #ccc;
-  --widget__color-active: #fff;
-  --widget__color-options: #b2b2b2;
-  --widget__bg-input: #1b1d23;
-  --widget__bg-hover: #5a5d5e4f;
-  --widget__bg-active: #336699;
-  --widget__focus-ring: #5299e0;
-  --search__bg-find: #528bff3d;
-  --widget__bg-error: #5a1d1d;
-  --widget__error-ring: #be1100;
-  --editor__bg-highlight: #99bbff0a;
-  --editor__bg-selection-match: #4a566d66;
-  --editor__line-number: #636d83;
-  --editor__bg-scrollbar: 220, 13%, 41%;
-  --editor__bg-fold: #c5c5c5;
-  --bg-guide-indent: #abb2bf26;
-  --pce-ac-icon-class: #ee9d28;
-  --pce-ac-icon-enum: #ee9d28;
-  --pce-ac-icon-function: #b180d7;
-  --pce-ac-icon-interface: #75beff;
-  --pce-ac-icon-variable: #75beff;
-
-  .echo-node-code-block {
-    width: 100%;
-    outline: solid 1px black;
-    overflow: hidden;
-    border-radius: 4px;
-    position: relative;
-  }
-
-  .echo-code-block-toolbar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    z-index: 10;
-    padding: 4px;
-    background-color: var(--editor__bg);
-    color: var(--widget__color);
-    border-bottom: 1px solid var(--widget__border);
-
-    .toolbar-divider {
-      width: 1px;
-      height: 16px;
-      background-color: var(--widget__border);
-      margin: 0 4px;
-    }
-  }
+.toolbar-divider {
+  @apply bg-gray-400;
+  width: 1px;
+  height: 16px;
+  margin: 0 4px;
 }
 
 .prism-code-editor {
@@ -349,226 +392,5 @@ watch(
   textarea[aria-readonly='true'] {
     caret-color: transparent;
   }
-}
-
-[contenteditable='false'] {
-  .echo-node-code-block {
-    outline: solid 1px var(--echo-content-node-border);
-  }
-}
-
-// atom one dark
-.prism-code-editor {
-  caret-color: #528bff;
-  font-family: 'Fira Code', 'Fira Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-
-  color-scheme: dark;
-}
-
-/* Selection */
-.prism-code-editor textarea::selection {
-  background: #3e4451;
-  color: #0000;
-}
-
-.pce-matches .match {
-  --search__bg-find: #515c6a;
-}
-
-.active-line {
-  --editor__line-number: #abb2bf;
-}
-
-.guide-indents .active {
-  --bg-guide-indent: #abb2c280;
-}
-
-.token.comment,
-.token.prolog,
-.token.cdata {
-  color: #5c6370;
-}
-
-[class*='language-'],
-.token.punctuation,
-.token.attr-equals,
-.language-css .token.property {
-  color: #abb2bf;
-}
-
-.token.keyword,
-.token.token.anchor,
-.token.regex-flags,
-.selector .punctuation,
-.selector .combinator,
-.selector .operator,
-.token.token.arrow {
-  color: #c678dd;
-}
-
-.token.class-name,
-.token.maybe-class-name {
-  color: #e5c07b;
-}
-
-.token.attr-name,
-.token.doctype,
-.selector .class,
-.selector .pseudo-element,
-.selector .pseudo-class,
-.token.regex .escape,
-.token.char-class,
-.token.char-set,
-.token.boolean,
-.token.constant,
-.token.number,
-.token.entity,
-.token.unit,
-.token.atrule,
-.token.keyword-null,
-.token.keyword-undefined {
-  color: #d19a66;
-}
-
-.token.property,
-.token.tag,
-.token.doctype-tag,
-.token.symbol,
-.token.deleted,
-.token.important,
-.token.keyword-this,
-.token.this .token.variable,
-.token.selector,
-.language-css .variable,
-.token.property-access {
-  color: #e06c75;
-}
-
-.token.string,
-.token.char,
-.token.inserted,
-.token.string-property,
-.token.attr-value,
-.token.string.url,
-.token.attr-value > .punctuation,
-.token.code-snippet.code {
-  color: #98c379;
-}
-
-.language-markdown .url > .variable,
-.language-markdown .url > .content,
-.token.function,
-.token.selector .id {
-  color: #61afef;
-}
-
-.token.url,
-.token.regex,
-.language-regex,
-.token.char-class .operator,
-.token.alternation,
-.token.quantifier,
-.token.hexcode,
-.token.keyword-get,
-.token.keyword-set,
-.token.builtin,
-.token.operator {
-  color: #56b6c2;
-}
-
-/* Language overrides */
-
-.language-css .token.important,
-.token.atrule .token.rule,
-.language-markdown .italic {
-  color: #c678dd;
-}
-
-.language-json .token.keyword-null,
-.language-markdown .bold * {
-  color: #d19a66;
-}
-
-.language-markdown .code.keyword,
-.language-json .token.operator,
-.language-markdown .token.url,
-.language-markdown .url > .operator,
-.language-markdown .token.url-reference > .string {
-  color: #abb2bf;
-}
-
-.language-css .function,
-.language-markdown .token.blockquote.punctuation,
-.language-markdown .token.hr.punctuation,
-.language-markdown .token.url > .token.url,
-.language-markdown .token.url-reference.url {
-  color: #56b6c2;
-}
-
-.language-markdown .strike *,
-.language-markdown .token.list.punctuation,
-.language-markdown .token.title.important > .token.punctuation {
-  color: #e06c75;
-}
-
-/* General */
-.token.bold {
-  font-weight: bold;
-}
-
-.token.comment,
-.token.italic {
-  font-style: italic;
-}
-
-.token.namespace {
-  opacity: 0.8;
-}
-
-/* Brackets */
-
-.token.bracket-level-0,
-.token.bracket-level-3,
-.token.bracket-level-6,
-.token.bracket-level-9 {
-  color: #ffd700;
-}
-
-.token.bracket-level-1,
-.token.bracket-level-4,
-.token.bracket-level-7,
-.token.bracket-level-10 {
-  color: #da70d6;
-}
-
-.token.bracket-level-2,
-.token.bracket-level-5,
-.token.bracket-level-8,
-.token.bracket-level-11 {
-  color: #179fff;
-}
-
-.token.interpolation-punctuation {
-  color: #98c379;
-}
-
-.token.bracket-error {
-  color: #ff1212cc;
-}
-
-.token.markup-bracket,
-.token.regex .punctuation {
-  color: inherit;
-}
-
-.active-bracket {
-  box-shadow:
-    inset 0 0 0 1px #888,
-    inset 0 0 0 9in #0064001a;
-}
-
-.active-tagname,
-.word-matches span {
-  background: #575757b8;
 }
 </style>

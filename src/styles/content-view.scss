@@ -87,7 +87,7 @@
   }
 
   [data-type='horizontalRule'] {
-    @apply my-8 py-4;
+    @apply my-4 py-3;
 
     hr {
       @apply border-0 border-t border-black/20 bg-black/80;
@@ -134,7 +134,7 @@
   }
 
   pre {
-    @apply caret-white bg-neutral-700 text-white rounded my-8 p-4 border border-black dark:bg-neutral-900 dark:border-neutral-800;
+    @apply caret-white bg-neutral-700 text-white rounded my-4 p-4 border border-black dark:bg-neutral-900 dark:border-neutral-800;
 
     *::selection {
       @apply bg-white/20;
