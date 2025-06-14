@@ -6,7 +6,7 @@
     >
       <div
         v-if="editor.isEditable"
-        class="echo-code-block-toolbar bg-muted text-foreground flex items-center justify-between z-10 p-1 border-b"
+        class="echo-code-block-toolbar bg-background text-foreground flex items-center justify-between z-10 p-1 border-b"
       >
         <div class="flex items-center gap-2">
           <TooltipProvider :delay-duration="0">
@@ -64,7 +64,7 @@
                 <div
                   @click="toggleLineNumbers"
                   class="h-7 w-7 rounded-sm flex justify-center items-center cursor-pointer"
-                  :class="{ 'bg-accent-foreground text-accent': node.attrs.lineNumbers }"
+                  :class="{ 'bg-accent': node.attrs.lineNumbers }"
                 >
                   <Icon name="List" class="w-4 h-4"></Icon>
                 </div>
@@ -81,7 +81,7 @@
                 <div
                   @click="toggleWordWrap"
                   class="h-7 w-7 rounded-sm flex justify-center items-center cursor-pointer"
-                  :class="{ 'bg-accent-foreground text-accent': node.attrs.wordWrap }"
+                  :class="{ 'bg-accent': node.attrs.wordWrap }"
                 >
                   <Icon name="WrapText" class="w-4 h-4"></Icon>
                 </div>
@@ -119,42 +119,21 @@
 import 'prism-code-editor/prism/languages/bash'
 import 'prism-code-editor/prism/languages/css'
 import 'prism-code-editor/prism/languages/css-extras'
-import 'prism-code-editor/prism/languages/ini'
-import 'prism-code-editor/prism/languages/kotlin'
-import 'prism-code-editor/prism/languages/xml'
 import 'prism-code-editor/prism/languages/markup'
-import 'prism-code-editor/prism/languages/r'
-import 'prism-code-editor/prism/languages/basic'
-import 'prism-code-editor/prism/languages/vbnet'
-import 'prism-code-editor/prism/languages/c'
-import 'prism-code-editor/prism/languages/opencl'
-import 'prism-code-editor/prism/languages/diff'
 import 'prism-code-editor/prism/languages/java'
-import 'prism-code-editor/prism/languages/less'
-import 'prism-code-editor/prism/languages/objectivec'
-import 'prism-code-editor/prism/languages/ruby'
 import 'prism-code-editor/prism/languages/sql'
-import 'prism-code-editor/prism/languages/wasm'
 import 'prism-code-editor/prism/languages/cpp'
 import 'prism-code-editor/prism/languages/go'
 import 'prism-code-editor/prism/languages/javascript'
 import 'prism-code-editor/prism/languages/js-templates'
 import 'prism-code-editor/prism/languages/jsx'
-import 'prism-code-editor/prism/languages/lua'
-import 'prism-code-editor/prism/languages/perl'
 import 'prism-code-editor/prism/languages/python'
 import 'prism-code-editor/prism/languages/rust'
-import 'prism-code-editor/prism/languages/swift'
 import 'prism-code-editor/prism/languages/clike'
-import 'prism-code-editor/prism/languages/csharp'
-import 'prism-code-editor/prism/languages/graphql'
 import 'prism-code-editor/prism/languages/json'
-import 'prism-code-editor/prism/languages/makefile'
-import 'prism-code-editor/prism/languages/scss'
 import 'prism-code-editor/prism/languages/typescript'
 import 'prism-code-editor/prism/languages/tsx'
 import 'prism-code-editor/prism/languages/yaml'
-import 'prism-code-editor/prism/languages/regex'
 import 'prism-code-editor/layout.css'
 import { loadTheme } from 'prism-code-editor/themes'
 import { IncludedTheme } from 'prism-code-editor/themes'
