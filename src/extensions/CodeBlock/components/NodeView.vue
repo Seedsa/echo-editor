@@ -2,7 +2,7 @@
   <node-view-wrapper :id="node.attrs.id" class="echo-node-view my-4">
     <div
       ref="containerRef"
-      :class="`relative w-full overflow-hidden rounded-sm outline-1 outline-solid outline-border outline`"
+      :class="`relative ${isDark ? 'atom-one-dark' : 'vs-code-light'} w-full overflow-hidden rounded-sm outline-1 outline-solid outline-border outline`"
     >
       <div
         v-if="editor.isEditable"
@@ -24,23 +24,6 @@
                 </Select>
               </TooltipTrigger>
               <TooltipContent :side-offset="8">{{ t('editor.codeblock.selectLang') }}</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider :delay-duration="0">
-            <Tooltip>
-              <TooltipTrigger class="w-[160px]">
-                <Select v-model:model-value="node.attrs.theme">
-                  <SelectTrigger class="w-[160px] shadow-none border-none outline-none text-sm h-7">
-                    <SelectValue placeholder="Select Theme" />
-                  </SelectTrigger>
-                  <SelectContent @close-auto-focus="e => e.preventDefault()">
-                    <SelectItem v-for="t in themes" :key="t.value" :value="t.value">
-                      {{ t.label }}
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </TooltipTrigger>
-              <TooltipContent :side-offset="8">{{ t('editor.codeblock.selectTheme') }}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>
@@ -135,8 +118,7 @@ import 'prism-code-editor/prism/languages/typescript'
 import 'prism-code-editor/prism/languages/tsx'
 import 'prism-code-editor/prism/languages/yaml'
 import 'prism-code-editor/layout.css'
-import { loadTheme } from 'prism-code-editor/themes'
-import { IncludedTheme } from 'prism-code-editor/themes'
+import './theme.css'
 
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import { createEditor, type PrismEditor } from 'prism-code-editor'
@@ -151,6 +133,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useLocale } from '@/locales'
 import { useTiptapStore } from '@/hooks'
+import { useTheme } from '@/hooks/useTheme'
 
 const props = defineProps(nodeViewProps)
 
@@ -159,6 +142,7 @@ const { t } = useLocale()
 const containerRef = ref(null)
 
 const { state } = useTiptapStore()
+const { isDark } = useTheme()
 const code = ref(props.node.attrs.code || props.node.textContent || '')
 let codeEditor = ref<PrismEditor | null>(null)
 
@@ -180,67 +164,8 @@ const languages = [
   { value: 'bash', label: 'Bash' },
   { value: 'php', label: 'PHP' },
 ]
-const themes: { value: IncludedTheme; label: string }[] = [
-  {
-    label: 'Atom One Dark',
-    value: 'atom-one-dark',
-  },
-  {
-    label: 'Dracula',
-    value: 'dracula',
-  },
-  {
-    label: 'Github Dark',
-    value: 'github-dark',
-  },
-  {
-    label: 'Github Dark Dimmed',
-    value: 'github-dark-dimmed',
-  },
-  {
-    label: 'Github Light',
-    value: 'github-light',
-  },
-  {
-    label: 'Night Owl',
-    value: 'night-owl',
-  },
-  {
-    label: 'Night Owl Light',
-    value: 'night-owl-light',
-  },
-  {
-    label: 'Prism',
-    value: 'prism',
-  },
-  {
-    label: 'PrismOkaidia',
-    value: 'prism-okaidia',
-  },
-  {
-    label: 'PrismSolarizedLight',
-    value: 'prism-solarized-light',
-  },
-  {
-    label: 'PrismTomorrow',
-    value: 'prism-tomorrow',
-  },
-  {
-    label: 'PrismTwilight',
-    value: 'prism-twilight',
-  },
-  {
-    label: 'VSCodeDark',
-    value: 'vs-code-dark',
-  },
-  {
-    label: 'VSCodeLight',
-    value: 'vs-code-light',
-  },
-]
 
 const tabSizes = [2, 4, 8]
-const style: any = document.querySelector('style')
 const copyCode = () => {
   if (code.value) {
     navigator.clipboard
@@ -280,7 +205,6 @@ const validateAndUpdateLanguage = (attrs: any) => {
 
 onMounted(() => {
   const attrs = validateAndUpdateLanguage(props.node.attrs)
-
   codeEditor.value = createEditor(containerRef.value, {
     readOnly: state.disabled,
     language: attrs.language || 'plaintext',
@@ -302,9 +226,6 @@ onMounted(() => {
     defaultCommands(),
     editHistory()
   )
-  loadTheme(attrs.theme).then(theme => {
-    style.textContent = theme
-  })
 
   if (props.node.attrs.shouldFocus) {
     nextTick(() => {
@@ -328,28 +249,10 @@ watch(
   }
 )
 watch(
-  () => [
-    props.node.attrs.language,
-    props.node.attrs.theme,
-    props.node.attrs.lineNumbers,
-    props.node.attrs.wordWrap,
-    props.node.attrs.tabSize,
-  ],
+  () => [props.node.attrs.language, props.node.attrs.lineNumbers, props.node.attrs.wordWrap, props.node.attrs.tabSize],
   () => {
     const attrs = validateAndUpdateLanguage(props.node.attrs)
     codeEditor.value?.setOptions(attrs)
-  }
-)
-
-watch(
-  () => props.node.attrs.theme,
-  (val: string) => {
-    props.updateAttributes({
-      theme: val,
-    })
-    loadTheme(val).then(theme => {
-      style.textContent = theme
-    })
   }
 )
 </script>
@@ -366,7 +269,7 @@ watch(
   max-height: 560px;
   font-size: 14px;
   textarea {
-    caret-color: var(--echo-color-black);
+    @apply caret-primary;
   }
   textarea[aria-readonly='true'] {
     caret-color: transparent;
