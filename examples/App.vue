@@ -159,7 +159,6 @@ import {
 import { ExportWord } from './extensions/ExportWord'
 import OpenAI from 'openai'
 import { DEMO_CONTENT } from './initContent'
-import { useColorMode } from './composables/useColorMode'
 
 import './style.css'
 import 'echo-editor/style.css'
@@ -170,8 +169,6 @@ const hideToolbar = ref<boolean>(false)
 const hideMenubar = ref<boolean>(false)
 const disabled = ref<boolean>(false)
 const minimal = ref(false)
-
-const colorMode = useColorMode()
 
 const extensions = computed(() => (minimal.value ? minimalExtensions : fullExtensions))
 
