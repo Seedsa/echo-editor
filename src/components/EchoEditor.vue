@@ -7,6 +7,7 @@ import { EDITOR_UPDATE_THROTTLE_WAIT_TIME } from '@/constants'
 import { differenceBy, getCssUnitWithDefault, hasExtension, isEqual, throttle } from '@/utils/utils'
 import { useLocale } from '@/locales'
 import { useTiptapStore } from '@/hooks'
+import { useTheme } from '@/hooks/useTheme'
 import BasicBubbleMenu from './menus/BasicBubbleMenu.vue'
 import LinkBubbleMenu from './menus/LinkBubbleMenu.vue'
 import TableBubbleMenu from './menus/TableBubbleMenu.vue'
@@ -31,6 +32,8 @@ const props = withDefaults(defineProps<EchoEditorProps>(), {
   modelValue: '',
   output: 'html',
   dark: undefined,
+  theme: undefined,
+  radius: undefined,
   disabled: false,
   hideToolbar: false,
   hideMenubar: false,
@@ -52,6 +55,8 @@ const { state, isFullscreen, setDisabled } = useTiptapStore()
 const { t } = useLocale()
 const isDark = useDark()
 const contentRef = ref<HTMLElement | null>(null)
+
+const { setTheme, setBorderRadius } = useTheme()
 
 const sortExtensions = computed<AnyExtension[]>(() =>
   [...state.extensions, ...differenceBy(props.extensions, state.extensions, 'name')].map((k, i) =>
@@ -91,6 +96,23 @@ watch(
   val => {
     if (val !== undefined) {
       isDark.value = val
+    }
+  }
+)
+
+watch(
+  () => props.theme,
+  val => {
+    if (val !== undefined) {
+      setTheme(val)
+    }
+  }
+)
+watch(
+  () => props.radius,
+  val => {
+    if (val !== undefined) {
+      setBorderRadius(val)
     }
   }
 )

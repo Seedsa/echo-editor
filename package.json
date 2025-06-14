@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "vite",
     "examples": "pnpm build:lib && pnpm --dir ./examples run dev",
+    "examples:dev": "pnpm --dir ./examples run dev",
     "build:lib": "vite build",
     "build:examples": "pnpm build:lib && pnpm --dir ./examples run build",
     "preview": "vite preview",

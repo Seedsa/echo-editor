@@ -101,7 +101,11 @@ export const icons = {
   ImageSize: 'fluent:resize-image-24-filled',
   FlipVertical: 'lucide:flip-vertical',
   FlipHorizontal: 'lucide:flip-horizontal',
-  WrapText: 'lucide:wrap-text'
+  WrapText: 'lucide:wrap-text',
+  Check: 'lucide:check',
+  Sun: 'lucide:sun',
+  Moon: 'lucide:moon',
+  Paintbrush: 'lucide:paintbrush'
 }
 
 export default icons

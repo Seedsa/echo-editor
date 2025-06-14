@@ -139,7 +139,7 @@ function handleRemove() {
     }"
   >
     <div
-      class="border border-neutral-200 dark:border-neutral-800 px-3 py-2 transition-all select-none pointer-events-auto shadow-sm rounded-sm w-auto bg-background"
+      class="border px-3 py-2 transition-all select-none pointer-events-auto shadow-sm rounded-sm w-auto bg-background"
     >
       <div class="flex items-center flex-nowrap whitespace-nowrap h-[26px] justify-start relative gap-0.5">
         <ActionButton :tooltip="t('editor.image.menu.flipX')" icon="FlipVertical" :action="handleFlipX" />

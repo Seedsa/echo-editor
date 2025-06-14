@@ -190,7 +190,7 @@ watch(
         class="w-7 h-7 cursor-grab rounded-sm"
         :disabled="disabled"
       >
-        <Icon name="Plus" class="text-lg text-neutral-600 dark:text-neutral-200" />
+        <Icon name="Plus" class="text-lg" />
       </Button>
       <DropdownMenu v-model:open="menuOpen">
         <DropdownMenuTrigger :disable="disabled">
@@ -198,7 +198,7 @@ watch(
             <Tooltip>
               <TooltipTrigger as-child>
                 <Button variant="ghost" size="icon" class="w-6 h-7 cursor-grab rounded-sm" :disabled="disabled">
-                  <Icon name="Grip" class="text-sm dark:text-neutral-200 text-neutral-600" />
+                  <Icon name="Grip" class="text-sm" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>

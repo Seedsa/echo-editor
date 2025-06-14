@@ -66,6 +66,126 @@
 
     --ring: 240 4.9% 83.9%;
   }
+
+  .theme-zinc {
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+  }
+
+  .theme-slate {
+    --primary: 215.4 16.3% 46.9%;
+    --primary-foreground: 210 40% 98%;
+  }
+
+  .theme-stone {
+    --primary: 25 5.3% 44.7%;
+    --primary-foreground: 60 9.1% 97.8%;
+  }
+
+  .theme-gray {
+    --primary: 220 8.9% 46.1%;
+    --primary-foreground: 210 40% 98%;
+  }
+
+  .theme-neutral {
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+  }
+
+  .theme-red {
+    --primary: 0 84.2% 60.2%;
+    --primary-foreground: 0 0% 98%;
+  }
+
+  .theme-rose {
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+  }
+
+  .theme-orange {
+    --primary: 24.6 95% 53.1%;
+    --primary-foreground: 60 9.1% 97.8%;
+  }
+
+  .theme-green {
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+  }
+
+  .theme-blue {
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+  }
+
+  .theme-yellow {
+    --primary: 47.9 95.8% 53.1%;
+    --primary-foreground: 26 83.3% 14.1%;
+  }
+
+  .theme-violet {
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+  }
+
+  .dark .theme-zinc {
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+  }
+
+  .dark .theme-slate {
+    --primary: 210 40% 98%;
+    --primary-foreground: 215.4 16.3% 46.9%;
+  }
+
+  .dark .theme-stone {
+    --primary: 60 9.1% 97.8%;
+    --primary-foreground: 25 5.3% 44.7%;
+  }
+
+  .dark .theme-gray {
+    --primary: 210 40% 98%;
+    --primary-foreground: 220 8.9% 46.1%;
+  }
+
+  .dark .theme-neutral {
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+  }
+
+  .dark .theme-red {
+    --primary: 0 84.2% 60.2%;
+    --primary-foreground: 0 0% 98%;
+  }
+
+  .dark .theme-rose {
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+  }
+
+  .dark .theme-orange {
+    --primary: 20.5 90.2% 48.2%;
+    --primary-foreground: 60 9.1% 97.8%;
+  }
+
+  .dark .theme-green {
+    --primary: 142.1 70.6% 45.3%;
+    --primary-foreground: 144.9 80.4% 10%;
+  }
+
+  .dark .theme-blue {
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+  }
+
+  .dark .theme-yellow {
+    --primary: 47.9 95.8% 53.1%;
+    --primary-foreground: 26 83.3% 14.1%;
+  }
+
+  .dark .theme-violet {
+    --primary: 263.4 70% 50.4%;
+    --primary-foreground: 210 40% 98%;
+  }
 }
 
 @layer base {

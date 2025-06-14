@@ -1,6 +1,7 @@
 import type { Editor as CoreEditor, Extension, JSONContent, AnyExtension } from '@tiptap/core'
 import type { Editor } from '@tiptap/vue-3'
 import { icons } from '@/components/icons'
+import type { Theme, BorderRadius } from '@/constants'
 export type { Editor, JSONContent } from '@tiptap/core'
 
 /**
@@ -131,6 +132,19 @@ export interface EchoEditorProps {
    * @default undefined - follows system
    */
   dark?: boolean
+
+  /**
+   * Theme color
+   * @default 'zinc'
+   */
+  theme?: Theme
+
+
+  /**
+ * Border Radius
+ * @default 0.5
+ */
+  radius?: BorderRadius
 
   /**
    * Make editor readonly

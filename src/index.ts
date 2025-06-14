@@ -17,6 +17,10 @@ export { useEditor } from '@tiptap/vue-3'
 export type * from '@/type'
 export { type Editor as EditorInstance, type JSONContent, } from '@tiptap/core'
 export type { EchoEditorProps, EchoEditorEmits } from './type'
+export type { Theme } from './constants'
+export { useTheme } from './hooks/useTheme'
+export { default as ThemeToggle } from './components/ThemeToggle.vue'
+export { default as ThemePicker } from './components/ThemePicker.vue'
 
 export { EchoEditorPlugin, EchoEditor, ActionButton }
 

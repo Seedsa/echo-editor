@@ -24,9 +24,7 @@ function onEdit() {
 </script>
 
 <template>
-  <div
-    class="flex items-center gap-2 p-2 bg-white rounded-lg dark:bg-black shadow-sm border border-neutral-200 dark:border-neutral-800"
-  >
+  <div class="flex items-center gap-2 p-2 bg-card rounded-lg shadow-sm border">
     <a :href="link" target="_blank" rel="noopener noreferrer" class="text-sm underline break-all">
       {{
         truncate(link, {
