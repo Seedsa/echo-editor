@@ -1,5 +1,5 @@
 import type { Editor, Range } from '@tiptap/core'
-import { icons } from '@/components/icons/icons'
+import { icons } from '@/components/icons/IconMap'
 export interface Group {
   name: string
   title: string

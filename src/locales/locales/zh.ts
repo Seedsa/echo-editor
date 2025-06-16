@@ -212,6 +212,18 @@ const locale: Record<string, string> = {
   'editor.codeblock.lineNumbers': '显示/隐藏行号',
   'editor.codeblock.wordWrap': '自动换行',
   'editor.codeblock.tabSize': '缩进大小',
+  'editor.specialCharacter.tooltip': '特殊符号',
+  'editor.specialCharacter.title': '特殊符号',
+  'editor.specialCharacter.search': '搜索',
+  'editor.specialCharacter.search.placeholder': '搜索符号...',
+  'editor.specialCharacter.categories.all': '全部',
+  'editor.specialCharacter.categories.currency': '货币',
+  'editor.specialCharacter.categories.text': '文本',
+  'editor.specialCharacter.categories.quotations': '引号',
+  'editor.specialCharacter.categories.mathematical': '数学',
+  'editor.specialCharacter.categories.extendedLatin': '扩展拉丁',
+  'editor.specialCharacter.categories.symbols': '符号',
+  'editor.specialCharacter.categories.arrows': '箭头',
 }
 
 export default locale

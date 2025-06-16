@@ -1,4 +1,9 @@
 .echo-editor {
+  @apply rounded-[0.5rem] bg-background shadow outline outline-1 relative outline-border;
+  &.echo-editor-focus {
+    @apply outline-primary;
+  }
+
   .tiptap {
     @apply caret-black dark:caret-white outline-0 px-4 py-2 sm:px-20 sm:py-6;
     min-height: 180px;

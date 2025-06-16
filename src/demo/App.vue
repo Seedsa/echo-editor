@@ -139,6 +139,7 @@ import {
   Code,
   AI,
   Preview,
+  SpecialCharacter,
   EchoEditor,
   Printer,
   Iframe,
@@ -249,6 +250,7 @@ const fullExtensions = [
   ImportWord.configure({
     upload: handleFileUpload,
   }),
+  SpecialCharacter,
   FindAndReplace.configure({ spacer: true }),
   Printer,
   Preview,

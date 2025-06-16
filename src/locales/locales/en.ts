@@ -210,6 +210,18 @@ const locale: Record<string, string> = {
   'editor.codeblock.lineNumbers': 'Toggle Line Numbers',
   'editor.codeblock.wordWrap': 'Toggle Word Wrap',
   'editor.codeblock.tabSize': 'Tab Size',
+  'editor.specialCharacter.tooltip': 'Special Character',
+  'editor.specialCharacter.title': 'Special Character',
+  'editor.specialCharacter.search': 'Search',
+  'editor.specialCharacter.search.placeholder': 'Search characters...',
+  'editor.specialCharacter.categories.all': 'All',
+  'editor.specialCharacter.categories.currency': 'Currency',
+  'editor.specialCharacter.categories.text': 'Text',
+  'editor.specialCharacter.categories.quotations': 'Quotations',
+  'editor.specialCharacter.categories.mathematical': 'Mathematical',
+  'editor.specialCharacter.categories.extendedLatin': 'Extended Latin',
+  'editor.specialCharacter.categories.symbols': 'Symbols',
+  'editor.specialCharacter.categories.arrows': 'Arrows',
 }
 
 export default locale

@@ -155,6 +155,7 @@ import {
   Iframe,
   EchoEditor,
   ThemeToggle,
+  SpecialCharacter,
 } from 'echo-editor'
 import { ExportWord } from './extensions/ExportWord'
 import OpenAI from 'openai'
@@ -269,6 +270,7 @@ const fullExtensions = [
   ImportWord.configure({
     upload: handleFileUpload,
   }),
+  SpecialCharacter,
   FindAndReplace.configure({ spacer: true }),
   Printer,
   Preview,

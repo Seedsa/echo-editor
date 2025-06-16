@@ -42,6 +42,9 @@ interface Instance {
   /** Preview visibility */
   showPreview: boolean
 
+  /** SpecialCharacter */
+  specialCharacter: boolean
+
   /** SpellCheck */
   spellCheck: boolean
 
@@ -64,6 +67,7 @@ export const useTiptapStore = createGlobalState(() => {
     highlight: undefined,
     AIMenu: false,
     showPreview: false,
+    specialCharacter: false,
     spellCheck: false,
     findAndReplace: false,
     printer: false,
@@ -78,6 +82,9 @@ export const useTiptapStore = createGlobalState(() => {
 
   function togglePreview() {
     state.showPreview = !state.showPreview
+  }
+  function toggleSpecialCharacter() {
+    state.specialCharacter = !state.specialCharacter
   }
   function toggleSpellCheck() {
     state.spellCheck = !state.spellCheck
@@ -102,6 +109,7 @@ export const useTiptapStore = createGlobalState(() => {
     isFullscreen,
     toggleFullscreen,
     togglePreview,
+    toggleSpecialCharacter,
     toggleSpellCheck,
     toggleFindAndReplace,
     togglePrinter,
