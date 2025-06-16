@@ -41,9 +41,6 @@ const onDelete = () => {
     :updateDelay="0"
     :tippy-options="{
       offset: [0, 8],
-      popperOptions: {
-        modifiers: [{ name: 'flip', enabled: false }],
-      },
       getReferenceClientRect,
       plugins: [sticky],
       sticky: 'popper',
