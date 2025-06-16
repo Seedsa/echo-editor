@@ -18,7 +18,7 @@ export function renderGroups(editor: Editor) {
           iconName: 'Paragraph',
           shouldBeHidden: editor => !hasExtension(editor, 'heading'),
           action: ({ editor, range }) => {
-            editor.chain().focus().deleteRange(range).setHeading({ level: 1 }).run()
+            editor.chain().focus().deleteRange(range).setParagraph().run()
           },
         },
         {
