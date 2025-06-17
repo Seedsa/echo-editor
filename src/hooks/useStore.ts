@@ -48,6 +48,9 @@ interface Instance {
   /** SpellCheck */
   spellCheck: boolean
 
+  /** SourceCode */
+  sourceCode: boolean
+
   /** FindAndReplace */
   findAndReplace: boolean
   /** Printer */
@@ -66,6 +69,7 @@ export const useTiptapStore = createGlobalState(() => {
     color: undefined,
     highlight: undefined,
     AIMenu: false,
+    sourceCode: false,
     showPreview: false,
     specialCharacter: false,
     spellCheck: false,
@@ -85,6 +89,9 @@ export const useTiptapStore = createGlobalState(() => {
   }
   function toggleSpecialCharacter() {
     state.specialCharacter = !state.specialCharacter
+  }
+  function toggleSourceCode() {
+    state.sourceCode = !state.sourceCode
   }
   function toggleSpellCheck() {
     state.spellCheck = !state.spellCheck
@@ -113,6 +120,7 @@ export const useTiptapStore = createGlobalState(() => {
     toggleSpellCheck,
     toggleFindAndReplace,
     togglePrinter,
+    toggleSourceCode,
     setDisabled,
   }
 })

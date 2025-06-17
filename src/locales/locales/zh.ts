@@ -1,6 +1,7 @@
 const locale: Record<string, string> = {
   'editor.remove': '删除',
   'editor.copy': '复制',
+  'editor.save': '保存',
   'editor.words': '单词',
   'editor.characters': '字符',
   'editor.default': '默认',
@@ -224,6 +225,9 @@ const locale: Record<string, string> = {
   'editor.specialCharacter.categories.extendedLatin': '扩展拉丁',
   'editor.specialCharacter.categories.symbols': '符号',
   'editor.specialCharacter.categories.arrows': '箭头',
+  'editor.sourceCode.tooltip': '源代码',
+  'editor.sourceCode.title': '源代码',
+  'editor.sourceCode.format': '格式化',
 }
 
 export default locale

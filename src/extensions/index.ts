@@ -112,6 +112,10 @@ export { Preview } from './Preview'
 export type { SpecialCharacterOptions } from './SpecialCharacter'
 export { SpecialCharacter } from './SpecialCharacter'
 
+export type { SourceCodeOptions } from './SourceCode'
+export { SourceCode } from './SourceCode'
+
+
 export { FindAndReplace } from './FindAndReplace'
 
 export { Printer } from './Printer'
