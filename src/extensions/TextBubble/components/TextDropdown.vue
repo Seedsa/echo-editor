@@ -4,13 +4,16 @@ import { MenuCheckboxItem } from '@/components/ui/menu'
 import { Editor } from '@tiptap/vue-3'
 import { Icon, icons } from '@/components/icons'
 import { useLocale } from '@/locales'
+import { hasExtension } from '@/utils/utils'
 import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
+
 interface ContentTypeMenu {
   name: string
   label: string
   iconName: keyof typeof icons
   action?: (value?: unknown) => void
   isActive: () => boolean
+  shouldBeHidden?: (editor: Editor) => boolean // 替代 extensionName，更加灵活
 }
 interface Props {
   editor: Editor
@@ -32,7 +35,7 @@ const props = withDefaults(defineProps<Props>(), {
 const { t } = useLocale()
 
 const menus = computed<ContentTypeMenu[]>(() => {
-  return [
+  const menuItems: ContentTypeMenu[] = [
     {
       name: 'paragraph',
       label: t.value('editor.paragraph.tooltip'),
@@ -49,6 +52,7 @@ const menus = computed<ContentTypeMenu[]>(() => {
       label: t.value('editor.heading.h1.tooltip'),
       isActive: () => props.editor.isActive('heading', { level: 1 }),
       iconName: 'Heading1',
+      shouldBeHidden: editor => !hasExtension(editor, 'heading'),
       action: () => props.editor.chain().focus().clearNodes().toggleHeading({ level: 1 }).focus().run(),
     },
     {
@@ -56,6 +60,7 @@ const menus = computed<ContentTypeMenu[]>(() => {
       label: t.value('editor.heading.h2.tooltip'),
       isActive: () => props.editor.isActive('heading', { level: 2 }),
       iconName: 'Heading2',
+      shouldBeHidden: editor => !hasExtension(editor, 'heading'),
       action: () => props.editor.chain().focus().clearNodes().toggleHeading({ level: 2 }).focus().run(),
     },
     {
@@ -63,6 +68,7 @@ const menus = computed<ContentTypeMenu[]>(() => {
       label: t.value('editor.heading.h3.tooltip'),
       isActive: () => props.editor.isActive('heading', { level: 3 }),
       iconName: 'Heading3',
+      shouldBeHidden: editor => !hasExtension(editor, 'heading'),
       action: () => props.editor.chain().focus().clearNodes().toggleHeading({ level: 3 }).focus().run(),
     },
     {
@@ -70,6 +76,7 @@ const menus = computed<ContentTypeMenu[]>(() => {
       label: t.value('editor.bulletlist.tooltip'),
       isActive: () => props.editor.isActive('bulletList'),
       iconName: 'List',
+      shouldBeHidden: editor => !hasExtension(editor, 'bulletList'),
       action: () => props.editor.chain().focus().clearNodes().toggleBulletList().focus().run(),
     },
     {
@@ -77,6 +84,7 @@ const menus = computed<ContentTypeMenu[]>(() => {
       label: t.value('editor.orderedlist.tooltip'),
       isActive: () => props.editor.isActive('orderedList'),
       iconName: 'ListOrdered',
+      shouldBeHidden: editor => !hasExtension(editor, 'orderedList'),
       action: () => props.editor.chain().focus().clearNodes().toggleOrderedList().focus().run(),
     },
     {
@@ -84,6 +92,7 @@ const menus = computed<ContentTypeMenu[]>(() => {
       label: t.value('editor.tasklist.tooltip'),
       isActive: () => props.editor.isActive('taskList'),
       iconName: 'ListTodo',
+      shouldBeHidden: editor => !hasExtension(editor, 'taskList'),
       action: () => props.editor.chain().focus().clearNodes().toggleTaskList().focus().run(),
     },
     {
@@ -91,6 +100,7 @@ const menus = computed<ContentTypeMenu[]>(() => {
       label: t.value('editor.blockquote.tooltip'),
       isActive: () => props.editor.isActive('blockquote'),
       iconName: 'TextQuote',
+      shouldBeHidden: editor => !hasExtension(editor, 'blockquote'),
       action: () => props.editor.chain().focus().clearNodes().toggleBlockquote().focus().run(),
     },
     {
@@ -98,9 +108,12 @@ const menus = computed<ContentTypeMenu[]>(() => {
       label: t.value('editor.codeblock.tooltip'),
       isActive: () => props.editor.isActive('codeBlock'),
       iconName: 'Code2',
+      shouldBeHidden: editor => !hasExtension(editor, 'codeBlock'),
       action: () => props.editor.chain().focus().clearNodes().setCodeBlock().focus().run(),
     },
   ]
+
+  return menuItems.filter(item => !item.shouldBeHidden || !item.shouldBeHidden(props.editor))
 })
 const activeItem = computed(() => {
   return (
