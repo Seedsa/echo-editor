@@ -92,6 +92,7 @@ import {
   Workflow,
   FormInput,
   Omega,
+  CodeXml,
 } from 'lucide-vue-next'
 
 import { ExtraIcons } from './ExtraIcons'
@@ -203,7 +204,8 @@ export const icons = {
   Processon: Workflow,
   Codepen: Code,
   Jinshuju: FormInput,
-  Omega
+  Omega,
+  CodeXml,
 } as const
 
 export default icons

@@ -129,9 +129,6 @@ function handleRemove() {
     :tippy-options="{
       offset: [0, 8],
       zIndex: 10,
-      popperOptions: {
-        modifiers: [{ name: 'flip', enabled: false }],
-      },
       appendTo: 'parent',
       getReferenceClientRect: getReferenceClientRect.value,
       plugins: [sticky],

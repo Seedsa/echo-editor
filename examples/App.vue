@@ -156,6 +156,7 @@ import {
   EchoEditor,
   ThemeToggle,
   SpecialCharacter,
+  SourceCode,
 } from 'echo-editor'
 import { ExportWord } from './extensions/ExportWord'
 import OpenAI from 'openai'
@@ -246,9 +247,8 @@ const fullExtensions = [
   Blockquote,
   SlashCommand,
   HorizontalRule,
-  Fullscreen.configure({ spacer: true }),
   CodeBlock,
-  Table,
+  Table.configure({ spacer: true }),
   Code,
   ExportWord,
   AI.configure({
@@ -271,9 +271,11 @@ const fullExtensions = [
     upload: handleFileUpload,
   }),
   SpecialCharacter,
+  Fullscreen.configure({ spacer: true }),
+  SourceCode,
+  Preview,
   FindAndReplace.configure({ spacer: true }),
   Printer,
-  Preview,
   Iframe,
 ]
 async function handleFileUpload(files: File[]) {

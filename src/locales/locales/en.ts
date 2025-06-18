@@ -1,6 +1,7 @@
 const locale: Record<string, string> = {
   'editor.remove': 'Remove',
   'editor.copy': 'Copy',
+  'editor.save': 'Save',
   'editor.words': 'WORDS',
   'editor.characters': 'CHARACTERS',
   'editor.default': 'Default',
@@ -222,6 +223,9 @@ const locale: Record<string, string> = {
   'editor.specialCharacter.categories.extendedLatin': 'Extended Latin',
   'editor.specialCharacter.categories.symbols': 'Symbols',
   'editor.specialCharacter.categories.arrows': 'Arrows',
+  'editor.sourceCode.tooltip': 'Source Code',
+  'editor.sourceCode.title': 'Source Code',
+  'editor.sourceCode.format': 'Format',
 }
 
 export default locale

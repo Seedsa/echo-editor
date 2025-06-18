@@ -20,6 +20,7 @@ import Toolbar from './Toolbar.vue'
 import Preview from './Preview.vue'
 import Printer from './Printer.vue'
 import SpecialCharacter from './SpecialCharacter.vue'
+import SourceCode from './SourceCode.vue'
 
 import FindAndReplace from './FindAndReplace.vue'
 import { EchoEditorOnChange, EchoEditorProps, EchoEditorEmits } from '@/type'
@@ -193,6 +194,7 @@ defineExpose({ editor })
   >
     <Preview v-if="hasExtension(editor, 'preview')" :editor="editor" />
     <SpecialCharacter v-if="hasExtension(editor, 'specialCharacter')" :editor="editor" />
+    <SourceCode v-if="hasExtension(editor, 'sourceCode')" :editor="editor" />
     <Printer v-if="hasExtension(editor, 'printer')" :editor="editor" />
     <div
       class="relative flex flex-col overflow-hidden"

@@ -83,9 +83,6 @@ const getReferenceClientRect: GetReferenceClientRect = () => {
     :updateDelay="0"
     :tippy-options="{
       offset: [0, 8],
-      popperOptions: {
-        modifiers: [{ name: 'flip', enabled: false }],
-      },
       maxWidth: 'auto',
       getReferenceClientRect,
       plugins: [sticky],

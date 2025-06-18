@@ -136,6 +136,7 @@ import {
   VideoUpload,
   FontFamily,
   FindAndReplace,
+  SourceCode,
   Code,
   AI,
   Preview,
@@ -227,9 +228,8 @@ const fullExtensions = [
   Blockquote,
   SlashCommand,
   HorizontalRule,
-  Fullscreen.configure({ spacer: true }),
   CodeBlock,
-  Table,
+  Table.configure({ spacer: true }),
   Code,
   AI.configure({
     completions: AICompletions,
@@ -251,9 +251,11 @@ const fullExtensions = [
     upload: handleFileUpload,
   }),
   SpecialCharacter,
+  Fullscreen.configure({ spacer: true }),
+  SourceCode,
+  Preview,
   FindAndReplace.configure({ spacer: true }),
   Printer,
-  Preview,
   Iframe,
 ]
 
