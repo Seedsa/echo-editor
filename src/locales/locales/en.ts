@@ -226,6 +226,7 @@ const locale: Record<string, string> = {
   'editor.sourceCode.tooltip': 'Source Code',
   'editor.sourceCode.title': 'Source Code',
   'editor.sourceCode.format': 'Format',
+  'editor.iframe.tooltip': 'Embed Service'
 }
 
 export default locale

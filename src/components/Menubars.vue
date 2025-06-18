@@ -23,13 +23,14 @@ interface Props {
 }
 interface MenuItem {
   title?: string
-  action?: () => void
+  action?: (e?: any) => void
   icon?: keyof typeof icons
   disabled?: boolean | (() => boolean)
   checked?: boolean | (() => boolean)
   shortcut?: string[]
   separator?: boolean
   requiredExtensions?: string[]
+  key?: string
 }
 
 interface MenuGroup {
@@ -298,6 +299,14 @@ const menubarMenus = ref<MenuGroup[]>([
     title: 'editor.menubar.view',
     children: [
       {
+        title: 'editor.sourceCode.tooltip',
+        icon: 'CodeXml',
+        action: () => {
+          props.editor?.chain().toggleSourceCode().focus().run()
+        },
+        requiredExtensions: ['sourceCode'],
+      },
+      {
         title: 'editor.fullscreen.tooltip.fullscreen',
         icon: 'Maximize',
         action: () => {
@@ -350,6 +359,23 @@ const menubarMenus = ref<MenuGroup[]>([
         requiredExtensions: ['video', 'videoUpload'],
       },
       {
+        title: 'editor.table.tooltip',
+        icon: 'Table',
+        disabled: () => !props.editor.isEditable || props.editor.isActive('columns') || props.editor.isActive('table'),
+        action: e => {
+          props.editor
+            .chain()
+            .focus()
+            .insertTable({ ...e, withHeaderRow: false })
+            .run()
+        },
+        key: 'table',
+        requiredExtensions: ['table'],
+      },
+      {
+        separator: true,
+      },
+      {
         title: 'editor.link.tooltip',
         icon: 'Link',
         disabled: () => !props.editor.isEditable || !props.editor.can().setLink({ href: '' }),
@@ -375,6 +401,55 @@ const menubarMenus = ref<MenuGroup[]>([
             .run()
         },
         requiredExtensions: ['link'],
+      },
+      {
+        title: 'editor.codeblock.tooltip',
+        icon: 'Code2',
+        disabled: () => !props.editor.isEditable || !props.editor.can().setCodeBlock(),
+        action: e => {
+          props.editor.chain().focus().setCodeBlock().run()
+        },
+        requiredExtensions: ['codeBlock'],
+      },
+      // {
+      //   title: 'editor.iframe.tooltip',
+      //   icon: 'Iframe',
+      //   disabled: () => !props.editor.isEditable,
+      //   action: e => {
+      //     props.editor.chain().focus().setIframe({ src: '', service: '' }).run()
+      //   },
+      //   requiredExtensions: ['iframes'],
+      // },
+
+      {
+        separator: true,
+      },
+      {
+        title: 'editor.specialCharacter.tooltip',
+        icon: 'Omega',
+        disabled: () => !props.editor.isEditable,
+        action: () => {
+          props.editor.chain().toggleSpecialCharacter().focus().run()
+        },
+        requiredExtensions: ['specialCharacter'],
+      },
+      {
+        title: 'editor.horizontalrule.tooltip',
+        icon: 'Minus',
+        disabled: () => !props.editor.isEditable,
+        action: () => {
+          props.editor.chain().focus().setHorizontalRule().run()
+        },
+        requiredExtensions: ['horizontalRule'],
+      },
+      {
+        title: 'editor.blockquote.tooltip',
+        icon: 'TextQuote',
+        disabled: () => !props.editor.isEditable || !props.editor.can().toggleBlockquote(),
+        action: () => {
+          props.editor.chain().focus().setBlockquote().run()
+        },
+        requiredExtensions: ['blockquote'],
       },
     ],
   },
@@ -489,6 +564,15 @@ const isChecked = (checked?: boolean | (() => boolean)) => {
             {{ t(sub.title!) }}
             <MenubarShortcut v-if="sub.shortcut">{{ getShortcutKeys(sub.shortcut) }}</MenubarShortcut>
           </MenubarCheckboxItem>
+          <MenubarSub v-else-if="sub?.key === 'table'">
+            <MenubarSubTrigger class="flex gap-3" :disabled="isDisabled(sub.disabled)">
+              <Icon v-if="sub.icon" :name="sub.icon" />
+              {{ t(sub.title!) }}
+            </MenubarSubTrigger>
+            <MenubarSubContent>
+              <TableGrid @create-table="sub.action" />
+            </MenubarSubContent>
+          </MenubarSub>
           <MenubarItem
             v-else-if="isExtensionLoaded(sub.requiredExtensions)"
             @click="handleClick(sub.action)"

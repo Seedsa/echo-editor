@@ -93,6 +93,7 @@ import {
   FormInput,
   Omega,
   CodeXml,
+  AppWindow,
 } from 'lucide-vue-next'
 
 import { ExtraIcons } from './ExtraIcons'
@@ -206,6 +207,7 @@ export const icons = {
   Jinshuju: FormInput,
   Omega,
   CodeXml,
+  Iframe: AppWindow,
 } as const
 
 export default icons

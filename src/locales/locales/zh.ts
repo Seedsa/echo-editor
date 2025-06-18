@@ -228,6 +228,7 @@ const locale: Record<string, string> = {
   'editor.sourceCode.tooltip': '源代码',
   'editor.sourceCode.title': '源代码',
   'editor.sourceCode.format': '格式化',
+  'editor.iframe.tooltip': '嵌入服务'
 }
 
 export default locale
