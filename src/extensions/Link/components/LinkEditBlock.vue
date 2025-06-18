@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { reactive, watchEffect, ref } from 'vue'
+import { reactive, watchEffect, ref, onMounted } from 'vue'
 import { Switch } from '@/components/ui/switch'
 import { Icon } from '@/components/icons'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { onClickOutside } from '@vueuse/core'
 import type { Editor } from '@tiptap/vue-3'
 import { useLocale } from '@/locales'
 import { useFocus } from '@vueuse/core'
@@ -64,7 +66,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="flex items-center space-x-2 mt-1">
-        <Checkbox v-model:checked="openInNewTab" id="openInNewTab" />
+        <Checkbox v-model="openInNewTab" id="openInNewTab" />
         <Label for="openInNewTab">{{ t('editor.link.dialog.openInNewTab') }}</Label>
       </div>
       <Button type="submit" class="mt-2 self-end">{{ t('editor.link.dialog.button.apply') }} </Button>
