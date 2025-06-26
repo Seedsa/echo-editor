@@ -83,6 +83,7 @@ const locale: Record<string, string> = {
   'editor.link.dialog.title': 'Insert Link',
   'editor.link.dialog.link': 'Link',
   'editor.link.dialog.text': 'Text',
+  'editor.link.dialog.input.text': 'Input Text',
   'editor.link.dialog.openInNewTab': 'Open In New Tab',
   'editor.link.dialog.link.placeholder': 'Link Address',
   'editor.link.dialog.text.placeholder': 'Add Description',
