@@ -139,11 +139,10 @@ export interface EchoEditorProps {
    */
   theme?: Theme
 
-
   /**
- * Border Radius
- * @default 0.5
- */
+   * Border Radius
+   * @default 0.5
+   */
   radius?: BorderRadius
 
   /**

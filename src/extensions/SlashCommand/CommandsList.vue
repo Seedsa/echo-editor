@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch, nextTick, VNodeRef } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import { Icon } from '@/components/icons'
 import { MenuListProps } from './types'
 import { useLocale } from '@/locales'
@@ -138,7 +138,8 @@ function setActiveItemRef(groupIndex: number, commandIndex: number, el: any) {
           @click="createCommandClickHandler(groupIndex, commandIndex)"
         >
           <img v-if="command.iconUrl" class="w-6 h-6" :src="command.iconUrl" />
-          <Icon v-if="command.iconName" :name="command.iconName" class="mr-1 text-lg" />
+          <div v-else-if="command.iconClassName" :class="command.iconClassName" />
+          <Icon v-else-if="command.iconName" :name="command.iconName" class="mr-1 text-lg" />
           {{ command.label }}
         </button>
       </template>

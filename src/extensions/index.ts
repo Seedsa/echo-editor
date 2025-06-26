@@ -108,13 +108,11 @@ export type { FontFamilyOptions } from './FontFamily'
 export type { PreviewOptions } from './Preview'
 export { Preview } from './Preview'
 
-
 export type { SpecialCharacterOptions } from './SpecialCharacter'
 export { SpecialCharacter } from './SpecialCharacter'
 
 export type { SourceCodeOptions } from './SourceCode'
 export { SourceCode } from './SourceCode'
-
 
 export { FindAndReplace } from './FindAndReplace'
 
@@ -124,4 +122,6 @@ export type { PrinterOptions } from './Printer'
 export { Iframe } from './Iframe'
 export type { IframeOptions } from './Iframe'
 
+export type { Group, Command } from './SlashCommand/types'
 
+export { hasExtension } from '@/utils/utils'
