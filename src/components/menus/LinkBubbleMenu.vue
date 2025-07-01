@@ -37,7 +37,7 @@ function onSetLink(url: string, text?: string, openInNewTab?: boolean) {
           type: 'link',
           attrs: {
             href: url,
-            target: openInNewTab ? '_blank' : '',
+            target: openInNewTab ? '_blank' : '_self',
           },
         },
       ],

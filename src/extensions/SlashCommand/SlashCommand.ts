@@ -5,10 +5,16 @@ import { PluginKey } from '@tiptap/pm/state'
 import tippy from 'tippy.js'
 import { renderGroups } from './groups'
 import MenuList from './CommandsList.vue'
+import type { Group } from './types'
+import { useLocale } from '@/locales'
+
+interface SlashCommandOptions {
+  getCommandGroups?: (options: { editor: Editor; presetGroups: Group[]; lang: string }) => Group[]
+}
 
 const extensionName = 'slashCommand'
 let popup: any
-export const SlashCommand = Extension.create({
+export const SlashCommand = Extension.create<SlashCommandOptions>({
   name: extensionName,
   priority: 200,
   onCreate() {
@@ -29,7 +35,7 @@ export const SlashCommand = Extension.create({
         ],
       },
       onCreate(instance) {
-        instance.popper.classList.add('echo-editor');
+        instance.popper.classList.add('echo-editor')
       },
     })
   },
@@ -63,8 +69,10 @@ export const SlashCommand = Extension.create({
           view.focus()
         },
         items: ({ query, editor }: { query: string; editor: Editor }) => {
+          const { lang } = useLocale()
           // Filter commands
-          const groups = renderGroups(this.editor)
+          const presetGroups = renderGroups(editor)
+          const groups = this.options.getCommandGroups?.({ editor, presetGroups, lang: lang.value }) || presetGroups
           const withFilteredCommands = groups.map(group => ({
             ...group,
             commands: group.commands
@@ -187,13 +195,13 @@ export const SlashCommand = Extension.create({
               props.editor.storage[extensionName].rect = props.clientRect
                 ? getReferenceClientRect()
                 : {
-                  width: 0,
-                  height: 0,
-                  left: 0,
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                }
+                    width: 0,
+                    height: 0,
+                    left: 0,
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                  }
               popup?.[0].setProps({
                 getReferenceClientRect,
               })

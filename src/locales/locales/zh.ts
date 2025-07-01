@@ -82,6 +82,7 @@ const locale: Record<string, string> = {
   'editor.link.dialog.title': '插入链接',
   'editor.link.dialog.link': '链接',
   'editor.link.dialog.text': '文本',
+  'editor.link.dialog.input.text': '输入文本',
   'editor.link.dialog.openInNewTab': '是否在新窗口打开',
   'editor.link.dialog.link.placeholder': '链接地址',
   'editor.link.dialog.text.placeholder': '添加描述',
@@ -199,7 +200,6 @@ const locale: Record<string, string> = {
   'editor.AI.shortcuts.translate.hindi': '印地语',
   'editor.AI.shortcuts.translate.russian': '俄语',
   'editor.AI.shortcuts.translate.arabic': '阿拉伯语',
-
 
   'editor.AI.shortcuts.style.title': '改变风格',
   'editor.AI.shortcuts.style.business': '商务',

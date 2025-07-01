@@ -12,6 +12,7 @@ export interface Command {
   description?: string
   aliases?: string[]
   iconName?: keyof typeof icons
+  iconClassName?: string
   iconUrl?: string
   action: ({ editor, range }: { editor: Editor; range: Range }) => void
   shouldBeHidden?: (editor: Editor) => boolean

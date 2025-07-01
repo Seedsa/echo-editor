@@ -7,10 +7,23 @@ import { getMarkRange } from '@tiptap/core'
 import LinkEditPopover from './components/LinkEditPopover.vue'
 import type { GeneralOptions } from '@/type'
 
-export interface LinkOptions extends TiptapLinkOptions, GeneralOptions<LinkOptions> { }
+export interface LinkOptions extends TiptapLinkOptions, GeneralOptions<LinkOptions> {
+  /** If true, the link will be validated as a URL. In some cases, you may want to allow non-URL links, like email addresses or relative links. */
+  strictUrl?: boolean
+}
 
 export const Link = TiptapLink.extend<LinkOptions>({
   inclusive: false,
+
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      strictUrl: {
+        default: this.options.strictUrl ?? true,
+      },
+    }
+  },
+
   parseHTML() {
     return [
       {
@@ -18,6 +31,7 @@ export const Link = TiptapLink.extend<LinkOptions>({
       },
     ]
   },
+
   renderHTML({ HTMLAttributes }) {
     return [
       'a',
@@ -49,7 +63,7 @@ export const Link = TiptapLink.extend<LinkOptions>({
                       type: 'link',
                       attrs: {
                         href: link,
-                        target: openInNewTab ? '_blank' : '',
+                        target: openInNewTab ? '_blank' : '_self',
                       },
                     },
                   ],
