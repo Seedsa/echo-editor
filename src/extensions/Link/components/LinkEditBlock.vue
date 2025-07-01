@@ -9,7 +9,6 @@ import { onClickOutside } from '@vueuse/core'
 import type { Editor } from '@tiptap/vue-3'
 import { useLocale } from '@/locales'
 import { useFocus } from '@vueuse/core'
-import { onClickOutside } from '@vueuse/core'
 
 interface Props {
   editor: Editor
