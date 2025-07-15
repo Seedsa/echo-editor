@@ -100,6 +100,9 @@ watch(
     if (val !== undefined) {
       isDark.value = val
     }
+  },
+  {
+    immediate: true,
   }
 )
 
@@ -109,6 +112,9 @@ watch(
     if (val !== undefined) {
       setTheme(val)
     }
+  },
+  {
+    immediate: true,
   }
 )
 watch(
@@ -117,6 +123,9 @@ watch(
     if (val !== undefined) {
       setBorderRadius(val)
     }
+  },
+  {
+    immediate: true,
   }
 )
 
