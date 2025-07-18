@@ -1,6 +1,7 @@
 import { Selection, SelectionRange } from '@tiptap/pm/state'
 import { NodeRange, ResolvedPos, Node as ProseMirrorNode } from '@tiptap/pm/model'
-import { Mapping, Mappable } from '@tiptap/pm/transform'
+import { Mapping } from '@tiptap/pm/transform'
+import type { Mappable } from '@tiptap/pm/transform'
 
 export function getSelectionRanges(state: ResolvedPos, range: ResolvedPos, depth?: number): SelectionRange[] {
   const ranges: SelectionRange[] = []

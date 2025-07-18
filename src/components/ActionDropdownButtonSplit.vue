@@ -3,7 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import Button from '@/components/ui/button/Button.vue'
 import ActionButton from './ActionButton.vue'
 import { Icon } from '@/components/icons'
-import { ButtonViewReturnComponentProps } from '@/type'
+import type { ButtonViewReturnComponentProps } from '@/type'
 import { cn } from '@/utils'
 
 interface Props {

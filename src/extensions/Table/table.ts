@@ -12,7 +12,8 @@ import type { TableHeaderOptions } from '@tiptap/extension-table-header'
 import { TableCellBackground } from './cell-background'
 import type { TableCellBackgroundOptions } from './cell-background'
 
-import { GeneralOptions } from '@/type'
+import type { GeneralOptions } from '@/type'
+
 import TableActionButton from './components/TableActionButton.vue'
 
 export interface TableOptions extends GeneralOptions<TableOptions> {

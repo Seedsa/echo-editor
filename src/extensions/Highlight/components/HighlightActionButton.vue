@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import ActionButton from '@/components/ActionButton.vue'
 import ColorPicker from '../../../components/ColorPicker.vue'
 import { useTiptapStore } from '@/hooks'
-import { ButtonViewReturnComponentProps } from '@/type'
+import type { ButtonViewReturnComponentProps } from '@/type'
 import type { TooltipContentProps } from 'reka-ui'
 
 interface Props {

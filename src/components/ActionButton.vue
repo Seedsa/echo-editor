@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ButtonViewReturnComponentProps } from '@/type'
+import type { ButtonViewReturnComponentProps } from '@/type'
 import { getShortcutKey } from '@/utils/plateform'
 import { Toggle } from '@/components/ui/toggle'
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip'

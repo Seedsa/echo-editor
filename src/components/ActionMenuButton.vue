@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Icon } from '@/components/icons'
-import { ButtonViewReturnComponentProps } from '@/type'
+import type { ButtonViewReturnComponentProps } from '@/type'
 import { getShortcutKeys } from '@/utils/plateform'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip'

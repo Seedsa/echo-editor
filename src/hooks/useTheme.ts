@@ -1,8 +1,8 @@
 import { ref, watch, computed } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
 import { useDark } from '@vueuse/core'
-import { Theme, BORDER_RADIUS } from '@/constants/index'
-import { THEMES, DEFAULT_THEME, BorderRadius, DEFAULT_BORDER_RADIUS } from '@/constants/index'
+import { THEMES, DEFAULT_THEME, DEFAULT_BORDER_RADIUS, BORDER_RADIUS } from '@/constants/index'
+import type { Theme, BorderRadius } from '@/constants/index'
 
 export function useTheme() {
   // 使用本地存储持久化主题设置

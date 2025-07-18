@@ -3,7 +3,7 @@ import type { Editor } from '@tiptap/vue-3'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import ActionButton from '@/components/ActionButton.vue'
 import LinkEditBlock from './LinkEditBlock.vue'
-import { ButtonViewReturnComponentProps } from '@/type'
+import type { ButtonViewReturnComponentProps } from '@/type'
 
 interface Props {
   editor: Editor

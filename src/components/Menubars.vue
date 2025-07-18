@@ -8,6 +8,9 @@ import {
   MenubarShortcut,
   MenubarCheckboxItem,
   MenubarTrigger,
+  MenubarSub,
+  MenubarSubTrigger,
+  MenubarSubContent,
 } from '@/components/ui/menubar'
 import { useLocale } from '@/locales'
 import type { Editor } from '@tiptap/core'
@@ -15,6 +18,7 @@ import { Icon, icons } from '@/components/icons'
 import { getShortcutKeys } from '@/utils/plateform'
 import { getSelectionText } from '@/utils/content'
 import { useTiptapStore } from '@/hooks'
+import TableGrid from '@/components/TableGrid.vue'
 const DRAFT_KEY = 'echo-editor-draft' // 本地存储的 key
 
 interface Props {

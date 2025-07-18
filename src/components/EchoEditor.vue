@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, watch, onUnmounted, unref, useAttrs, ref } from 'vue'
-import { AnyExtension, Editor as CoreEditor, JSONContent } from '@tiptap/core'
+import { Editor as CoreEditor } from '@tiptap/core'
+import type { AnyExtension, JSONContent } from '@tiptap/core'
+
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import type { EditorOptions } from '@tiptap/vue-3'
 import { EDITOR_UPDATE_THROTTLE_WAIT_TIME } from '@/constants'
@@ -23,7 +25,7 @@ import SpecialCharacter from './SpecialCharacter.vue'
 import SourceCode from './SourceCode.vue'
 
 import FindAndReplace from './FindAndReplace.vue'
-import { EchoEditorOnChange, EchoEditorProps, EchoEditorEmits } from '@/type'
+import type { EchoEditorProps, EchoEditorEmits } from '@/type'
 import { useDark } from '@vueuse/core'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { useEditorFocus } from '@/hooks/useEditorFocus'

@@ -5,7 +5,7 @@ import { MenuCheckboxItem, MenuSeparator, MenuShortcut } from '@/components/ui/m
 import type { Editor } from '@tiptap/vue-3'
 import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
 import { getShortcutKey } from '@/utils/plateform'
-import { Item } from '../types'
+import type { Item } from '../types'
 
 interface Props {
   editor: Editor

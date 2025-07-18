@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ButtonViewReturnComponentProps } from '@/type'
+import type { ButtonViewReturnComponentProps } from '@/type'
 import type { TooltipContentProps } from 'reka-ui'
 import { icons } from '@/components/icons'
 import { useTiptapStore } from '@/hooks/useStore'

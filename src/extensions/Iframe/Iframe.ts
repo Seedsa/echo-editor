@@ -1,7 +1,7 @@
 import { Node } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import IframeView from './IframeNodeView.vue'
-import { GeneralOptions } from '@/type'
+import type { GeneralOptions } from '@/type'
 
 export interface IframeOptions extends GeneralOptions<IframeOptions> {
   allowFullscreen: boolean

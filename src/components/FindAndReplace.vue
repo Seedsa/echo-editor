@@ -5,6 +5,11 @@ import type { Editor } from '@tiptap/core'
 import { useLocale } from '@/locales'
 import { useHotkeys } from '@/hooks'
 import { getSelectionText } from '@/utils/content'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Icon } from '@/components/icons'
 
 interface Props {
   editor: Editor

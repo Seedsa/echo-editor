@@ -14,7 +14,7 @@ import Menu from '../ui/menu.vue'
 import { DOMSerializer } from 'prosemirror-model'
 import { useAIConversation } from '@/hooks/useAIConversation'
 import { DEFAULT_SHORTCUTS } from '@/extensions/AI/constants'
-import { Props as TippyProps } from 'tippy.js'
+import type { Props as TippyProps } from 'tippy.js'
 
 interface Props {
   editor: Editor

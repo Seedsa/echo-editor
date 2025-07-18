@@ -1,6 +1,6 @@
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
-import { Extension, Range, type Dispatch } from '@tiptap/core'
+import { Extension } from '@tiptap/core'
 
 export const HighlightParagraphKey = new PluginKey('highlight-paragraph')
 

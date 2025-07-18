@@ -1,5 +1,5 @@
 import { Editor } from '@tiptap/core'
-import { Group } from './types'
+import type { Group } from './types'
 import { useLocale } from '@/locales'
 import { hasExtension } from '@/utils/utils'
 import { AllEmbedServices } from '@/extensions/Iframe/embed'

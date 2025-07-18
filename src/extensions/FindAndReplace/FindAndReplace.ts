@@ -1,4 +1,5 @@
-import { Extension, Range, type Dispatch } from '@tiptap/core'
+import { Extension } from '@tiptap/core'
+import type { Range, Dispatch } from '@tiptap/core'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
 import { Plugin, PluginKey, type EditorState, type Transaction } from '@tiptap/pm/state'
 import { Node as PMNode } from '@tiptap/pm/model'
@@ -254,80 +255,80 @@ export const FindAndReplace = Extension.create<FindAndReplaceOptions, FindAndRep
     return {
       setSearchTerm:
         (searchTerm: string) =>
-        ({ editor }) => {
-          editor.storage.findAndReplace.searchTerm = searchTerm
+          ({ editor }) => {
+            editor.storage.findAndReplace.searchTerm = searchTerm
 
-          return false
-        },
+            return false
+          },
       setReplaceTerm:
         (replaceTerm: string) =>
-        ({ editor }) => {
-          editor.storage.findAndReplace.replaceTerm = replaceTerm
+          ({ editor }) => {
+            editor.storage.findAndReplace.replaceTerm = replaceTerm
 
-          return false
-        },
+            return false
+          },
       setCaseSensitive:
         (caseSensitive: boolean) =>
-        ({ editor }) => {
-          editor.storage.findAndReplace.caseSensitive = caseSensitive
+          ({ editor }) => {
+            editor.storage.findAndReplace.caseSensitive = caseSensitive
 
-          return false
-        },
+            return false
+          },
       resetIndex:
         () =>
-        ({ editor }) => {
-          editor.storage.findAndReplace.resultIndex = 0
+          ({ editor }) => {
+            editor.storage.findAndReplace.resultIndex = 0
 
-          return false
-        },
+            return false
+          },
       nextSearchResult:
         () =>
-        ({ editor }) => {
-          const { results, resultIndex } = editor.storage.findAndReplace
+          ({ editor }) => {
+            const { results, resultIndex } = editor.storage.findAndReplace
 
-          const nextIndex = resultIndex + 1
+            const nextIndex = resultIndex + 1
 
-          if (results[nextIndex]) {
-            editor.storage.findAndReplace.resultIndex = nextIndex
-          } else {
-            editor.storage.findAndReplace.resultIndex = 0
-          }
+            if (results[nextIndex]) {
+              editor.storage.findAndReplace.resultIndex = nextIndex
+            } else {
+              editor.storage.findAndReplace.resultIndex = 0
+            }
 
-          return false
-        },
+            return false
+          },
       previousSearchResult:
         () =>
-        ({ editor }) => {
-          const { results, resultIndex } = editor.storage.findAndReplace
+          ({ editor }) => {
+            const { results, resultIndex } = editor.storage.findAndReplace
 
-          const prevIndex = resultIndex - 1
+            const prevIndex = resultIndex - 1
 
-          if (results[prevIndex]) {
-            editor.storage.findAndReplace.resultIndex = prevIndex
-          } else {
-            editor.storage.findAndReplace.resultIndex = results.length - 1
-          }
+            if (results[prevIndex]) {
+              editor.storage.findAndReplace.resultIndex = prevIndex
+            } else {
+              editor.storage.findAndReplace.resultIndex = results.length - 1
+            }
 
-          return false
-        },
+            return false
+          },
       replace:
         () =>
-        ({ editor, state, dispatch }) => {
-          const { replaceTerm, results } = editor.storage.findAndReplace
+          ({ editor, state, dispatch }) => {
+            const { replaceTerm, results } = editor.storage.findAndReplace
 
-          replace(replaceTerm, results, { state, dispatch })
+            replace(replaceTerm, results, { state, dispatch })
 
-          return false
-        },
+            return false
+          },
       replaceAll:
         () =>
-        ({ editor, tr, dispatch }) => {
-          const { replaceTerm, results } = editor.storage.findAndReplace
+          ({ editor, tr, dispatch }) => {
+            const { replaceTerm, results } = editor.storage.findAndReplace
 
-          replaceAll(replaceTerm, results, { tr, dispatch })
+            replaceAll(replaceTerm, results, { tr, dispatch })
 
-          return false
-        },
+            return false
+          },
     }
   },
 

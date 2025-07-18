@@ -1,4 +1,5 @@
-import { Command, Extension } from '@tiptap/core'
+import { Extension } from '@tiptap/core'
+import type { Command } from '@tiptap/core'
 import { Transaction } from '@tiptap/pm/state'
 import { CellSelection } from '@tiptap/pm/tables'
 

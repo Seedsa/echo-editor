@@ -4,7 +4,8 @@ import zhHans from './locales/zh'
 import en from './locales/en'
 
 import { DEFAULT_LANG_VALUE } from '@/constants'
-import mitt, { EventType } from '@/utils/mitt'
+import mitt from '@/utils/mitt'
+import type { EventType } from '@/utils/mitt'
 
 interface LocaleInterface {
   lang: string

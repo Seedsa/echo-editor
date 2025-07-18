@@ -5,7 +5,7 @@ import { useLocale } from '@/locales'
 import type { Editor } from '@tiptap/vue-3'
 import ActionDropdownButtonSplit from '@/components/ActionDropdownButtonSplit.vue'
 import { MenuItem } from '@/components/ui/menu'
-import { ButtonViewReturnComponentProps } from '@/type'
+import type { ButtonViewReturnComponentProps } from '@/type'
 
 interface OrderedListOption {
   label: string

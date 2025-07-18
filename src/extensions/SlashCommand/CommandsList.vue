@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch, nextTick } from 'vue'
 import { Icon } from '@/components/icons'
-import { MenuListProps } from './types'
+import type { MenuListProps } from './types'
 import { useLocale } from '@/locales'
 
 // 选中的索引

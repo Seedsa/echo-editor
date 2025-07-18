@@ -1,4 +1,5 @@
-import { computed, reactive, watchEffect, ComputedRef } from 'vue'
+import { computed, reactive, watchEffect } from 'vue'
+
 import type { AnyExtension } from '@tiptap/core'
 import { createGlobalState } from '@vueuse/core'
 import { useContext } from './useContext'

@@ -134,6 +134,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { useLocale } from '@/locales'
 import { useTiptapStore } from '@/hooks'
 import { useTheme } from '@/hooks/useTheme'
+import { Icon } from '@/components/icons'
 
 const props = defineProps(nodeViewProps)
 

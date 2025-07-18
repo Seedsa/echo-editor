@@ -3,7 +3,7 @@ import type { Editor } from '@tiptap/vue-3'
 import CreateTablePopover from './CreateTablePopover.vue'
 import type { CreateTablePayload } from './CreateTablePopover.vue'
 import ActionButton from '@/components/ActionButton.vue'
-import { ButtonViewReturnComponentProps } from '@/type'
+import type { ButtonViewReturnComponentProps } from '@/type'
 import { icons } from '@/components/icons'
 interface Props {
   editor: Editor

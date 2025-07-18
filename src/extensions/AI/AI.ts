@@ -1,6 +1,6 @@
 import { Node } from '@tiptap/core'
 import ActionButton from './components/AIButton.vue'
-import { GeneralOptions } from '@/type'
+import type { GeneralOptions } from '@/type'
 
 export interface MenuItem {
   label: string

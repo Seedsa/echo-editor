@@ -2,7 +2,8 @@ import type { Extension } from '@tiptap/core'
 import type { HeadingOptions as TiptapHeadingOptions } from '@tiptap/extension-heading'
 import { Heading as TiptapHeading } from '@tiptap/extension-heading'
 
-import { Item } from './types'
+import type { Item } from './types'
+
 import HeadingButton from './components/HeadingButton.vue'
 
 import type { BaseKitOptions } from '../BaseKit'

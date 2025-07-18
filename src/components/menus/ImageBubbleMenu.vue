@@ -1,10 +1,16 @@
 <script lang="ts" setup>
 import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu, isActive } from '@tiptap/vue-3'
-import { Instance, sticky } from 'tippy.js'
+import { sticky } from 'tippy.js'
 import { getRenderContainer } from '@/utils/getRenderContainer'
 import { useLocale } from '@/locales'
 import { deleteSelection } from '@tiptap/pm/commands'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Separator } from '@/components/ui/separator'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import ActionButton from '@/components/ActionButton.vue'
 
 interface Props {
   editor: Editor

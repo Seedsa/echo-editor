@@ -5,7 +5,7 @@ import type { Editor } from '@tiptap/vue-3'
 import { useLocale } from '@/locales'
 import ActionDropdownButton from '@/components/ActionDropdownButton.vue'
 
-import { ButtonViewReturnComponentProps } from '@/type'
+import type { ButtonViewReturnComponentProps } from '@/type'
 const { t } = useLocale()
 
 function percentageToDecimal(percentageString) {

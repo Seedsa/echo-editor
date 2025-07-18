@@ -6,7 +6,7 @@ import { getSelectionRanges, NodeRangeSelection } from './range'
 import { cloneElement, getComputedStyles, minMax, removeNode, findElementNextToCoords } from './utils'
 import { Editor } from '@tiptap/core'
 import { Node } from '@tiptap/pm/model'
-import { Props as TippyProps } from 'tippy.js'
+import type { Props as TippyProps } from 'tippy.js'
 import { Transaction, EditorState } from '@tiptap/pm/state'
 import type { EditorView } from '@tiptap/pm/view'
 

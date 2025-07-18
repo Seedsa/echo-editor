@@ -1,6 +1,7 @@
-import { Editor, Extension, Range } from '@tiptap/core'
+import { Editor, Extension } from '@tiptap/core'
+import type { Range } from '@tiptap/core'
 import { VueRenderer } from '@tiptap/vue-3'
-import Suggestion, { SuggestionProps, SuggestionKeyDownProps } from '@tiptap/suggestion'
+import Suggestion, { type SuggestionProps, type SuggestionKeyDownProps } from '@tiptap/suggestion'
 import { PluginKey } from '@tiptap/pm/state'
 import tippy from 'tippy.js'
 import { renderGroups } from './groups'
@@ -195,13 +196,13 @@ export const SlashCommand = Extension.create<SlashCommandOptions>({
               props.editor.storage[extensionName].rect = props.clientRect
                 ? getReferenceClientRect()
                 : {
-                    width: 0,
-                    height: 0,
-                    left: 0,
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                  }
+                  width: 0,
+                  height: 0,
+                  left: 0,
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                }
               popup?.[0].setProps({
                 getReferenceClientRect,
               })
