@@ -75,12 +75,27 @@
     @apply h-auto max-w-full block;
   }
 
-  @for $i from 1 through 7 /* max-indent */ {
-    $indent-margin-base: 2em;
-
-    *[data-indent='#{$i}'] {
-      text-indent: $indent-margin-base * $i !important;
-    }
+  /* Indent levels from 1-7 */
+  *[data-indent='1'] {
+    text-indent: 2em !important;
+  }
+  *[data-indent='2'] {
+    text-indent: 4em !important;
+  }
+  *[data-indent='3'] {
+    text-indent: 6em !important;
+  }
+  *[data-indent='4'] {
+    text-indent: 8em !important;
+  }
+  *[data-indent='5'] {
+    text-indent: 10em !important;
+  }
+  *[data-indent='6'] {
+    text-indent: 12em !important;
+  }
+  *[data-indent='7'] {
+    text-indent: 14em !important;
   }
   iframe {
     @apply w-full border border-border mt-2 rounded-sm h-[400px];

@@ -28,11 +28,6 @@ export default defineConfig({
     postcss: {
       plugins: [tailwind(), autoprefixer()] as any,
     },
-    preprocessorOptions: {
-      scss: {
-        charset: false,
-      },
-    },
   },
   build: {
     outDir: 'lib',

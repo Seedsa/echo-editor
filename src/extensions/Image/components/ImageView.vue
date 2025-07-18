@@ -188,25 +188,26 @@ onBeforeUnmount(() => {
   </NodeViewWrapper>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .image-view {
   max-width: 100%;
-  &__body {
-    position: relative;
-    display: inline-block;
-    max-width: 100%;
-    outline: transparent solid 2px;
-    transition: all 0.2s ease-in;
+}
 
-    &--focused {
-      @apply outline-primary;
-    }
+.image-view__body {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  outline: transparent solid 2px;
+  transition: all 0.2s ease-in;
+}
 
-    &__image {
-      margin: 0;
-      cursor: pointer !important;
-    }
-  }
+.image-view__body--focused {
+  @apply outline-primary;
+}
+
+.image-view__body__image {
+  margin: 0;
+  cursor: pointer !important;
 }
 
 .image-resizer {
@@ -217,38 +218,41 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   @apply border border-border;
+}
 
-  &__handler {
-    position: absolute;
-    z-index: 2;
-    box-sizing: border-box;
-    display: block;
-    width: 12px;
-    height: 12px;
-    border: 1px solid #fff;
-    border-radius: 2px;
-    @apply bg-primary;
+.image-resizer__handler {
+  position: absolute;
+  z-index: 2;
+  box-sizing: border-box;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #fff;
+  border-radius: 2px;
+  @apply bg-primary;
+}
 
-    &--tl {
-      top: -6px;
-      left: -6px;
-      cursor: nw-resize;
-    }
-    &--tr {
-      top: -6px;
-      right: -6px;
-      cursor: ne-resize;
-    }
-    &--bl {
-      bottom: -6px;
-      left: -6px;
-      cursor: sw-resize;
-    }
-    &--br {
-      right: -6px;
-      bottom: -6px;
-      cursor: se-resize;
-    }
-  }
+.image-resizer__handler--tl {
+  top: -6px;
+  left: -6px;
+  cursor: nw-resize;
+}
+
+.image-resizer__handler--tr {
+  top: -6px;
+  right: -6px;
+  cursor: ne-resize;
+}
+
+.image-resizer__handler--bl {
+  bottom: -6px;
+  left: -6px;
+  cursor: sw-resize;
+}
+
+.image-resizer__handler--br {
+  right: -6px;
+  bottom: -6px;
+  cursor: se-resize;
 }
 </style>

@@ -141,7 +141,6 @@
     "lodash-unified": "^1.0.3",
     "prettier": "^3.2.5",
     "prism-code-editor": "^4.0.0",
-    "sass": "1.75.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",

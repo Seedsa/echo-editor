@@ -2,7 +2,7 @@ import type { Plugin } from 'vue'
 import EchoEditor from '@/components/EchoEditor.vue'
 import ActionButton from '@/components/ActionButton.vue'
 import locale, { zhHans, en } from './locales'
-import './styles/index.scss'
+import './styles/index.css'
 
 const EchoEditorPlugin: Plugin = {
   install(app) {

@@ -8,7 +8,7 @@ import autoprefixer from 'autoprefixer'
 export default defineConfig({
   css: {
     postcss: {
-      plugins: [tailwind(), autoprefixer()],
+      plugins: [tailwind(), autoprefixer()] as any,
     },
   },
   plugins: [vue(), svgLoader()],

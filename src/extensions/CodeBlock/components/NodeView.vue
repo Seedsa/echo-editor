@@ -259,7 +259,7 @@ watch(
 )
 </script>
 
-<style lang="scss">
+<style>
 .toolbar-divider {
   @apply bg-gray-400;
   width: 1px;

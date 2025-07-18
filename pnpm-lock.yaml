@@ -219,9 +219,6 @@ importers:
       prism-code-editor:
         specifier: ^4.0.0
         version: 4.0.0
-      sass:
-        specifier: 1.75.0
-        version: 1.75.0
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
@@ -261,9 +258,6 @@ importers:
       prosemirror-docx:
         specifier: latest
         version: 0.6.1(docx@8.5.0)
-      sass:
-        specifier: ^1.75.0
-        version: 1.75.0
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.17
@@ -5878,7 +5872,8 @@ snapshots:
 
   immediate@3.0.6: {}
 
-  immutable@4.3.7: {}
+  immutable@4.3.7:
+    optional: true
 
   import-fresh@3.3.1:
     dependencies:
@@ -6879,6 +6874,7 @@ snapshots:
       chokidar: 3.6.0
       immutable: 4.3.7
       source-map-js: 1.2.1
+    optional: true
 
   sax@1.4.1: {}
 

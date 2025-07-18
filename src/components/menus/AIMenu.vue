@@ -347,7 +347,7 @@ function handleKey(e) {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 @keyframes text-loading {
   0% {
     content: '·';
