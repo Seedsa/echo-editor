@@ -158,58 +158,6 @@
     code {
       @apply bg-inherit text-inherit p-0 shadow-none;
     }
-
-    .hljs-comment,
-    .hljs-quote {
-      @apply text-neutral-400;
-    }
-
-    .hljs-variable,
-    .hljs-template-variable,
-    .hljs-attribute,
-    .hljs-tag,
-    .hljs-name,
-    .hljs-regexp,
-    .hljs-link,
-    .hljs-name,
-    .hljs-selector-id,
-    .hljs-selector-class {
-      @apply text-red-300;
-    }
-
-    .hljs-number,
-    .hljs-meta,
-    .hljs-built_in,
-    .hljs-builtin-name,
-    .hljs-literal,
-    .hljs-type,
-    .hljs-params {
-      @apply text-orange-300;
-    }
-
-    .hljs-string,
-    .hljs-symbol,
-    .hljs-bullet {
-      @apply text-lime-300;
-    }
-
-    .hljs-title,
-    .hljs-section {
-      @apply text-yellow-300;
-    }
-
-    .hljs-keyword,
-    .hljs-selector-tag {
-      @apply text-teal-300;
-    }
-
-    .hljs-emphasis {
-      font-style: italic;
-    }
-
-    .hljs-strong {
-      font-weight: 700;
-    }
   }
   /* List */
   ol {
