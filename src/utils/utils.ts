@@ -16,11 +16,6 @@ export const getCssUnitWithDefault = (value?: string | number, defaultUnit: stri
   return isNaN(num) ? value : num + unit
 }
 
-export function clamp(val: number, min: number, max: number) {
-  if (val < min) return min
-  if (val > max) return max
-  return val
-}
 
 export const isNumber = (value: unknown): value is number => typeof value === 'number'
 

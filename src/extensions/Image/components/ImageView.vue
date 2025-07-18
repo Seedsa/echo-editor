@@ -2,7 +2,7 @@
 import { computed, ref, unref, onMounted, onBeforeUnmount } from 'vue'
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import { IMAGE_MAX_SIZE, IMAGE_MIN_SIZE, IMAGE_THROTTLE_WAIT_TIME } from '@/constants'
-import { clamp, isNumber, throttle } from '@/utils/utils'
+import { clamp, isNumber, throttle } from '@/utils'
 
 const props = defineProps({
   ...nodeViewProps,
