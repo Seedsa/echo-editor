@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref, watch, computed } from 'vue'
 import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu, isActive } from '@tiptap/vue-3'
 import { sticky } from 'tippy.js'

@@ -135,6 +135,7 @@ import { useLocale } from '@/locales'
 import { useTiptapStore } from '@/hooks'
 import { useTheme } from '@/hooks/useTheme'
 import { Icon } from '@/components/icons'
+import { onMounted, ref, watch, nextTick, onBeforeUnmount } from 'vue'
 
 const props = defineProps(nodeViewProps)
 

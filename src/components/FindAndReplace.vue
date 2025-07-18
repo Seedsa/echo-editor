@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Icon } from '@/components/icons'
+import { useFocus } from '@vueuse/core'
 
 interface Props {
   editor: Editor

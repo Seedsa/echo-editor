@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useTiptapStore } from '@/hooks'
 import type { Editor } from '@tiptap/core'
 import { useHotkeys } from '@/hooks'

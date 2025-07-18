@@ -4,16 +4,11 @@ import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
 import tailwind from 'tailwindcss'
 import autoprefixer from 'autoprefixer'
-import AutoImport from 'unplugin-auto-import/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    AutoImport({
-      // dirs: ['./src/hooks'],
-      imports: ['vue', '@vueuse/core'],
-    }),
     dts({
       insertTypesEntry: true,
       outDir: 'lib',
@@ -31,7 +26,7 @@ export default defineConfig({
   },
   css: {
     postcss: {
-      plugins: [tailwind(), autoprefixer()],
+      plugins: [tailwind(), autoprefixer()] as any,
     },
     preprocessorOptions: {
       scss: {
@@ -44,13 +39,21 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'EchoEditor',
+      fileName: (format) => `echo-editor.${format}.js`,
     },
+    cssCodeSplit: false,
     rollupOptions: {
       output: {
         exports: 'named',
         globals: {
           vue: 'vue',
         },
+        assetFileNames: (info) => {
+          if (info.name && info.name.endsWith('.css')) {
+            return 'style.css';
+          }
+          return 'assets/[name].[hash][extname]';
+        }
       },
       external: ['vue'],
     },

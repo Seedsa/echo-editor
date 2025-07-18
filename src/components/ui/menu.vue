@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 import { Icon } from '@/components/icons'
-import { reactive, onMounted, watch, ref } from 'vue'
+import { reactive, onMounted, watch, ref, nextTick } from 'vue'
 
 // 扩展 MenuItem 接口
 interface MenuItem {
