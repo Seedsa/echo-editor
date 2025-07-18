@@ -50,7 +50,7 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "import": "./lib/echo-editor.mjs",
+      "import": "./lib/echo-editor.es.js",
       "require": "./lib/echo-editor.umd.js"
     },
     "./style.css": {
