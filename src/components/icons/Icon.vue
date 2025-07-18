@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import icons from './IconMap'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@/utils'
+import { cn } from '@/lib/utils'
 import { HelpCircle } from 'lucide-vue-next'
 
 const props = defineProps<{

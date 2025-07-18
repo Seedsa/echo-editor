@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ActionMenuButton from '@/components/ActionMenuButton.vue'
 import type { ButtonViewReturnComponentProps } from '@/type'
-import { cn } from '@/utils'
+import { cn } from '@/lib/utils'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 
 interface Props {

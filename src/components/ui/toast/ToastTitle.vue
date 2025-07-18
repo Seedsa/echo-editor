@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/utils'
+import { cn } from '@/lib/utils'
 import { ToastTitle, type ToastTitleProps } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 

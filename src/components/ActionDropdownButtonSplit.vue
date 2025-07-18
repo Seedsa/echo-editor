@@ -4,7 +4,7 @@ import Button from '@/components/ui/button/Button.vue'
 import ActionButton from './ActionButton.vue'
 import { Icon } from '@/components/icons'
 import type { ButtonViewReturnComponentProps } from '@/type'
-import { cn } from '@/utils'
+import { cn } from '@/lib/utils'
 
 interface Props {
   icon?: any

@@ -4,7 +4,7 @@ import type { ButtonViewReturnComponentProps } from '@/type'
 import { getShortcutKeys } from '@/utils/plateform'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip'
-import { cn } from '@/utils'
+import { cn } from '@/lib/utils'
 
 interface Props {
   icon?: any
