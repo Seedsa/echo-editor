@@ -41,7 +41,7 @@ const props = withDefaults(defineProps<EchoEditorProps>(), {
   radius: undefined,
   disabled: false,
   hideToolbar: false,
-  hideMenubar: false,
+  hideMenubar: true,
   hideBubble: false,
   removeDefaultWrapper: false,
   maxWidth: undefined,

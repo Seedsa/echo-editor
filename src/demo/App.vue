@@ -71,6 +71,12 @@
         </button>
         <button
           class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          @click="hideMenubar = !hideMenubar"
+        >
+          {{ !hideMenubar ? 'Hide Menubar' : 'Show Menubar' }}
+        </button>
+        <button
+          class="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
           @click="toggleMinimal"
         >
           {{ minimal ? 'Full' : 'Minimal' }}
@@ -80,7 +86,7 @@
         <EchoEditor
           ref="editor"
           :key="minimal ? 'minimal' : 'full'"
-          :hideMenubar="minimal"
+          :hideMenubar="hideMenubar || minimal"
           :extensions="extensions"
           :disabled="disabled"
           v-model="content"
@@ -153,6 +159,7 @@ import OpenAI from 'openai'
 const content = ref<string | JSONContent>(DEMO_CONTENT)
 const disabled = ref<boolean>(false)
 const minimal = ref(false)
+const hideMenubar = ref<boolean>(true)
 const editor = ref()
 
 const minimalExtensions = [

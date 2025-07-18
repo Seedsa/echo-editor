@@ -168,7 +168,7 @@ import 'echo-editor/style.css'
 const content = ref(DEMO_CONTENT)
 const theme = ref<string | null>(null)
 const hideToolbar = ref<boolean>(false)
-const hideMenubar = ref<boolean>(false)
+const hideMenubar = ref<boolean>(true)
 const disabled = ref<boolean>(false)
 const minimal = ref(false)
 
