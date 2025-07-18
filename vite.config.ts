@@ -4,6 +4,39 @@ import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
 import tailwind from 'tailwindcss'
 import autoprefixer from 'autoprefixer'
+import type { Plugin } from 'vite'
+import postcss from 'postcss'
+import prefixer from 'postcss-prefix-selector'
+
+function cssNamespacePlugin(): Plugin {
+  return {
+    name: 'vite-plugin-css-namespace',
+    enforce: 'post',
+    async generateBundle(_, bundle) {
+      for (const key of Object.keys(bundle)) {
+        const chunk = bundle[key]
+        if (key.endsWith('.css') && 'source' in chunk) {
+          const css = chunk.source as string
+          const result = await postcss([
+            prefixer({
+              prefix: '.echo-editor',
+              transform(prefix, selector, prefixedSelector) {
+                if (
+                  selector.startsWith('.echo-editor') ||
+                  selector.startsWith('.EchoContentView')
+                ) {
+                  return selector;
+                }
+                return prefixedSelector;
+              }
+            })
+          ]).process(css, { from: undefined });
+          chunk.source = result.css;
+        }
+      }
+    }
+  }
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,6 +47,7 @@ export default defineConfig({
       outDir: 'lib',
       exclude: ['src/demo/**/*', 'examples/**/*']
     }),
+    cssNamespacePlugin(),
   ],
   optimizeDeps: {
     include: ['vue'],

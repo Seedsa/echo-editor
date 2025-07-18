@@ -139,6 +139,7 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "lodash-unified": "^1.0.3",
+    "postcss-prefix-selector": "^2.1.1",
     "prettier": "^3.2.5",
     "prism-code-editor": "^4.0.0",
     "tailwind-merge": "^2.6.0",
